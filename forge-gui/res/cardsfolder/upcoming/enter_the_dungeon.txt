@@ -1,0 +1,4 @@
+Name:Enter the Dungeon
+ManaCost:B B
+Types:Sorcery
+Oracle:Players play a Magic subgame under the table, starting at 5 life and using their libraries as their decks. The winner searches his or her library for two cards, puts them into his or her hand, then shuffles his or her library.

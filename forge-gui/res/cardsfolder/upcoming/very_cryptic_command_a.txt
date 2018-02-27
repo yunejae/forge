@@ -1,0 +1,4 @@
+Name:Very Cryptic Command A
+ManaCost:1 U U U
+Types:Instant
+Oracle:Choose two --\n*Switch target creature's power and toughness until end of turn.\n*Target creature can't be blocked this turn.\n*Draw a card. If that card's art is by Wayne England, you may reveal it and draw another card.\n*Assemble a Contraption.

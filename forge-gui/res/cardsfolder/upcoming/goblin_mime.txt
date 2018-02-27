@@ -1,0 +1,5 @@
+Name:Goblin Mime
+ManaCost:1 R
+Types:Creature Goblin Mime
+Oracle:Whenever you speak, sacrifice Goblin Mime.
+PT:2/2

@@ -1,0 +1,5 @@
+Name:Teacher's Pet
+ManaCost:1 W
+Types:Creature Cat Bird Scientist
+Oracle:{2}{W}, Sacrifice Teacher's Pet: Search your library for a card with augment, combine it with target host you control, then shuffle your library.
+PT:2/1

@@ -1,0 +1,5 @@
+Name:The Big Idea
+ManaCost:4 R R
+Types:Legendary Creature Brainiac Villain
+Oracle:{2}{BR}{BR}, {T}: Roll a six-sided die. Create a number of 1/1 red Brainiac creature tokens equal to the result.\nTap three untapped Brainiacs you control: The next time you would roll a six-sided die, instead roll two six-sided dice and use the total of those results.
+PT:4/4

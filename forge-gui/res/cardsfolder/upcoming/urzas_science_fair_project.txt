@@ -1,0 +1,5 @@
+Name:Urza's Science Fair Project
+ManaCost:6
+Types:Artifact Creature Construct
+PT:4/4
+Oracle:{2}: Roll a six-sided die. If you roll —\n• 1, Urza's Science Fair project gets -2/-2 until end of turn.\n• 2, prevent all combat damage Urza's Science Fair Project would deal this turn.\n• 3, attacking doesn't cause Urza's Science Fair Project to tap this turn.\n• 4, Urza's Science Fair Project gains first strike until end of turn.\n• 5, Urza's Science Fair Project gains flying until end of turn.\n• 6, Urza's Science Fair Project gets +2/+2 until end of turn.

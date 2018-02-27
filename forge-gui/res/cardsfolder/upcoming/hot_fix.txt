@@ -1,0 +1,4 @@
+Name:Hot Fix
+ManaCost:4 W U
+Types:Sorcery
+Oracle:You have ten seconds to look at and rearrange the cards in your library. At the end of those ten seconds, if you're touching one or more of thsoe cards, shuffle your library.

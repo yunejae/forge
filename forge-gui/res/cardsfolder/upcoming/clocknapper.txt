@@ -1,0 +1,5 @@
+Name:Clocknapper
+ManaCost:3 U U
+Types:Creature Human Spy
+Oracle:When Clocknapper enters the battlefield, choose beginning phase, precombat main phase, combat phase, postcombat main phase, or ending phase. Steal that phase from target player during his or her next turn. (That phase occurs as though it's your turn instead.)
+PT:2/2

@@ -1,0 +1,4 @@
+Name:Boomflinger
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Boomflinger, roll two six-sided dice. Boomflinger deals damage to target player equal to the difference between those results.

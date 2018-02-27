@@ -1,0 +1,4 @@
+Name:My First Tome
+ManaCost:3
+Types:Artifact
+Oracle:{1}, {T}: Say the flavor text on a card in your hand. Target opponent guesses that card's name. You may reveal that card. If you do and your opponent guessed wrong, draw a card.

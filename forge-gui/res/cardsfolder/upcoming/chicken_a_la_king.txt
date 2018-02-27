@@ -1,0 +1,5 @@
+Name:Chicken a la King
+ManaCost:1 U U
+Types:Creature Chicken
+PT:2/2
+Oracle:Whenever a 6 is rolled on a six-sided die, put a +1/+1 counter on each Chicken. (You may roll dice only when instructed to.)\nTap an untapped Chicken you control: Roll a six-sided die.

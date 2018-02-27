@@ -1,0 +1,5 @@
+Name:Sly Spy E
+ManaCost:2 B
+Types:Creature Human Spy
+Oracle:Whenever Sly Spy deals combat damage to a player, that player reveals the top card of his or her library. Put that card into your hand and you lose life equal to its converted mana cost.
+PT:2/2

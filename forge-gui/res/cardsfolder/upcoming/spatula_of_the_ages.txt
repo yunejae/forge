@@ -1,0 +1,4 @@
+Name:Spatula of the Ages
+ManaCost:4
+Types:Artifact
+Oracle:{4}, {T}, Sacrifice Spatula of the Ages: Put any card from an Unglued supplement from your hand onto the battlefield.

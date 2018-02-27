@@ -1,0 +1,5 @@
+Name:Mother of Goons
+ManaCost:2 B
+Types:Creature Human Cleric
+Oracle:Whenever a creature an opponent controls dies, sacrifice Mother of Goons unless you insult that creature.
+PT:3/2

@@ -1,0 +1,5 @@
+Name:Brushstroke Paintermage
+ManaCost:3 U
+Types:Creature Human Wizard
+PT:2/3
+Oracle:{T}: Target permanent's artist becomes the artist of your choice until end of turn.

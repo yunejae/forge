@@ -1,0 +1,5 @@
+Name:Emcee
+ManaCost:2 W
+Types:Creature Human Rogue
+PT:0/1
+Oracle:Whenever another creature enters the battlefield, you may stand up and say in a deep, booming voice "Presenting . . . " and that creature's name. If you do, put a +1/+1 counter on that creature.

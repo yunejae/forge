@@ -1,0 +1,13 @@
+Name:Ordinary // Pony
+ManaCost:2 W
+Types:Host Creature Horse
+Oracle:When this creature enters the battlefield, you may exile target non-Horse creature you control that wasn't put onto the battlefield with this ability this turn, then return it to the battlefield under its owner's control.
+PT:2/3
+
+ALTERNATE
+
+Name:Pony
+ManaCost:2 W
+Types:Horse
+Oracle:you may exile target non-Horse creature you control that wasn't put onto the battlefield with this ability this turn, then return it to the battlefield under its owner's control.
+PT:2/3

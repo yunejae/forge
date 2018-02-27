@@ -1,0 +1,4 @@
+Name:Erase (Not the Urza's Legacy One)
+ManaCost:2 W
+Types:Instant
+Oracle:If you control two or more white permanents that share an artist, you may play Erase (Not the Urza's Legacy One) without paying its mana cost.\nExile target enchantment.

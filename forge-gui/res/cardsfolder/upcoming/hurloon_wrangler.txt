@@ -1,0 +1,5 @@
+Name:Hurloon Wrangler
+ManaCost:2 R
+Types:Creature Minotaur
+PT:2/2
+Oracle:Denimwalk (This creature can't be blocked as long as defending player is wearing denim.)

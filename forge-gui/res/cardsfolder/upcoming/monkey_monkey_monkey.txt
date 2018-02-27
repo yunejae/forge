@@ -1,0 +1,5 @@
+Name:Monkey Monkey Monkey
+ManaCost:3 G
+Types:Creature Monkey
+Oracle:As Monkey Monkey Monkey enters the battlefield, choose a letter.\nMonkey Monkey Monkey gets +1/+1 for each nonland permanent whose name begins with the chosen letter.
+PT:1/1

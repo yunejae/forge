@@ -1,0 +1,4 @@
+Name:Proper Laboratory Attire
+ManaCost:1
+Types:Artifact Equipment
+Oracle:Equipped creature gets +2/+1 and has protection from die rolls. (Nothing that lets a player roll a die can lock, target, deal damage to, or attach to equipped creature.)\nEquip {2}

@@ -1,0 +1,4 @@
+Name:Sex Appeal
+ManaCost:W
+Types:Instant
+Oracle:Prevent the next 3 damage total that would be dealt to any number of creatures and/or players this turn. If there are more players in the room of the opposite sex, prevent 6 damage this way instead.

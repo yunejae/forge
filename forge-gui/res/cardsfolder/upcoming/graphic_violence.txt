@@ -1,0 +1,4 @@
+Name:Graphic Violence
+ManaCost:2 G
+Types:Instant
+Oracle:All creatures with art by the artist of your choice get +2/+2 and gain trample until end of turn.

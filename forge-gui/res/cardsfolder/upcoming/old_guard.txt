@@ -1,0 +1,5 @@
+Name:Old Guard
+ManaCost:1 W
+Types:Artifact Creature Cyborg Soldier
+Oracle:{W}, {T}: Tap target creature without reminder text. (Reminder text is still any italicized text in parentheses that explains rules you already know.)
+PT:2/1

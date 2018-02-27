@@ -1,0 +1,4 @@
+Name:Selfie Preservation
+ManaCost:1 G
+Types:Sorcery
+Oracle:Search your library for a basic land card and reveal it. If there's a tree in its art, put it onto the battlefield tapped. Otherwise, put it into your hand. Then shuffle your library.

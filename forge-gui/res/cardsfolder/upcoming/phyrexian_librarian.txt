@@ -1,0 +1,7 @@
+Name:Phyrexian Librarian
+ManaCost:3 B
+Types:Creature Horror
+K:Flying
+K:Trample
+Oracle:Flying, trample\nAt the beginning of your upkeep, remove the top card of your library from the game face up and balance it on your body.\nWhen a balanced card falls or touches another balanced card, sacrifice Phyrexian Librarian.
+PT:3/3

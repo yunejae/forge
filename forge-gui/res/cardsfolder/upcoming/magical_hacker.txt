@@ -1,0 +1,5 @@
+Name:Magical Hacker
+ManaCost:1 U
+Types:Creature Human Gamer
+Oracle:{U}: Change the text of target spell or permanent by replacing all instances of + with -, and vice versa, until end of turn.
+PT:1/2

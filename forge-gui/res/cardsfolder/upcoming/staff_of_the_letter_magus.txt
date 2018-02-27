@@ -1,0 +1,4 @@
+Name:Staff of the Letter Magus
+ManaCost:3
+Types:Artifact
+Oracle:As Staff of the Letter Magus enters the battlefield, choose a consonant other than N, R, S, or T.\nWhenever a player casts a spell, you gain 1 life for each time the chosen letter appears in that spell's name.

@@ -1,0 +1,6 @@
+Name:Party Crasher
+ManaCost:4 R
+Types:Creature Goblin Berserker
+K:Haste
+Oracle:Haste\nYou can attack with Party Crasher once each combat during each opponent's turn.
+PT:3/3

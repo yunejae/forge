@@ -1,0 +1,4 @@
+Name:Summon the Pack
+ManaCost:7 B
+Types:Sorcery
+Oracle:Open a sealed Magic booster pack, reveal the cards, and put all creature cards revealed this way onto the battlefield under your control. They're Zombies in addition to their other types. (Remove those cards from your deck before beginning a new game.)

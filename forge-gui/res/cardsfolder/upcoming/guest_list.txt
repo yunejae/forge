@@ -1,0 +1,4 @@
+Name:Guest List
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Guest List, target creature gets -X/-X until end of turn, where X is the number of creature cards in its controller's graveyard.

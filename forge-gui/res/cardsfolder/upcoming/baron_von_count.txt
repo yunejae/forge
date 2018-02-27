@@ -1,0 +1,5 @@
+Name:Baron Von Count
+ManaCost:1 B R
+Types:Legendary Creature Human Villain
+Oracle:Baron Von Count enters the battlefield with a doom counter on "5."\nWhenever you cast a spell with the indicated numeral in its mana cost, text box, power, or toughness, move the doom counter one numeral to the left.\nWhen the doom counter moves from "1," destroy target player and put that doom counter on "5."
+PT:3/3

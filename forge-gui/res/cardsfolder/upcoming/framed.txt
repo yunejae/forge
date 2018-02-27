@@ -1,0 +1,4 @@
+Name:Framed!
+ManaCost:1 U
+Types:Instant
+Oracle:Choose an artist. Tap all untapped permanents with art by that artist or untap all tapped permanents with art by that artist.

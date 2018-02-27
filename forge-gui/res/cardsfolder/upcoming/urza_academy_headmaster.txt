@@ -1,0 +1,5 @@
+Name:Urza, Academy Headmaster
+ManaCost:W U B R G
+Types:Legendary Planeswalker Urza
+Oracle:[+1]: Head to AskUrza.com and click [+1].\n[-1]: Head to AskUrza.com and click [-1].\n[-6]: Head to AskUrza.com and click [-6].
+Loyalty:4

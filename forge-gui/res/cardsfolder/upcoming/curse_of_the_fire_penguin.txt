@@ -1,0 +1,14 @@
+Name:Curse of the Fire Penguin
+ManaCost:4 R R
+Types:Enchantment Aura
+K:Enchant creature
+Oracle:Enchant creature\nCurse of the Fire Penguin consumes and confuses enchanted creature.
+
+ALTERNATE
+
+Name:Penguin
+ManaCost:no cost
+Types:Creature Penguin
+K:Trample
+Oracle:Trample\nWhen this creature dies, return Curse of the Fire Penguin to the battlefield.
+PT:6/5

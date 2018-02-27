@@ -1,0 +1,5 @@
+Name:Our Market Research Shows That Players Like Really Long Card Names So We Made This Card to Have the Absolute Longest Card Name Ever Elemental
+ManaCost:1 G G
+Types:Creature Elemental
+Oracle:Art rampage 2 (Whenever this becomes blocked by a creature, it gets +2/+2 for each creature in the blocker's art beyond the first.)
+PT:2/2

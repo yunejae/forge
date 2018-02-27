@@ -1,0 +1,5 @@
+Name:Fowl Play
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant creature
+Oracle:Enchant creature\nEnchanted creature is a Chicken with base power and toughness 1/1 and loses all abilities.

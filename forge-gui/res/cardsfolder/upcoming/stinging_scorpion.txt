@@ -1,0 +1,13 @@
+Name:Stinging // Scorpion
+ManaCost:4 B
+Types:Host Creature Scorpion
+Oracle:When this creature enters the battlefield, target creature an opponent controls gets -1/-1 until end of turn.
+PT:3/2
+
+ALTERNATE
+
+Name:Scorpion
+ManaCost:4 B
+Types:Scorpion
+Oracle:target creature an opponent controls gets -1/-1 until end of turn.
+PT:3/2

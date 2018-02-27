@@ -1,0 +1,5 @@
+Name:Paper Tiger
+ManaCost:4
+Types:Artifact Creature Cat
+PT:4/3
+Oracle:Rock Lobsters can't attack or block.

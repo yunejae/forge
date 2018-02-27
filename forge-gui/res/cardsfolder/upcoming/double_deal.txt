@@ -1,0 +1,4 @@
+Name:Double Deal
+ManaCost:4 R
+Types:Sorcery
+Oracle:Choose another player. Double Deal deals 3 damage to that player. At the beginning of the first upkeep in your next game with that player, Double Deal deals 3 damage to the player.

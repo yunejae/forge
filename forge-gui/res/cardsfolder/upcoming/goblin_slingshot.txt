@@ -1,0 +1,4 @@
+Name:Goblin Slingshot
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Goblin Slingshot, creatures you control get +2/+0 and gain trample until end of turn.

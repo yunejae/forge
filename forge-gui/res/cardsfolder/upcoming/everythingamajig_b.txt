@@ -1,0 +1,4 @@
+Name:Everythingamajig B
+ManaCost:5
+Types:Artifact
+Oracle:{2}, {T}: Draw a card. Activate this ability only if you have no cards in hand.\n{8}, {T}: You gain 10 life.\n{4}, {T}, Sacrifice Everythingamajig: You may put a silver-bordered permanent card from your hand onto the battlefield.

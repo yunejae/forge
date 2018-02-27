@@ -1,0 +1,4 @@
+Name:Thud-for-Duds
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Thud-for-Duds, roll two six-sided dice. Thud-for-Duds deals damage to target creature equal to the difference between those results.

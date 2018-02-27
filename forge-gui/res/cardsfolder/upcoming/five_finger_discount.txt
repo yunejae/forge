@@ -1,0 +1,4 @@
+Name:Five-Finger Discount
+ManaCost:4 U U
+Types:Sorcery
+Oracle:Put target nonland permanent into your hand. You may spend mana as though it were mana of any color the next time you cast that card.

@@ -1,0 +1,4 @@
+Name:Targeting Rocket
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Targeting Rocket, target creature blocks this turn if able.

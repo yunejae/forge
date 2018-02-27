@@ -1,0 +1,4 @@
+Name:Deal Damage
+ManaCost:2 R R
+Types:Instant
+Oracle:Deal Damage deals 4 damage to target creature or player.\nGotcha - If an opponent says "deal" or "damage," you may say "Gotcha!" When you do, return Deal Damage from your graveyard to your hand.

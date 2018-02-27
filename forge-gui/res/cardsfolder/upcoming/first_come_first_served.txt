@@ -1,0 +1,4 @@
+Name:First Come, First Served
+ManaCost:1 W
+Types:Enchantment
+Oracle:Each attacking or blocking creature with the lowest collector number has first strike.

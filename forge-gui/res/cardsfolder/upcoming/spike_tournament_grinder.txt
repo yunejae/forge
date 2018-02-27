@@ -1,0 +1,5 @@
+Name:Spike, Tournament Grinder
+ManaCost:2 PB PB
+Types:Legendary Creature Human Gamer
+Oracle:({PB} can be paid with either {B} or 2 life.)\n{PB}{PB}{PB}{PB}: Choose a card you own from outside the game that has been banned or restricted in a Constructed format, reveal that card, and put it into your hand.
+PT:1/1

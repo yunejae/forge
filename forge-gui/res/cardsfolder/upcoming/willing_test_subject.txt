@@ -1,0 +1,6 @@
+Name:Willing Test Subject
+ManaCost:2 G
+Types:Creature Spider Monkey Scientist
+K:Reach
+Oracle:Reach\nWhenever you roll a 4 or higher on a die, put a +1/+1 counter on Willing Test Subject.\n{6}: Roll a six-sided die.
+PT:2/2

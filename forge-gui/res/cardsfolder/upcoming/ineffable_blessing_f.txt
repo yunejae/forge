@@ -1,0 +1,4 @@
+Name:Ineffable Blessing F
+ManaCost:1 G
+Types:Enchantment
+Oracle:As Ineffable Blessing enters the battlefield, choose a number.\nWhenever a creature with exactly the chosen number of words in its name enters the battlefield under your control, draw a card. (Hyphenated words are one word.)

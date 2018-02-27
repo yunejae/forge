@@ -1,0 +1,5 @@
+Name:Ol' Buzzbark
+ManaCost:X R G
+Types:Legendary Creature Goblin Warrior
+Oracle:When Ol' Buzzbark enters the battlefield, roll X six-sided dice onto the battlefield from a height of at least X inches. For each die, put a number of +1/+1 counters equal to the result on each creature you control that die is touching. For each die, Ol' Buzzbark deals damage equal to the result to each creature an opponent controls that die is touching.
+PT:3/3

@@ -1,0 +1,5 @@
+Name:Phoebe, Head of S.N.E.A.K.
+ManaCost:1 U B
+Types:Legendary Creature Human Spy
+Oracle:Phoebe, Head of S.N.E.A.K. can't be blocked by creatures with flavor text.\n{2}{U}{B}: Phoebe permanently steals target creature's text box. (That creature loses all rules text, flavor text, and watermarks. This creature gains them.)
+PT:2/3

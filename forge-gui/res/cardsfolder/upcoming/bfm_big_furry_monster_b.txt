@@ -1,0 +1,5 @@
+Name:B.F.M. (Big Furry Monster) B
+ManaCost:B B B B B B B B B B B B B B B
+Types:Scariest Creature You'll Ever See
+PT:99/99
+Oracle:B.F.M. onto the battlefield.\n\nIf one B.F.M. card\nmore creatures.

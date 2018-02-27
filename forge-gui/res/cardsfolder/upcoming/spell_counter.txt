@@ -1,0 +1,4 @@
+Name:Spell Counter
+ManaCost:2 U U
+Types:Instant
+Oracle:Counter target spell.\nGotcha - Whenever an opponent says "Spell" or "Counter," you may say "Gotcha!" If you do, return Spell Counter from your graveyard to your hand.

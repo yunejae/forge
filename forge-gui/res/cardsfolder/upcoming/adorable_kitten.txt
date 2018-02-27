@@ -1,0 +1,13 @@
+Name:Adorable // Kitten
+ManaCost:W
+Types:Host Creature Cat
+PT:1/1
+Oracle:When this creature enters the battlefield, roll a six-sided die. You gain life equal to the result.
+
+ALTERNATE
+
+Name:Kitten
+ManaCost:W
+Types:Cat
+PT:1/1
+Oracle:roll a six-sided die. You gain life equal to the result.

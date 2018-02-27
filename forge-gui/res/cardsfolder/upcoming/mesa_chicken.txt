@@ -1,0 +1,5 @@
+Name:Mesa Chicken
+ManaCost:W W
+Types:Creature Chicken
+PT:2/2
+Oracle:Stand up, Flap your arms, Cluck like a chicken: Mesa Chicken gains flying until end of turn.

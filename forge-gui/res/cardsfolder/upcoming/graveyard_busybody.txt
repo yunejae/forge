@@ -1,0 +1,5 @@
+Name:Graveyard Busybody
+ManaCost:4 U U
+Types:Creature Human Spy
+Oracle:All graveyards are also your graveyards.\nGraveyard Busybody's power and toughness are each equal to the number of cards with flavor text in your graveyards.
+PT:*/*

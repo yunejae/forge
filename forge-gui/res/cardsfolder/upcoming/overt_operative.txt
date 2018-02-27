@@ -1,0 +1,6 @@
+Name:Overt Operative
+ManaCost:3 B
+Types:Creature Human Ninja Rigger
+K:Menace
+Oracle:Menace\nWhenever Overt Operative deals combat damage to a player, it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
+PT:2/3

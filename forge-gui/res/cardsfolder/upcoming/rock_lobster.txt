@@ -1,0 +1,5 @@
+Name:Rock Lobster
+ManaCost:4
+Types:Artifact Creature Homarid
+PT:4/3
+Oracle:Scissors Lizards can't attack or block.

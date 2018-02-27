@@ -1,0 +1,4 @@
+Name:Quick-Stick Lick Trick
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Quick-Stick Lick Trick, target creature gets +1/+1 and gains lifelink until end of turn.

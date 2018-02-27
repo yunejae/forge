@@ -1,0 +1,4 @@
+Name:Aesthetic Consultation
+ManaCost:B
+Types:Instant
+Oracle:Choose an artist. Exile the top six cards of your library, then reveal cards from the top of your library until you reveal a card with art by the chosen artist. Put that card in your hand and exile all other cards revealed this way.

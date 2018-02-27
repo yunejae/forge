@@ -1,0 +1,13 @@
+Name:Bumbling // Pangolin
+ManaCost:3 R
+Types:Host Creature Beast
+Oracle:When this creature enters the battlefield, you may destroy target artifact.
+PT:2/2
+
+ALTERNATE
+
+Name:Pangolin
+ManaCost:3 R
+Types:Beast
+Oracle:you may destroy target artifact.
+PT:2/2

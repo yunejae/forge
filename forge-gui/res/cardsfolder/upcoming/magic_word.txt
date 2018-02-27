@@ -1,0 +1,4 @@
+Name:Magic Word
+ManaCost:2 U
+Types:Enchantment Aura
+Oracle:Enchant creature\nAs Magic Word enters the battlefield, choose a word.\nWhisper the chosen word: Tap enchanted creature.

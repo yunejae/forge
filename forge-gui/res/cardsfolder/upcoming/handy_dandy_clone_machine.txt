@@ -1,0 +1,4 @@
+Name:Handy Dandy Clone Machine
+ManaCost:3
+Types:Artifact
+Oracle:{2}, {T}: Create a 2/2 colorless Homunculus creature token. It must be represented by a unique hand and two fingers at all times, or it ceases to exist.

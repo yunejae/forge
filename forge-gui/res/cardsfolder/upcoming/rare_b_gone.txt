@@ -1,0 +1,4 @@
+Name:Rare-B-Gone
+ManaCost:2 B R
+Types:Sorcery
+Oracle:Each player sacrifices all rare permanents, then reveals his or her hand and discards all rare cards.

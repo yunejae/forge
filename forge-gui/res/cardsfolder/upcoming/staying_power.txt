@@ -1,0 +1,4 @@
+Name:Staying Power
+ManaCost:2 W
+Types:Enchantment
+Oracle:"Until end of turn" and "this turn" effects don't end.

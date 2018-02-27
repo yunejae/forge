@@ -1,0 +1,6 @@
+Name:Wall of Fortune
+ManaCost:1 U
+Types:Artifact Creature Wall
+K:Defender
+Oracle:Defender\nYou may tap an untapped Wall you control to have any player reroll a die that player rolled.
+PT:0/4

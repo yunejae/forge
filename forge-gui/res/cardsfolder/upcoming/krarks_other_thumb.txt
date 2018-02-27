@@ -1,0 +1,4 @@
+Name:Krark's Other Thumb
+ManaCost:2
+Types:Legendary Artifact
+Oracle:If you would roll a die, instead roll two of those dice and ignore one of those results.

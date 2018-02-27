@@ -1,0 +1,4 @@
+Name:Dispatch Dispensary
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Dispatch Dispensary, create a 2/2 black Rogue creature token with menace.

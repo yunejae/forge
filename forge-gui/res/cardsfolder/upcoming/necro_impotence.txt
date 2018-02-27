@@ -1,0 +1,4 @@
+Name:Necro-Impotence
+ManaCost:B B B
+Types:Enchantment
+Oracle:Skip your untap step.\nAt the beginning of your upkeep, you may pay X life. If you do, untap X permanents.\nPay ½ life: Exile the top card of your library face-down. Put the exiled card into your hand at end of turn.

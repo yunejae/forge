@@ -1,0 +1,5 @@
+Name:Keeper of the Sacred Word
+ManaCost:2 G
+Types:Creature Human Druid
+Oracle:As Keeper of the Sacred Word enters the battlefield, choose a word.\nWhenever an opponent says the chosen word, Keeper of the Sacred Word gets +3/+3 until end of turn.
+PT:2/3

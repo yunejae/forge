@@ -1,0 +1,4 @@
+Name:Incite Insight
+ManaCost:X U U
+Types:Sorcery
+Oracle:Assemble X Contraptions. (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)

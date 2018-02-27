@@ -1,0 +1,5 @@
+Name:Shellephant
+ManaCost:1 G G
+Types:Creature Turtle and/or Elephant
+Oracle:{0}: Choose one. You may activate this ability while Shellephant is in any zone.\n*Shellephant has base power and toughness 1/4.\n*Shellephant has base power and toughness 3/3.
+PT:*/*

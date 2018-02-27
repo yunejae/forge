@@ -1,0 +1,7 @@
+Name:Knight of the Kitchen Sink C
+DisplayName:Knight of the Kitchen Sink
+ManaCost:W W
+Types:Artifact Creature Cyborg Knight
+K:First Strike
+Oracle:First strike, protection from loose lips (Nothing with an open mouth in its artwork can block, target, deal damage to, or attach to this creature.)
+PT:2/2

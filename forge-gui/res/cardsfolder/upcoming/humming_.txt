@@ -1,0 +1,7 @@
+Name:Humming-
+ManaCost:no cost
+Colors:white
+Types:Creature Bird
+K:Flying
+PT:2/3
+Oracle:Flying\nWhenever you attack with two or more creatures,\nAugment {3}{W} ({3}{W}, Reveal this card from your hand: Combine it with target host. Augment only as a sorcery.)

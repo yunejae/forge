@@ -1,0 +1,6 @@
+Name:Goblin Haberdasher
+ManaCost:2 R
+Types:Creature Goblin Hatificer
+K:Menace
+Oracle:Menace (This creature can't be blocked except by two or more creatures.)\nOther creatures you control wearing hats in their art have menace.
+PT:2/2

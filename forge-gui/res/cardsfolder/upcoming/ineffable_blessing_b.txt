@@ -1,0 +1,4 @@
+Name:Ineffable Blessing B
+ManaCost:1 G
+Types:Enchantment
+Oracle:As Ineffable Blessing enters the battlefield, choose an artist.\nWhenever a creature with art by the chosen artist enters the battlefield under your control, draw a card.

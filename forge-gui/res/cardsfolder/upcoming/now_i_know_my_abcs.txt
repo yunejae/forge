@@ -1,0 +1,4 @@
+Name:Now I Know My ABC's
+ManaCost:1 U U
+Types:Enchantment
+Oracle:At the beginning of your upkeep, if you control permanents with names that include all twenty-six letters of the English alphabet, you win the game.

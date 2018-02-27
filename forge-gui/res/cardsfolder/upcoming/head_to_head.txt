@@ -1,0 +1,4 @@
+Name:Head to Head
+ManaCost:W
+Types:Instant
+Oracle:You and target opponent play Seven Questions with the top card of that player's library. If you win, prevent all damage that would be dealt this turn by a source of your choice. (To play Seven Questions, that player looks at the card, then you ask up to six yes-or-no questions about the card that he or she answers truthfully. You guess the card's name-- that's question seven-- then the player reveals the card.)

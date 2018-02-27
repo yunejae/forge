@@ -1,0 +1,4 @@
+Name:Handcuffs
+ManaCost:3 B B
+Types:Enchantment
+Oracle:As Handcuffs enters the battlefield, choose a player.\nWhen the chosen player's hands aren't touching each other, sacrifice Handcuffs and that player sacrifices three permanents.

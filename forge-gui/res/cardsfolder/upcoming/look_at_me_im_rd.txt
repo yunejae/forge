@@ -1,0 +1,4 @@
+Name:Look at Me, I'm R&D
+ManaCost:2 W
+Types:Enchantment
+Oracle:As Look at Me, I'm R&D enters the battlefield, choose a number and a second number one higher or one lower than the first number.\nAll instances of the first chosen number in the full text of each permanents, spell, and card in any zone are changed to the second chosen number.

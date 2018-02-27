@@ -1,0 +1,15 @@
+Name:Angelic // Rocket
+ManaCost:8
+Types:Artifact Host Creature Angel
+K:Flying
+Oracle:Flying\nWhen this creature enters the battlefield, you may destroy target nonland permanent.
+PT:4/4
+
+ALTERNATE
+
+Name:Rocket
+ManaCost:8
+Types:Artifact Angel
+K:Flying
+Oracle:Flying\nyou may destroy target nonland permanent.
+PT:4/4

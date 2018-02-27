@@ -1,0 +1,5 @@
+Name:Fat Ass
+ManaCost:4 G
+Types:Creature Donkey Shaman
+PT:2/3½
+Oracle:Fat Ass gets +2/+2 and has trample as long as you're eating. (Gum isn't food. We checked.)

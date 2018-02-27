@@ -1,0 +1,13 @@
+Name:Mother // Kangaroo
+ManaCost:4 G
+Types:Host Creature Kangaroo
+Oracle:When this creature enters the battlefield, roll a six-sided die. Put a number of +1/+1 counters on this creature equal to the result.
+PT:1/1
+
+ALTERNATE
+
+Name:Kangaroo
+ManaCost:4 G
+Types:Kangaroo
+Oracle:roll a six-sided die. Put a number of +1/+1 counters on this creature equal to the result.
+PT:1/1

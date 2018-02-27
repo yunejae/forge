@@ -1,0 +1,6 @@
+Name:Poultrygeist
+ManaCost:2 B
+Types:Creature Chicken
+PT:1/1
+K:Flying
+Oracle:Flying.\nWhenever a creature dies, you may roll a six-sided die. If you roll —\n• 1, sacrifice Poultrygeist.\n• another number, put a +1/+1 counter on Poultrygeist.

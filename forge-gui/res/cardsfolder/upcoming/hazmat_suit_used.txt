@@ -1,0 +1,4 @@
+Name:Hazmat Suit (Used)
+ManaCost:3 B
+Types:Enchantment Aura
+Oracle:Enchant creature\nEnchanted creature gets +2/+1 and has menace.\nWhenever a player's skin or fingernail touches enchanted creature, that player loses 2 life.

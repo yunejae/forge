@@ -1,0 +1,4 @@
+Name:Incoming!
+ManaCost:4 G G G G
+Types:Sorcery
+Oracle:Each player searches his or her library for any number of artifact, creature, enchantment, and/or land cards, puts them onto the battlefield, then shuffles his or her library.

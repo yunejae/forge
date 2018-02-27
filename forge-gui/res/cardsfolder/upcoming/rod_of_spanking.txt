@@ -1,0 +1,4 @@
+Name:Rod of Spanking
+ManaCost:1
+Types:Artifact
+Oracle:{2}, {T}: Rod of Spanking deals 1 damage to target player. Then untap Rod of Spanking unless that player says "Thank you, sir. May I have another?"

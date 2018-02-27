@@ -1,0 +1,4 @@
+Name:More or Less
+ManaCost:U
+Types:Instant
+Oracle:Add or subtract 1 or one from a number or number word on target spell or permanent until end of turn.

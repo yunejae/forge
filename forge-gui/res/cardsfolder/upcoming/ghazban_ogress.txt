@@ -1,0 +1,5 @@
+Name:Ghazban Ogress
+ManaCost:G
+Types:Creature Ogre
+PT:2/2
+Oracle:When Ghazban Ogress enters the battlefield, if one player has won more Magic games that day than any other player, that player gains control of Ghazban Ogress.

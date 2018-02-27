@@ -1,0 +1,5 @@
+Name:Hammer Jammer
+ManaCost:3 R
+Types:Creature Goblin Warrior
+Oracle:As Hammer Jammer enters the battlefield, roll a six-sided die. Hammer Jammer enters the battlefield with a number of +1/+1 counters on it equal to the result.\nWhenever you roll a die, remove all +1/+1 counters from Hammer Jammer, then put a number of +1/+1 counters on it equal to the result.
+PT:0/0

@@ -1,0 +1,4 @@
+Name:Midlife Upgrade
+ManaCost:3 W
+Types:Sorcery
+Oracle:As an additional cost to cast Midlife Upgrade, sacrifice X Contraptions.\nAssemble X plus one Contraptions. (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)

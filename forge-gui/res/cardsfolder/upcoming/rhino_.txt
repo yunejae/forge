@@ -1,0 +1,6 @@
+Name:Rhino-
+ManaCost:no cost
+Colors:white
+Types:Creature Rhino
+Oracle:Whenever this creature blocks,\nAugment {3}{W} ({3}{W}, Reveal this card from your hand: Combine it with target host. Augment only as a sorcery.)
+PT:1/4

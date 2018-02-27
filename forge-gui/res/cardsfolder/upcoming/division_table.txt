@@ -1,0 +1,4 @@
+Name:Division Table
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Division Table, target player loses 2 life.

@@ -1,0 +1,4 @@
+Name:Supersize
+ManaCost:1 G
+Types:Instant
+Oracle:Target creature gets +3½/+3½ until end of turn.

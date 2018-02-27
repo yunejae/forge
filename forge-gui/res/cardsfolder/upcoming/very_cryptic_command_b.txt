@@ -1,0 +1,4 @@
+Name:Very Cryptic Command B
+ManaCost:1 U U U
+Types:Instant
+Oracle:Choose two --\n*Untap two target permanents.\n*Tap each permanent target player controls with exactly one word in its name.\n*Discard all the cards in your hand, then draw that many cards.\n*Return target instant or sorcery card from your graveyard to your hand.

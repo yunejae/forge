@@ -1,0 +1,7 @@
+Name:Knight of the Kitchen Sink E
+DisplayName:Knight of the Kitchen Sink
+ManaCost:W W
+Types:Artifact Creature Cyborg Knight
+K:First Strike
+Oracle:First strike, protection from two-word names (Nothing with exactly two words in its name can block, target, deal damage to, or attach to this creature. Hyphenated words are one word.)
+PT:2/2

@@ -1,0 +1,5 @@
+Name:It That Gets Left Hanging
+ManaCost:5 R
+Types:Creature Elemental Horror
+Oracle:When It That Gets Left Hanging enters the battlefield, ask a person outside the game to high-five you. If he or she won't, It That Gets Left Hanging gains haste until end of turn.
+PT:5/4

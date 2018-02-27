@@ -1,0 +1,6 @@
+Name:Ladies' Knight
+ManaCost:3 W
+Types:Creature Human Knight
+K:Flying
+Oracle:Flying\nSpells cast by players wearing at least one item of women's clothing cost {1} less to cast. (You can define women's clothing as you see fit. Be reasonable.)
+PT:2/2

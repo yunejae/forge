@@ -1,0 +1,5 @@
+Name:Johnny, Combo Player
+ManaCost:2 U U
+Types:Legendary Creature Human Gamer
+Oracle:{4}: Search your library for a card, put that card into your hand, then shuffle your library.
+PT:1/1

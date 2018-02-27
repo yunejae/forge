@@ -1,0 +1,4 @@
+Name:Wordmail
+ManaCost:W
+Types:Enchantment Aura
+Oracle:Enchant creature\nEnchanted creature gets +1/+1 for each word in its name.

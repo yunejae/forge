@@ -1,0 +1,5 @@
+Name:Suspicious Nanny
+ManaCost:4 U
+Types:Creature Human Spy Rigger
+Oracle:Whenever Suspicious Nanny deals combat damage to a player, it reassembles target Contraption that player controls. (Gain control of it and move it onto one of your sprockets.)
+PT:3/4

@@ -1,0 +1,4 @@
+Name:Sundering Fork
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Sundering Fork, destroy target artifact.

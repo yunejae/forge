@@ -1,0 +1,5 @@
+Name:Collector Protector
+ManaCost:3 W W
+Types:Creature Human Gamer
+PT:2/5
+Oracle:{W}, Give an opponent a nonland card you own from outside the game: Prevent the next 1 damage that would be dealt to you or Collector Protector this turn.

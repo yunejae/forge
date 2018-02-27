@@ -1,0 +1,4 @@
+Name:Gnomeball Machine
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Gnomeball Machine, create two 1/1 colorless Gnome artifact creature tokens.

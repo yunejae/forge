@@ -1,0 +1,5 @@
+Name:Gluetius Maximus
+ManaCost:3 G G
+Types:Creature Beast
+PT:5/5
+Oracle:As Gluetius Maximus enters the battlefield, an opponent chooses one of your fingers. (Thumbs are fingers, too.)\nWhen the chosen finger isn't touching Gluetius Maximus, sacrifice Gluetius Maximus.

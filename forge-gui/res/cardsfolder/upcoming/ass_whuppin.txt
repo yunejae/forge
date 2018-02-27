@@ -1,0 +1,5 @@
+Name:Ass Whuppin'
+ManaCost:1 W B
+Types:Sorcery
+A:SP$ Destroy | Cost$ 1 W B | ValidTgts$ Permanent.nontoken+setUNH+nonbasic,Permanent.nontoken+setUGL+nonbasic,Permanent.nontoken+setUST+nonbasic | TgtPrompt$ Select target land or nonblack creature | SpellDescription$ Destroy target silver-bordered permanent in any game you can see from your seat.
+Oracle:Destroy target silver-bordered permanent in any game you can see from your seat.

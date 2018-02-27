@@ -1,0 +1,5 @@
+Name:Pygmy Giant
+ManaCost:1 R R
+Types:Creature Giant
+Oracle:{R}, {T}, Sacrifice a creature: Pygmy Giant deals X damage to target creature, where X is a number in the sacrificed creature's text box.
+PT:0/2

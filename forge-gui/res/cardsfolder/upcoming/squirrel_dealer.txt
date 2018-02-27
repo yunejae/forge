@@ -1,0 +1,5 @@
+Name:Squirrel Dealer
+ManaCost:G
+Types:Creature Raccoon Lizard Bird
+Oracle:When Squirrel Dealer enters the battlefield, ask a person outside the game "Do you like Squirrels?" If he or she does, create a 1/1 green Squirrel creature token.
+PT:1/1

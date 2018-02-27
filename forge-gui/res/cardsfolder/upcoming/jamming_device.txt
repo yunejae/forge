@@ -1,0 +1,4 @@
+Name:Jamming Device
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Jamming Device, creatures target player controls get -1/-1 until end of turn.

@@ -1,0 +1,4 @@
+Name:World-Bottling Kit
+ManaCost:5
+Types:Artifact
+Oracle:{5}, Sacrifice World-Bottling Kit: Choose a Magic set. Exile all permanents with that set's expansion symbol except for basic lands.

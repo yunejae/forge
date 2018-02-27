@@ -1,0 +1,4 @@
+Name:Number Crunch
+ManaCost:2 U
+Types:Instant
+Oracle:Return target permanent to its owner's hand.\nGotcha - Whenever an opponent says a number, you may say "Gotcha!" If you do, return Number Crunch from your graveyard to your hand.

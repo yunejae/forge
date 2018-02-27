@@ -1,0 +1,7 @@
+Name:Knight of the Kitchen Sink D
+DisplayName:Knight of the Kitchen Sink
+ManaCost:W W
+Types:Artifact Creature Cyborg Knight
+K:First Strike
+Oracle:First strike, protection from odd collector numbers (Nothing with an odd collector number can block, target, deal damage to, or attach to this creature.)
+PT:2/2

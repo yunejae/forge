@@ -1,0 +1,4 @@
+Name:Pet Project
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Pet Project, put target creature card from an opponent's graveyard onto the battlefield under your control.

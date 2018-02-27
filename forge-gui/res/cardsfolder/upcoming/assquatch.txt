@@ -1,0 +1,5 @@
+Name:Assquatch
+ManaCost:4 R
+Types:Creature Donkey
+PT:3½/3½
+Oracle:Each other Donkey gets +1½/+1½.\nWhenever another Donkey enters the battlefield, untap target creature and gain control of it until end of turn. That creature gains haste until end of turn.

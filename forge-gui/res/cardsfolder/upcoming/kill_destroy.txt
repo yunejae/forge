@@ -1,0 +1,4 @@
+Name:Kill! Destroy!
+ManaCost:1 B B
+Types:Instant
+Oracle:Destroy target nonblack creature.\nGotcha - If an opponent says "Kill" or "Destroy," you may say "Gotcha!" When you do, return Kill! Destroy! from your graveyard to your hand.

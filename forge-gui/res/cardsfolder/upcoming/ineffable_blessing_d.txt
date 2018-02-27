@@ -1,0 +1,4 @@
+Name:Ineffable Blessing D
+ManaCost:1 G
+Types:Enchantment
+Oracle:As Ineffable Blessing enters the battlefield, choose a rarity.\nWhenever a creature with the chosen rarity enters the battlefield under your control, draw a card.

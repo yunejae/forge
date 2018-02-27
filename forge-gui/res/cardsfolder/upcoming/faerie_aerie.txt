@@ -1,0 +1,4 @@
+Name:Faerie Aerie
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Faerie Aerie, create two 1/1 blue Faerie Spy creature tokens with flying, haste, and "Whenever this creature deals combat damage to a player, draw a card." Exile them at the beginning of the next end step.

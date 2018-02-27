@@ -1,0 +1,6 @@
+Name:Double Header
+ManaCost:3 U U
+Types:Creature Drake
+PT:2/3
+K:Flying
+Oracle:Flying\nWhen Double Header enters the battlefield, you may return target permanent with a two-word name to its owner's hand.

@@ -1,0 +1,5 @@
+Name:Three-Headed Goblin
+ManaCost:3 R R
+Types:Creature Goblin Mutant
+Oracle:Triple strike (This creature deals first-strike, regular, and last-strike combat damage.)
+PT:3/3

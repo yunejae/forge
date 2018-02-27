@@ -1,0 +1,5 @@
+Name:Gleemax
+ManaCost:no cost
+#TO DO:Add support for mana cost 1,000,000
+Types:Legendary Artifact
+Oracle:You choose all targets for all spells and abilities.

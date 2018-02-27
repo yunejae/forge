@@ -1,0 +1,4 @@
+Name:Very Cryptic Command D
+ManaCost:1 U U U
+Types:Instant
+Oracle:Choose two --\n*Return target permanent to its controller's hand.\n*Draw two cards, then discard a card.\n*Change the target of target spell with a single target.\n*Turn over target nontoken creature.

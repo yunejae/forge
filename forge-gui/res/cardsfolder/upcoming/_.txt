@@ -1,0 +1,5 @@
+Name:_
+ManaCost:1 U
+Types:Creature Shapeshifter
+PT:1/1
+Oracle:{1}: This card's name become the card name of your choice. Activate this ability anywhere, anytime.

@@ -1,0 +1,6 @@
+Name:Old-Fashioned Vampire
+ManaCost:3 B B
+Types:Creature Vampyre
+K:Flying
+Oracle:Flying\nOld-Fashioned Vampire gets +2/+2 and has deathtouch as long as it's dark outdoors.
+PT:3/3

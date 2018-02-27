@@ -1,0 +1,6 @@
+Name:Uktabi Kong
+ManaCost:5 G G G
+Types:Creature Ape
+K:Trample
+Oracle:Tap two untapped Monkeys you control: Put a 1/1 green Monkey creature token into play.
+PT:8/8

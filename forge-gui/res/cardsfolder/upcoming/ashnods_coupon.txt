@@ -1,0 +1,4 @@
+Name:Ashnod's Coupon
+ManaCost: 0
+Types:Artifact
+Oracle:{T}, Sacrifice Ashnod's Coupon: Target player gets you target drink. You pay any costs for the drink.

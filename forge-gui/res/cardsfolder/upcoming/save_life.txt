@@ -1,0 +1,4 @@
+Name:Save Life
+ManaCost:W
+Types:Instant
+Oracle:Choose one -\n*Target player gains 2½ life.\nPrevent the next 2½ damage that would be dealt to target creature this turn.\nGotcha - Whenever an opponent says "Save" or "Life," you may say "Gotcha!" If you do, return Save Life from your graveyard to your hand.

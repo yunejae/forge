@@ -1,0 +1,4 @@
+Name:Refibrillator
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Refibrillator, return target creature card from your graveyard to your hand.

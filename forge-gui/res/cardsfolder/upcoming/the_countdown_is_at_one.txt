@@ -1,0 +1,4 @@
+Name:The Countdown Is at One
+ManaCost:3 R R
+Types:Sorcery
+Oracle:Players play a Magic subgame, starting at 1 life and using their libraries as their decks. For the rest of the main game, if a source would deal damage to a player who didn't win the subgame, it deals double that damage to that player instead.

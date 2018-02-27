@@ -1,0 +1,5 @@
+Name:Steel Squirrel
+ManaCost:2
+Types:Artifact Creature Squirrel
+Oracle:Whenever you roll a 5 or higher on a die, Steel Squirrel gets +X/+X until end of turn, where X is the result.\n{6}: Roll a six-sided die.
+PT:1/1

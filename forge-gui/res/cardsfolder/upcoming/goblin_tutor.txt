@@ -1,0 +1,4 @@
+Name:Goblin Tutor
+ManaCost:R
+Types:Instant
+Oracle:Roll a six-sided die. If you roll a 1, Goblin Tutor has no effect. Otherwise, search your library for the indicated card, reveal it, put it into your hand, then shuffle your library.\n2 — A card named Goblin Tutor\n3 — An enchantment card\n4 — An artifact card\n5 — A creature card\n6 — A sorcery or instant card

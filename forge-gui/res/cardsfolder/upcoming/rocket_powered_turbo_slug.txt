@@ -1,0 +1,5 @@
+Name:Rocket-Powered Turbo Slug
+ManaCost:3 R
+Types:Creature Slug
+Oracle:Super haste (This may attack the turn before you play it. (You may put this card into play from your hand, tapped and attacking, during your declare attackers step. If you do, you lose the game at the end of your next turn unless you pay this card's mana cost during that turn.))
+PT:3/1

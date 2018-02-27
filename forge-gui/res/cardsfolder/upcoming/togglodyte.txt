@@ -1,0 +1,5 @@
+Name:Togglodyte
+ManaCost:3
+Types:Artifact Creature Golem
+Oracle:Togglodyte enters the battlefield turned on.\nWhenever a player casts a spell, toggle Togglodyte's ON/OFF switch.\nAs long as Togglodyte is turned off, it can't attack or block, and all damage it would deal is prevented.
+PT:4/4

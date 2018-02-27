@@ -1,0 +1,5 @@
+Name:Modular Monstrosity
+ManaCost:7
+Types:Artifact Creature Construct
+Oracle:Whenever an opponent casts a spell, you have five seconds to choose a keyword you haven't chosen for a card named Modular Monstrosity today that's been printed on a creature card. If you do, Modular Monstrosity gains that ability. Otherwise, Modular Monstrosity loses all keyword abilities.
+PT:3/3

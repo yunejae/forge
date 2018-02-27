@@ -1,0 +1,10 @@
+Name:Carnivorous Death-Parrot
+ManaCost:1 U
+Types:Creature Bird
+PT:2/2
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSaveAKillSpell | TriggerZones$ Battlefield | TriggerDescription$ At the beginning of your upkeep, ABILITY
+SVar:TrigSaveAKillSpell:DB$ Charm | Choices$ SacrificeCDP,SaveAKillSpellToDealWithThisGuy | CharmNum$ 1
+SVar:SacrificeCDP:DB$ Sacrifice | SacValid$ Self | SpellDescription$ Sacrifice CARDNAME.
+SVar:SaveAKillSpellToDealWithThisGuy:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 0 | SpellDescription$ Say "Save a kill spell to deal with this guy."
+Oracle:Flying\nAt the beginning of your upkeep, sacrifice Carnivorous Death-Parrot unless you say its flavor text.

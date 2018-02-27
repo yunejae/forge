@@ -1,0 +1,4 @@
+Name:Really Epic Punch
+ManaCost:1 G
+Types:Sorcery
+Oracle:Target creature you control gets +2/+2 if it's a host or has augment. Then it fights target creature you don't control.

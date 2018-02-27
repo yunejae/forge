@@ -1,0 +1,5 @@
+Name:Chicken Egg
+ManaCost:1 R
+Types:Creature Egg
+PT:0/1
+Oracle:At the beginning of your upkeep, roll a six-sided die. If you roll 6, sacrifice Chicken Egg and create a 4/4 red Giant Chicken creature token.

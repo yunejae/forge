@@ -1,0 +1,5 @@
+Name:Arms Depot
+ManaCost:no cost
+Types:Artifact Contraption
+SVar:RefersToCounterTypes:P1P1
+Oracle:Whenever you crank Arms Depot, put two +1/+1 counters on target creature.

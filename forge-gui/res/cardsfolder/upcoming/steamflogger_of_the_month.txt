@@ -1,0 +1,5 @@
+Name:Steamflogger of the Month
+ManaCost:3 R R
+Types:Creature Goblin Rigger
+Oracle:When Steamflogger of the Month enters the battlefield, it assembles a Contraption for each Contraption you control. (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)
+PT:3/3

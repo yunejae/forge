@@ -1,0 +1,4 @@
+Name:Hypnotic Swirly Disc
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Hypnotic Swirly Disc, target player puts the top X cards of his or her library into his or her graveyard, where X is the number of creatures you control.

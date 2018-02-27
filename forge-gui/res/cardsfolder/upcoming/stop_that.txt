@@ -1,0 +1,4 @@
+Name:Stop That
+ManaCost:B
+Types:Instant
+Oracle:Target player discards a card.\nGotcha - Whenever an opponent audibly flicks the cards in his or her hand, you may say "Gotcha!" If you do, return Stop That from your graveyard to your hand.

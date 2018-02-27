@@ -1,0 +1,4 @@
+Name:Duplication Device
+ManaCost:no cost
+Types:Artifact Contraption
+Oracle:Whenever you crank Duplication Device, until end of turn, target creature becomes a copy of any creature on the battlefield, except it's an artifact in addition to its other types.

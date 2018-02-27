@@ -1,0 +1,4 @@
+Name:Organ Harvest
+ManaCost:B
+Types:Sorcery
+Oracle:You and your teammates may each sacrifice any number of creatures. For each creature sacrificed in this way, add {B}{B} to your mana pool.

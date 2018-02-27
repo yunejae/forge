@@ -1,0 +1,4 @@
+Name:Land Aid '04
+ManaCost:G G
+Types:Sorcery
+Oracle:Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle your library. If you sang a song the whole time you were searching and shuffling, you may untap that land.

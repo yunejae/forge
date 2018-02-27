@@ -1,0 +1,5 @@
+Name:Bad Ass
+ManaCost:2 B B
+Types:Creature Donkey Zombie
+PT:3½/1
+Oracle:{1}{B}, Growl: Regenerate Bad Ass.

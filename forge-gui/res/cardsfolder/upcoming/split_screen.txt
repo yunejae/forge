@@ -1,0 +1,4 @@
+Name:Split Screen
+ManaCost:4
+Types:Artifact
+Oracle:When Split Screen enters the battlefield, shuffle your library and deal it into four libraries. If anything refers to yur library, choose one of your libraries for it.\nPlay with your libraries' top cards revealed.\nWhen Split Screen leaves the battlefield, shuffle your libraries together.

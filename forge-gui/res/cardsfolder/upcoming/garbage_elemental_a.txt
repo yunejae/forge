@@ -1,0 +1,5 @@
+Name:Garbage Elemental A
+ManaCost:4 R
+Types:Creature Elemental
+Oracle:Frenzy 2 (Whenever this creature attacks and isn't blocked, it gets +2/+0 until end of turn.)\nGarbage Elemental can't be blocked by wordy creatures. (A creature is wordy if it has four or more lines of rules text.)
+PT:2/4

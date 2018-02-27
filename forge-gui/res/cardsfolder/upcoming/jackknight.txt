@@ -1,0 +1,5 @@
+Name:Jackknight
+ManaCost:1 W
+Types:Artifact Creature Cyborg Knight
+Oracle:Whenever another artifact enters the battlefield under your control, put a +1/+1 counter on Jackknight. If that artifact is a Contraption, Jackknight gains lifelink until end of turn.
+PT:1/1

@@ -1,0 +1,4 @@
+Name:Form of the Squirrel
+ManaCost:G
+Types:Enchantment
+Oracle:As Form of the Squirrel enters the battlefield, create a 1/1 green Squirrel creature token. You lose the game when that creature leaves the battlefield.\nCreatures can't attack you.\nYou have shroud.\nYou can't cast spells.
