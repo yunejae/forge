@@ -1,4 +1,4 @@
 Name:Mox Lotus
 ManaCost:15
 Types:Artifact
-Oracle:{T}: Add {Infinity} to your mana pool.\n{100}: Add one mana of any color to your mana pool.\nYou don't lose life due to mana burn.
+Oracle:{T}: Add {Infinity} to your mana pool.\n{100}: Add one mana of any color to your mana pool.

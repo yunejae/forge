@@ -1,4 +1,4 @@
-Name:Feisty // Stegosaurus
+Name:Feisty Stegosaurus
 ManaCost:4 R
 Types:Host Creature Dinosaur
 Oracle:When this creature enters the battlefield, roll a six-sided die. This creature deals damage equal to the result to target creature an opponent controls.

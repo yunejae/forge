@@ -1,4 +1,4 @@
-Name:Angelic // Rocket
+Name:Angelic Rocket
 ManaCost:8
 Types:Artifact Host Creature Angel
 K:Flying

@@ -1,4 +1,4 @@
-Name:Big Boa // Constrictor
+Name:Big Boa Constrictor
 ManaCost:3 B
 Types:Host Creature Snake
 Oracle:When this creature enters the battlefield, roll a six-sided die. Target opponent loses life equal to the result.

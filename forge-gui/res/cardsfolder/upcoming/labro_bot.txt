@@ -1,4 +1,4 @@
-Name:Labro // Bot
+Name:Labro Bot
 ManaCost:5
 Types:Artifact Host Creature Hound
 Oracle:When this creature enters the battlefield, return target host card or card with augment from your graveyard to your hand.

@@ -1,4 +1,4 @@
-Name:Mer // Man
+Name:Mer Man
 ManaCost:4 U
 Types:Host Creature Human Fish
 Oracle:When this creature enters the battlefield, you may draw a card.

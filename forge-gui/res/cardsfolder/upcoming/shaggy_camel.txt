@@ -1,4 +1,4 @@
-Name:Shaggy // Camel
+Name:Shaggy Camel
 ManaCost:3 W
 Types:Host Creature Camel
 Oracle:When this creature enters the battlefield, creatures you control get +1/+1 until end of turn.

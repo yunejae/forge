@@ -1,4 +1,4 @@
-Name:Crafty // Octopus
+Name:Crafty Octopus
 ManaCost:2 U
 Types:Host Creature Octopus Rigger
 Oracle:When this creature enters the battlefield, this creature assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)

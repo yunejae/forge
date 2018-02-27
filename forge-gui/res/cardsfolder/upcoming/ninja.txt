@@ -2,5 +2,5 @@ Name:Ninja
 ManaCost:no cost
 Colors:black
 Types:Creature Ninja
-Oracle:You may activate Ninja's augment ability any time you could cast an instant.\nWhenever this creature deals combat damage to a player,\nAugment {2}{B} ({2}{B}, Reveal this card from your hand: Combine it with target host. Augment only as-- oh, never mind.)
+Oracle:You may activate Ninja's augment ability any time you could cast an instant.\nWhenever this creature deals combat damage to a player,\nAugment {2}{B} ({2}{B}, Reveal this card from your hand: Combine it with target host. Augment only as-- oh, nevermind.)
 PT:1/0

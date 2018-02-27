@@ -1,4 +1,4 @@
 Name:Mise
 ManaCost:U
 Types:Instant
-Oracle:Name a nonland card, then reveal the top card of your library. If that card is the named card, draw three cards.
+Oracle:Choose a nonland card name, then reveal the top card of your library. If that card has the chosen name, you draw three cards.
