@@ -1,4 +1,4 @@
 Name:Touch and Go
 ManaCost:3 R
 Types:Sorcery
-Oracle:Destroy target land.\nGotcha - Whenever an opponent touches his or her face, you may say "Gotcha!" If you do, return Touch and Go from your graveyard to your hand.
+Oracle:Destroy target land.\nGotcha — If an opponent touches his or her face, you may say "Gotcha!" When you do, return Touch and Go from your graveyard to your hand.

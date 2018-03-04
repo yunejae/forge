@@ -1,4 +1,4 @@
 Name:Ow
 ManaCost:B
 Types:Enchantment
-Oracle:Whenever a creature deals damage to a player, Ow deals 1 damage to that player unless he or she says "Ow" once for each nontoken permanent named Ow on the battlefield.
+Oracle:Whenever a creature deals damage to a player, that player may say "Ow" once for each permanent named Ow. If the player doesn't, Ow deals 1 damage to him or her.

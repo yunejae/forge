@@ -1,6 +1,6 @@
 Name:Question Elemental?
 ManaCost:2 U U
-Types:Creature Elemental
+Types:Creature Elemental?
 K:Flying
-Oracle:Flying\nAre you aware that when you say something that isn't a question, the player who first points out this fact gains control of Question Elemental?
+Oracle:Flying\nAre you aware that any time you say something that isn't a question, when a player points out this fact first, that player gains control of Question Elemental?
 PT:3/4

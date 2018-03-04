@@ -1,4 +1,4 @@
 Name:Team Spirit
 ManaCost:2 G
 Types:Instant
-Oracle:All creatures controlled by target player and his or her teammates get +1/+1 until end of turn.
+Oracle:Creatures target player's team controls get +1/+1 until end of turn.

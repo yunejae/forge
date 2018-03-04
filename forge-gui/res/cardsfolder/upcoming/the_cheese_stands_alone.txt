@@ -1,7 +1,7 @@
 Name:The Cheese Stands Alone
 ManaCost:4 W W
 Types:Enchantment
-T:Mode$ Always | ValidPlayer$ You | IsPresent$ Card.Other | PresentZone$ Battlefield | PresentPlayer$ You | PresentCompare$ EQ0 | IsPresent2$ Card | PresentZone2$ Hand | PresentPlayer2$ You | PresentCompare2$ EQ0 | Execute$ TrigWin | TriggerDescription$ When you control no nontoken permanents in play other than The Cheese Stands Alone and have no cards in your hand, you win the game.
+T:Mode$ Always | ValidPlayer$ You | IsPresent$ Card.Other | PresentZone$ Battlefield | PresentPlayer$ You | PresentCompare$ EQ0 | IsPresent2$ Card | PresentZone2$ Hand | PresentPlayer2$ You | PresentCompare2$ EQ0 | Execute$ TrigWin | TriggerDescription$ When you control no permanents other than The Cheese Stands Alone and have no cards in hand, you win the game.
 #TODO: If you have six of these in play under your control, and you answer a general knowledge question correctly, you win the game.
 #T:Mode$ Always | ValidPlayer$ You | IsPresent$ Card.namedThe Cheese Stands Alone | PresentZone$ Battlefield | PresentPlayer$ You | PresentCompare$ EQ6 Execute$ AnswerGeneralKnowledgeQuestion | TriggerDescription$ If you have six of these in play under your control, and you answer a general knowledge question correctly, you win the game.
 #SVar:AnswerGeneralKnowledgeQuestion:AB$WinsGame | Cost$ 0 | Defined$ You
@@ -9,4 +9,4 @@ T:Mode$ Always | ValidPlayer$ You | IsPresent$ Card.Other | PresentZone$ Battlef
 #TODO: If you cast the last card in your hand, you can win while the card is in "limbo" and waiting to resolve.
 #It's cheesy, but true.
 SVar:TrigWin:AB$WinsGame | Cost$ 0 | Defined$ You
-Oracle:When you control no nontoken permanents in play other than The Cheese Stands Alone and have no cards in your hand, you win the game.
+Oracle:When you control no permanents other than The Cheese Stands Alone and have no cards in hand, you win the game.

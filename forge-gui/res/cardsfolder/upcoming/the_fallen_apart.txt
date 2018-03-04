@@ -1,0 +1,5 @@
+Name:The Fallen Apart
+ManaCost:2 B B
+Types:Zombie
+PT:4/4
+Oracle:The Fallen Apart enters the battlefield with two arms and two legs.\nWhenever damage is dealt to The Fallen Apart, remove an arm or a leg from it.\nThe Fallen Apart can't attack if it has no legs and can't block if it has no arms.

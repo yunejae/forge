@@ -1,4 +1,4 @@
 Name:Zzzyxas's Abyss
 ManaCost:1 B B
 Types:Enchantment
-Oracle:At the beginning of your upkeep, destroy all nonland permanents with the first name alphabetically among nonland permanents in play.
+Oracle:At the beginning of your upkeep, destroy all nonland permanents with the first name alphabetically among nonland permanents.

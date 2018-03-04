@@ -1,5 +1,5 @@
 Name:Slaying Mantis
 ManaCost:5 G G
 Types:Creature Insect Wrestler
-Oracle:Just a second (As long as this spell is on the stack, players can't move cards on the battlefield.)\nSlaying Mantis enters the battlefield by being thrown from a distance of at least three feet.\nWhen Slaying Mantis enters the battlefield, it fights each creature an opponent controls that is touched as it entered.
+Oracle:Just a second (As long as this spell is on the stack, players can't move cards on the battlefield.)\nSlaying Mantis enters the battlefield by being thrown from a distance of at least three feet.\nWhen Slaying Mantis enters the battlefield, it fights each creature an opponent controls that it touched as it entered.
 PT:6/6

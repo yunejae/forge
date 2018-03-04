@@ -1,0 +1,5 @@
+Name:S.N.O.T.
+ManaCost:G
+Types:Creature Ooze
+Oracle:You may have S.N.O.T. enter the battlefield stuck to another creature named S.N.O.T. If you do, all those creatures form a single creature.\nS.N.O.T.'s power and toughness are each equal to the square of the number of cards named S.N.O.T. stuck together to form it. (One is a 1/1, two are a 4/4, three are a 9/9, and four are a 16/16. If you manage to get -1 S.N.O.T.s stuck together, it's a 1/1.)
+PT:*/*

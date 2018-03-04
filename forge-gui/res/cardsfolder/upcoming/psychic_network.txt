@@ -1,4 +1,4 @@
 Name:Psychic Network
 ManaCost:U
 Types:Enchantment
-Oracle:Each player reveals the top card of his or her library to other players by continuously holding it against his or her forehead. This doesn't allow a player to look at his or her own card. (That card still counts as the top card of your library. Whenever you would draw a card, draw that one instead and replace it with the next card of your library.)
+Oracle:Each player plays with the top card of his or her library held against his or her forehead, revealed to each other player.

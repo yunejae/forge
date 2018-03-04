@@ -1,4 +1,4 @@
 Name:Urza's Contact Lenses
 ManaCost:0
 Types:Artifact
-Oracle:Urza's Contact Lenses enters the battlefield tapped.\nUrza's Contact Lenses doesn't untap during your untap step.\nAs long as Urza's Contact Lenses is untapped, all players play with their hands revealed.\nClap your hands twice: Tap or untap Urza's Contact Lenses.
+Oracle:Urza's Contact Lenses enters the battlefield tapped.\nUrza's Contact Lenses doesn't untap during your untap step.\nAs long as Urza's Contact Lenses is untapped, all players play with their hands revealed.\nClap your hands twice you may tap or untap Urza's Contact Lenses.

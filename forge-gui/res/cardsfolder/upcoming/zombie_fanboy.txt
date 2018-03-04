@@ -1,5 +1,5 @@
 Name:Zombie Fanboy
 ManaCost:2 B
 Types:Creature Zombie Gamer
-Oracle:As Zombie Fanboy enters the battlefield, choose an artist.\nWhenever a permanent by the chosen artist is put into a graveyard, put two +1/+1 counters on Zombie Fanboy.
+Oracle:As Zombie Fanboy enters the battlefield, choose an artist.\nWhenever a permanent with art by the chosen artist is put into a graveyard, put two +1/+1 counters on Zombie Fanboy.
 PT:1/1

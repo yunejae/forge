@@ -1,4 +1,4 @@
 Name:Sorry
 ManaCost:U U
 Types:Enchantment
-Oracle:Whenever a spell is cast, if a card with the same name as that spell card is in a graveyard and the controller of that spell didn't say "Sorry" before casting the spell, any other player may say "Sorry". If one does, counter that spell.\nWhenever a player says "Sorry" at any other time, Sorry deals 2 damage to that player.
+Oracle:Before any player casts a spell with the same name as a card in any graveyard, that player may say "sorry." If the player doesn't, any other player may say "sorry" as the spell is being cast. When another player says "sorry" this way, counter the spell.\nWhenever a player says "sorry" at any other time, Sorry deals 2 damage to that player.

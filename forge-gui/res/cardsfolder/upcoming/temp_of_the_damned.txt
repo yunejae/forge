@@ -2,4 +2,4 @@ Name:Temp of the Damned
 ManaCost:2 B
 Types:Creature Zombie
 PT:3/3
-Oracle:As Temp of the Damned enters the battlefield, roll a six-sided die. Temp of the Damned enters the battlefield with a number of funk counters on it equal to the die roll.\nAt the beginning of your upkeep, sacrifice Temp of the Damned unless you remove a funk counter from Temp of the Damned.
+Oracle:As Temp of the Damned enters the battlefield, roll a six-sided die. Temp of the Damned enters the battlefield with a number of funk counters on it equal to the result.\nAt the beginning of your upkeep, remove a funk counter from Temp of the Damned. If you can't, sacrifice it.

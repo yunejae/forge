@@ -1,4 +1,4 @@
 Name:Squirrel Farm
 ManaCost:2 G
 Types:Enchantment
-Oracle:{1}{G}: Choose a card in your hand. Covering the artist's name, reveal the card to target player. If that player can't name the artist, reveal the artist's name and create a 1/1 green Squirrel creature token.
+Oracle:{1}{G}: Reveal a card in your hand, covering the artist credit. Target opponent guesses the artist. If that player guesses wrong, create a 1/1 green Squirrel creature token.

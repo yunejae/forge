@@ -1,4 +1,4 @@
 Name:Yet Another Aether Vortex
 ManaCost:3 R R
 Types:Enchantment
-Oracle:Creatures have haste.\nPlayers play with the top card of their libraries revealed.\nNoninstant, nonsorcery cards on top of a library are in play under their owner's control in addition to being in that library.
+Oracle:All creatures have haste.\nPlayers play with the top card of their libraries revealed.\nNoninstant, nonsorcery cards on top of a library are on the battlefield under their owner's control in addition to being in that library.

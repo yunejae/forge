@@ -1,4 +1,4 @@
 Name:Strategy, Schmategy
 ManaCost:1 R
 Types:Sorcery
-Oracle:Roll a six-sided die. If you roll —\n• 2, destroy all artifacts.\n• 3, destroy all lands.\n• 4, Strategy, Schmategy deals 3 damage to each creature and player.\n• 5, each player discards all cards in his or her hand, and draws seven cards.\n• 6, roll the die two more times with the same effects.
+Oracle:Roll a six-sided die. Strategy, Schmategy has the indicated effect.\n1 — Do nothing.\n2 — Destroy all artifacts.\n3 — Destroy all lands.\n4 — Strategy, Schmategy deals 3 damage to each creature and player.\n5 — Each player discards his or her hand and draws seven cards.\n6 — Repeat this process two more times.
