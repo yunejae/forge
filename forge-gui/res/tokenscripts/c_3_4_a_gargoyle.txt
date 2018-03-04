@@ -1,0 +1,6 @@
+Name:Gargoyle
+ManaCost:no cost
+Types:Token Artifact Creature Gargoyle
+PT:3/4
+K:Flying
+Oracle:Flying

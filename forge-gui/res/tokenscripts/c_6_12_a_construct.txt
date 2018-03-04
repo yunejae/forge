@@ -1,0 +1,6 @@
+Name:Construct
+ManaCost:no cost
+Types:Token Artifact Creature Construct
+PT:6/12
+K:Trample
+Oracle:Trample

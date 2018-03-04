@@ -1,0 +1,8 @@
+Name:Skeleton
+ManaCost:no cost
+Types:Token Creature Skeleton
+Colors:black
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ SkeletonTrigLifeGain | TriggerController$ TriggeredCardController | TriggerDescription$ When this creature dies, each player gains 2 life.
+SVar:SkeletonTrigLifeGain:AB$ GainLife | Cost$ 0 | LifeAmount$ 2 | Defined$ Player | SpellDescription$ Each player gains 2 life.
+Oracle:When this creature dies, each player gains 2 life.

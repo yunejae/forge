@@ -1,0 +1,7 @@
+Name:Bird
+ManaCost:no cost
+Colors:white
+Types:Token Creature Bird
+PT:1/1
+K:Flying
+Oracle:Flying

@@ -1,0 +1,10 @@
+Name:Sunscourge Champion
+ManaCost:no cost
+Colors:black
+Types:Token Creature Zombie Human Wizard
+PT:4/4
+K:Eternalize:2 W W Discard<1/Card>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBGainLife | TriggerDescription$ When CARDNAME enters the battlefield, you gain life equal to its power.
+SVar:DBGainLife:DB$GainLife | Defined$ You | LifeAmount$ X | References$ X
+SVar:X:Count$CardPower
+Oracle:When Sunscourge Champion enters the battlefield, you gain life equal to its power.\nEternalizeâ€”{2}{W}{W}, Discard a card. ({2}{W}{W}, Discard a card, Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie Human Wizard with no mana cost. Eternalize only as a sorcery.)

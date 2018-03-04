@@ -1,0 +1,7 @@
+Name:Elemental
+ManaCost:no cost
+Colors:green,white
+Types:Token Creature Elemental
+PT:8/8
+K:Vigilance
+Oracle:Vigilance

@@ -1,0 +1,7 @@
+Name:Knight
+ManaCost:no cost
+Colors:white
+Types:Token Creature Knight
+PT:2/2
+K:First Strike
+Oracle:First strike

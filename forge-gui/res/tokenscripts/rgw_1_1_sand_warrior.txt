@@ -1,0 +1,6 @@
+Name:Sand Warrior
+ManaCost:no cost
+Colors:red,green,white
+Types:Token Creature Sand Warrior
+PT:1/1
+Oracle:

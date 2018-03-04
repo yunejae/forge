@@ -1,0 +1,5 @@
+Name:Pincher
+ManaCost:no cost
+Types:Token Creature Pincher
+PT:2/2
+Oracle:

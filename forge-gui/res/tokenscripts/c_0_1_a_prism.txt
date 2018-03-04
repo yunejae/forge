@@ -1,0 +1,5 @@
+Name:Prism
+ManaCost:no cost
+Types:Token Artifact Creature Prism
+PT:0/1
+Oracle:

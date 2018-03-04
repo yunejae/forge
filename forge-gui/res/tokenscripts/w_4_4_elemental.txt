@@ -1,0 +1,7 @@
+Name:Elemental
+ManaCost:no cost
+Colors:white
+Types:Token Creature Elemental
+PT:4/4
+K:Flying
+Oracle:Flying

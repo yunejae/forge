@@ -1,0 +1,6 @@
+Name:Human Cleric
+ManaCost:no cost
+Colors:white, black
+Types:Token Creature Human Cleric
+PT:1/1
+Oracle:

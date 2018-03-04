@@ -1,0 +1,7 @@
+Name:Stoneforged Blade
+ManaCost:no cost
+Types:Token Artifact Equipment
+K:Indestructible
+A:AB$ Attach | Cost$ 0 | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | SorcerySpeed$ True | Equip$ True | AILogic$ Pump | IsPresent$ Card.Self+nonCreature | PrecostDesc$ Equip | SpellDescription$ ({0}: Attach to target creature you control. Equip only as a sorcery.)
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 5 | AddToughness$ 5 | AddKeyword$ Double Strike | Description$ Equipped creature gets +5/+5 and has double strike.
+Oracle:Indestructible\nEquipped creature gets +5/+5 and has double strike.\nEquip {0}

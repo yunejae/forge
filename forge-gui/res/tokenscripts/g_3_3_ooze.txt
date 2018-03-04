@@ -1,0 +1,6 @@
+Name:Ooze
+ManaCost:no cost
+Colors:green
+Types:Token Creature Ooze
+PT:3/3
+Oracle:

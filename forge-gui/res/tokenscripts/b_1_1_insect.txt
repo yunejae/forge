@@ -1,0 +1,6 @@
+Name:Insect
+ManaCost:no cost
+Colors:black
+Types:Token Creature Insect
+PT:1/1
+Oracle:

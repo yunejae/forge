@@ -1,0 +1,6 @@
+Name:Beast
+ManaCost:no cost
+Colors:red, green, white
+Types:Token Creature Spirit
+PT:8/8
+Oracle:

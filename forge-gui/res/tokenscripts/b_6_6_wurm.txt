@@ -1,0 +1,7 @@
+Name:Wurm
+ManaCost:no cost
+Colors:black
+Types:Token Creature Wurm
+PT:6/6
+K:Trample
+Oracle:Trample

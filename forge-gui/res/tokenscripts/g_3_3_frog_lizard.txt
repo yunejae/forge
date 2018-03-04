@@ -1,0 +1,6 @@
+Name:Frog Lizard
+ManaCost:no cost
+Colors:green
+Types:Token Creature Frog Lizard
+PT:3/3
+Oracle:

@@ -1,0 +1,6 @@
+Name:Eldrazi Scion
+ManaCost:no cost
+Types:Token Creature Eldrazi Scion
+PT:1/1
+A:AB$ Mana | Cost$ Sac<1/CARDNAME> | Produced$ C | Amount$ 1 | SpellDescription$ Add {C} to your mana pool.
+Oracle:Sacrifice this creature: Add {C} to your mana pool.

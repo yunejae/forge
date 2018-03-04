@@ -1,0 +1,7 @@
+Name:Elf
+ManaCost:no cost
+Colors:green
+Types:Token Creature Elf
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G} to your mana pool.
+Oracle:{T}: Add {G} to your mana pool.

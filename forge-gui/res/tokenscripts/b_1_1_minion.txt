@@ -1,0 +1,6 @@
+Name:Minion
+ManaCost:no cost
+Colors:black
+Types:Token Creature Minion
+PT:1/1
+Oracle:

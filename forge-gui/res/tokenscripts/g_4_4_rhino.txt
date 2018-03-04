@@ -1,0 +1,7 @@
+Name:Rhino
+ManaCost:no cost
+Colors:green
+Types:Token Creature Rhino
+PT:4/4
+K:Trample
+Oracle:Trample

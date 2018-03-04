@@ -1,0 +1,6 @@
+Name:Kobolds of Kher Keep
+ManaCost:no cost
+Types:Token Creature Kobold
+Colors:red
+PT:0/1
+Oracle:

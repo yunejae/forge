@@ -1,0 +1,6 @@
+Name:Spirit
+ManaCost:no cost
+Colors:black
+Types:Token Creature Spirit
+PT:*/*
+Oracle:

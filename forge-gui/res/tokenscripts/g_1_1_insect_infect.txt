@@ -1,0 +1,7 @@
+Name:Insect
+ManaCost:no cost
+Colors:green
+Types:Token Creature Insect
+PT:1/1
+K:Infect
+Oracle:Infect

@@ -1,0 +1,6 @@
+Name:Caribou
+ManaCost:no cost
+Colors:white
+Types:Token Creature Caribou
+PT:1/1
+Oracle:

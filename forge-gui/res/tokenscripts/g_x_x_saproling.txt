@@ -1,0 +1,7 @@
+Name:Saproling
+ManaCost:no cost
+Colors:green
+Types:Token Creature Saproling
+PT:*/*
+K:This creature's power and toughness are each equal to the number of fade counters on CARDNAME.
+Oracle:This creature's power and toughness are each equal to the number of fade counters on Saproling Burst.

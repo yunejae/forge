@@ -1,0 +1,6 @@
+Name:Saproling
+ManaCost:no cost
+Colors:green
+Types:Token Creature Saproling
+PT:1/1
+Oracle:

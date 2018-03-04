@@ -1,0 +1,6 @@
+Name:Horror
+ManaCost:no cost
+Colors:black
+Types:Token Creature Horror
+PT:3/3
+Oracle:

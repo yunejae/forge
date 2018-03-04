@@ -1,0 +1,6 @@
+Name:Wolf
+ManaCost:no cost
+Colors:green
+Types:Token Creature Wolf
+PT:2/2
+Oracle:

@@ -1,0 +1,7 @@
+Name:Snake
+ManaCost:no cost
+Colors:black, green
+Types:Token Enchantment Creature Snake
+PT:1/1
+K:Deathtouch
+Oracle:Deathtouch

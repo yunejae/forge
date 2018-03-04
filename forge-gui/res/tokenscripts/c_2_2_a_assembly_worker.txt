@@ -1,0 +1,5 @@
+Name:Assembly-Worker
+ManaCost:no cost
+Types:Token Artifact Creature Assembly-Worker
+PT:2/2
+Oracle:

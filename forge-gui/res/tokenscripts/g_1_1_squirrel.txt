@@ -1,0 +1,6 @@
+Name:Squirrel
+ManaCost:no cost
+Colors:green
+Types:Token Creature Squirrel
+PT:1/1
+Oracle:

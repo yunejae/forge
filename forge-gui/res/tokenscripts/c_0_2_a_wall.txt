@@ -1,0 +1,6 @@
+Name:Wall
+ManaCost:no cost
+Types:Token Artifact Creature Wall
+PT:0/2
+K:Defender
+Oracle:Defender

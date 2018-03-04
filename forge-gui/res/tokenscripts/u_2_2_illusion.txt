@@ -1,0 +1,6 @@
+Name:Illusion
+ManaCost:no cost
+Types:Token Creature Illusion
+Colors:blue
+PT:2/2
+Oracle:

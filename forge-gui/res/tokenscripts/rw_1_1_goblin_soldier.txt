@@ -1,0 +1,6 @@
+Name:Goblin Soldier
+ManaCost:no cost
+Types:Token Creature Goblin Soldier
+Colors:red, white
+PT:1/1
+Oracle:

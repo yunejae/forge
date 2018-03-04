@@ -1,0 +1,8 @@
+Name:Illusion
+ManaCost:no cost
+Types:Token Creature Illusion
+Colors:blue
+PT:2/2
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | SourceType$ Spell | TriggerZones$ Battlefield | Execute$ DoSac | TriggerDescription$ When CARDNAME becomes the target of a spell, sacrifice it.
+SVar:DoSac:DB$ Sacrifice | Defined$ Self
+Oracle:When this creature becomes the target of a spell, sacrifice it.

@@ -1,0 +1,7 @@
+Name:Angel
+ManaCost:no cost
+Colors:white
+Types:Token Creature Angel
+PT:4/4
+K:Flying
+Oracle:Flying

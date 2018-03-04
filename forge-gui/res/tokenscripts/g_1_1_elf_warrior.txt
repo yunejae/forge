@@ -1,0 +1,6 @@
+Name:Elf Warrior
+ManaCost:no cost
+Colors:green
+Types:Token Creature Elf Warrior
+PT:1/1
+Oracle:

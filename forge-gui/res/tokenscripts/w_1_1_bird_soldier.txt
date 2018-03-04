@@ -1,0 +1,7 @@
+Name:Bird Soldier
+ManaCost:no cost
+Colors:white
+Types:Token Creature Bird Soldier
+PT:1/1
+K:Flying
+Oracle:Flying

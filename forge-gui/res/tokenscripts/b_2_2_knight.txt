@@ -1,0 +1,9 @@
+Name:Knight
+ManaCost:no cost
+Colors:black
+Types:Token Creature Knight
+PT:2/2
+K:Flanking
+K:Protection from white
+K:Haste
+Oracle:Flanking, protection from white, haste

@@ -1,0 +1,7 @@
+Name:Monk
+ManaCost:no cost
+Colors:white
+Types:Token Creature Monk
+PT:1/1
+K:Prowess
+Oracle:Prowess

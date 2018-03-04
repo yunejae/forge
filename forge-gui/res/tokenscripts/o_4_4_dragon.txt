@@ -1,0 +1,7 @@
+Name:Dragon
+ManaCost:no cost
+Colors:gold
+Types:Token Creature Dragon
+PT:4/4
+K:Flying
+Oracle:Flying

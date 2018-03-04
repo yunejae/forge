@@ -1,0 +1,6 @@
+Name:Satyr
+ManaCost:no cost
+Types:Token Creature Satyr
+Colors:red, green
+PT:2/2
+Oracle:

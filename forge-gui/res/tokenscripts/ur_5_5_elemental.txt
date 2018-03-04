@@ -1,0 +1,7 @@
+Name:Elemental
+ManaCost:no cost
+Colors:blue, red
+Types:Token Creature Elemental
+PT:5/5
+K:Flying
+Oracle:Flying

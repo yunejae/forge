@@ -1,0 +1,7 @@
+Name:Triskelavite
+ManaCost:no cost
+Types:Token Artifact Creature Triskelavite
+PT:1/1
+K:Flying
+A:AB$ DealDamage | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature,Player | TgtPrompt$ Select target creature or player | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to target creature or player.
+Oracle:Flying\nSacrifice this creature: This creature deals 1 damage to target creature or player.

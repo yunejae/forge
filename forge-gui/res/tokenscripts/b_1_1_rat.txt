@@ -1,0 +1,6 @@
+Name:Rat
+ManaCost:no cost
+Colors:black
+Types:Token Creature Rat
+PT:1/1
+Oracle:

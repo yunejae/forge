@@ -1,0 +1,6 @@
+Name:Stangg Twin
+ManaCost:no cost
+Types:Token Legendary Creature Human Warrior
+Colors:red, green
+PT:3/4
+Oracle:

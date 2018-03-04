@@ -1,0 +1,6 @@
+Name:Bear
+ManaCost:no cost
+Colors:green
+Types:Token Creature Bear
+PT:4/4
+Oracle:

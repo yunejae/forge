@@ -1,0 +1,7 @@
+Name:Proven Combatant
+ManaCost:no cost
+Colors:black
+Types:Token Creature Zombie Human Warrior
+PT:4/4
+K:Eternalize:4 U U
+Oracle:Eternalize {4}{U}{U} ({4}{U}{U}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie Human Warrior with no mana cost. Eternalize only as a sorcery.)

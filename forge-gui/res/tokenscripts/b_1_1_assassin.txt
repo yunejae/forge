@@ -1,0 +1,8 @@
+Name:Assassin
+ManaCost:no cost
+Colors:black
+Types:Token Creature Assassin
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ Assassination | TriggerDescription$ Whenever this creature deals combat damage to a player, that player loses the game.
+SVar:Assassination:DB$ LosesGame | Defined$ TriggeredTarget
+Oracle:Whenever this creature deals combat damage to a player, that player loses the game.

@@ -1,0 +1,6 @@
+Name:Eldrazi
+ManaCost:no cost
+Types:Token Creature Eldrazi
+PT:7/7
+K:Annihilator:1
+Oracle:Annihilator 1

@@ -1,0 +1,6 @@
+Name:Ape
+ManaCost:no cost
+Colors:green
+Types:Token Creature Ape
+PT:3/3
+Oracle:
