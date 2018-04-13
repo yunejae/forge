@@ -1,0 +1,8 @@
+Name:Construct
+ManaCost:no cost
+Types:Token Artifact Creature Construct
+PT:0/0
+T:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ This creature gets +1/+1 for each artifact you control.
+SVar:X:Count$Valid Artifact.YouCtrl
+SVar:BuffedBy:Artifact
+Oracle:This creature gets +1/+1 for each artifact you control.
