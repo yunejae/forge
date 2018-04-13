@@ -1,0 +1,7 @@
+Name:Zombie Knight
+ManaCost:no cost
+Colors:black
+Types:Token Creature Zombie Knight
+PT:2/2
+K:Menace
+Oracle:Menace (This creature can't be blocked except by two or more creatures.)
