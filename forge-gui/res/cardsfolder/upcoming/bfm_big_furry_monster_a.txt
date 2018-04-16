@@ -2,7 +2,7 @@ Name:B.F.M. (Big Furry Monster) A
 DisplayName:B.F.M. (Big Furry Monster)
 ManaCost:no cost
 Colors:black
-Types:Creature The Biggest, Baddest, Nastiest
+Types:Creature The-Biggest,-Baddest,-Nastiest,-
 PT:0/0
 Oracle:You must cast both B.F.M. cards to put\nleaves the battlefield, sacrifice the other.\nB.F.M. can't be blocked except by three or
 
@@ -10,6 +10,6 @@ ALTERNATE
 
 Name:B.F.M. (Big Furry Monster)
 ManaCost: B B B B B B B B B B B B B B B
-Types:Creature The Biggest, Baddest, Nastiest, Scariest Creature You'll Ever See
+Types:Creature The-Biggest,-Baddest,-Nastiest,-Scariest-Creature-You'll-Ever-See
 PT:99/99
 Oracle:You must cast both B.F.M. cards to put B.F.M. onto the battlefield.\nIf one B.F.M. card leaves the battlefield, sacrifice the other.\nB.F.M. can't be blocked except by three or more creatures.

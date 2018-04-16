@@ -1,4 +1,4 @@
 Name:City of Ass
 ManaCost:no cost
 Types:Land
-Oracle:City of Ass enters the battlefield tapped.\n{T}: Add one and one-half mana of any one color to your mana pool.
+Oracle:City of Ass enters the battlefield tapped.\n{T}: Add one and one-half mana of any one color.

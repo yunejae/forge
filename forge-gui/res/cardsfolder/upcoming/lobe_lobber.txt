@@ -1,4 +1,4 @@
 Name:Lobe Lobber
 ManaCost:2
 Types:Artifact Equipment
-Oracle:Equipped creature has "{T}: This creature deals 1 damage to target player. Roll a six-sided die. On a 5 or higher, untap it."\nEquip {2}
+Oracle:Equipped creature has "{T}: This creature deals 1 damage to target player or planeswalker. Roll a six-sided die. On a 5 or higher, untap it."\nEquip {2}

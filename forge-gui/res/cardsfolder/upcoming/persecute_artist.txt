@@ -1,4 +1,4 @@
 Name:Persecute Artist
 ManaCost:1 B B
 Types:Sorcery
-Oracle:Choose an artist other than Rebecca Guay. Target player reveals his or her hand and discards all nonland cards with art by the chosen artist.
+Oracle:Choose an artist other than Rebecca Guay. Target player reveals their hand and discards all nonland cards with art by the chosen artist.

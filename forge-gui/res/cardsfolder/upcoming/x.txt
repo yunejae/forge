@@ -1,5 +1,5 @@
 Name:X
 ManaCost:U B
 Types:Legendary Creature Human Spy
-Oracle:As long as X is in X's owner's opponent's hand, X's owner may cast X and activate X's abilities. That opponent can't cast X and plays with his or her hand revealed.\n{U}{B}, {T}: Put X into target opponent's hand.\n{3}{U}{B}: You may play a card in the same hand as X without paying its mana cost.
+Oracle:As long as X is in X's owner's opponent's hand, X's owner may cast X and activate X's abilities. That opponent can't cast X and plays with their hand revealed.\n{U}{B}, {T}: Put X into target opponent's hand.\n{3}{U}{B}: You may play a card in the same hand as X without paying its mana cost.
 PT:2/2

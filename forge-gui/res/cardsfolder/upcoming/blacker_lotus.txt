@@ -1,4 +1,4 @@
 Name:Blacker Lotus
 ManaCost: 0
 Types:Artifact
-Oracle:{T}: Tear Blacker Lotus into pieces. Add four mana of any one color to your mana pool. Remove the pieces from the game.
+Oracle:{T}: Tear Blacker Lotus into pieces. Add four mana of any one color. Remove the pieces from the game.

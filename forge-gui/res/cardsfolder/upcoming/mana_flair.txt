@@ -1,4 +1,4 @@
 Name:Mana Flair
 ManaCost:1 R
 Types:Instant
-Oracle:Add {R} to your mana pool for each nonland permanent with art by the artist of your choice.
+Oracle:Add {R} for each nonland permanent with art by the artist of your choice.

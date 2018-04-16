@@ -1,4 +1,4 @@
 Name:Sap Sucker
 ManaCost:no cost
 Types:Artifact Contraption
-Oracle:Whenever you crank Sap Sucker, add {G} to your mana pool. Until end of turn, this mana doesn't empty from your mana pool as steps and phases end.
+Oracle:Whenever you crank Sap Sucker, add {G}. Until end of turn, this mana doesn't empty from your mana pool as steps and phases end.

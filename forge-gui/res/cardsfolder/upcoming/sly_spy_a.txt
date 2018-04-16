@@ -1,5 +1,5 @@
 Name:Sly Spy A
 ManaCost:2 B
 Types:Creature Human Spy
-Oracle:Whenever Sly Spy deals combat damage to a player, that player reveals his or her hand. You choose a card from it with the longest name. That player discards that card.
+Oracle:Whenever Sly Spy deals combat damage to a player, that player reveals their hand. You choose a card from it with the longest name. That player discards that card.
 PT:2/2

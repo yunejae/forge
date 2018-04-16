@@ -1,4 +1,4 @@
 Name:Psychic Network
 ManaCost:U
 Types:Enchantment
-Oracle:Each player plays with the top card of his or her library held against his or her forehead, revealed to each other player.
+Oracle:Each player plays with the top card of their library held against their forehead, revealed to each other player.

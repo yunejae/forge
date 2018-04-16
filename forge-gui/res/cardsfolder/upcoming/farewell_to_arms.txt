@@ -1,4 +1,4 @@
 Name:Farewell to Arms
 ManaCost:1 B B
 Types:Enchantment
-Oracle:As Farewell to Arms enters the battlefield, choose a hand attached to an opponent's arm.\nWhen the chosen hand isn't behind its owner's back, sacrifice Farewell to Arms. If you do, that player discards his or her hand . . . of cards. (The lawyers wouldn't let us do it the other way.)
+Oracle:As Farewell to Arms enters the battlefield, choose a hand attached to an opponent's arm.\nWhen the chosen hand isn't behind its owner's back, sacrifice Farewell to Arms. If you do, that player discards their hand . . . of cards. (The lawyers wouldn't let us do it the other way.)

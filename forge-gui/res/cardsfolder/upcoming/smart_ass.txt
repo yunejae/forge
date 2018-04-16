@@ -1,5 +1,5 @@
 Name:Smart Ass
 ManaCost:2 U
 Types:Creature Donkey Wizard
-Oracle:Whenever Smart Ass attacks, choose a card name. If defending player has no cards with the chosen name in his or her hand, that player may reveal his or her hand. If he or she doesn't reveal his or her hand, Smart Ass can't be blocked this turn.
+Oracle:Whenever Smart Ass attacks, choose a card name. If defending player has no cards with the chosen name in their hand, that player may reveal their hand. If they don't reveal their hand, Smart Ass can't be blocked this turn.
 PT:2½/1

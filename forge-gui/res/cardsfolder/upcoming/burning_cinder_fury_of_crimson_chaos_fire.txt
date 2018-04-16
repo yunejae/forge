@@ -1,4 +1,4 @@
 Name:Burning Cinder Fury of Crimson Chaos Fire
 ManaCost: 3 R
 Types:Enchantment
-Oracle:Whenever any player taps a permanent, that player chooses one of his or her opponents. The chosen player gains control of that permanent at the beginning of the next end step.\nAt beginning of each player's end step, if that player didn't tap any nonland permanents that turn, Burning Cinder Fury of Crimson Chaos Fire deals 3 damage to that player.
+Oracle:Whenever any player taps a permanent, that player chooses one of their opponents. The chosen player gains control of that permanent at the beginning of the next end step.\nAt beginning of each player's end step, if that player didn't tap any nonland permanents that turn, Burning Cinder Fury of Crimson Chaos Fire deals 3 damage to that player.

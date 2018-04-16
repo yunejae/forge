@@ -1,4 +1,4 @@
 Name:Everythingamajig C
 ManaCost:5
 Types:Artifact
-Oracle:{1}: Flip a coin. If you win the flip, add {C}{C} to your mana pool. Activate this ability only any time you could cast an instant.\n{3}, {T}: Target player discards a card. Activate this ability only during your turn.\n{X}: Everythingamajig becomes an X/X Construct artifact creature until end of turn.
+Oracle:{1}: Flip a coin. If you win the flip, add {C}{C}. Activate this ability only any time you could cast an instant.\n{3}, {T}: Target player discards a card. Activate this ability only during your turn.\n{X}: Everythingamajig becomes an X/X Construct artifact creature until end of turn.

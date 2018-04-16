@@ -5,5 +5,5 @@ Types:Enchantment
 #SVar:X:PlayerCountOpponents$HighestLifeTotal
 # IsPresent$ Creature.YouCtrl | PresentCompare$ LTX | TokenAmount$ 3 | TokenName$ Soldier | TokenTypes$ Creature,Soldier | TokenOwner$ You | TokenColors$ White | TokenPower$ 1 | TokenToughness$ 1 | References$ X | TokenImage$ w 1 1 soldier PLC | SpellDescription$ Cast CARDNAME only if you control fewer creatures than each opponent. Create three 1/1 white Soldier creature tokens.
 SVar:X:PlayerCountOpponents$LowestValid Creature.YouCtrl
-#T:Mode$ Continuous | TriggerDescription$ CARDNAME may be cast only in a game with three or more players.
-Oracle:Cast Checks and Balances only if there are three or more players in the game.\nWhenever a player casts a spell, each of that player's opponents may discard a card. If they do, counter that spell.
+#T:Mode$ Continuous | TriggerDescription$ This spell may be cast only in a game with three or more players.
+Oracle:Cast this spell only if there are three or more players in the game.\nWhenever a player casts a spell, each of that player's opponents may discard a card. If they do, counter that spell.

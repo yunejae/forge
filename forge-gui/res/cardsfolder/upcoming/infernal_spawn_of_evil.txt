@@ -4,4 +4,4 @@ Types:Creature Beast
 PT:7/7
 K:Flying
 K:First Strike
-Oracle:Flying, first strike\n{1}{B}, Reveal Infernal Spawn of Evil from your hand, Say "It's coming": Infernal Spawn of Evil deals 1 damage to target opponent. Activate this ability only during your upkeep and only once each turn.
+Oracle:Flying, first strike\n{1}{B}, Reveal Infernal Spawn of Evil from your hand, Say "It's coming": Infernal Spawn of Evil deals 1 damage to target opponent or planeswalker. Activate this ability only during your upkeep and only once each turn.
