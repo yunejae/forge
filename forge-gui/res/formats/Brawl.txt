@@ -1,0 +1,6 @@
+[format]
+Name:Standard
+Order:101
+Type:Sanctioned
+Sets:KLD, AER, AKH, W17, HOU, XLN, RIX, DOM
+Banned:Baral, Chief of Compliance;Smuggler's Copter;Sorcerous Spyglass
