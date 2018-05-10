@@ -1,5 +1,5 @@
 [format]
-Name:Standard
+Name:Brawl
 Order:101
 Type:Sanctioned
 Sets:KLD, AER, AKH, W17, HOU, XLN, RIX, DOM
