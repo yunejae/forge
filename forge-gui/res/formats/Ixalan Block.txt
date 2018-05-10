@@ -1,0 +1,5 @@
+[format]
+Name:Ixalan Block
+Order:111
+Type:Sanctioned
+Sets:XLN, RIX
