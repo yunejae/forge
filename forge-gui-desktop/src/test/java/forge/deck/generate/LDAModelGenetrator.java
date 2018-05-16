@@ -164,7 +164,19 @@ public final class LDAModelGenetrator {
             List<Pair<String, Double>> topic = new ArrayList<>();
             Set<String> topicCards = new HashSet<>();
             List<Pair<String, Double>> highRankVocabs = lda.getVocabsSortedByPhi(t);
-            unfilteredTopics.add(highRankVocabs);
+            Double min = 1d;
+            for(Pair<String, Double> p:highRankVocabs){
+                if(p.getRight()<min){
+                    min=p.getRight();
+                }
+            }
+            List<Pair<String, Double>> topRankVocabs = new ArrayList<>();
+            for(Pair<String, Double> p:highRankVocabs){
+                if(p.getRight()>min){
+                    topRankVocabs.add(p);
+                }
+            }
+            unfilteredTopics.add(topRankVocabs);
         }
         return unfilteredTopics;
     }
