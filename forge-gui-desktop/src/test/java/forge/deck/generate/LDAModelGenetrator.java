@@ -116,20 +116,14 @@ public final class LDAModelGenetrator {
             }
             System.out.print("t" + t + ": ");
             int i = 0;
-            while (topic.size()<=40) {
+            while (topic.size()<=40&&i<highRankVocabs.size()) {
                 String cardName = highRankVocabs.get(i).getLeft();;
                 if(!StaticData.instance().getCommonCards().getUniqueByName(cardName).getRules().getType().isBasicLand()){
                     if(highRankVocabs.get(i).getRight()>=0.005d) {
                         topicCards.add(cardName);
                     }
-                    if(highRankVocabs.get(i).getRight()>=0.0001d){
-                        System.out.println("[" + highRankVocabs.get(i).getLeft() + "," + highRankVocabs.get(i).getRight() + "],");
-                        topic.add(highRankVocabs.get(i));
-                    }else{
-                        i++;
-                        break;
-                    }
-
+                    System.out.println("[" + highRankVocabs.get(i).getLeft() + "," + highRankVocabs.get(i).getRight() + "],");
+                    topic.add(highRankVocabs.get(i));
                 }
                 i++;
             }
@@ -155,7 +149,7 @@ public final class LDAModelGenetrator {
     public static List<List<Pair<String, Double>>> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
-        final int numTopics = dataset.getNumDocs()/30;
+        final int numTopics = dataset.getNumDocs()/40;
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
