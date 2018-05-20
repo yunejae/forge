@@ -1,5 +1,5 @@
 [format]
-Name:Standard
+Name:Standard, Onslaught
 Type:Historic MTGO
 Subtype:Standard
 Effective:2002-11-14

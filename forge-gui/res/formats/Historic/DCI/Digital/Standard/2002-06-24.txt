@@ -1,5 +1,5 @@
 [format]
-Name:Standard
+Name:Standard, Judgment
 Type:Historic MTGO
 Subtype:Standard
 Effective:2002-06-24
