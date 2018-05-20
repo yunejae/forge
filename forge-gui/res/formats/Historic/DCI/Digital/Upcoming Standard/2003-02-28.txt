@@ -2,5 +2,5 @@
 Name:Standard (with Legions)
 Type:Historic MTGO
 Subtype:Upcoming Standard
-Effective:2003-03-01
+Effective:2003-02-28
 Sets:7ED, ODY, TOR, JUD, ONS, LGN
