@@ -1,0 +1,6 @@
+[format]
+Name:Standard
+Type:Historic MTGO
+Subtype:Standard
+Effective:2002-06-24
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD
