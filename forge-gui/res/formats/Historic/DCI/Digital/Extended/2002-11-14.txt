@@ -1,0 +1,6 @@
+[format]
+Name:Extended, Onslaught
+Type:Historic MTGO
+Subtype:Extended
+Effective:2002-11-14
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS

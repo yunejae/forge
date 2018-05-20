@@ -1,0 +1,6 @@
+[format]
+Name:Standard
+Type:Historic MTGO
+Subtype:Standard
+Effective:2002-11-14
+Sets:7ED, ODY, TOR, JUD, ONS
