@@ -1,0 +1,6 @@
+[format]
+Name:Odyssey Block
+Type:Historic
+Subtype:Block
+Effective:2002-06-24
+Sets:ODY, TOR, JUD

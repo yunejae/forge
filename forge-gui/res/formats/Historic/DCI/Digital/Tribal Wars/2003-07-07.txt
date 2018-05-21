@@ -1,7 +1,7 @@
 [format]
-Name:Tribal Wars, Legions
+Name:Tribal Wars, Scourge
 Type:Historic MTGO
 Subtype:Tribal Wars
-Effective:2003-02-28
-Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN
+Effective:2003-07-07
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN, SCG
 Banned:Circle of Solace, Endemic Plague, Engineered Plague, Peer Pressure, Tsabo's Decree, Unnatural Selection

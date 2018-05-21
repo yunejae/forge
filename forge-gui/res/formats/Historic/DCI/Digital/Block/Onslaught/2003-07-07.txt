@@ -1,0 +1,6 @@
+[format]
+Name:Onslaught Block, Scourge
+Type:Historic MTGO
+Subtype:Block
+Effective:2003-07-07
+Sets:ONS, LGN, SCG

@@ -2,5 +2,5 @@
 Name:Extended, Legions
 Type:Historic MTGO
 Subtype:Extended
-Effective:2003-03-14
+Effective:2003-03-19
 Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN

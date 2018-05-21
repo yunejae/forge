@@ -1,0 +1,6 @@
+[format]
+Name:Extended, Scourge
+Type:Historic MTGO
+Subtype:Extended
+Effective:2003-07-07
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN, SCG
