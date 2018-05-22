@@ -1,6 +1,0 @@
-[format]
-Name:Standard (with Legions)
-Type:Historic MTGO
-Subtype:Upcoming Standard
-Effective:2003-03-05
-Sets:7ED, ODY, TOR, JUD, ONS, LGN

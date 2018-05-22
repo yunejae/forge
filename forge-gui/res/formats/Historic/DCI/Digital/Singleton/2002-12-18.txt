@@ -1,0 +1,6 @@
+[format]
+Name:Casual Format 1, Onslaught
+Type:Historic MTGO
+Subtype:Singleton
+Effective:2002-12-18
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS

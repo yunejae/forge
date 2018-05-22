@@ -1,0 +1,6 @@
+[format]
+Name:Singleton, Mirrodin
+Type:Historic MTGO
+Subtype:Singleton
+Effective:2003-12-08
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN, SCG, 8ED, MRD

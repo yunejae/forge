@@ -1,7 +1,7 @@
 [format]
-Name:Tribal Wars, Legions
+Name:Tribal Wars, Mirrodin
 Type:Historic MTGO
 Subtype:Tribal Wars
-Effective:2003-03-05
-Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN
+Effective:2003-12-08
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN, SCG, 8ED, MRD
 Banned:Circle of Solace, Endemic Plague, Engineered Plague, Peer Pressure, Tsabo's Decree, Unnatural Selection

@@ -1,6 +1,6 @@
 [format]
-Name:Odyssey Block
-Type:Historic
+Name:Odyssey Block, Torment
+Type:Historic MTGO
 Subtype:Block
 Effective:2002-06-24
-Sets:ODY, TOR, JUD
+Sets:ODY, TOR

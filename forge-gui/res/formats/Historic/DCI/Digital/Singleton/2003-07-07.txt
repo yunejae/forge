@@ -1,0 +1,6 @@
+[format]
+Name:Singleton, Scourge
+Type:Historic MTGO
+Subtype:Singleton
+Effective:2003-07-07
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN, SCG

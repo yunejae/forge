@@ -1,0 +1,6 @@
+[format]
+Name:Casual Format 1, Legions
+Type:Historic MTGO
+Subtype:Singleton
+Effective:2003-03-19
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN

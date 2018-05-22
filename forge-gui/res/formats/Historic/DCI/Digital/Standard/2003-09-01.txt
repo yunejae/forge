@@ -1,0 +1,6 @@
+[format]
+Name:Standard, Eighth Edition
+Type:Historic MTGO
+Subtype:Standard
+Effective:2003-09-30
+Sets:ODY, TOR, JUD, ONS, LGN, SCG, 8ED

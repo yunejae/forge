@@ -1,0 +1,7 @@
+[format]
+Name:Tribal Wars, Legions
+Type:Historic MTGO
+Subtype:Tribal Wars
+Effective:2003-03-19
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS, LGN
+Banned:Circle of Solace, Endemic Plague, Engineered Plague, Peer Pressure, Tsabo's Decree, Unnatural Selection

@@ -1,6 +1,6 @@
 [format]
-Name:Standard, Judgment
+Name:Standard, Torment
 Type:Historic MTGO
 Subtype:Standard
 Effective:2002-06-24
-Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD
+Sets:INV, PLS, 7ED, APC, ODY, TOR

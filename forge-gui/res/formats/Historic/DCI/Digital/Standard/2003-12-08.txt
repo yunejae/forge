@@ -1,0 +1,6 @@
+[format]
+Name:Standard, Mirrodin
+Type:Historic MTGO
+Subtype:Standard
+Effective:2003-12-08
+Sets:ONS, LGN, SCG, 8ED, MRD

@@ -1,0 +1,7 @@
+[format]
+Name:Casual Format 2
+Type:Historic MTGO
+Subtype:Prismatic
+Effective:2003-01-14
+Sets:INV, PLS, 7ED, APC, ODY, TOR, JUD, ONS
+Banned:Battle of Wits
