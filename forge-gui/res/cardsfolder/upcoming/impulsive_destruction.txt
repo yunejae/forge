@@ -1,0 +1,4 @@
+Name:Impulsive Destruction
+ManaCost:no cost
+Types:Sorcery
+Oracle:Each player may sacrifice an artifact or enchantment. Impulsive Destruction deals 3 damage to each player who didn't sacrifice a permanent this way.

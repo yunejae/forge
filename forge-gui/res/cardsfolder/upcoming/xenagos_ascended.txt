@@ -1,0 +1,5 @@
+Name:Xenagos Ascended
+ManaCost:no cost
+Types:Legendary Enchantment Creature God
+PT:6/5
+Oracle:Xenagos Ascended can't leave the battlefield as long as a Reveler is on the battlefield.\nWhen Xenagos Ascended leaves the battlefield, each player wins the game.

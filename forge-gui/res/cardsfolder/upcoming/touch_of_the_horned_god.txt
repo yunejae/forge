@@ -1,0 +1,7 @@
+Name:Touch of the Horned God
+ManaCost:no cost
+Types:Sorcery
+A:SP$ Effect | Cost$ 0 | Name$ Touch of the Horned God Effect | Triggers$ TrigAttacks | SVars$ Pump | SpellDescription$ Whenever a Minotaur attacks this turn, it gains deathtouch until end of turn.
+SVar:TrigAttacks:Mode$ Attacks | ValidCard$ Creature.Minotaur | Execute$ Pump | TriggerDescription$ Whenever a Minotaur attacks this turn, it gains deathtouch until end of turn.
+SVar:Pump:AB$ Pump | Cost$ 0 | Defined$ TriggeredAttacker | KW$ Deathtouch
+Oracle:Whenever a Minotaur attacks this turn, it gains deathtouch until end of turn.

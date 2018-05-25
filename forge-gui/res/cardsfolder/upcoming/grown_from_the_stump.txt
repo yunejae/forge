@@ -1,0 +1,4 @@
+Name:Grown from the Stump
+ManaCost:no cost
+Types:Sorcery
+Oracle:Put exactly two cards named Hydra Head onto the battlefield from the Hydra's graveyard. If you can't, reveal cards from the top of the Hydra's library until you reveal a Head card. Put that card onto the battlefield and the rest into the Hydra's graveyard.

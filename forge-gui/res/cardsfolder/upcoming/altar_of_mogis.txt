@@ -1,0 +1,10 @@
+Name:Altar of Mogis
+ManaCost:no cost
+Types:Artifact
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ At the beginning of the Horde's precombat main phase, reveal an additional card from the top of the Horde's library. The Horde casts that card.
+SVar:TrigDig:AB$ Dig | Cost$ 0 | DigNum$ 1 | RememberRevealed$ True | SubAbility$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DBSac | TriggerDescription$ Hero's Reward — When CARDNAME is put into a graveyard from anywhere, the Horde sacrifices two Minotaurs.
+SVar:DBSac:DB$ Sacrifice | Amount$ 2 | SacValid$ Creature.Minotaur
+Oracle: At the beginning of the Horde's precombat main phase, reveal an additional card from the top of the Horde's library. The Horde casts that card.\nHero's Reward — When Altar of Mogis is put into a graveyard from anywhere, the Horde sacrifices two Minotaurs.

@@ -1,0 +1,4 @@
+Name:The Warrior
+ManaCost:no cost
+Types:Hero
+Oracle:{T}: Target creature you control gains haste until end of turn.

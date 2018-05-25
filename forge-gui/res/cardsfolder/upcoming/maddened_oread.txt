@@ -1,0 +1,5 @@
+Name:Maddened Oread
+ManaCost:no cost
+Types:Enchantment Creature Nymph Reveler
+PT:4/2
+Oracle:As long as five or more Revelers are on the battlefield, Maddened Oread attacks each combat if able.\nHero's Reward — When Maddened Oread leaves the battlefield, each player gains 3 life.

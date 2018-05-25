@@ -1,0 +1,4 @@
+Name:Lash of the Tyrant
+ManaCost:no cost
+Types:Hero Artifact Equipment
+Oracle:Equipped creature gets +1/+2 and has deathtouch.\nEquip {2}

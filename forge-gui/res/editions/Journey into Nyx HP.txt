@@ -1,0 +1,8 @@
+[metadata]
+Code=HP8
+Date=2014-05-02
+Name=Journey into Nyx (Hero's Path)
+Type=other
+
+[cards]
+C The Destined

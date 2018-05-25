@@ -1,0 +1,4 @@
+Name:Noxious Hydra Breath
+ManaCost:no cost
+Types:Sorcery
+Oracle:Choose one — Noxious Hydra Breath deals 5 damage to each player; or destroy each tapped non-Head creature.

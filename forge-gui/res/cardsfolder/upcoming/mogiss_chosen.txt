@@ -1,0 +1,7 @@
+Name:Mogis's Chosen
+ManaCost:no cost
+Types:Creature Minotaur
+PT:5/4
+K:CARDNAME enters the battlefield tapped.
+K:CARDNAME attacks each turn if able.
+Oracle: Mogis's Chosen enters the battlefield tapped.\nMogis's Chosen attacks each combat if able.

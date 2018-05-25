@@ -1,0 +1,4 @@
+Name:The Hunter
+ManaCost:no cost
+Types:Hero
+Oracle:{T}: Target creature you control gets +1/+1 until end of turn.

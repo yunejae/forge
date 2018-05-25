@@ -1,0 +1,5 @@
+Name:Distract the Hydra
+ManaCost:no cost
+Types:Sorcery
+A:SP$ Sacrifice | Cost$ no cost | Defined$ Player.Opponent | SacValid$ Creature | Optional$ True | SpellDescription$ Each player may sacrifice a creature.
+Oracle:Each player may sacrifice a creature. Each player who sacrificed a creature this way chooses a Head and taps it. Each player who didn't sacrifice a creature loses 3 life.

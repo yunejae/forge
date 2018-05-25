@@ -1,0 +1,4 @@
+Name:Neck Tangle
+ManaCost:no cost
+Types:Sorcery
+Oracle:If there are five or more Heads on the battlefield, tap two of them and they don't untap during the Hydra's next untap step. Otherwise, reveal the top card of the Hydra's library and the Hydra casts that card.

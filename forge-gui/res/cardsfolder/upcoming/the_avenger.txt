@@ -1,0 +1,4 @@
+Name:The Avenger
+ManaCost:no cost
+Types:Hero
+Oracle:{3}, {T}: Target creature you control gains deathtouch until end of turn.

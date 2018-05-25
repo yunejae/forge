@@ -1,0 +1,13 @@
+[metadata]
+Code=HP4
+Date=2014-02-01
+Name=Master Your Destiny
+Border=Black
+Type=Other
+
+[cards]
+C The General
+C The Savant
+C The Tyrant
+C The Warmonger
+C The Provider

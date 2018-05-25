@@ -1,0 +1,24 @@
+[metadata]
+Code=HP9
+Date=2014-05-24
+Name=Defeat a God
+Border=Black
+Type=Other
+
+[cards]
+1 C Xenagos Ascended
+2 C Rollicking Throng
+3 C Ecstatic Piper
+4 C Maddened Oread
+5 C Pheres-Band Revelers
+6 C Serpent Dancers
+7 C Wild Maenads
+8 C Impulsive Charge
+9 C Impulsive Destruction
+10 C Impulsive Return
+11 C Rip to Pieces
+12 C Xenagos's Scorn
+13 C Xenagos's Strike
+14 C Dance of Flame
+15 C Dance of Panic
+C The Champion

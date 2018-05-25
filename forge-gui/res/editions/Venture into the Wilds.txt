@@ -1,0 +1,9 @@
+[metadata]
+Code=HP5
+Date=2014-02-07
+Name=Venture into the Wilds
+Border=Black
+Type=Other
+
+[cards]
+C The Explorer

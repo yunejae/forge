@@ -1,0 +1,5 @@
+Name:Shrieking Titan Head
+ManaCost:no cost
+Types:Elite Creature Head
+PT:0/8
+Oracle:At the beginning of the Hydra's end step, each player discards a card.\nHero's Reward — When Shrieking Titan Head leaves the battlefield, each player gains 4 life and draws a card.

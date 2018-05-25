@@ -1,0 +1,7 @@
+Name:Phoberos Reaver
+ManaCost:no cost
+Types:Creature Minotaur
+PT:2/3
+K:Haste
+K:CARDNAME attacks each turn if able.
+Oracle:Haste\nPhoberos Reaver attacks each combat if able.

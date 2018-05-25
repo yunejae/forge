@@ -1,0 +1,4 @@
+Name:Axe of the Warmonger
+ManaCost:no cost
+Types:Hero Artifact Equipment
+Oracle:Equipped creature gets +2/+1 and has haste.\nEquip {2}

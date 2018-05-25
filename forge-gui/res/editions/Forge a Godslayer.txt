@@ -1,0 +1,12 @@
+[metadata]
+Code=HP7
+Date=2014-04-26
+Name=Forge a Godslayer
+Type=other
+
+[cards]
+C Spear of the General
+C Cloak of the Philosopher
+C Lash of the Tyrant
+C Axe of the Warmonger
+C Bow of the Hunter

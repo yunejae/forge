@@ -1,0 +1,6 @@
+Name:Disorienting Glower
+ManaCost:no cost
+Types:Sorcery
+A:AB$ Effect | Cost$ no cost | Name$ Disorienting Glower Effect | StaticAbilities$ STCantBeCast | Duration$ UntilYourNextTurn | SpellDescription$ Players can't cast spells until the Hydra's next turn.
+SVar:Mode$ CantBeCast | EffectZone$ Command | ValidCard$ Card | Caster$ Opponent | Description$ Players can't cast spells until the Hydra's next turn.
+Oracle:Players can't cast spells until the Hydra's next turn.

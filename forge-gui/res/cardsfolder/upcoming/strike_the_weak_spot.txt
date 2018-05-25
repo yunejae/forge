@@ -1,0 +1,4 @@
+Name:Strike the Weak Spot
+ManaCost:no cost
+Types:Sorcery
+Oracle:Destroy target Head. If that Head was elite, the Hydra takes an extra turn after this one.

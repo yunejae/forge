@@ -1,0 +1,4 @@
+Name:Xenagos's Strike
+ManaCost:no cost
+Types:Sorcery
+Oracle:Xenagos's Strike deals 4 damage to each player.

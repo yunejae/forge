@@ -1,0 +1,4 @@
+Name:The Philosopher
+ManaCost:no cost
+Types:Hero
+Oracle:{2}, {T}: Tap target creature.

@@ -1,0 +1,126 @@
+Name:Battle the Horde
+#
+#This card modifies the game so the rules for Battle the Horde can be enforced.
+#
+#To Do:
+#
+#Make the coin toss at the beginning not happen.
+#Don't ask the player if they want to go first. They should go first.
+#You shouldn't be able to counter the horde drawing cards, since it shouldn't really be an ability. Currently, cards like Disallow will counter the ability.
+#Since the Horde is considered a player by Forge, cards affecting "players" will affect the Horde. This shouldn't happen.
+#The Horde should be controlled by the player.
+#The Horde should be able to lose.
+#Difficult mode: Only two turns before the Horde's first turn.
+#Easy mode: Four turns.
+#
+ManaCost:no cost
+Types:Enchantment
+K:CARDNAME can't be countered.
+K:Protection from creatures
+K:Protection from enchantments
+K:Protection from sorceries
+K:Protection from artifacts
+K:Protection from instants
+K:Protection from lands
+K:Indestructible
+K:Hexproof
+K:Shroud
+SVar:UnMulligan:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Hand,Graveyard | Amount$ All | Destination$ Library | Shuffle$ True | Random$ True | UseAllOriginZones$ True | SpellDescription$ Battle the horde! True | SubAbility$ TrigPlayThis
+SVar:TrigPlayThis:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield,Hand,Exile,Stack,Command,Library,Graveyard | Destination$ Battlefield | SubAbility$ DBEnd
+SVar:DBEnd:DB$ EndTurn | ConditionPlayerTurn$ True
+#
+##########################################
+#######THE "BATTLE THE HORDE CHALLENGE" USES THE REGULAR MAGIC RULES, WITH THE FOLLOWING EXCEPTIONS:
+##########################################
+#
+##########################################
+#######SPECIAL RULES FOR THE PLAYER
+##########################################
+#
+##########################################
+#YOU START WITH UP TO THREE DIFFERENT HERO CARDS ON THE BATTLEFIELD (YOU DON'T NEED A HERO TO PLAY).
+##########################################
+#YOU TAKE THREE TURNS
+SVar:StartGame:DB$ SkipTurn | NumTurns$ 2 |Defined$ You | SubAbility$ UnMulligan
+#AT THE START OF THE GAME,
+T:Mode$ Phase | Phase$ Upkeep | FirstUpkeepThisGame$ True | Execute$ StartGame | Description$ Battle the Horde!
+#BEFORE THE HORDE TAKES ITS FIRST TURN.
+##########################################
+#YOU CAN ATTACK THE HORDE WITH YOUR CREATURES, AS THOUGH IT WERE A PLAYER, EVEN BEFORE THE HORDE TAKES A TURN.
+##########################################
+#THE HORDE DOESN'T HAVE A LIFE TOTAL,
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Your life total can't change. | Description$ The Horde has no life total.
+#BUT ITS LIBRARY SERVES A SIMILAR PURPOSE. IF THE HORDE WOULD LOSE LIFE,
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ ReplaceMill | PreventionEffect$ True | Description$ If the Horde would lose life, put that many cards from the top of its library into its graveyard.
+#PUT THAT MANY CARDS
+SVar:X:ReplaceCount$ DamageAmount
+#FROM THE TOP OF ITS LIBRARY INTO ITS GRAVEYARD. WATCH FOR ARTIFACT CARDS IN THE HORDE'S LIBRARY. THEY EACH HAVE A "HERO'S REWARD" ABILITY THAT TRIGGERS WHEN THE ARTIFACT CARD IS PUT INTO THE GRAVEYARD.
+SVar:ReplaceMill:AB$ Mill | Cost$ 0 | Defined$ ReplacedTarget | NumCards$ X | Destination$ Graveyard | References$ X
+##########################################
+#YOU CAN TARGET THE HORDE WITH SPELLS AND ABILITIES AS THOUGH IT WERE A PLAYER, EVEN BEFORE THE HORDE TAKES A TURN.
+##########################################
+#
+##########################################
+######SPECIAL RULES FOR THE HORDE
+##########################################
+#
+##########################################
+#AT THE BEGINNING OF THE HORDE'S PRECOMBAT MAIN PHASE EACH TURN,
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ TrigDig | TriggerDescription$ At the beginning of the Horde's precombat main phase each turn, reveal two cards from the top of the Horde's library. Then the Horde casts those cards.
+#REVEAL TWO CARDS FROM THE TOP OF THE HORDE'S LIBRARY.
+SVar:TrigDig:AB$ Dig | Cost$ 0 | DigNum$ 2 | RememberRevealed$ True | SubAbility$ TrigPlay
+#THEN THE HORDE CASTS THOSE CARDS. (THE HORDE'S ARTIFACTS CAUSE AN ADDITIONAL CARD TO BE REVEALED AND CAST, STARTING THE TURN AFTER THE ARTIFACT ENTERS THE BATTLEFIELD.)
+SVar:TrigPlay:DB$ Play | Defined$ Remembered | Amount$ All | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+##########################################
+#
+##########################################
+#YOU MAKE THE CHOICE IF THE HORDE NEEDS TO MAKE A DECISION.
+##########################################
+#
+##########################################
+#IGNORE EFFECTS THAT WOULD CAUSE THE HORDE TO DRAW
+S:Mode$ Continuous | Affected$ You | AddKeyword$ You can't draw cards. | Description$ The Horde can't draw cards.
+#OR DISCARD CARDS,
+#OR PERFORM ANY OTHER IMPOSSIBLE ACTIONS.
+##########################################
+#
+##########################################
+#IF ONE OF THE HORDE'S PERMANENTS WOULD MOVE TO ANY ZONE OTHER THAN ITS LIBRARY OR GRAVEYARD,
+R:Event$ Moved | Origin$ Battlefield,Hand,Exile,Stack,Command,Library,Graveyard | Destination$ Exile | ValidCard$ Permanent.YouOwn+Other | ValidPlayer$ You | ReplaceWith$ Graveyard | If one of the Horde's permanents would move to any zone other than its library or graveyard, that card is put into the Horde's graveyard.
+#THAT CARD IS PUT INTO THE HORDE'S GRAVEYARD.
+SVar:Graveyard:AB$ ChangeZone | Cost$ 0 | Destination$ Graveyard | Defined$ ReplacedCard
+##########################################
+#
+##########################################
+######WINNING THE CHALLENGE
+##########################################
+#
+##########################################
+#YOU WIN THE GAME
+#change this to a trigger. Whenever a card is put into your graveyard, a creature leaves the battlefield, or a creature changes type SVar:CheckWinConditions:$ Continuous | 
+T:Mode$ Always | Affected$ You | CheckSVar$ LibraryPlusCreatures | CheckCompare$ EQ0 | SubAbility$ DBWin
+#Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | TriggerController$ TriggeredCardController | Execute$ CheckWinConditions
+#T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ CheckWinConditions
+SVar:DBWin:DB$ LosesGame | Defined$ You
+#IF THE HORDE HAS NO CARDS LEFT IN ITS LIBRARY
+SVar:LibraryCount:Count$ InYourLibrary.Card
+#AND
+S:Mode$ Continuous | Affected$ You | CheckSVar$ LibraryCount | CheckCompare$ GE1 | AddKeyword$ You can't lose the game. & Your opponents can't win the game.
+SVar:LibraryPlusCreatures:Count$ LibraryCount/Plus.CreatureCount
+#AND THE HORDE CONTROLS NO CREATURES ON THE BATTLEFIELD.
+S:Mode$ Continuous | Affected$ You | CheckSVar$ CreatureCount | CheckCompare$ GE1 | AddKeyword$ You can't lose the game. & Your opponents can't win the game.
+SVar:CreatureCount:Count$ Valid Creature.YouCtrl
+##########################################
+#
+##########################################
+#YOU LOSE THE GAME IF YOU HAVE 0 OR LESS LIFE OR IF YOU HAVE TO DRAW A CARD AND YOUR LIBRARY IS EMPTY.
+##########################################
+#
+##########################################
+#FOR A MORE DIFFICULT CHALLENGE, TRY TAKING ONLY TWO TURNS BEFORE THE HORDE'S FIRST TURN.
+#FOR AN EASIER CHALLENGE, TAKE FOUR TURNS.
+##########################################
+#
+#
+Oracle:The Horde isn't a player, but may be attacked with creatures or targeted with spells and abilities as though it were.\nAll players may start the game with up to three Hero cards on the battlefield. (You don't need a Hero to play.)\nAll players take three turns at the start of the game, before the Horde takes its first turn.\nAt the beginning of the Horde's precombat main phase each turn, reveal two cards from the top of the Horde's library. Then the Horde casts those cards.\nIgnore effects that would cause the Horde to draw or discard cards, or perform any other impossible actions.\nIf one of the Horde's permanents would move to any zone other than its library or graveyard, that card is put into the Horde's graveyard.

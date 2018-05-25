@@ -1,0 +1,4 @@
+Name:Impulsive Charge
+ManaCost:no cost
+Types:Sorcery
+Oracle:At the beginning of combat this turn, all Revelers gain haste until end of turn and attack this combat if able.

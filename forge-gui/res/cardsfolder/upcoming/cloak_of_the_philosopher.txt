@@ -1,0 +1,4 @@
+Name:Cloak of the Philosopher
+ManaCost:no cost
+Types:Hero Artifact Equipment
+Oracle:Equipped creature gets +1/+1.\n{2}: Untap equipped creature.\nEquip {2}

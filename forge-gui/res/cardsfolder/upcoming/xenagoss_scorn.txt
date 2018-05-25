@@ -1,0 +1,4 @@
+Name:Xenagos's Scorn
+ManaCost:no cost
+Types:Sorcery
+Oracle:Xenagos Ascended gains trample until end of turn and attacks this turn if able.

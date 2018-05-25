@@ -1,0 +1,6 @@
+Name:Wild Maenads
+ManaCost:no cost
+Types:Creature Human Reveler
+PT:3/1
+K:First Strike
+Oracle:First strike\nHero's Reward — When Wild Maenads leaves the battlefield, each player gains 3 life.

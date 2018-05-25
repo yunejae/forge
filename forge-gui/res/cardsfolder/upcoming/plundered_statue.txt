@@ -1,0 +1,10 @@
+Name:Plundered Statue
+ManaCost:no cost
+Types:Artifact
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ At the beginning of the Horde's precombat main phase, reveal an additional card from the top of the Horde's library. The Horde casts that card.
+SVar:TrigDig:AB$Dig | Cost$ 0 | DigNum$ 1 | RememberRevealed$ True | SubAbility$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Cost$ 0 | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ Hero's Reward — When CARDNAME is put into a graveyard from anywhere, each player draws a card.
+SVar:TrigDraw:DB$ Draw | Defined$ Player | Amount$ All | NumCards$ 1
+Oracle: At the beginning of the Horde's precombat main phase, reveal an additional card from the top of the Horde's library. The Horde casts that card.\nHero's Reward — When Plundered Statue is put into a graveyard from anywhere, each player draws a card.

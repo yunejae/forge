@@ -1,0 +1,4 @@
+Name:Dance of Panic
+ManaCost:no cost
+Types:Enchantment
+Oracle: As long as five or more Revelers are on the battlefield, all Revelers have haste and attack each combat if able.

@@ -1,0 +1,5 @@
+Name:Ravenous Brute Head
+ManaCost:no cost
+Types:Elite Creature Head
+PT:0/6
+Oracle:Hero's Reward — When Ravenous Brute Head leaves the battlefield, each player gains 2 life and draws a card.

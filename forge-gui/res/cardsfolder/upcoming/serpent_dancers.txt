@@ -1,0 +1,6 @@
+Name:Serpent Dancers
+ManaCost:no cost
+Types:Creature Human Reveler
+PT:2/4
+K:Deathtouch
+Oracle:Deathtouch\nHero's Reward — When Serpent Dancers leaves the battlefield, each player draws a card.

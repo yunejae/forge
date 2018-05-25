@@ -1,0 +1,4 @@
+Name:The Warmonger
+ManaCost:no cost
+Types:Hero
+Oracle:Exile The Warmonger: Creatures you control get +2/+0 and gain haste until end of turn.

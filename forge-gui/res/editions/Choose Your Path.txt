@@ -1,0 +1,12 @@
+[metadata]
+Code=HP1
+Date=2013-09-21
+Name=Choose Your Path
+Type=Other
+
+[cards]
+C The Protector
+C The Philosopher
+C The Avenger
+C The Hunter
+C The Warrior

@@ -1,0 +1,11 @@
+Name:Reckless Minotaur
+ManaCost:no cost
+Types:Creature Minotaur
+PT:4/1
+K:Haste
+K:CARDNAME attacks each turn if able.
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ At the beginning of the end step, destroy CARDNAME.
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay: True
+SVar: PlayMain1:TRUE
+Oracle:Haste\nReckless Minotaur attacks each combat if able.\nAt the beginning of the end step, destroy Reckless Minotaur.

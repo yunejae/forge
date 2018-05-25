@@ -1,0 +1,5 @@
+Name:Snapping Fang Head
+ManaCost:no cost
+Types:Elite Creature Head
+PT:0/8
+Oracle:At the beginning of the Hydra's end step, Snapping Fang Head deals 1 damage to each player.\nHero's Reward — When Snapping Fang Head leaves the battlefield, each player gains 4 life and draws a card.

@@ -1,0 +1,5 @@
+Name:Ecstatic Piper
+ManaCost:no cost
+Types:Creature Satyr Reveler
+PT:2/2
+Oracle: When Ecstatic Piper enters the battlefield, Xenagos Ascended attacks this turn if able.\nHero's Reward  — When Ecstatic Piper leaves the battlefield, each player gains 2 life.

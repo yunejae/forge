@@ -1,0 +1,4 @@
+Name:Swallow the Hero Whole
+ManaCost:no cost
+Types:Sorcery
+Oracle:Each player exiles a creature he or she controls. Until the Hydra's next turn, when a Head leaves the battlefield, return the exiled cards to the battlefield under their owners' control.

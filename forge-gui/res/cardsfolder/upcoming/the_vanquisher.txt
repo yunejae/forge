@@ -1,0 +1,4 @@
+Name:The Vanquisher
+ManaCost:no cost
+Types:Hero
+Oracle:Your starting hand size is increased by one.\nYour maximum hand size is increased by one.

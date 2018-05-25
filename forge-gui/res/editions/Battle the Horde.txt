@@ -1,0 +1,24 @@
+[metadata]
+Code=HP6
+Date=2014-03-01
+Name=Battle the Horde
+Type=other
+
+[cards]
+11 C Altar of Mogis
+6 C Consuming Rage
+7 C Descend on the Prey
+8 C Intervention of Keranos
+12 C Massacre Totem
+1 C Minotaur Goreseeker
+2 C Minotaur Younghorn
+3 C Mogis's Chosen
+4 C Phoberos Reaver
+13 C Plundered Statue
+5 C Reckless Minotaur
+14 C Refreshing Elixir
+9 C Touch of the Horned God
+10 C Unquenchable Fury
+15 C Vitality Salve
+C Battle the Horde
+C The Vanquisher

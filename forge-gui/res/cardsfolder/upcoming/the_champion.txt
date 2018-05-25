@@ -1,0 +1,4 @@
+Name:The Champion
+ManaCost:no cost
+Types:Hero
+Oracle:{2}, {T}: Exile The Champion: Search your library for a legendary artifact card that isn't a creature, reveal it, and put it onto the battlefield. Then shuffle your library.

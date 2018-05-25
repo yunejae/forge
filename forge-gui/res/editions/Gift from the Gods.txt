@@ -1,0 +1,8 @@
+[metadata]
+Code=HP2
+Date=2013-09-27
+Name=Gift from the Gods
+Type=Other
+
+[cards]
+C The Harvester

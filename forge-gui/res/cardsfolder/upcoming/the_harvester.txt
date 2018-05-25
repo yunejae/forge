@@ -1,0 +1,4 @@
+Name:The Harvester
+ManaCost:no cost
+Types:Hero
+Oracle:{T}: Draw a card, then discard a card.

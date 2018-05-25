@@ -1,0 +1,4 @@
+Name:Hydra's Impenetrable Hide
+ManaCost:no cost
+Types:Sorcery
+Oracle:Each Head gains indestructible until the end of the Hydra's next turn.

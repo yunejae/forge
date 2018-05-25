@@ -1,0 +1,4 @@
+Name:The Explorer
+ManaCost:no cost
+Types:Hero
+Oracle:You may play an additional land on each of your turns.

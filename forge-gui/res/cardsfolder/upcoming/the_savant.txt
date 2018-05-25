@@ -1,0 +1,4 @@
+Name:The Savant
+ManaCost:no cost
+Types:Hero
+Oracle:Exile The Savant: Tap all creatures your opponents control. Those creatures don't untap during their controllers' next untap steps.

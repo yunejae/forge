@@ -1,0 +1,5 @@
+Name:Savage Vigor Head
+ManaCost:no cost
+Types:Elite Creature Head
+PT:0/8
+Oracle:At the beginning of the Hydra's end step, reveal the top card of the Hydra's library and the Hydra casts that card.\nHero's Reward — When Savage Vigor Head leaves the battlefield, each player gains 4 life and draws a card.

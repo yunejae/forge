@@ -1,0 +1,5 @@
+Name:Pheres-Band Revelers
+ManaCost:no cost
+Types:Creature Centaur Reveler
+PT:4/4
+Oracle:Hero's Reward — When Pheres-Band Revelers leaves the battlefield, each player draws a card.

@@ -1,0 +1,7 @@
+Name:Minotaur Younghorn
+ManaCost:no cost
+Types:Creature Minotaur
+PT:2/2
+K:Haste
+K:CARDNAME attacks each turn if able.
+Oracle:Haste\nMinotaur Younghorn attacks each combat if able.

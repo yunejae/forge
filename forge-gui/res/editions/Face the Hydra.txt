@@ -1,0 +1,24 @@
+[metadata]
+Code=HP3
+Date=2013-09-27
+Name=Face the Hydra
+Border=Black
+Type=Other
+
+[cards]
+1 S Hydra Head
+2 S Ravenous Brute Head
+3 S Savage Vigor Head
+4 S Shrieking Titan Head
+5 S Snapping Fang Head
+6 S Disorienting Glower
+7 S Distract the Hydra
+8 S Grown from the Stump
+9 S Hydra's Impenetrable Hide
+10 S Neck Tangle
+11 S Noxious Hydra Breath
+12 S Strike the Weak Spot
+13 S Swallow the Hero Whole
+14 S Torn Between Heads
+15 S Unified Lunge
+C The Slayer

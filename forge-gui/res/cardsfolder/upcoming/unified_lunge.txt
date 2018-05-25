@@ -1,0 +1,4 @@
+Name:Unified Lunge
+ManaCost:no cost
+Types:Sorcery
+Oracle:Unified Lunge deals X damage to each player, where X is the number of Heads on the battlefield.

@@ -1,0 +1,4 @@
+Name:The Destined
+ManaCost:no cost
+Types:Hero
+Oracle:Spells you cast that target a creature you control cost {2} less to cast.
