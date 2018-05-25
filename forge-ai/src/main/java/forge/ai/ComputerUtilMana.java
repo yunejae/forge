@@ -19,6 +19,7 @@ import forge.game.combat.CombatUtil;
 import forge.game.cost.Cost;
 import forge.game.cost.CostAdjustment;
 import forge.game.cost.CostPartMana;
+import forge.game.cost.CostPayEnergy;
 import forge.game.cost.CostPayment;
 import forge.game.mana.Mana;
 import forge.game.mana.ManaCostBeingPaid;
@@ -360,6 +361,7 @@ public class ComputerUtilMana {
         adjustManaCostToAvoidNegEffects(cost, sa.getHostCard(), ai);
         List<Mana> manaSpentToPay = test ? new ArrayList<Mana>() : sa.getPayingMana();
         boolean purePhyrexian = cost.containsOnlyPhyrexianMana();
+        int testEnergyPool = ai.getCounters(CounterType.ENERGY);
 
         List<SpellAbility> paymentList = Lists.newArrayList();
 
@@ -458,6 +460,16 @@ public class ComputerUtilMana {
             setExpressColorChoice(sa, ai, cost, toPay, saPayment);
 
             if (test) {
+				// Check energy when testing
+				CostPayEnergy energyCost = saPayment.getPayCosts().getCostEnergy();
+				if (energyCost != null) {
+					testEnergyPool -= Integer.parseInt(energyCost.getAmount());
+					if (testEnergyPool < 0) {
+						// Can't pay energy cost
+						break;
+					}
+				}
+
                 String manaProduced = toPay.isSnow() ? "S" : GameActionUtil.generatedMana(saPayment);
                 manaProduced = AbilityManaPart.applyManaReplacement(saPayment, manaProduced);
                 //System.out.println(manaProduced);
@@ -853,9 +865,12 @@ public class ComputerUtilMana {
         // For combat tricks, always obey mana reservation
         if (curPhase == PhaseType.COMBAT_DECLARE_BLOCKERS || curPhase == PhaseType.CLEANUP) {
             AiCardMemory.clearMemorySet(ai, AiCardMemory.MemorySet.HELD_MANA_SOURCES_FOR_DECLBLK);
-        }
-        else {
-            if (AiCardMemory.isRememberedCard(ai, sourceCard, AiCardMemory.MemorySet.HELD_MANA_SOURCES_FOR_DECLBLK)) {
+        } else if (!(ai.getGame().getPhaseHandler().isPlayerTurn(ai)) && (curPhase == PhaseType.COMBAT_DECLARE_BLOCKERS || curPhase == PhaseType.CLEANUP)) {
+            AiCardMemory.clearMemorySet(ai, AiCardMemory.MemorySet.HELD_MANA_SOURCES_FOR_ENEMY_DECLBLK);
+            AiCardMemory.clearMemorySet(ai, AiCardMemory.MemorySet.CHOSEN_FOG_EFFECT);
+        } else {
+            if ((AiCardMemory.isRememberedCard(ai, sourceCard, AiCardMemory.MemorySet.HELD_MANA_SOURCES_FOR_DECLBLK)) ||
+                    (AiCardMemory.isRememberedCard(ai, sourceCard, AiCardMemory.MemorySet.HELD_MANA_SOURCES_FOR_ENEMY_DECLBLK))) {
                 // This mana source is held elsewhere for a combat trick.
                 return true;
             }
@@ -1078,7 +1093,7 @@ public class ComputerUtilMana {
         ZoneType castFromBackup = null;
         if (test && sa.isSpell()) {
             castFromBackup = card.getCastFrom();
-            sa.getHostCard().setCastFrom(card.getZone().getZoneType());
+            sa.getHostCard().setCastFrom(card.getZone() != null ? card.getZone().getZoneType() : null);
         }
 
         Cost payCosts = CostAdjustment.adjust(sa.getPayCosts(), sa);
@@ -1103,7 +1118,9 @@ public class ComputerUtilMana {
                 final String xSvar = card.getSVar("X").startsWith("Count$xPaid") ? "PayX" : "X";
                 if (!sa.getSVar(xSvar).isEmpty() || card.hasSVar(xSvar)) {
                     if (xSvar.equals("PayX") && card.hasSVar(xSvar)) {
-                        manaToAdd = Integer.parseInt(card.getSVar(xSvar)) * cost.getXcounter(); // X
+                         // X SVar may end up being an empty string when copying a spell with no cost (e.g. Jhoira Avatar)
+                        String xValue = card.getSVar(xSvar);
+                        manaToAdd = xValue.isEmpty() ? 0 : Integer.parseInt(card.getSVar(xSvar)) * cost.getXcounter(); // X
                     } else {
                         manaToAdd = AbilityUtils.calculateAmount(card, xSvar, sa) * cost.getXcounter();
                     }

@@ -49,7 +49,7 @@ public enum Keyword {
     ENCHANT(KeywordWithType.class, false, "Target a %s as you cast this. This card enters the battlefield attached to that %s."),
     ENTWINE(KeywordWithCost.class, true, "You may choose all modes of this spell instead of just one. If you do, you pay an additional %s."),
     EPIC(SimpleKeyword.class, true, "For the rest of the game, you can't cast spells. At the beginning of each of your upkeeps for the rest of the game, copy this spell except for its epic ability. If the spell has any targets, you may choose new targets for the copy."),
-    EQUIP(KeywordWithCost.class, false, "%s: Attach to target creature you control. Equip only as a sorcery."),
+    EQUIP(Equip.class, false, "%s: Attach to target %s you control. Equip only as a sorcery."),
     ESCALATE(KeywordWithCost.class, true, "Pay this cost for each mode chosen beyond the first."),
     ETERNALIZE(KeywordWithCost.class, false, "Create a token that's a copy of this card, except it's black, it's 4/4, it has no mana cost, and it's a Zombie in addition to its other types. Eternalize only as a sorcery."),
     EVOKE(KeywordWithCost.class, false, "You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters the battlefield."),
@@ -74,10 +74,11 @@ public enum Keyword {
     GRAVESTORM(SimpleKeyword.class, false, "When you cast this spell, copy it for each permanent that was put into a graveyard from the battlefield this turn. You may choose new targets for the copies."),
     HASTE(SimpleKeyword.class, true, "This creature can attack and {T} as soon as it comes under your control."),
     HAUNT(SimpleKeyword.class, false, "When this is put into a graveyard, exile it haunting target creature."),
-    HEXPROOF(SimpleKeyword.class, true, "This can't be the target of spells or abilities your opponents control."),
+    HEXPROOF(Hexproof.class, false, "This can't be the target of %s spells or abilities your opponents control."),
     HIDEAWAY(SimpleKeyword.class, false, "This land enters the battlefield tapped. When it does, look at the top four cards of your library, exile one face down, then put the rest on the bottom of your library."),
     HORSEMANSHIP(SimpleKeyword.class, true, "This creature can't be blocked except by creatures with horsemanship."),
     IMPROVISE(SimpleKeyword.class, true, "Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}."),
+    INDESTRUCTIBLE(SimpleKeyword.class, true, "Effects that say \"destroy\" don’t destroy this."),
     INFECT(SimpleKeyword.class, true, "This creature deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters."),
     INGEST(SimpleKeyword.class, false, "Whenever this creature deals combat damage to a player, that player exiles the top card of his or her library."),
     INTIMIDATE(SimpleKeyword.class, true, "This creature can't be blocked except by artifact creatures and/or creatures that share a color with it."),
@@ -142,7 +143,13 @@ public enum Keyword {
     UNLEASH(SimpleKeyword.class, true, "You may have this creature enter the battlefield with a +1/+1 counter on it. It can't block as long as it has a +1/+1 counter on it."),
     VANISHING(KeywordWithAmount.class, false, "This permanent enters the battlefield with {%d:time counter} on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it."),
     VIGILANCE(SimpleKeyword.class, true, "Attacking doesn't cause this creature to tap."),
-    WITHER(SimpleKeyword.class, true, "This deals damage to creatures in the form of -1/-1 counters.");
+    WITHER(SimpleKeyword.class, true, "This deals damage to creatures in the form of -1/-1 counters."),
+
+    // mayflash additional cast
+    MAYFLASHCOST(KeywordWithCost.class, false, "You may cast CARDNAME as though it had flash if you pay %s more to cast it."),
+    MAYFLASHSAC(SimpleKeyword.class, false, "You may cast CARDNAME as though it had flash. If you cast it any time a sorcery couldn't have been cast, the controller of the permanent it becomes sacrifices it at the beginning of the next cleanup step."),
+
+    ;
 
     protected final Class<? extends KeywordInstance<?>> type;
     protected final boolean isMultipleRedundant;

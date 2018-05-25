@@ -8,6 +8,7 @@ import forge.game.GameLogEntryType;
 import forge.gui.framework.FScreen;
 import forge.gui.framework.ICDoc;
 import forge.model.FModel;
+import forge.net.server.FServerManager;
 import forge.player.GamePlayerUtil;
 import forge.properties.ForgeConstants;
 import forge.properties.ForgePreferences;
@@ -63,6 +64,11 @@ public enum CSubmenuPreferences implements ICDoc {
             @Override
             public void itemStateChanged(final ItemEvent arg0) {
                 if (updating) { return; }
+                // prevent changing DEV_MODE while network game running
+                if (FServerManager.getInstance().isMatchActive()) {
+                    System.out.println("Can't change DEV_MODE while a network match is in progress!");
+                    return;
+                }
 
                 final boolean toggle = view.getCbDevMode().isSelected();
                 prefs.setPref(FPref.DEV_MODE_ENABLED, String.valueOf(toggle));
@@ -94,6 +100,7 @@ public enum CSubmenuPreferences implements ICDoc {
         lstControls.add(Pair.of(view.getCbSmallDeckViewer(), FPref.UI_SMALL_DECK_VIEWER));
         lstControls.add(Pair.of(view.getCbRandomArtInPools(), FPref.UI_RANDOM_ART_IN_POOLS));
         lstControls.add(Pair.of(view.getCbEnforceDeckLegality(), FPref.ENFORCE_DECK_LEGALITY));
+        lstControls.add(Pair.of(view.getCbPerformanceMode(), FPref.PERFORMANCE_MODE));
         lstControls.add(Pair.of(view.getCbCloneImgSource(), FPref.UI_CLONE_MODE_SOURCE));
         lstControls.add(Pair.of(view.getCbRemoveSmall(), FPref.DECKGEN_NOSMALL));
         lstControls.add(Pair.of(view.getCbCardBased(), FPref.DECKGEN_CARDBASED));
@@ -127,6 +134,9 @@ public enum CSubmenuPreferences implements ICDoc {
         lstControls.add(Pair.of(view.getCbFilterLandsByColorId(), FPref.UI_FILTER_LANDS_BY_COLOR_IDENTITY));
 
         lstControls.add(Pair.of(view.getCbLoadCardsLazily(), FPref.LOAD_CARD_SCRIPTS_LAZILY));
+
+        lstControls.add(Pair.of(view.getCbLoadHistoricFormats(), FPref.LOAD_HISTORIC_FORMATS));
+
 
         for(final Pair<JCheckBox, FPref> kv : lstControls) {
             kv.getKey().addItemListener(new ItemListener() {

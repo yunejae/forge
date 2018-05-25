@@ -131,8 +131,10 @@ public final class StaticAbilityContinuous {
         boolean removeCardTypes = false;
         boolean removeSubTypes = false;
         boolean removeCreatureTypes = false;
+        boolean removeArtifactTypes = false;
 
         List<Player> mayLookAt = null;
+        List<Player> withFlash = null;
 
         boolean controllerMayPlay = false, mayPlayWithoutManaCost = false, mayPlayWithFlash = false;
         String mayPlayAltManaCost = null;
@@ -311,6 +313,9 @@ public final class StaticAbilityContinuous {
             if (params.containsKey("RemoveCreatureTypes")) {
                 removeCreatureTypes = true;
             }
+            if (params.containsKey("RemoveArtifactTypes")) {
+                removeArtifactTypes = true;
+            }
         }
 
         if (layer == StaticAbilityLayer.COLOR) {
@@ -414,6 +419,9 @@ public final class StaticAbilityContinuous {
                 if (params.containsKey("MayPlayDontGrantZonePermissions")) {
                     mayPlayGrantZonePermissions = false;
                 }
+            }
+            if (params.containsKey("WithFlash")) {
+                withFlash = AbilityUtils.getDefinedPlayers(hostCard, params.get("WithFlash"), null);
             }
 
             if (params.containsKey("IgnoreEffectCost")) {
@@ -601,7 +609,16 @@ public final class StaticAbilityContinuous {
                 if (addKeywords != null) {
                     newKeywords = Arrays.copyOf(addKeywords, addKeywords.length);
                     for (int j = 0; j < newKeywords.length; ++j) {
-                    	newKeywords[j] = newKeywords[j].replace("CardManaCost", affectedCard.getManaCost().getShortString());
+                        if (newKeywords[j].contains("CardManaCost")) {
+                            if (affectedCard.getManaCost().isNoCost()) {
+                                newKeywords[j] = ""; // prevent a crash (varolz the scar-striped + dryad arbor)
+                            } else {
+                                newKeywords[j] = newKeywords[j].replace("CardManaCost", affectedCard.getManaCost().getShortString());
+                            }
+                        } else if (newKeywords[j].contains("ConvertedManaCost")) {
+                            final String costcmc = Integer.toString(affectedCard.getCMC());
+                            newKeywords[j] = newKeywords[j].replace("ConvertedManaCost", costcmc);
+                        }
                     }
                 }
 
@@ -634,7 +651,7 @@ public final class StaticAbilityContinuous {
 
             if (addFullAbs != null) {
                 for (final SpellAbility ab : addFullAbs) {
-                    affectedCard.addSpellAbility(ab);
+                    affectedCard.addSpellAbility(ab, false);
                 }
             }
 
@@ -652,7 +669,7 @@ public final class StaticAbilityContinuous {
                         sa.setTemporary(true);
                         sa.setIntrinsic(false);
                         sa.setOriginalHost(hostCard);
-                        affectedCard.addSpellAbility(sa);
+                        affectedCard.addSpellAbility(sa, false);
                     }
                 }
             }
@@ -669,7 +686,7 @@ public final class StaticAbilityContinuous {
             // add Types
             if ((addTypes != null) || (removeTypes != null)) {
                 affectedCard.addChangedCardTypes(addTypes, removeTypes, removeSuperTypes, removeCardTypes,
-                        removeSubTypes, removeCreatureTypes, hostCard.getTimestamp());
+                        removeSubTypes, removeCreatureTypes, removeArtifactTypes, hostCard.getTimestamp());
             }
 
             // add colors
@@ -744,12 +761,14 @@ public final class StaticAbilityContinuous {
                     affectedCard.setMayLookAt(p, true);
                 }
             }
-            if (controllerMayPlay && (mayPlayLimit == null || hostCard.getMayPlayTurn() < mayPlayLimit)) {
+            if (withFlash != null) {
+                affectedCard.addWithFlash(se.getTimestamp(), withFlash);
+            }
+            
+            if (controllerMayPlay && (mayPlayLimit == null || stAb.getMayPlayTurn() < mayPlayLimit)) {
                 Player mayPlayController = params.containsKey("MayPlayCardOwner") ? affectedCard.getOwner() : controller;
                 affectedCard.setMayPlay(mayPlayController, mayPlayWithoutManaCost, mayPlayAltManaCost, mayPlayWithFlash, mayPlayGrantZonePermissions, stAb);
             }
-
-            affectedCard.updateAbilityTextForView(); // only update keywords and text for view to avoid flickering
         }
 
         return affectedCards;

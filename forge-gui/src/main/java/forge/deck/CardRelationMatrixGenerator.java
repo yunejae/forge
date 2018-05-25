@@ -6,7 +6,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import forge.card.CardRules;
 import forge.card.CardRulesPredicates;
-import forge.deck.generation.DeckGeneratorBase;
+import forge.deck.io.CardThemedLDAIO;
 import forge.deck.io.CardThemedMatrixIO;
 import forge.deck.io.DeckStorage;
 import forge.game.GameFormat;
@@ -27,10 +27,17 @@ public final class CardRelationMatrixGenerator {
 
     public static HashMap<String,HashMap<String,List<Map.Entry<PaperCard,Integer>>>> cardPools = new HashMap<>();
 
+    public static Map<String, Map<String,List<List<String>>>> ldaPools = new HashMap();
+    /**
+        To ensure that only cards with at least 14 connections (as 14*4+4=60) are included in the card based deck
+        generation pools
+    **/
+    public static final int MIN_REQUIRED_CONNECTIONS = 14;
+
     public static boolean initialize(){
         List<String> formatStrings = new ArrayList<>();
-        formatStrings.add(FModel.getFormats().getStandard().getName());
-        formatStrings.add(FModel.getFormats().getModern().getName());
+/*        formatStrings.add(FModel.getFormats().getStandard().getName());
+        formatStrings.add(FModel.getFormats().getModern().getName());*/
         formatStrings.add(DeckFormat.Commander.toString());
 
         for (String formatString : formatStrings){
@@ -38,7 +45,6 @@ public final class CardRelationMatrixGenerator {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -112,7 +118,7 @@ public final class CardRelationMatrixGenerator {
                 List<Map.Entry<PaperCard,Integer>> deckPool=new ArrayList<>();
                 int k=0;
                 boolean excludeThisCard=false;//if there are too few cards with at least one connection
-                for (int j=0;j<20;++k){
+                for (int j=0;j<MIN_REQUIRED_CONNECTIONS;++k){
                     if(distances[indices[cardList.size()-1-k]]==0){
                         excludeThisCard = true;
                         break;

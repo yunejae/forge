@@ -1,6 +1,6 @@
 package forge.net;
 
-import org.apache.commons.lang3.ObjectUtils;
+import forge.match.LobbySlotType;
 import org.apache.commons.lang3.StringUtils;
 
 import forge.GuiBase;
@@ -54,6 +54,8 @@ public class NetConnectUtil {
                 view.update(fullUpdate);
                 server.updateLobbyState();
             }
+            @Override
+            public final void update(final int slot, final LobbySlotType type) {return;}
         });
         view.setPlayerChangeListener(new IPlayerChangeListener() {
             @Override
@@ -103,10 +105,24 @@ public class NetConnectUtil {
     }
 
     public static void copyHostedServerUrl() {
-        String hostname = FServerManager.getInstance().getLocalAddress();
-        String url = hostname + ":" + ForgeProfileProperties.getServerPort();
-        GuiBase.getInterface().copyToClipboard(url);
-        SOptionPane.showMessageDialog("Share the following URL with anyone who wishes to join your server. It has been copied to your clipboard for convenience.\n\n" + url, "Server URL", SOptionPane.INFORMATION_ICON);
+        String internalAddress = FServerManager.getInstance().getLocalAddress();
+        String externalAddress = FServerManager.getInstance().getExternalAddress();
+        String internalUrl = internalAddress + ":" + ForgeProfileProperties.getServerPort();
+        String externalUrl = null;
+        if (externalAddress != null) {
+            externalUrl = externalAddress + ":" + ForgeProfileProperties.getServerPort();
+            GuiBase.getInterface().copyToClipboard(externalUrl);
+        } else {
+            GuiBase.getInterface().copyToClipboard(internalAddress);
+        }
+
+        String message = "Share the following URL with anyone who wishes to join your server. It has been copied to your clipboard for convenience.\n\n";
+        if (externalUrl != null) {
+            message += externalUrl + "\n\nFor internal games, use the following URL: " + internalUrl;
+        } else {
+            message = "Forge was unable to determine your external IP!\n\n" + message + internalUrl;
+        }
+        SOptionPane.showMessageDialog(message, "Server URL", SOptionPane.INFORMATION_ICON);
     }
 
     public static ChatMessage join(final String url, final IOnlineLobby onlineLobby, final IOnlineChatInterface chatInterface) {

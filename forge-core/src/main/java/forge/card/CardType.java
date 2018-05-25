@@ -17,6 +17,7 @@
  */
 package forge.card;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -24,9 +25,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import forge.util.TextUtil;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Predicate;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -180,6 +182,24 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         supertypes.clear();
         subtypes.clear();
         calculatedType = null;
+    }
+    
+    public boolean remove(final Supertype st) {
+        return supertypes.remove(st);
+    }
+
+    public boolean setCreatureTypes(Collection<String> ctypes) {
+        // if it isn't a creature then this has no effect
+        if (!coreTypes.contains(CoreType.Creature)) {
+            return false;
+        }
+        boolean changed = Iterables.removeIf(subtypes, Predicates.IS_CREATURE_TYPE);
+        // need to remove AllCreatureTypes too when setting Creature Type
+        if (subtypes.remove("AllCreatureTypes")) {
+            changed = true;
+        }
+        subtypes.addAll(ctypes);
+        return changed;
     }
 
     @Override
@@ -429,13 +449,14 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
             if (ct.isRemoveSubTypes()) {
                 newType.subtypes.clear();
             }
-            else if (ct.isRemoveCreatureTypes()) {
-                final Iterator<String> subtypes = newType.subtypes.iterator();
-                while (subtypes.hasNext()) {
-                    final String t = subtypes.next();
-                    if (isACreatureType(t) || t.equals("AllCreatureTypes")) {
-                        subtypes.remove();
-                    }
+            else  {
+                if (ct.isRemoveCreatureTypes()) {
+                    Iterables.removeIf(newType.subtypes, Predicates.IS_CREATURE_TYPE);
+                    // need to remove AllCreatureTypes too when removing creature Types
+                    newType.subtypes.remove("AllCreatureTypes");
+                }
+                if (ct.isRemoveArtifactTypes()) {
+                    Iterables.removeIf(newType.subtypes, Predicates.IS_ARTIFACT_TYPE);
                 }
             }
             if (ct.getRemoveType() != null) {
@@ -552,6 +573,22 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         // plural -> singular
         public static final BiMap<String,String> singularTypes = pluralTypes.inverse();
     }
+    public static class Predicates {
+        public static Predicate<String> IS_ARTIFACT_TYPE = new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return CardType.isAnArtifactType(input);
+            }
+        };
+
+        public static Predicate<String> IS_CREATURE_TYPE = new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return CardType.isACreatureType(input);
+            }
+        };
+    }
+    
 
     ///////// Utility methods
     public static boolean isACardType(final String cardType) {
@@ -608,6 +645,10 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
 
     public static boolean isASubType(final String cardType) {
         return (!isASupertype(cardType) && !isACardType(cardType));
+    }
+
+    public static boolean isAnArtifactType(final String cardType) {
+        return (Constant.ARTIFACT_TYPES.contains(cardType));
     }
 
     public static boolean isACreatureType(final String cardType) {

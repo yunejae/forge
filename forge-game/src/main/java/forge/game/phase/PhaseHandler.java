@@ -27,11 +27,13 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardLists;
+import forge.game.card.CounterType;
 import forge.game.card.CardPredicates.Presets;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.cost.Cost;
 import forge.game.event.*;
+import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.player.PlayerController.BinaryChoiceType;
 import forge.game.player.PlayerController.ManaPaymentPurpose;
@@ -191,7 +193,7 @@ public class PhaseHandler implements java.io.Serializable {
         switch (phase) {
             case UNTAP:
                 if (playerTurn.hasKeyword("Skip your next untap step.")) {
-                    playerTurn.removeKeyword("Skip your next untap step.");
+                    playerTurn.removeKeyword("Skip your next untap step.", false); // Skipping your "next" untap step is cumulative.
                     return true;
                 }
                 return playerTurn.hasKeyword("Skip the untap step of this turn.") || playerTurn.hasKeyword("Skip your untap step.");
@@ -252,8 +254,16 @@ public class PhaseHandler implements java.io.Serializable {
                     break;
 
                 case MAIN1:
-                    if (playerTurn.isArchenemy() && isPreCombatMain()) {
-                        playerTurn.setSchemeInMotion();
+                    if (isPreCombatMain()) {
+                        if (playerTurn.isArchenemy()) {
+                            playerTurn.setSchemeInMotion();
+                        }
+                        // all Saga get Lore counter at the begin of pre combat
+                        for (Card c : playerTurn.getCardsIn(ZoneType.Battlefield)) {
+                            if (c.getType().hasSubtype("Saga")) {
+                                c.addCounter(CounterType.LORE, 1, null, false);
+                            }
+                        }
                     }
                     break;
 
@@ -498,7 +508,7 @@ public class PhaseHandler implements java.io.Serializable {
                 }
 
                 for (final Card attacker : combat.getAttackers()) {
-                    final boolean shouldTapForAttack = !attacker.hasKeyword("Vigilance") && !attacker.hasKeyword("Attacking doesn't cause CARDNAME to tap.");
+                    final boolean shouldTapForAttack = !attacker.hasKeyword(Keyword.VIGILANCE) && !attacker.hasKeyword("Attacking doesn't cause CARDNAME to tap.");
                     if (shouldTapForAttack) {
                         // set tapped to true without firing triggers because it may affect propaganda costs
                         attacker.setTapped(true);
@@ -528,7 +538,6 @@ public class PhaseHandler implements java.io.Serializable {
 
             if (!possibleExerters.isEmpty()) {
                 for(Card exerter : whoDeclares.getController().exertAttackers(possibleExerters)) {
-                    //exerter.addExtrinsicKeyword("Exerted");
                     exerter.exert();
                 }
             }

@@ -50,6 +50,14 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         TINY_LEADER_P6_DECK_STATE(""),
         TINY_LEADER_P7_DECK_STATE(""),
         TINY_LEADER_P8_DECK_STATE(""),
+        BRAWL_P1_DECK_STATE(""),
+        BRAWL_P2_DECK_STATE(""),
+        BRAWL_P3_DECK_STATE(""),
+        BRAWL_P4_DECK_STATE(""),
+        BRAWL_P5_DECK_STATE(""),
+        BRAWL_P6_DECK_STATE(""),
+        BRAWL_P7_DECK_STATE(""),
+        BRAWL_P8_DECK_STATE(""),
         UI_LANDSCAPE_MODE ("false"),
         UI_COMPACT_MAIN_MENU ("false"),
         UI_USE_OLD ("false"),
@@ -145,12 +153,14 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         SUBMENU_UTILITIES ("false"),
 
         ENFORCE_DECK_LEGALITY ("true"),
+        PERFORMANCE_MODE ("false"),
 
         DEV_MODE_ENABLED ("false"),
         DEV_WORKSHOP_SYNTAX ("false"),
         DEV_LOG_ENTRY_TYPE (GameLogEntryType.DAMAGE.toString()),
 
         LOAD_CARD_SCRIPTS_LAZILY ("false"),
+        LOAD_HISTORIC_FORMATS ("false"),
 
         DECK_DEFAULT_CARD_LIMIT ("4"),
         DECKGEN_SINGLETONS ("false"),
@@ -239,6 +249,12 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
                 TINY_LEADER_P3_DECK_STATE, TINY_LEADER_P4_DECK_STATE,
                 TINY_LEADER_P5_DECK_STATE, TINY_LEADER_P6_DECK_STATE,
                 TINY_LEADER_P7_DECK_STATE, TINY_LEADER_P8_DECK_STATE };
+
+        public static FPref[] BRAWL_DECK_STATES = {
+                BRAWL_P1_DECK_STATE, BRAWL_P2_DECK_STATE,
+                BRAWL_P3_DECK_STATE, BRAWL_P4_DECK_STATE,
+                BRAWL_P5_DECK_STATE, BRAWL_P6_DECK_STATE,
+                BRAWL_P7_DECK_STATE, BRAWL_P8_DECK_STATE };
 
     }
 

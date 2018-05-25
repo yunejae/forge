@@ -6,6 +6,7 @@ import forge.ai.SpellAbilityAi;
 import forge.game.card.Card;
 import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
+import forge.game.phase.PhaseType;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.spellability.AbilitySub;
@@ -14,7 +15,6 @@ import forge.game.zone.ZoneType;
 import forge.util.MyRandom;
 
 import java.util.List;
-import java.util.Random;
 
 public class DigUntilAi extends SpellAbilityAi {
 
@@ -27,8 +27,13 @@ public class DigUntilAi extends SpellAbilityAi {
             chance = .667; // 66.7% chance for sorcery speed (since it will
                            // never activate EOT)
         }
-        final Random r = MyRandom.getRandom();
-        final boolean randomReturn = r.nextFloat() <= Math.pow(chance, sa.getActivationsThisTurn() + 1);
+        // if we don't use anything now, we wasted our opportunity.
+        if ((ai.getGame().getPhaseHandler().is(PhaseType.END_OF_TURN))
+                && (!ai.getGame().getPhaseHandler().isPlayerTurn(ai))) {
+            chance = 1;
+        }
+
+        final boolean randomReturn = MyRandom.getRandom().nextFloat() <= Math.pow(chance, sa.getActivationsThisTurn() + 1);
 
         Player libraryOwner = ai;
         Player opp = ComputerUtil.getOpponentFor(ai);
@@ -44,7 +49,13 @@ public class DigUntilAi extends SpellAbilityAi {
             if ("Land.Basic".equals(sa.getParam("Valid"))
                     && !CardLists.filter(ai.getCardsIn(ZoneType.Hand), CardPredicates.Presets.LANDS_PRODUCING_MANA).isEmpty()) {
                 // We already have a mana-producing land in hand, so bail
-                return false;
+                // until opponent's end of turn phase!
+                // But we still want more (and want to fill grave) if nothing better to do then
+                // This is important for Replenish/Living Death type decks
+                if (!((ai.getGame().getPhaseHandler().is(PhaseType.END_OF_TURN))
+                        && (!ai.getGame().getPhaseHandler().isPlayerTurn(ai)))) {
+                    return false;
+                }
             }
         }
 

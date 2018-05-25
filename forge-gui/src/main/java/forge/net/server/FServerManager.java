@@ -30,13 +30,10 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -185,6 +182,10 @@ public final class FServerManager {
         this.localLobby = lobby;
     }
 
+    public boolean isMatchActive() {
+        return this.localLobby != null && this.localLobby.isMatchActive();
+    }
+
     public void setLobbyListener(final ILobbyListener listener) {
         this.lobbyListener = listener;
     }
@@ -220,22 +221,25 @@ public final class FServerManager {
         DatagramSocket s = new DatagramSocket();
         s.connect(InetAddress.getByAddress(this.externalAddress), 0);
         NetworkInterface n = NetworkInterface.getByInetAddress(s.getLocalAddress());
-        Enumeration en = n.getInetAddresses();
+        Enumeration<InetAddress> en = n.getInetAddresses();
         while (en.hasMoreElements()) {
             InetAddress addr = (InetAddress) en.nextElement();
             if (addr instanceof Inet4Address) {
                 if (preferIPv6) {
                     continue;
                 }
+                s.close();
                 return addr.getHostAddress();
             }
             if (addr instanceof Inet6Address) {
                 if (preferIpv4) {
                     continue;
                 }
+                s.close();
                 return addr.getHostAddress();
             }
         }
+        s.close();
         return null;
     }
 
@@ -249,6 +253,28 @@ public final class FServerManager {
         }
     }
 
+    public static String getExternalAddress() {
+        BufferedReader in = null;
+        try {
+            URL whatismyip = new URL("http://checkip.amazonaws.com");
+            in = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+            String ip = in.readLine();
+            return ip;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
     private void mapNatPort(final int port) {
         final String localAddress = getLocalAddress();
         final PortMapping portMapping = new PortMapping(port, localAddress, PortMapping.Protocol.TCP, "Forge");
@@ -256,8 +282,12 @@ public final class FServerManager {
             // Safeguard shutdown call, to prevent lingering port mappings
             upnpService.shutdown();
         }
-        upnpService = new UpnpServiceImpl(new PortMappingListener(portMapping));
-        upnpService.getControlPoint().search();
+        try {
+            upnpService = new UpnpServiceImpl(new PortMappingListener(portMapping));
+            upnpService.getControlPoint().search();
+        }catch (Error e){
+            e.printStackTrace();
+        }
     }
 
     private class MessageHandler extends ChannelInboundHandlerAdapter {
@@ -323,8 +353,10 @@ public final class FServerManager {
         @Override
         public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
             final RemoteClient client = clients.remove(ctx.channel());
+            final String username = client.getUsername();
             localLobby.disconnectPlayer(client.getIndex());
-            broadcast(new LogoutEvent(client.getUsername()));
+            broadcast(new MessageEvent(String.format("%s left the room", username)));
+            broadcast(new LogoutEvent(username));
             super.channelInactive(ctx);
         }
     }

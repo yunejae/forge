@@ -183,6 +183,7 @@ public class FDeckChooser extends FScreen {
             break; //delay initialize for constructed until saved decks can be reloaded
         case Commander:
         case TinyLeaders:
+        case Brawl:
         case Gauntlet:
             initialize(null, DeckType.CUSTOM_DECK);
             break;
@@ -220,6 +221,9 @@ public class FDeckChooser extends FScreen {
             case TinyLeaders:
                 lstDecks.setSelectedString(DeckPreferences.getTinyLeadersDeck());
                 break;
+            case Brawl:
+                lstDecks.setSelectedString(DeckPreferences.getBrawlDeck());
+                break;
             case Archenemy:
                 lstDecks.setSelectedString(DeckPreferences.getSchemeDeck());
                 break;
@@ -233,6 +237,9 @@ public class FDeckChooser extends FScreen {
                     break;
                 case TINY_LEADERS_DECKS:
                     lstDecks.setSelectedString(DeckPreferences.getTinyLeadersDeck());
+                    break;
+                case BRAWL_DECKS:
+                    lstDecks.setSelectedString(DeckPreferences.getBrawlDeck());
                     break;
                 case SCHEME_DECKS:
                     lstDecks.setSelectedString(DeckPreferences.getSchemeDeck());
@@ -303,6 +310,7 @@ public class FDeckChooser extends FScreen {
                         switch (selectedDeckType) {
                         case COMMANDER_DECK:
                         case TINY_LEADERS_DECKS:
+                        case BRAWL_DECKS:
                         case SCHEME_DECKS:
                         case PLANAR_DECKS:
                         case DRAFT_DECKS:
@@ -331,6 +339,7 @@ public class FDeckChooser extends FScreen {
         case CONSTRUCTED_DECK:
         case COMMANDER_DECK:
         case TINY_LEADERS_DECKS:
+        case BRAWL_DECKS:
         case SCHEME_DECKS:
         case PLANAR_DECKS:
         case DRAFT_DECKS:
@@ -374,6 +383,8 @@ public class FDeckChooser extends FScreen {
                 return EditorType.Commander;
             case TINY_LEADERS_DECKS:
                 return EditorType.TinyLeaders;
+            case BRAWL_DECKS:
+                return EditorType.Brawl;
             case SCHEME_DECKS:
                 return EditorType.Archenemy;
             case PLANAR_DECKS:
@@ -389,6 +400,8 @@ public class FDeckChooser extends FScreen {
             return EditorType.Commander;
         case TinyLeaders:
             return EditorType.TinyLeaders;
+        case Brawl:
+            return EditorType.Brawl;
         case Archenemy:
             return EditorType.Archenemy;
         case Planechase:
@@ -454,6 +467,7 @@ public class FDeckChooser extends FScreen {
                 break;
             case Commander:
             case TinyLeaders:
+            case Brawl:
                 cmbDeckTypes.addItem(DeckType.CUSTOM_DECK);
                 cmbDeckTypes.addItem(DeckType.RANDOM_DECK);
                 if(FModel.isdeckGenMatrixLoaded()) {
@@ -466,6 +480,7 @@ public class FDeckChooser extends FScreen {
                 cmbDeckTypes.addItem(DeckType.CONSTRUCTED_DECK);
                 cmbDeckTypes.addItem(DeckType.COMMANDER_DECK);
                 cmbDeckTypes.addItem(DeckType.TINY_LEADERS_DECKS);
+                cmbDeckTypes.addItem(DeckType.BRAWL_DECKS);
                 cmbDeckTypes.addItem(DeckType.SCHEME_DECKS);
                 cmbDeckTypes.addItem(DeckType.PLANAR_DECKS);
                 cmbDeckTypes.addItem(DeckType.DRAFT_DECKS);
@@ -530,6 +545,14 @@ public class FDeckChooser extends FScreen {
         }
     }
 
+    public void refreshDeckListForAI(){
+        //remember current deck by name, refresh decklist for AI/Human then reselect if possible
+        String currentName= lstDecks.getSelectedItem().getName();
+        refreshDecksList(selectedDeckType,true,null);
+        lstDecks.setSelectedString(currentName);
+        saveState();
+    }
+
     private void refreshDecksList(DeckType deckType, boolean forceRefresh, FEvent e) {
         if (selectedDeckType == deckType && !forceRefresh) { return; }
         selectedDeckType = deckType;
@@ -556,6 +579,10 @@ public class FDeckChooser extends FScreen {
                 pool = DeckProxy.getAllTinyLeadersDecks();
                 config = ItemManagerConfig.COMMANDER_DECKS;
                 break;
+            case Brawl:
+                pool = DeckProxy.getAllBrawlDecks();
+                config = ItemManagerConfig.COMMANDER_DECKS;
+                break;
             case Archenemy:
                 pool = DeckProxy.getAllSchemeDecks();
                 config = ItemManagerConfig.SCHEME_DECKS;
@@ -580,6 +607,10 @@ public class FDeckChooser extends FScreen {
             break;
         case TINY_LEADERS_DECKS:
             pool = DeckProxy.getAllTinyLeadersDecks();
+            config = ItemManagerConfig.COMMANDER_DECKS;
+            break;
+        case BRAWL_DECKS:
+            pool = DeckProxy.getAllBrawlDecks();
             config = ItemManagerConfig.COMMANDER_DECKS;
             break;
         case RANDOM_COMMANDER_DECK:
@@ -807,6 +838,10 @@ public class FDeckChooser extends FScreen {
         /*if(selectedDeckType.equals(DeckType.STANDARD_CARDGEN_DECK)){
             return DeckgenUtil.buildCardGenDeck(lstDecks.getSelectedItem().getName());
         }*/
+        //ensure a deck is selected first
+        if(lstDecks.getSelectedIndex() == -1){
+            lstDecks.setSelectedIndex(0);
+        }
         DeckProxy proxy = lstDecks.getSelectedItem();
         if (proxy == null) { return null; }
         return proxy.getDeck();
@@ -959,52 +994,68 @@ public class FDeckChooser extends FScreen {
             return;
         }
 
+        if (selectedDeckType == DeckType.BRAWL_DECKS) {
+            //cannot create gauntlet for tiny leaders decks, so just start single match
+            testVariantDeck(userDeck, GameType.Brawl);
+            return;
+        }
+
         GuiChoose.getInteger("How many opponents are you willing to face?", 1, 50, new Callback<Integer>() {
             @Override
             public void run(final Integer numOpponents) {
                 if (numOpponents == null) { return; }
-                List<DeckType> deckTypes=null;
-                if(FModel.isdeckGenMatrixLoaded()) {
-                    deckTypes=Arrays.asList(new DeckType[] {
-                            DeckType.CUSTOM_DECK,
-                            DeckType.PRECONSTRUCTED_DECK,
-                            DeckType.QUEST_OPPONENT_DECK,
-                            DeckType.COLOR_DECK,
-                            DeckType.STANDARD_COLOR_DECK,
-                            DeckType.STANDARD_CARDGEN_DECK,
-                            DeckType.MODERN_COLOR_DECK,
-                            DeckType.MODERN_CARDGEN_DECK,
-                            DeckType.THEME_DECK
-                    });
-                }else{
-                    deckTypes=Arrays.asList(new DeckType[] {
-                            DeckType.CUSTOM_DECK,
-                            DeckType.PRECONSTRUCTED_DECK,
-                            DeckType.QUEST_OPPONENT_DECK,
-                            DeckType.COLOR_DECK,
-                            DeckType.STANDARD_COLOR_DECK,
-                            DeckType.MODERN_COLOR_DECK,
-                            DeckType.THEME_DECK
-                    });
+                List<DeckType> deckTypes = Arrays.asList(
+                        DeckType.CUSTOM_DECK,
+                        DeckType.PRECONSTRUCTED_DECK,
+                        DeckType.QUEST_OPPONENT_DECK,
+                        DeckType.COLOR_DECK,
+                        DeckType.STANDARD_COLOR_DECK,
+                        DeckType.STANDARD_CARDGEN_DECK,
+                        DeckType.MODERN_COLOR_DECK,
+                        DeckType.MODERN_CARDGEN_DECK,
+                        DeckType.THEME_DECK,
+                        DeckType.NET_DECK
+                );
+                if (!FModel.isdeckGenMatrixLoaded()) {
+                    deckTypes.remove(DeckType.STANDARD_CARDGEN_DECK);
+                    deckTypes.remove(DeckType.MODERN_CARDGEN_DECK);
                 }
+
                 ListChooser<DeckType> chooser = new ListChooser<DeckType>(
-                        "Choose allowed deck types for opponents", 0, 7, deckTypes, null, new Callback<List<DeckType>>() {
+                        "Choose allowed deck types for opponents", 0, deckTypes.size(), deckTypes, null, new Callback<List<DeckType>>() {
                     @Override
                     public void run(final List<DeckType> allowedDeckTypes) {
                         if (allowedDeckTypes == null || allowedDeckTypes.isEmpty()) { return; }
 
-                        LoadingOverlay.show("Loading new game...", new Runnable() {
+                        FThreads.invokeInBackgroundThread(new Runnable() { //needed for loading net decks
                             @Override
                             public void run() {
-                                GauntletData gauntlet = GauntletUtil.createQuickGauntlet(userDeck, numOpponents, allowedDeckTypes);
-                                FModel.setGauntletData(gauntlet);
+                                final NetDeckCategory netCat;
+                                if (allowedDeckTypes.contains(DeckType.NET_DECK)) {
+                                    netCat = NetDeckCategory.selectAndLoad(GameType.Constructed);
+                                } else {
+                                    netCat = null;
+                                }
 
-                                List<RegisteredPlayer> players = new ArrayList<RegisteredPlayer>();
-                                RegisteredPlayer humanPlayer = new RegisteredPlayer(userDeck).setPlayer(GamePlayerUtil.getGuiPlayer());
-                                players.add(humanPlayer);
-                                players.add(new RegisteredPlayer(gauntlet.getDecks().get(gauntlet.getCompleted())).setPlayer(GamePlayerUtil.createAiPlayer()));
+                                FThreads.invokeInEdtLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        LoadingOverlay.show("Loading new game...", new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                GauntletData gauntlet = GauntletUtil.createQuickGauntlet(userDeck, numOpponents, allowedDeckTypes, netCat);
+                                                FModel.setGauntletData(gauntlet);
 
-                                gauntlet.startRound(players, humanPlayer);
+                                                List<RegisteredPlayer> players = new ArrayList<RegisteredPlayer>();
+                                                RegisteredPlayer humanPlayer = new RegisteredPlayer(userDeck).setPlayer(GamePlayerUtil.getGuiPlayer());
+                                                players.add(humanPlayer);
+                                                players.add(new RegisteredPlayer(gauntlet.getDecks().get(gauntlet.getCompleted())).setPlayer(GamePlayerUtil.createAiPlayer()));
+
+                                                gauntlet.startRound(players, humanPlayer);
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }

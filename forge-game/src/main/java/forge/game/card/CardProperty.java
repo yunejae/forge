@@ -74,6 +74,10 @@ public class CardProperty {
             if (card.isInstant() || card.isSorcery()) {
                 return false;
             }
+        } else if (property.equals("Historic")) {
+            if (!card.isHistoric()) {
+                return false;
+            }
         } else if (property.startsWith("CardUID_")) {// Protection with "doesn't remove effect"
             if (card.getId() != Integer.parseInt(property.split("CardUID_")[1])) {
                 return false;
@@ -1353,8 +1357,7 @@ public class CardProperty {
                 return false;
             }
         } else if (property.startsWith("suspended")) {
-            if (!card.hasSuspend() || !game.isCardExiled(card)
-                    || !(card.getCounters(CounterType.TIME) >= 1)) {
+            if (!card.hasSuspend()) {
                 return false;
             }
         } else if (property.startsWith("delved")) {
@@ -1677,6 +1680,15 @@ public class CardProperty {
             }
         } else if (property.equals("NoCounters")) {
             if (card.hasCounters()) {
+                return false;
+            }
+        } else if (property.startsWith("CastSa"))  {
+            SpellAbility castSA = card.getCastSA();
+            if (castSA == null) {
+                return false;
+            }
+            String v = property.substring(7);
+            if (!castSA.isValid(v, sourceController, source, spellAbility)) {
                 return false;
             }
         } else if (property.equals("wasCast")) {

@@ -610,7 +610,14 @@ public final class CMatchUI
     public void updatePhase() {
         final PlayerView p = getGameView().getPlayerTurn();
         final PhaseType ph = getGameView().getPhase();
-        final PhaseLabel lbl = p == null ? null : getFieldViewFor(p).getPhaseIndicator().getLabelFor(ph);
+        // this should never happen, but I've seen it periodically... so, need to get to the bottom of it
+        PhaseLabel lbl = null;
+        if (ph != null ) {
+            lbl = p == null ? null : getFieldViewFor(p).getPhaseIndicator().getLabelFor(ph);
+        } else {
+            // not sure what debugging information would help here, log for now
+            System.err.println("getGameView().getPhase() returned 'null'");
+        }
 
         resetAllPhaseButtons();
         if (lbl != null) {
@@ -918,6 +925,14 @@ public final class CMatchUI
             return oneOrNone(title, optionList);
         }
         return one(title, optionList);
+    }
+
+    @Override
+    public List<GameEntityView> chooseEntitiesForEffect(final String title, final List<? extends GameEntityView> optionList, final DelayedReveal delayedReveal) {
+        if (delayedReveal != null) {
+            reveal(delayedReveal.getMessagePrefix(), delayedReveal.getCards()); //TODO: Merge this into search dialog
+        }
+        return (List<GameEntityView>) order(title,"Selected", 0, optionList.size(), optionList, null, null, false);
     }
 
     @Override
