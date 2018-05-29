@@ -2,4 +2,4 @@ Name:The Ultimate Nightmare of Wizards of the Coast Customer Service
 DisplayName:The Ultimate Nightmare of Wizards of the Coast® Customer Service
 ManaCost:R R X Y Z
 Types:Sorcery
-Oracle:The Ultimate Nightmare of Wizards of the Coast® Customer Service deals X damage to each of Y target creatures and Z target players.
+Oracle:The Ultimate Nightmare of Wizards of the Coast® Customer Service deals X damage to each of Y target creatures and Z target player and/or planeswalkers.

@@ -1,4 +1,4 @@
 Name:Sex Appeal
 ManaCost:W
 Types:Instant
-Oracle:Prevent the next 3 damage total that would be dealt this turn to any number of target creatures and/or players, divided as you choose. If there are more people in the room of a different gender than you are as you cast this spell, prevent the next 6 damage this way instead.
+Oracle:Prevent the next 3 damage total that would be dealt this turn to any number of targets, divided as you choose. If there are more people in the room of a different gender than you are as you cast this spell, prevent the next 6 damage this way instead.
