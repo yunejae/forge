@@ -234,10 +234,10 @@ public final class ForgeConstants {
     /**Filename of blank card image.*/
     public static final String NO_CARD_FILE   = _DEFAULTS_DIR + "no_card.jpg";
     /**Filename of blank artifact card image.*/
-    public static final String NO_CARD_FILE_A = _DEFAULTS_DIR + "a.jpg";
-    /**Filename of blank land card image.*/
     public static final String NO_CARD_FILE_L = _DEFAULTS_DIR + "l.jpg";
     /**Filename of blank colorless card image.*/
+    public static final String NO_CARD_FILE_A = _DEFAULTS_DIR + "a.jpg";
+    /**Filename of blank land card image.*/
     public static final String NO_CARD_FILE_C = _DEFAULTS_DIR + "c.jpg";
     /**Filename of blank white card image.*/
     public static final String NO_CARD_FILE_W = _DEFAULTS_DIR + "w.jpg";
@@ -251,6 +251,22 @@ public final class ForgeConstants {
     public static final String NO_CARD_FILE_G = _DEFAULTS_DIR + "g.jpg";
     /**Filename of blank multicolor card image.*/
     public static final String NO_CARD_FILE_M = _DEFAULTS_DIR + "m.jpg";
+    /**Filename of blank emblem image.*/
+    public static final String NO_CARD_FILE_E = _DEFAULTS_DIR + "e.jpg";
+    /**Filename of blank token image.*/
+    public static final String NO_TOKEN_FILE = _DEFAULTS_DIR + "t.jpg";
+    /**Filename of blank colorless token image.*/
+    public static final String NO_TOKEN_FILE_C = _DEFAULTS_DIR + "tc.jpg";
+    /**Filename of blank white token image.*/
+    public static final String NO_TOKEN_FILE_W = _DEFAULTS_DIR + "tw.jpg";
+    /**Filename of blank blue token image.*/
+    public static final String NO_TOKEN_FILE_U = _DEFAULTS_DIR + "tu.jpg";
+    /**Filename of blank black token image.*/
+    public static final String NO_TOKEN_FILE_B = _DEFAULTS_DIR + "tb.jpg";
+    /**Filename of blank red token image.*/
+    public static final String NO_TOKEN_FILE_R = _DEFAULTS_DIR + "tr.jpg";
+    /**Filename of blank green token image.*/
+    public static final String NO_TOKEN_FILE_G = _DEFAULTS_DIR + "tg.jpg";
     
     
     public static final FileLocation WINDOW_LAYOUT_FILE      = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "window.xml");
