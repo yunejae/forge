@@ -260,6 +260,7 @@ public class ImageCache {
      */
     public static BufferedImage getOriginalImage(String imageKey, boolean useDefaultIfNotFound) {
         if (null == imageKey) { 
+            if (useDefaultIfNotFound) return _defaultImage;
             return null;
         }
         
@@ -282,6 +283,15 @@ public class ImageCache {
         if (original == null && useDefaultIfNotFound) { 
             System.out.println("No original for " + imageKey + ", using default.");
             //Currently doesn't fetch a separate default image for each side.
+            if (imageKey.startsWith("t:")){//it's a token! Limited support here for now.
+               if (imageKey.startsWith("t:w_")) return _defaultImageW;
+               if (imageKey.startsWith("t:u_")) return _defaultImageU;
+               if (imageKey.startsWith("t:b_")) return _defaultImageB;
+               if (imageKey.startsWith("t:r_")) return _defaultImageR;
+               if (imageKey.startsWith("t:g_")) return _defaultImageG;
+               if (imageKey.startsWith("t:c_")) return _defaultImageC;
+               return _defaultImage; 
+            }
             original = getDefaultImage(StaticData.instance().getCommonCards().getCard(imageKey.substring(imageKey.indexOf("/")+1, imageKey.length()-5)).getRules());
         }
 
@@ -319,7 +329,10 @@ public class ImageCache {
         BufferedImage original = getOriginalImage(key, useDefaultImage);
         if (original == null) { return null; }
 
-        if (original == getDefaultImage(StaticData.instance().getCommonCards().getCard(key.substring(2)).getRules())) {
+        if (original == _defaultImageL || original == _defaultImageA || original ==
+               _defaultImageM || original == _defaultImageW || original == _defaultImageU ||
+               original == _defaultImageB || original == _defaultImageR || original ==
+               _defaultImageG || original == _defaultImage) {
             // Don't put the default image in the cache under the key for the card.
             // Instead, cache it under its own key, to avoid duplication of the
             // default image and to remove the need to invalidate the cache when
