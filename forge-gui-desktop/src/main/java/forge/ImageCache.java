@@ -252,7 +252,7 @@ public class ImageCache {
         try {
             defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_C));
         } catch (Exception ex) {
-            System.err.println("could not load default emblem image");
+            System.err.println("could not load default colorless token image");
         } finally {
             _defaultImageTC = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
         }
