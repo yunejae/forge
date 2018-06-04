@@ -83,6 +83,24 @@ public class ImageCache {
     private static final BufferedImage _defaultImageU;
     /**Default image for white cards.*/
     private static final BufferedImage _defaultImageW;
+
+    /**Default image for tokens.*/
+    private static final BufferedImage _defaultImageT;
+    /**Default image for colorless tokens.*/
+    private static final BufferedImage _defaultImageTC;
+    /**Default image for white tokens.*/
+    private static final BufferedImage _defaultImageTW;
+    /**Default image for blue tokens.*/
+    private static final BufferedImage _defaultImageTU;
+    /**Default image for black tokens.*/
+    private static final BufferedImage _defaultImageTB;
+    /**Default image for red tokens.*/
+    private static final BufferedImage _defaultImageTR;
+    /**Default image for green tokens.*/
+    private static final BufferedImage _defaultImageTG;
+    
+    /**Default image for emblems.*/
+    private static final BufferedImage _defaultImageE;
     
     /**Buffer for default card image.*/
     static {
@@ -131,7 +149,7 @@ public class ImageCache {
             _defaultImageC = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
         }
     }
-
+    
     /**Buffer for default green card image.*/
     static {
         BufferedImage defImage = null;
@@ -201,6 +219,113 @@ public class ImageCache {
             System.err.println("could not load default white card image");
         } finally {
             _defaultImageW = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }
+
+    /**Buffer for default emblem image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_CARD_FILE_E));
+        } catch (Exception ex) {
+            System.err.println("could not load default emblem image");
+        } finally {
+            _defaultImageE = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    /**Buffer for default token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE));
+        } catch (Exception ex) {
+            System.err.println("could not load default token image");
+        } finally {
+            _defaultImageT = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }
+
+    /**Buffer for default colorless token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_C));
+        } catch (Exception ex) {
+            System.err.println("could not load default emblem image");
+        } finally {
+            _defaultImageTC = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    /**Buffer for default white token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_W));
+        } catch (Exception ex) {
+            System.err.println("could not load default white token image");
+        } finally {
+            _defaultImageTW = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    /**Buffer for default blue token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_U));
+        } catch (Exception ex) {
+            System.err.println("could not load default blue token image");
+        } finally {
+            _defaultImageTU = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    /**Buffer for default black token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_B));
+        } catch (Exception ex) {
+            System.err.println("could not load default black token image");
+        } finally {
+            _defaultImageTB = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    /**Buffer for default red token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_R));
+        } catch (Exception ex) {
+            System.err.println("could not load default red token image");
+        } finally {
+            _defaultImageTR = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+     /**Buffer for default green token image.*/
+    static {
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_G));
+        } catch (Exception ex) {
+            System.err.println("could not load default green token image");
+        } finally {
+            _defaultImageTG = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
+        }
+    }   
+
+    public static void bufferDefaultImage(String desc, String file, BufferedImage image){
+        BufferedImage defImage = null;
+        try {
+            defImage = ImageIO.read(new File(file));
+        } catch (Exception ex) {
+            System.err.println("could not load default " + desc + " image");
+        } finally {
+            image = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
         }
     }
 
@@ -284,14 +409,15 @@ public class ImageCache {
             System.out.println("No original for " + imageKey + ", using default.");
             //Currently doesn't fetch a separate default image for each side.
             if (imageKey.startsWith("t:")){//it's a token! Limited support here for now.
-               if (imageKey.startsWith("t:w_")) return _defaultImageW;
-               if (imageKey.startsWith("t:u_")) return _defaultImageU;
-               if (imageKey.startsWith("t:b_")) return _defaultImageB;
-               if (imageKey.startsWith("t:r_")) return _defaultImageR;
-               if (imageKey.startsWith("t:g_")) return _defaultImageG;
-               if (imageKey.startsWith("t:c_")) return _defaultImageC;
-               return _defaultImage; 
-            }
+               if (imageKey.startsWith("t:w_")) return _defaultImageTW;
+               if (imageKey.startsWith("t:u_")) return _defaultImageTU;
+               if (imageKey.startsWith("t:b_")) return _defaultImageTB;
+               if (imageKey.startsWith("t:r_")) return _defaultImageTR;
+               if (imageKey.startsWith("t:g_")) return _defaultImageTG;
+               if (imageKey.startsWith("t:c_")) return _defaultImageTC;
+               if (imageKey.startsWith("t:emblem")) return _defaultImageE;
+               return _defaultImageT; 
+            }else if (!imageKey.startsWith("c:")) return _defaultImage; //preconstructed deck starts with "p:"
             original = getDefaultImage(StaticData.instance().getCommonCards().getCard(imageKey.substring(imageKey.indexOf("/")+1, imageKey.length()-5)).getRules());
         }
 
@@ -329,10 +455,25 @@ public class ImageCache {
         BufferedImage original = getOriginalImage(key, useDefaultImage);
         if (original == null) { return null; }
 
-        if (original == _defaultImageL || original == _defaultImageA || original ==
-               _defaultImageM || original == _defaultImageW || original == _defaultImageU ||
-               original == _defaultImageB || original == _defaultImageR || original ==
-               _defaultImageG || original == _defaultImage) {
+        if (original == _defaultImageL
+            || original == _defaultImageA
+            || original == _defaultImageM
+            || original == _defaultImageW
+            || original == _defaultImageU
+            || original == _defaultImageB
+            || original == _defaultImageR
+            || original == _defaultImageG
+            || original == _defaultImageC
+            || original == _defaultImage
+            || original == _defaultImageTC
+            || original == _defaultImageTW
+            || original == _defaultImageTU
+            || original == _defaultImageTB
+            || original == _defaultImageTR
+            || original == _defaultImageTG
+            || original == _defaultImageT
+            || original == _defaultImageE
+               ) {
             // Don't put the default image in the cache under the key for the card.
             // Instead, cache it under its own key, to avoid duplication of the
             // default image and to remove the need to invalidate the cache when
