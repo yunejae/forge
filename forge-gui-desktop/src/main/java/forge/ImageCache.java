@@ -417,7 +417,7 @@ public class ImageCache {
                if (imageKey.startsWith("t:c_")) return _defaultImageTC;
                if (imageKey.startsWith("t:emblem")) return _defaultImageE;
                return _defaultImageT; 
-            }else if (!imageKey.startsWith("c:")) return _defaultImage; //preconstructed deck starts with "p:"
+            }else if (imageKey.charAt(1) == ':') return _defaultImage; //other non-card objects
             original = getDefaultImage(StaticData.instance().getCommonCards().getCard(imageKey.substring(imageKey.indexOf("/")+1, imageKey.length()-5)).getRules());
         }
 
