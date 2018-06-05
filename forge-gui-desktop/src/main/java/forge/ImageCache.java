@@ -252,7 +252,7 @@ public class ImageCache {
         try {
             defImage = ImageIO.read(new File(ForgeConstants.NO_TOKEN_FILE_C));
         } catch (Exception ex) {
-            System.err.println("could not load default colorless token image");
+            System.err.println("could not load default emblem image");
         } finally {
             _defaultImageTC = (null == defImage) ? new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB) : defImage; 
         }
@@ -358,6 +358,8 @@ public class ImageCache {
      * and cannot be loaded from disk.  pass -1 for width and/or height to avoid resizing in that dimension.
      */
     public static BufferedImage getImage(InventoryItem ii, int width, int height) {
+         
+        System.out.println("Getting " + width + " x " + height + " image for " + ii.getImageKey(false));
         return scaleImage(ii.getImageKey(false), width, height, true);
     }
 
@@ -390,35 +392,43 @@ public class ImageCache {
         }
         
         boolean altState = imageKey.endsWith(ImageKeys.BACKFACE_POSTFIX);
+        String k = imageKey; //to make it clear that the imageKey may be modified
+        
         if(altState)
-            imageKey = imageKey.substring(0, imageKey.length() - ImageKeys.BACKFACE_POSTFIX.length());
-        if (imageKey.startsWith(ImageKeys.CARD_PREFIX)) {
-            imageKey = ImageUtil.getImageKey(ImageUtil.getPaperCardFromImageKey(imageKey), altState, true);
-            if (StringUtils.isBlank(imageKey)) { 
+            k = k.substring(0, k.length() - ImageKeys.BACKFACE_POSTFIX.length());
+        if (k.startsWith(ImageKeys.CARD_PREFIX)) {
+            k = ImageUtil.getImageKey(ImageUtil.getPaperCardFromImageKey(k), altState, true);
+            if (StringUtils.isBlank(k)) { 
                 return _defaultImage;
             }
         }
 
         // Load from file and add to cache if not found in cache initially. 
-        BufferedImage original = getImage(imageKey);
+        BufferedImage original = getImage(k);
 
         // No image file exists for the given key so optionally associate with
         // a default "not available" image, however do not add it to the cache,
         // as otherwise it's problematic to update if the real image gets fetched.
         if (original == null && useDefaultIfNotFound) { 
-            System.out.println("No original for " + imageKey + ", using default.");
+            System.out.println("No original for " + k + ", using default.");
             //Currently doesn't fetch a separate default image for each side.
-            if (imageKey.startsWith("t:")){//it's a token! Limited support here for now.
-               if (imageKey.startsWith("t:w_")) return _defaultImageTW;
-               if (imageKey.startsWith("t:u_")) return _defaultImageTU;
-               if (imageKey.startsWith("t:b_")) return _defaultImageTB;
-               if (imageKey.startsWith("t:r_")) return _defaultImageTR;
-               if (imageKey.startsWith("t:g_")) return _defaultImageTG;
-               if (imageKey.startsWith("t:c_")) return _defaultImageTC;
-               if (imageKey.startsWith("t:emblem")) return _defaultImageE;
+            if (k.startsWith("t:")){//it's a token! Limited support here for now.
+               if (k.startsWith("t:w_")) return _defaultImageTW;
+               if (k.startsWith("t:u_")) return _defaultImageTU;
+               if (k.startsWith("t:b_")) return _defaultImageTB;
+               if (k.startsWith("t:r_")) return _defaultImageTR;
+               if (k.startsWith("t:g_")) return _defaultImageTG;
+               if (k.startsWith("t:c_")) return _defaultImageTC;
+               if (k.startsWith("t:emblem")) return _defaultImageE;
                return _defaultImageT; 
-            }else if (imageKey.charAt(1) == ':') return _defaultImage; //other non-card objects
-            original = getDefaultImage(StaticData.instance().getCommonCards().getCard(imageKey.substring(imageKey.indexOf("/")+1, imageKey.length()-5)).getRules());
+            }else if (k.charAt(1) == ':') return _defaultImage; //other non-card objects
+            //Knock the edition off the beginning and the extension off the end
+            k = k.substring(k.indexOf("/")+1);
+            k = k.substring(0, k.length()-5);
+            //Trim trailing integers
+            while (k.substring(k.length()-1).matches("[0-9]")) k = k.substring(0,k.length()-1);
+            System.out.println("Getting default image for " + k + ".");
+            original = getDefaultImage(StaticData.instance().getCommonCards().getCard(k).getRules());
         }
 
         return original;
@@ -455,7 +465,7 @@ public class ImageCache {
         BufferedImage original = getOriginalImage(key, useDefaultImage);
         if (original == null) { return null; }
 
-        if (original == _defaultImageL
+        if    (original == _defaultImageL
             || original == _defaultImageA
             || original == _defaultImageM
             || original == _defaultImageW
