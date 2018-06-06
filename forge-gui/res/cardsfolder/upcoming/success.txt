@@ -1,4 +1,6 @@
 Name:Success!
 ManaCost:W
 Types:Instant
+A:SP$ Pump | Cost$ W | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +2 | NumDef$ +2 | SpellDescription$ Target creature gets +2/+2 until end of turn. If it's a host or has augment, it gains lifelink until end of turn. | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ Lifelink | ConditionDefined$ ParentTarget | ConditionPresent$ Host,Creature.withAugment
 Oracle:Target creature gets +2/+2 until end of turn. If it's a host or has augment, it gains lifelink until end of turn.

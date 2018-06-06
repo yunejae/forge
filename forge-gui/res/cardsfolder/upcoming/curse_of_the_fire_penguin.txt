@@ -1,14 +1,10 @@
 Name:Curse of the Fire Penguin
 ManaCost:4 R R
-Types:Enchantment Aura
+Types:Enchantment Aura Curse
 K:Enchant creature
-Oracle:Enchant creature\nCurse of the Fire Penguin consumes and confuses enchanted creature.
-
-ALTERNATE
-
-Name:Penguin
-ManaCost:no cost
-Types:Creature Penguin
-K:Trample
-Oracle:Trample\nWhen this creature dies, return Curse of the Fire Penguin to the battlefield.
-PT:6/5
+A:SP$ Attach | Cost$ 4 R R | ValidTgts$ Creature
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | SetPower$ 6 | SetToughness$ 5 | AddType$ Creature & Penguin | RemoveCreatureTypes$ True | RemoveCardTypes$ True | RemoveAllAbilities$ True | AddKeyword$ Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChangeZone | TriggerDescription$ When enchanted creature dies, return CARDNAME from your graveyard to the battlefield.
+SVar:TrigChangeZone:DB$ ChooseCard | TgtPrompt$ Choose a new creature to curse | Choices$ Creature.CanBeEnchantedBy | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | AttachedTo$ ChosenCard
+Oracle:Enchant Creature\nCurse of the Fire Penguin consumes and confuses enchanted creature. (Place it flipped around so the alternate text covers the enchanted creature's text.)\nEnchanted creature loses all abilities and becomes a Penguin creature with trample and base power and toughness 6/5. It has "When this creature dies, return Curse of the Fire Penguin from your graveyard to the battlefield".
