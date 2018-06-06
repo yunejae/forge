@@ -27,11 +27,13 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardLists;
+import forge.game.card.CounterType;
 import forge.game.card.CardPredicates.Presets;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.cost.Cost;
 import forge.game.event.*;
+import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.player.PlayerController.BinaryChoiceType;
 import forge.game.player.PlayerController.ManaPaymentPurpose;
@@ -72,7 +74,8 @@ public class PhaseHandler implements java.io.Serializable {
     private int nUpkeepsThisGame = 0;
     private int nCombatsThisTurn = 0;
     private boolean bPreventCombatDamageThisTurn  = false;
-    private int planarDiceRolledthisTurn = 0;
+    private int planarDiceRolledThisTurn = 0;
+    private int sixSidedDiceRolledThisTurn = 0;
 
     private transient Player playerTurn = null;
 
@@ -191,7 +194,7 @@ public class PhaseHandler implements java.io.Serializable {
         switch (phase) {
             case UNTAP:
                 if (playerTurn.hasKeyword("Skip your next untap step.")) {
-                    playerTurn.removeKeyword("Skip your next untap step.");
+                    playerTurn.removeKeyword("Skip your next untap step.", false); // Skipping your "next" untap step is cumulative.
                     return true;
                 }
                 return playerTurn.hasKeyword("Skip the untap step of this turn.") || playerTurn.hasKeyword("Skip your untap step.");
@@ -252,8 +255,16 @@ public class PhaseHandler implements java.io.Serializable {
                     break;
 
                 case MAIN1:
-                    if (playerTurn.isArchenemy() && isPreCombatMain()) {
-                        playerTurn.setSchemeInMotion();
+                    if (isPreCombatMain()) {
+                        if (playerTurn.isArchenemy()) {
+                            playerTurn.setSchemeInMotion();
+                        }
+                        // all Saga get Lore counter at the begin of pre combat
+                        for (Card c : playerTurn.getCardsIn(ZoneType.Battlefield)) {
+                            if (c.getType().hasSubtype("Saga")) {
+                                c.addCounter(CounterType.LORE, 1, null, false);
+                            }
+                        }
                     }
                     break;
 
@@ -468,7 +479,8 @@ public class PhaseHandler implements java.io.Serializable {
                     runParams.put("Player", playerTurn);
                     game.getTriggerHandler().runTrigger(TriggerType.TurnBegin, runParams, false);
                 }
-                planarDiceRolledthisTurn = 0;
+                planarDiceRolledThisTurn = 0;
+                sixSidedDiceRolledThisTurn = 0;
                 // Play the End Turn sound
                 game.fireEvent(new GameEventTurnEnded());
                 break;
@@ -498,7 +510,7 @@ public class PhaseHandler implements java.io.Serializable {
                 }
 
                 for (final Card attacker : combat.getAttackers()) {
-                    final boolean shouldTapForAttack = !attacker.hasKeyword("Vigilance") && !attacker.hasKeyword("Attacking doesn't cause CARDNAME to tap.");
+                    final boolean shouldTapForAttack = !attacker.hasKeyword(Keyword.VIGILANCE) && !attacker.hasKeyword("Attacking doesn't cause CARDNAME to tap.");
                     if (shouldTapForAttack) {
                         // set tapped to true without firing triggers because it may affect propaganda costs
                         attacker.setTapped(true);
@@ -528,7 +540,6 @@ public class PhaseHandler implements java.io.Serializable {
 
             if (!possibleExerters.isEmpty()) {
                 for(Card exerter : whoDeclares.getController().exertAttackers(possibleExerters)) {
-                    //exerter.addExtrinsicKeyword("Exerted");
                     exerter.exert();
                 }
             }
@@ -762,17 +773,7 @@ public class PhaseHandler implements java.io.Serializable {
             }
         }
         for (Player p : game.getPlayers()) {
-            p.resetProwl();
-            p.setSpellsCastLastTurn(p.getSpellsCastThisTurn());
-            p.resetSpellsCastThisTurn();
-            p.setLifeLostLastTurn(p.getLifeLostThisTurn());
-            p.setLifeLostThisTurn(0);
-            p.setLifeGainedThisTurn(0);
-            p.setLibrarySearched(0);
-            p.setNumManaConversion(0);
-
-            p.removeKeyword("Skip the untap step of this turn.");
-            p.removeKeyword("Schemes can't be set in motion this turn.");
+            p.clearNextTurn();
         }
 
         game.getTriggerHandler().clearThisTurnDelayedTrigger();
@@ -1054,13 +1055,14 @@ public class PhaseHandler implements java.io.Serializable {
 
     // this is a hack for the setup game state mode, do not use outside of devSetupGameState code
     // as it avoids calling any of the phase effects that may be necessary in a less enforced context
-    public final void devModeSet(final PhaseType phase0, final Player player0, boolean endCombat) {
+    public final void devModeSet(final PhaseType phase0, final Player player0, boolean endCombat, int cturn) {
         if (phase0 != null) {
             setPhase(phase0);
         }
         if (player0 != null) {
             setPlayerTurn(player0);
         }
+        turn = cturn;
 
         game.fireEvent(new GameEventTurnPhase(playerTurn, phase, ""));
         if (endCombat) {
@@ -1068,8 +1070,17 @@ public class PhaseHandler implements java.io.Serializable {
         }
     }
     public final void devModeSet(final PhaseType phase0, final Player player0) {
-        devModeSet(phase0, player0, true);
+        devModeSet(phase0, player0, true, 1);
     }
+
+    public final void devModeSet(final PhaseType phase0, final Player player0, int cturn) {
+        devModeSet(phase0, player0, true, cturn);
+    }
+
+    public final void devModeSet(final PhaseType phase0, final Player player0, boolean endCombat) {
+        devModeSet(phase0, player0, endCombat, 0);
+    }
+
 
     public final void endTurnByEffect() {
         endCombat();
@@ -1083,10 +1094,19 @@ public class PhaseHandler implements java.io.Serializable {
     }
 
     public int getPlanarDiceRolledthisTurn() {
-        return planarDiceRolledthisTurn;
+        return planarDiceRolledThisTurn;
     }
+    
     public void incPlanarDiceRolledthisTurn() {
-        planarDiceRolledthisTurn++;
+        planarDiceRolledThisTurn++;
+    }
+
+    public int getSixSidedDiceRolledthisTurn() {
+        return sixSidedDiceRolledThisTurn;
+    }
+    
+    public void incSixSidedDiceRolledthisTurn() {
+        sixSidedDiceRolledThisTurn++;
     }
 
     public String debugPrintState(boolean hasPriority) {

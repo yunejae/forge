@@ -1,10 +1,10 @@
 package forge.game.ability;
 
 
-import com.google.common.collect.Maps;
 import forge.game.ability.effects.*;
 import forge.util.ReflectionUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /** 
@@ -65,6 +65,7 @@ public enum ApiType {
     Encode (EncodeEffect.class),
     EndTurn (EndTurnEffect.class),
     ExchangeLife (LifeExchangeEffect.class),
+    ExchangeLifeVariant (LifeExchangeVariantEffect.class),
     ExchangeControl (ControlExchangeEffect.class),
     ExchangeControlVariant (ControlExchangeVariantEffect.class),
     ExchangePower (PowerExchangeEffect.class),
@@ -115,6 +116,7 @@ public enum ApiType {
     RearrangeTopOfLibrary (RearrangeTopOfLibraryEffect.class),
     Regenerate (RegenerateEffect.class),
     RegenerateAll (RegenerateAllEffect.class),
+    Regeneration (RegenerationEffect.class),
     RemoveCounter (CountersRemoveEffect.class),
     RemoveCounterAll (CountersRemoveAllEffect.class),
     RemoveFromCombat (RemoveFromCombatEffect.class),
@@ -122,12 +124,14 @@ public enum ApiType {
     Repeat (RepeatEffect.class),
     RepeatEach (RepeatEachEffect.class),
     ReplaceEffect (ReplaceEffect.class),
+    ReplaceDamage (ReplaceDamageEffect.class),
     ReplaceSplitDamage (ReplaceSplitDamageEffect.class),
     RestartGame (RestartGameEffect.class),
     Reveal (RevealEffect.class),
     RevealHand (RevealHandEffect.class),
     ReverseTurnOrder (ReverseTurnOrderEffect.class),
     RollPlanarDice (RollPlanarDiceEffect.class),
+    RollSixSidedDice (RollSixSidedDiceEffect.class),
     RunSVarAbility (RunSVarAbilityEffect.class),
     Sacrifice (SacrificeEffect.class),
     SacrificeAll (SacrificeAllEffect.class),
@@ -153,6 +157,7 @@ public enum ApiType {
     WinsGame (GameWinEffect.class),
 
 
+    DamageResolve (DamageResolveEffect.class),
     InternalEtbReplacement (ETBReplacementEffect.class),
     InternalLegendaryRule (CharmEffect.class),
     InternalIgnoreEffect (CharmEffect.class);
@@ -161,7 +166,13 @@ public enum ApiType {
     private final SpellAbilityEffect instanceEffect;
     private final Class<? extends SpellAbilityEffect> clsEffect;
 
-    private static final Map<String, ApiType> allValues = Maps.newTreeMap(String.CASE_INSENSITIVE_ORDER);
+    private static final Map<String, ApiType> allValues = new HashMap<>();
+    
+    static {
+    	for(ApiType t : ApiType.values()) {
+    		allValues.put(t.name().toLowerCase(), t);
+    	}
+    }
 
     ApiType(Class<? extends SpellAbilityEffect> clsEf) { this(clsEf, true); }
     ApiType(Class<? extends SpellAbilityEffect> clsEf, final boolean isStateLess) {
@@ -170,11 +181,7 @@ public enum ApiType {
     }
 
     public static ApiType smartValueOf(String value) {
-        if (allValues.isEmpty())
-            for(ApiType c : ApiType.values())
-                allValues.put(c.toString(), c);
-
-        ApiType v = allValues.get(value);
+        ApiType v = allValues.get(value.toLowerCase());
         if ( v == null )
             throw new RuntimeException("Element " + value + " not found in ApiType enum");
         return v;
