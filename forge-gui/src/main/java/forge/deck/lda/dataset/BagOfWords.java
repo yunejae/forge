@@ -41,6 +41,7 @@ public final class BagOfWords {
     private final int numVocabs;
     private final int numNNZ;
     private final int numWords;
+    private List<Deck> legalDecks;
 
     public Vocabularies getVocabs() {
         return vocabs;
@@ -69,7 +70,7 @@ public final class BagOfWords {
 
         List<PaperCard> cardList = format.getAllCards();
 
-        List<Deck> legalDecks = new ArrayList<>();
+        legalDecks = new ArrayList<>();
         for(Deck deck:decks){
             if(format.isDeckLegal(deck)){
                 legalDecks.add(deck);
@@ -200,5 +201,7 @@ public final class BagOfWords {
     public int getNumWords() {
         return numWords;
     }
+
+    public List<Deck> getLegalDecks() { return legalDecks; }
 }
 

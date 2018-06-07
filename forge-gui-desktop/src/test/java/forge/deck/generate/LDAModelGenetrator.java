@@ -12,6 +12,7 @@ import forge.card.CardRules;
 import forge.card.CardRulesPredicates;
 import forge.deck.Deck;
 import forge.deck.DeckFormat;
+import forge.deck.io.Archetype;
 import forge.deck.io.CardThemedLDAIO;
 import forge.deck.io.DeckStorage;
 import forge.deck.lda.dataset.Dataset;
@@ -37,6 +38,7 @@ import static forge.deck.lda.lda.inference.InferenceMethod.CGS;
 public final class LDAModelGenetrator {
 
     public static Map<String, Map<String,List<List<Pair<String, Double>>>>> ldaPools = new HashMap();
+    public static Map<String, List<Archetype>> ldaArchetypes = new HashMap<>();
 
 
     public static final void main(String[] args){
@@ -69,9 +71,9 @@ public final class LDAModelGenetrator {
     /** Try to load matrix .dat files, otherwise check for deck folders and build .dat, otherwise return false **/
     public static boolean initializeFormat(String format){
         Map<String,List<List<Pair<String, Double>>>> formatMap = CardThemedLDAIO.loadLDA(format);
+        List<Archetype> lda = CardThemedLDAIO.loadRawLDA(format);
         if(formatMap==null) {
             try {
-                List<List<Pair<String, Double>>> lda = CardThemedLDAIO.loadRawLDA(format);
                 if(lda==null) {
                     if (CardThemedLDAIO.getMatrixFolder(format).exists()) {
                         if (format.equals(FModel.getFormats().getStandard().getName())) {
@@ -100,17 +102,18 @@ public final class LDAModelGenetrator {
             }
         }
         ldaPools.put(format, formatMap);
+        ldaArchetypes.put(format, lda);
         return true;
     }
 
-    public static Map<String,List<List<Pair<String, Double>>>> loadFormat(GameFormat format,List<List<Pair<String, Double>>> lda) throws Exception{
+    public static Map<String,List<List<Pair<String, Double>>>> loadFormat(GameFormat format,List<Archetype> lda) throws Exception{
 
         List<List<Pair<String, Double>>> topics = new ArrayList<>();
         Set<String> cards = new HashSet<String>();
         for (int t = 0; t < lda.size(); ++t) {
             List<Pair<String, Double>> topic = new ArrayList<>();
             Set<String> topicCards = new HashSet<>();
-            List<Pair<String, Double>> highRankVocabs = lda.get(t);
+            List<Pair<String, Double>> highRankVocabs = lda.get(t).getCardProbabilities();
             if (highRankVocabs.get(0).getRight()<=0.01d){
                 continue;
             }
@@ -146,17 +149,41 @@ public final class LDAModelGenetrator {
         return cardTopicMap;
     }
 
-    public static List<List<Pair<String, Double>>> initializeFormat(GameFormat format) throws Exception{
+    public static List<Archetype> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
         final int numTopics = dataset.getNumDocs()/40;
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
-        List<List<Pair<String, Double>>> unfilteredTopics = new ArrayList<>();
+
+        //sort decks by topic
+        Map<Integer,List<Deck>> topicDecks = new HashMap<>();
+
+        int deckNum=0;
+        for(Deck deck: dataset.getBow().getLegalDecks()){
+            double maxTheta = 0;
+            int mainTopic = 0;
+            for (int t = 0; t < lda.getNumTopics(); ++t){
+                double theta = lda.getTheta(deckNum,t);
+                if (theta > maxTheta){
+                    maxTheta = theta;
+                    mainTopic = t;
+                }
+            }
+            if(topicDecks.containsKey(mainTopic)){
+                topicDecks.get(mainTopic).add(deck);
+            }else{
+                List<Deck> decks = new ArrayList<>();
+                decks.add(deck);
+                topicDecks.put(mainTopic,decks);
+            }
+            ++deckNum;
+        }
+
+
+        List<Archetype> unfilteredTopics = new ArrayList<>();
         for (int t = 0; t < lda.getNumTopics(); ++t) {
-            List<Pair<String, Double>> topic = new ArrayList<>();
-            Set<String> topicCards = new HashSet<>();
             List<Pair<String, Double>> highRankVocabs = lda.getVocabsSortedByPhi(t);
             Double min = 1d;
             for(Pair<String, Double> p:highRankVocabs){
@@ -170,9 +197,74 @@ public final class LDAModelGenetrator {
                     topRankVocabs.add(p);
                 }
             }
-            unfilteredTopics.add(topRankVocabs);
+
+            //generate names for topics
+            List<Deck> decks = topicDecks.get(t);
+            if(decks==null){
+                continue;
+            }
+            LinkedHashMap<String, Integer> wordCounts = new LinkedHashMap<>();
+            int wordCount = 0;
+            for( Deck deck: decks){
+                String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Standard), #[0-9]+\\)","");
+                String[] tokens = name.split(" ");
+                for(String token: tokens){
+                    if(wordCounts.containsKey(token)){
+                        wordCounts.put(token, wordCounts.get(token)+1);
+                    }else{
+                        wordCounts.put(token, 1);
+                    }
+                    wordCount++;
+                }
+            }
+            Map<String, Integer> sortedWordCounts = sortByValue(wordCounts);
+
+            List<String> topWords = new ArrayList<>();
+            Iterator<String> wordIterator = sortedWordCounts.keySet().iterator();
+            while(wordIterator.hasNext() && topWords.size() < 3){
+                topWords.add(wordIterator.next());
+            }
+            StringJoiner sb = new StringJoiner(" ");
+            for(String word: wordCounts.keySet()){
+                if(topWords.contains(word)){
+                    sb.add(word);
+                }
+            }
+            String deckName = sb.toString();
+            System.out.println("============ " + deckName);
+            System.out.println(decks.toString());
+
+            unfilteredTopics.add(new Archetype(topRankVocabs,deckName,decks.size()));
         }
+        Comparator<Archetype> archetypeComparator = new Comparator<Archetype>() {
+            @Override
+            public int compare(Archetype o1, Archetype o2) {
+                return o2.getDeckCount().compareTo(o1.getDeckCount());
+            }
+        };
+
+        Collections.sort(unfilteredTopics,archetypeComparator);
         return unfilteredTopics;
+    }
+
+
+
+    private static <K, V> Map<K, V> sortByValue(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Object>() {
+            @SuppressWarnings("unchecked")
+            public int compare(Object o1, Object o2) {
+                return ((Comparable<V>) ((Map.Entry<K, V>) (o2)).getValue()).compareTo(((Map.Entry<K, V>) (o1)).getValue());
+            }
+        });
+
+        Map<K, V> result = new LinkedHashMap<>();
+        for (Iterator<Map.Entry<K, V>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<K, V> entry = (Map.Entry<K, V>) it.next();
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
     }
 
     public static boolean topicContains(String card, List<Pair<String, Double>> topic){
