@@ -29,7 +29,6 @@ public class Archetype implements Serializable {
     }
 
     public String getName() {
-
         return titleize(name);
         /*//Debug:
         return getDeckCount() + "-" + getCardProbabilities().get(0).getRight().toString().substring(0,4)
