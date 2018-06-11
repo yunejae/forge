@@ -152,7 +152,7 @@ public final class LDAModelGenetrator {
     public static List<Archetype> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
-        final int numTopics = dataset.getNumDocs()/40;
+        final int numTopics = dataset.getNumDocs()/36;
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
@@ -208,7 +208,12 @@ public final class LDAModelGenetrator {
             for( Deck deck: decks){
                 String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Standard), #[0-9]+\\)","");
                 String[] tokens = name.split(" ");
-                for(String token: tokens){
+                for(String rawtoken: tokens){
+                    String token = rawtoken.toLowerCase();
+                    if (token.matches("[0-9]+")) {
+                        //skip just numbers as not useful
+                        continue;
+                    }
                     if(wordCounts.containsKey(token)){
                         wordCounts.put(token, wordCounts.get(token)+1);
                     }else{

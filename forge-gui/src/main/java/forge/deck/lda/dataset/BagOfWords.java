@@ -72,7 +72,7 @@ public final class BagOfWords {
 
         legalDecks = new ArrayList<>();
         for(Deck deck:decks){
-            if(format.isDeckLegal(deck)){
+            if(format.isDeckLegal(deck) && deck.getMain().toFlatList().size()==60){
                 legalDecks.add(deck);
             }
         }
