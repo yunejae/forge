@@ -1,13 +1,14 @@
-Name:Bumbling Pangolin
+Name:Bumbling // Pangolin
 ManaCost:3 R
-Types:Host Creature Beast
+Types:Host Creature Pangolin Beast
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ DBDestroy | TriggerDescription$ When this creature enters the battlefield, you may destroy target artifact.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | TgtPrompt$ Select target artifact. | SpellDescription$ you may destroy target artifact.
 Oracle:When this creature enters the battlefield, you may destroy target artifact.
 PT:2/2
-
 ALTERNATE
-
 Name:Pangolin
 ManaCost:3 R
-Types:Beast
-Oracle:you may destroy target artifact.
+Types:Pangolin Beast
+T:Mode$ AugmentTriggerActivated | OptionalDecider$ You | Execute$ DBDestroy | TriggerDescription$ you may destroy target artifact.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | TgtPrompt$ Select target artifact. | SpellDescription$ you may destroy target artifact.
 PT:2/2
