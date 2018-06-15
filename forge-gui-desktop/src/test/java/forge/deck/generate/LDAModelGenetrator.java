@@ -57,6 +57,8 @@ public final class LDAModelGenetrator {
         List<String> formatStrings = new ArrayList<>();
         formatStrings.add(FModel.getFormats().getStandard().getName());
         formatStrings.add(FModel.getFormats().getModern().getName());
+        formatStrings.add("Legacy");
+        formatStrings.add("Vintage");
         formatStrings.add(DeckFormat.Commander.toString());
 
         for (String formatString : formatStrings){
@@ -80,8 +82,8 @@ public final class LDAModelGenetrator {
                             lda = initializeFormat(FModel.getFormats().getStandard());
                         } else if (format.equals(FModel.getFormats().getModern().getName())) {
                             lda = initializeFormat(FModel.getFormats().getModern());
-                        } else {
-                            //formatMap = initializeCommanderFormat();
+                        } else if (format != DeckFormat.Commander.toString()) {
+                            lda = initializeFormat(FModel.getFormats().get(format));
                         }
                         CardThemedLDAIO.saveRawLDA(format, lda);
                     } else {
@@ -92,8 +94,8 @@ public final class LDAModelGenetrator {
                     formatMap = loadFormat(FModel.getFormats().getStandard(), lda);
                 } else if (format.equals(FModel.getFormats().getModern().getName())) {
                     formatMap = loadFormat(FModel.getFormats().getModern(), lda);
-                } else {
-                    //formatMap = initializeCommanderFormat();
+                } else if (format != DeckFormat.Commander.toString()) {
+                    formatMap = loadFormat(FModel.getFormats().get(format), lda);;
                 }
                 CardThemedLDAIO.saveLDA(format, formatMap);
             }catch (Exception e){
@@ -121,7 +123,13 @@ public final class LDAModelGenetrator {
             int i = 0;
             while (topic.size()<=40&&i<highRankVocabs.size()) {
                 String cardName = highRankVocabs.get(i).getLeft();;
-                if(!StaticData.instance().getCommonCards().getUniqueByName(cardName).getRules().getType().isBasicLand()){
+                PaperCard card = StaticData.instance().getCommonCards().getUniqueByName(cardName);
+                if(card == null){
+                    System.out.println("Card " + cardName + " is MISSING!");
+                    i++;
+                    continue;
+                }
+                if(!card.getRules().getType().isBasicLand()){
                     if(highRankVocabs.get(i).getRight()>=0.005d) {
                         topicCards.add(cardName);
                     }
@@ -152,7 +160,7 @@ public final class LDAModelGenetrator {
     public static List<Archetype> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
-        final int numTopics = dataset.getNumDocs()/36;
+        final int numTopics = dataset.getNumDocs()/30;
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
@@ -206,7 +214,7 @@ public final class LDAModelGenetrator {
             LinkedHashMap<String, Integer> wordCounts = new LinkedHashMap<>();
             int wordCount = 0;
             for( Deck deck: decks){
-                String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Standard), #[0-9]+\\)","");
+                String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Standard|Legacy|Vintage), #[0-9]+\\)","");
                 String[] tokens = name.split(" ");
                 for(String rawtoken: tokens){
                     String token = rawtoken.toLowerCase();

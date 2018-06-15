@@ -68,14 +68,17 @@ public final class BagOfWords {
                 ForgeConstants.DECK_GEN_DIR, false),
                 true);
 
-        List<PaperCard> cardList = format.getAllCards();
-
+        Set<PaperCard> cardSet = new HashSet<>();
         legalDecks = new ArrayList<>();
         for(Deck deck:decks){
             if(format.isDeckLegal(deck) && deck.getMain().toFlatList().size()==60){
                 legalDecks.add(deck);
+                for(PaperCard card : deck.getMain().toFlatList()){
+                    cardSet.add(card);
+                }
             }
         }
+        List<PaperCard> cardList = new ArrayList<>(cardSet);
 
         this.words     = new HashMap<>();
         this.docLength = new HashMap<>();
