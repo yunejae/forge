@@ -1,5 +1,6 @@
 package forge;
 
+import com.google.common.base.Predicate;
 import forge.card.CardDb;
 import forge.card.CardEdition;
 import forge.card.CardRules;
@@ -9,6 +10,7 @@ import forge.item.BoosterBox;
 import forge.item.FatPack;
 import forge.item.PaperCard;
 import forge.item.SealedProduct;
+import forge.token.TokenDb;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageBase;
 
@@ -22,11 +24,20 @@ import java.util.*;
  * @author Max
  */
 public class StaticData {
-    private final CardStorageReader reader;
+    private final CardStorageReader cardReader;
+    private final CardStorageReader tokenReader;
+
     private final String blockDataFolder;
     private final CardDb commonCards;
     private final CardDb variantCards;
+    private final TokenDb allTokens;
     private final CardEdition.Collection editions;
+
+    private Predicate<PaperCard> standardPredicate;
+    private Predicate<PaperCard> brawlPredicate;
+    private Predicate<PaperCard> modernPredicate;
+
+    private boolean filteredHandsEnabled = false;
 
     // Loaded lazily:
     private IStorage<SealedProduct.Template> boosters;
@@ -38,32 +49,50 @@ public class StaticData {
 
     private static StaticData lastInstance = null;
 
-    public StaticData(CardStorageReader reader, String editionFolder, String blockDataFolder) {
-        this.reader = reader;
+    public StaticData(CardStorageReader cardReader, String editionFolder, String blockDataFolder) {
+        this(cardReader, null, editionFolder, blockDataFolder);
+    }
+
+    public StaticData(CardStorageReader cardReader, CardStorageReader tokenReader, String editionFolder, String blockDataFolder) {
+        this.cardReader = cardReader;
+        this.tokenReader = tokenReader;
         this.editions = new CardEdition.Collection(new CardEdition.Reader(new File(editionFolder)));
         this.blockDataFolder = blockDataFolder;
         lastInstance = this;
 
-        final Map<String, CardRules> regularCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        final Map<String, CardRules> variantsCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        {
+            final Map<String, CardRules> regularCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            final Map<String, CardRules> variantsCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-        for (CardRules card : reader.loadCards()) {
-            if (null == card) continue;
+            for (CardRules card : cardReader.loadCards()) {
+                if (null == card) continue;
 
-            final String cardName = card.getName();
-            if (card.isVariant()) {
-                variantsCards.put(cardName, card);
-            } else {
-                regularCards.put(cardName, card);
+                final String cardName = card.getName();
+                if (card.isVariant()) {
+                    variantsCards.put(cardName, card);
+                } else {
+                    regularCards.put(cardName, card);
+                }
             }
+
+            commonCards = new CardDb(regularCards, editions);
+            variantCards = new CardDb(variantsCards, editions);
+
+            //must initialize after establish field values for the sake of card image logic
+            commonCards.initialize(false, false);
+            variantCards.initialize(false, false);
         }
 
-        commonCards = new CardDb(regularCards, editions);
-        variantCards = new CardDb(variantsCards, editions);
+        {
+            final Map<String, CardRules> tokens = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-        //muse initialize after establish field values for the sake of card image logic
-        commonCards.initialize(false, false);
-        variantCards.initialize(false, false);
+            for (CardRules card : tokenReader.loadCards()) {
+                if (null == card) continue;
+
+                tokens.put(card.getNormalizedName(), card);
+            }
+            allTokens = new TokenDb(tokens, editions);
+        }
     }
 
     public static StaticData instance() {
@@ -91,7 +120,7 @@ public class StaticData {
         PaperCard card = commonCards.getCard(cardName, setCode, artIndex);
         if (card == null) {
             attemptToLoadCard(cardName, setCode);
-            commonCards.getCard(cardName, setCode, artIndex);
+            card = commonCards.getCard(cardName, setCode, artIndex);
         }
         if (card == null) {
             card = commonCards.getCard(cardName, setCode, -1);
@@ -105,7 +134,7 @@ public class StaticData {
     public void attemptToLoadCard(String encodedCardName, String setCode) {
         CardDb.CardRequest r = CardRequest.fromString(encodedCardName);
         String cardName = r.cardName;
-        CardRules rules = reader.attemptToLoadCard(cardName, setCode);
+        CardRules rules = cardReader.attemptToLoadCard(cardName, setCode);
         if (rules != null) {
             if (rules.isVariant()) {
                 variantCards.loadCard(cardName, rules);
@@ -160,6 +189,34 @@ public class StaticData {
 
     public CardDb getVariantCards() {
         return variantCards;
+    }
+
+    public TokenDb getAllTokens() { return allTokens; }
+
+    public Predicate<PaperCard> getStandardPredicate() {
+        return standardPredicate;
+    }
+
+    public void setStandardPredicate(Predicate<PaperCard> standardPredicate) { this.standardPredicate = standardPredicate; }
+
+    public void setBrawlPredicate(Predicate<PaperCard> brawlPredicate) { this.brawlPredicate = brawlPredicate; }
+
+    public void setModernPredicate(Predicate<PaperCard> modernPredicate) { this.modernPredicate = standardPredicate; }
+
+    public Predicate<PaperCard> getModernPredicate() {
+        return modernPredicate;
+    }
+
+    public Predicate<PaperCard> getBrawlPredicate() {
+        return brawlPredicate;
+    }
+
+    public void setFilteredHandsEnabled(boolean filteredHandsEnabled){
+        this.filteredHandsEnabled = filteredHandsEnabled;
+    }
+
+    public boolean getFilteredHandsEnabled(){
+        return filteredHandsEnabled;
     }
 
     public PaperCard getCardByEditionDate(PaperCard card, Date editionDate) {

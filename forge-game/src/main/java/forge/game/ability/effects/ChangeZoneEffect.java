@@ -107,7 +107,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
 
         String fetchPlayer = fetcherNames;
         if (chooserNames.equals(fetcherNames)) {
-            fetchPlayer = fetchers.size() > 1 ? "their" : "his/her";
+            fetchPlayer = "their";
         }
 
         String origin = "";
@@ -179,8 +179,12 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 sb.append(num).append(" of those ").append(type).append(" card(s)");
             } else {
                 sb.append(destination.equals("Exile") ? " exiles " : " puts ");
-                sb.append(num).append(" ").append(type).append(" card(s) from");
-                sb.append(fetchPlayer).append(" hand");
+                if (type == "Card") {
+                    sb.append(num);
+                } else {
+                    sb.append(num).append(" ").append(type);
+                }
+                sb.append(" card(s) from ").append(fetchPlayer).append(" hand");
             }
 
             if (destination.equals("Battlefield")) {
@@ -202,7 +206,11 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     sb.append(" on the bottom");
                 }
 
-                sb.append(" of ").append(fetchPlayer).append("'s library");
+                sb.append(" of ").append(fetchPlayer);
+                if (fetchPlayer != "their") {
+                    sb.append("'s");
+                }
+                sb.append(" library");
             }
 
             sb.append(".");
@@ -459,7 +467,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     }
                 }
 
-                movedCard = game.getAction().moveToLibrary(tgtC, libraryPosition, sa, Maps.newHashMap());
+                movedCard = game.getAction().moveToLibrary(tgtC, libraryPosition, sa, null);
 
             } else {
                 if (destination.equals(ZoneType.Battlefield)) {
@@ -476,7 +484,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     }
                     if (sa.hasParam("WithCounters")) {
                         String[] parse = sa.getParam("WithCounters").split("_");
-                        tgtC.addEtbCounter(CounterType.getType(parse[0]), Integer.parseInt(parse[1]), hostCard);
+                        tgtC.addEtbCounter(CounterType.getType(parse[0]), Integer.parseInt(parse[1]), player);
                     }
                     if (sa.hasParam("GainControl")) {
                         if (sa.hasParam("NewController")) {
@@ -551,7 +559,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     }
 
                     movedCard = game.getAction().moveTo(
-                            tgtC.getController().getZone(destination), tgtC, sa, Maps.newHashMap());
+                            tgtC.getController().getZone(destination), tgtC, sa, null);
                     if (sa.hasParam("Unearth")) {
                         movedCard.setUnearthed(true);
                         movedCard.addExtrinsicKeyword("Haste");
@@ -594,10 +602,11 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                         }
                         tgtC.setExiledWith(host);
                     }
-                    movedCard = game.getAction().moveTo(destination, tgtC, sa, Maps.newHashMap());
+                    movedCard = game.getAction().moveTo(destination, tgtC, sa, null);
                     // If a card is Exiled from the stack, remove its spells from the stack
                     if (sa.hasParam("Fizzle")) {
-                        if (tgtC.isInZone(ZoneType.Exile) || tgtC.isInZone(ZoneType.Hand) || tgtC.isInZone(ZoneType.Stack)) {
+                        if (tgtC.isInZone(ZoneType.Exile) || tgtC.isInZone(ZoneType.Hand)
+                                || tgtC.isInZone(ZoneType.Stack) || tgtC.isInZone(ZoneType.Command)) {
                             // This only fizzles spells, not anything else.
                             game.getStack().remove(tgtC);
                         }
@@ -863,74 +872,81 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
         fetchList.sort();
 
         CardCollection chosenCards = new CardCollection();
-        for (int i = 0; i < changeNum && destination != null; i++) {
-            if (sa.hasParam("DifferentNames")) {
-                for (Card c : chosenCards) {
-                    fetchList = CardLists.filter(fetchList, Predicates.not(CardPredicates.sharesNameWith(c)));
+        // only multi-select if player can select more than one
+        if (changeNum > 1 && allowMultiSelect(decider, sa)) {
+            for (Card card : decider.getController().chooseCardsForZoneChange(destination, origin, sa, fetchList, delayedReveal, selectPrompt, decider)) {
+                chosenCards.add(card);
+            };
+            // maybe prompt the user if they selected fewer than the maximum possible?
+        } else {
+            // one at a time
+            for (int i = 0; i < changeNum && destination != null; i++) {
+                if (sa.hasParam("DifferentNames")) {
+                    for (Card c : chosenCards) {
+                        fetchList = CardLists.filter(fetchList, Predicates.not(CardPredicates.sharesNameWith(c)));
+                    }
                 }
-            }
-            if (sa.hasParam("DifferentCMC")) {
-                for (Card c: chosenCards) {
-                    fetchList = CardLists.filter(fetchList, Predicates.not(CardPredicates.sharesCMCWith(c)));
+                if (sa.hasParam("DifferentCMC")) {
+                    for (Card c : chosenCards) {
+                        fetchList = CardLists.filter(fetchList, Predicates.not(CardPredicates.sharesCMCWith(c)));
+                    }
                 }
-            }
-            if (sa.hasParam("ShareLandType")) {
-                // After the first card is chosen, check if the land type is shared
-                for (final Card card : chosenCards) {
-                    fetchList = CardLists.filter(fetchList, new Predicate<Card>() {
-                        @Override
-                        public boolean apply(final Card c) {
-                            return  c.sharesLandTypeWith(card);
-                        }
+                if (sa.hasParam("ShareLandType")) {
+                    // After the first card is chosen, check if the land type is shared
+                    for (final Card card : chosenCards) {
+                        fetchList = CardLists.filter(fetchList, new Predicate<Card>() {
+                            @Override
+                            public boolean apply(final Card c) {
+                                return c.sharesLandTypeWith(card);
+                            }
 
-                    });
+                        });
+                    }
                 }
-            }
-            if (totalcmc != null) {
-                if (totcmc >= 0) {
-                    fetchList = CardLists.getValidCards(fetchList, "Card.cmcLE" + Integer.toString(totcmc), source.getController(), source);
+                if (totalcmc != null) {
+                    if (totcmc >= 0) {
+                        fetchList = CardLists.getValidCards(fetchList, "Card.cmcLE" + Integer.toString(totcmc), source.getController(), source);
+                    }
                 }
-            }
 
-            // If we're choosing multiple cards, only need to show the reveal dialog the first time through.
-            boolean shouldReveal = (i == 0);
-            Card c = null;
-            if (sa.hasParam("AtRandom")) {
-                if (shouldReveal && delayedReveal != null) {
-                    decider.getController().reveal(delayedReveal.getCards(), delayedReveal.getZone(), delayedReveal.getOwner(), delayedReveal.getMessagePrefix());
+                // If we're choosing multiple cards, only need to show the reveal dialog the first time through.
+                boolean shouldReveal = (i == 0);
+                Card c = null;
+                if (sa.hasParam("AtRandom")) {
+                    if (shouldReveal && delayedReveal != null) {
+                        decider.getController().reveal(delayedReveal.getCards(), delayedReveal.getZone(), delayedReveal.getOwner(), delayedReveal.getMessagePrefix());
+                    }
+                    c = Aggregates.random(fetchList);
+                } else if (defined && !sa.hasParam("ChooseFromDefined")) {
+                    c = Iterables.getFirst(fetchList, null);
+                } else {
+                    String title = selectPrompt;
+                    if (changeNum > 1) { //indicate progress if multiple cards being chosen
+                        title += " (" + (i + 1) + " / " + changeNum + ")";
+                    }
+                    c = decider.getController().chooseSingleCardForZoneChange(destination, origin, sa, fetchList, shouldReveal ? delayedReveal : null, title, !sa.hasParam("Mandatory"), decider);
                 }
-                c = Aggregates.random(fetchList);
-            }
-            else if (defined && !sa.hasParam("ChooseFromDefined")) {
-                c = Iterables.getFirst(fetchList, null);
-            }
-            else {
-                String title = selectPrompt;
-                if (changeNum > 1) { //indicate progress if multiple cards being chosen
-                    title += " (" + (i + 1) + " / " + changeNum + ")";
+
+                if (c == null) {
+                    final int num = Math.min(fetchList.size(), changeNum - i);
+                    String message = "Cancel Search? Up to " + num + " more card" + (num != 1 ? "s" : "") + " can be selected.";
+
+                    if (fetchList.isEmpty() || decider.getController().confirmAction(sa, PlayerActionConfirmMode.ChangeZoneGeneral, message)) {
+                        break;
+                    }
+                    i--;
+                    continue;
                 }
-                c = decider.getController().chooseSingleCardForZoneChange(destination, origin, sa, fetchList, shouldReveal ? delayedReveal : null, title, !sa.hasParam("Mandatory"), decider);
-            }
 
-            if (c == null) {
-                final int num = Math.min(fetchList.size(), changeNum - i);
-                String message = "Cancel Search? Up to " + num + " more card" + (num != 1 ? "s" : "") + " can be selected.";
-
-                if (fetchList.isEmpty() || decider.getController().confirmAction(sa, PlayerActionConfirmMode.ChangeZoneGeneral, message)) {
-                    break;
+                fetchList.remove(c);
+                if (delayedReveal != null) {
+                    delayedReveal.remove(CardView.get(c));
                 }
-                i--;
-                continue;
-            }
+                chosenCards.add(c);
 
-            fetchList.remove(c);
-            if (delayedReveal != null) {
-                delayedReveal.remove(CardView.get(c));
-            }
-            chosenCards.add(c);
-
-            if (totalcmc != null) {
-                totcmc -= c.getCMC();
+                if (totalcmc != null) {
+                    totcmc -= c.getCMC();
+                }
             }
         }
 
@@ -950,7 +966,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             Card movedCard = null;
             final Zone originZone = game.getZoneOf(c);
             if (destination.equals(ZoneType.Library)) {
-                movedCard = game.getAction().moveToLibrary(c, libraryPos, sa, Maps.newHashMap());
+                movedCard = game.getAction().moveToLibrary(c, libraryPos, sa, null);
             }
             else if (destination.equals(ZoneType.Battlefield)) {
                 if (sa.hasParam("Tapped")) {
@@ -1085,7 +1101,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                         }
                     }
                 }
-                movedCard = game.getAction().moveTo(c.getController().getZone(destination), c, sa, Maps.newHashMap());
+                movedCard = game.getAction().moveTo(c.getController().getZone(destination), c, sa, null);
                 if (sa.hasParam("Tapped")) {
                     movedCard.setTapped(true);
                 }
@@ -1095,7 +1111,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 movedCard.setTimestamp(ts);
             }
             else if (destination.equals(ZoneType.Exile)) {
-                movedCard = game.getAction().exile(c, sa, Maps.newHashMap());
+                movedCard = game.getAction().exile(c, sa, null);
                 if (!c.isToken()) {
                     Card host = sa.getOriginalHost();
                     if (host == null) {
@@ -1108,7 +1124,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 }
             }
             else {
-                movedCard = game.getAction().moveTo(destination, c, sa, Maps.newHashMap());
+                movedCard = game.getAction().moveTo(destination, c, sa, null);
             }
             
             movedCards.add(movedCard);
@@ -1156,6 +1172,18 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             game.getTriggerHandler().runTrigger(TriggerType.ChangesZoneAll, runParams, false);
         }
         
+    }
+
+    private static boolean allowMultiSelect(Player decider, SpellAbility sa) {
+        return decider.getController().isGuiPlayer()        // limit mass selection to human players for now
+                && !sa.hasParam("Mandatory")                // only handle optional decisions, for now
+                && !sa.hasParam("ShareLandType")
+                && !sa.hasParam("DifferentNames")
+                && !sa.hasParam("DifferentCMC")
+                && !sa.hasParam("AtRandom")
+                && !sa.hasParam("ChangeNum") // TODO: doesn't work with card number limits, e.g. Doomsday
+                && (!sa.hasParam("Defined") || sa.hasParam("ChooseFromDefined"))
+                && sa.getParam("WithTotalCMC") == null;
     }
 
     /**
@@ -1228,8 +1256,13 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
         final Game game = source.getGame();
         final TargetRestrictions tgt = attachEff.getTargetRestrictions();
 
+        Player attachEffCtrl = attachEff.getActivatingPlayer();
+        if (attachEffCtrl == null && attachEff.getHostCard() != null) {
+            attachEffCtrl = attachEff.getHostCard().getController();
+        }
+
         CardCollectionView list = game.getCardsIn(tgt.getZone());
-        list = CardLists.getValidCards(list, tgt.getValidTgts(), attachEff.getActivatingPlayer(), source, attachEff);
+        list = CardLists.getValidCards(list, tgt.getValidTgts(), attachEffCtrl, source, attachEff);
         return list.contains(target);
     }
 }

@@ -212,17 +212,25 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
     public final boolean checkZoneRestrictions(final Card c, final SpellAbility sa) {
 
         final Player activator = sa.getActivatingPlayer();
-        final Zone cardZone = activator.getGame().getZoneOf(c);
+        final Zone cardZone = c.getLastKnownZone();
         Card cp = c;
 
         // for Bestow need to check the animated State
         if (sa.isSpell() && sa.hasParam("Bestow")) {
-            if (!c.isLKI()) {
-                cp = CardUtil.getLKICopy(c);
+            // already bestowed or in battlefield, no need to check for spell
+            if (c.isInZone(ZoneType.Battlefield)) {
+                return false;
             }
 
-            if (!cp.isBestowed()) {
-                cp.animateBestow();
+            // if card is lki and bestowed, then do nothing there, it got already animated
+            if (!(c.isLKI() && c.isBestowed())) {
+                if (!c.isLKI()) {
+                    cp = CardUtil.getLKICopy(c);
+                }
+
+                if (!cp.isBestowed()) {
+                    cp.animateBestow(!cp.isLKI());
+                }
             }
         }
 
@@ -373,6 +381,12 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
     public final boolean checkOtherRestrictions(final Card c, final SpellAbility sa, final Player activator) {
         final Game game = activator.getGame();
 
+        // legendary sorcery
+        if (c.isSorcery() && c.getType().isLegendary() &&
+                CardLists.getValidCards(activator.getCardsIn(ZoneType.Battlefield), "Creature.Legendary,Planeswalker.Legendary", c.getController(), c).isEmpty()) {
+            return false;
+        }
+
         if (this.getCardsInHand() != -1) {
             if (activator.getCardsIn(ZoneType.Hand).size() != this.getCardsInHand()) {
                 return false;
@@ -474,7 +488,10 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
                     && !activator.canCastSorcery()) {
                 return false;
             }
-            final int limits = c.getAmountOfKeyword("May activate CARDNAME's loyalty abilities once");
+
+            final int initialLimit = c.hasKeyword("CARDNAME's loyalty abilities can be activated twice each turn rather than only once") ? 1 : 0;
+            final int limits = c.getAmountOfKeyword("May activate CARDNAME's loyalty abilities once") + initialLimit;
+
             int numActivates = 0;
             for (final SpellAbility pwAbs : c.getAllSpellAbilities()) {
                 // check all abilities on card that have their planeswalker

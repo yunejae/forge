@@ -36,6 +36,7 @@ import forge.quest.io.ReadPriceList;
 import forge.tournament.system.TournamentBracket;
 import forge.tournament.system.TournamentPairing;
 import forge.tournament.system.TournamentPlayer;
+import forge.util.MyRandom;
 import forge.util.NameGenerator;
 import forge.util.TextUtil;
 import forge.util.storage.IStorage;
@@ -198,7 +199,13 @@ public class QuestEventDraft implements IQuestEvent {
         final Deck tournamentDeck = FModel.getQuest().getDraftDecks().get(QuestEventDraft.DECK_NAME).getHumanDeck();
         final Deck deck = new Deck(deckName);
 
-        FModel.getQuest().getCards().addAllCards(tournamentDeck.getAllCardsInASinglePool().toFlatList());
+        // Add all cards except those added through "Add basic land" to quest inventory
+        List<PaperCard> cards = tournamentDeck.getAllCardsInASinglePool().toFlatList();
+        for (PaperCard c : cards) {
+            if ((!c.isVeryBasicLand()) || (c.isFoil())) {
+                FModel.getQuest().getCards().addSingleCard(c, 1);
+            }
+        }
 
         if (tournamentDeck.get(DeckSection.Main).countAll() > 0) {
             deck.getOrCreate(DeckSection.Main).addAll(tournamentDeck.get(DeckSection.Main));
@@ -472,7 +479,7 @@ public class QuestEventDraft implements IQuestEvent {
         int attempts = 25;
 
         while (promo == null && attempts-- > 0) {
-            randomCard = cardsInEdition.get((int) (Math.random() * cardsInEdition.size()));
+            randomCard = cardsInEdition.get((int) (MyRandom.getRandom().nextDouble() * cardsInEdition.size()));
             promo = FModel.getMagicDb().getCommonCards().getCard(randomCard.name, randomEdition.getCode());
         }
 
@@ -491,7 +498,7 @@ public class QuestEventDraft implements IQuestEvent {
             editions.add(FModel.getMagicDb().getEditions().get(booster));
         }
 
-        return editions.get((int) (Math.random() * editions.size()));
+        return editions.get((int) (MyRandom.getRandom().nextDouble() * editions.size()));
 
     }
 
@@ -789,34 +796,18 @@ public class QuestEventDraft implements IQuestEvent {
         if (!allowedQuestSets.isEmpty()) {
             for (final CardBlock block : blocks) {
 
-                boolean blockAllowed = false;
-                boolean largeSetUnlocked = false;
-                int unlockedSets = 0;
-                final boolean allBlocksSanctioned = quest.getFormat().getAllowedSetCodes().isEmpty();
+                // New code : all sets must be unlocked
+                boolean blockAllowed = true;
 
-                for (final CardEdition set : block.getSets()) {
-                    if (!allowedQuestSets.contains(set) && !allBlocksSanctioned) {
-                        continue;
+                for (CardEdition set : block.getSets()) {
+                    if (!allowedQuestSets.contains(set)) {
+                        blockAllowed = false;
                     }
-                    unlockedSets++;
-                    if (set.isLargeSet()) {
-                        largeSetUnlocked = true;
-                    }
-                }
-
-                //Allow partially unlocked blocks if they contain at least one large and one small unlocked set.
-                if (largeSetUnlocked && unlockedSets > 1) {
-                    blockAllowed = true;
-                }
-
-                if (largeSetUnlocked && block.getSets().size() == 1) {
-                    blockAllowed = true;
-                    singleSets.add(block.getSets().get(0).getCode());
                 }
 
                 if (blockAllowed) {
                     possibleFormats.add(new QuestDraftFormat(block));
-                }
+                } 
 
             }
 
@@ -935,7 +926,7 @@ public class QuestEventDraft implements IQuestEvent {
             int attempts = 50;
 
             do {
-                icon = (int) Math.floor(Math.random() * numberOfIcons);
+                icon = (int) Math.floor(MyRandom.getRandom().nextDouble() * numberOfIcons);
             } while ((icon < 0 || usedIcons.contains(icon)) && attempts-- > 0);
 
             event.aiIcons[i] = icon;

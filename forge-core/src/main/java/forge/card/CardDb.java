@@ -74,6 +74,7 @@ public final class CardDb implements ICardDatabase, IDeckGenPool {
 
     // NO GETTERS/SETTERS HERE!
     public static class CardRequest {
+        // TODO Move Request to its own class
         public String cardName;
         public String edition;
         public int artIndex;
@@ -129,7 +130,7 @@ public final class CardDb implements ICardDatabase, IDeckGenPool {
             if (main.getAltName() != null) {
                 alternateName.put(main.getAltName(), main.getName());
             }
-            final ICardFace other = rule.getMainPart();
+            final ICardFace other = rule.getOtherPart();
             if (other != null) {
                 facesByName.put(other.getName(), other);
                 if (other.getAltName() != null) {
@@ -171,11 +172,12 @@ public final class CardDb implements ICardDatabase, IDeckGenPool {
         Date today = new Date();
 
         for (CardEdition e : editions.getOrderedEditions()) {
-            boolean isCoreExpSet = e.getType() == CardEdition.Type.CORE || e.getType() == CardEdition.Type.EXPANSION || e.getType() == CardEdition.Type.REPRINT;
+            boolean coreOrExpSet = e.getType() == CardEdition.Type.CORE || e.getType() == CardEdition.Type.EXPANSION;
+            boolean isCoreExpSet = coreOrExpSet || e.getType() == CardEdition.Type.REPRINT;
             if (logMissingPerEdition && isCoreExpSet) {
                 System.out.print(e.getName() + " (" + e.getCards().length + " cards)");
             }
-            if (e.getDate().after(today)) {
+            if (coreOrExpSet && e.getDate().after(today)) {
                 upcomingSet = e;
             }
 
@@ -658,9 +660,9 @@ public final class CardDb implements ICardDatabase, IDeckGenPool {
         }
 
         if (cardRarity == CardRarity.Unknown) {
-            System.err.println(TextUtil.concatWithSpace("An unknown card found when loading Forge decks:", TextUtil.enclosedDoubleQuote(cardName), "Forge does not know of such a card's existence. Have you mistyped the card name?"));
+            System.err.println("Forge does not know of such a card's existence. Have you mistyped the card name?");
         } else {
-            System.err.println(TextUtil.concatWithSpace("An unsupported card was requested:", TextUtil.enclosedDoubleQuote(request.cardName), "from", TextUtil.enclosedDoubleQuote(cardEdition.getName()), "set. We're sorry, but you cannot use this card yet."));
+            System.err.println("We're sorry, but you cannot use this card yet.");
         }
 
         return new PaperCard(CardRules.getUnsupportedCardNamed(request.cardName), cardEdition.getCode(), cardRarity, 1);

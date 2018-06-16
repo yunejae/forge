@@ -23,6 +23,7 @@ import java.util.List;
 import forge.game.Game;
 import forge.game.card.Card;
 import forge.game.player.Player;
+import forge.game.spellability.LandAbility;
 import forge.game.spellability.SpellAbility;
 import forge.model.FModel;
 import forge.player.GamePlayerUtil;
@@ -60,6 +61,8 @@ public class InputPassPriority extends InputSyncronizedBase {
         else { //otherwise allow ending turn with cancel button
             getController().getGui().updateButtons(getOwner(), "OK", "End Turn", true, true, true);
         }
+
+        getController().getGui().alertUser();
     }
 
     /** {@inheritDoc} */
@@ -160,7 +163,7 @@ public class InputPassPriority extends InputSyncronizedBase {
         if (sa.isSpell()) {
             return "cast spell";
         }
-        if (sa == card.getGame().PLAY_LAND_SURROGATE) {
+        if (sa instanceof LandAbility) {
             return "play land";
         }
         return "activate ability";

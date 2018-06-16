@@ -37,6 +37,7 @@ import forge.game.card.CardPredicates.Presets;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.cost.*;
+import forge.game.keyword.Keyword;
 import forge.game.phase.PhaseHandler;
 import forge.game.phase.PhaseType;
 import forge.game.player.Player;
@@ -789,7 +790,7 @@ public class ComputerUtil {
         }
         
         if (destroy) {
-            final CardCollection indestructibles = CardLists.getKeyword(remaining, "Indestructible");
+            final CardCollection indestructibles = CardLists.getKeyword(remaining, Keyword.INDESTRUCTIBLE);
             if (!indestructibles.isEmpty()) {
                 return indestructibles.get(0);
             }
@@ -826,7 +827,7 @@ public class ComputerUtil {
     }
 
     public static boolean canRegenerate(Player ai, final Card card) {
-        if (card.hasKeyword("CARDNAME can't be regenerated.")) {
+        if (!card.canBeShielded()) {
             return false;
         }
 
@@ -925,10 +926,6 @@ public class ComputerUtil {
     public static boolean castPermanentInMain1(final Player ai, final SpellAbility sa) {
         final Card card = sa.getHostCard();
 
-        if ("True".equals(card.getSVar("NonStackingEffect")) && card.getController().isCardInPlay(card.getName())) {
-            return false;
-        }
-
         if (card.hasSVar("PlayMain1")) {
         	if (card.getSVar("PlayMain1").equals("ALWAYS") || sa.getPayCosts().hasNoManaCost()) {
         		return true;
@@ -943,7 +940,7 @@ public class ComputerUtil {
         }
 
         // try not to cast Raid creatures in main 1 if an attack is likely
-        if ("Count$AttackersDeclared".equals(card.getSVar("RaidTest")) && !card.hasKeyword("Haste")) {
+        if ("Count$AttackersDeclared".equals(card.getSVar("RaidTest")) && !card.hasKeyword(Keyword.HASTE)) {
             for (Card potentialAtkr: ai.getCreaturesInPlay()) {
                 if (ComputerUtilCard.doesCreatureAttackAI(ai, potentialAtkr)) {
                     return false;
@@ -955,11 +952,12 @@ public class ComputerUtil {
         	return true;
         }
 
-        if (card.isCreature() && !card.hasKeyword("Defender") && (card.hasKeyword("Haste") || ComputerUtil.hasACardGivingHaste(ai) || sa.isDash())) {
+        if (card.isCreature() && !card.hasKeyword(Keyword.DEFENDER)
+                && (card.hasKeyword(Keyword.HASTE) || ComputerUtil.hasACardGivingHaste(ai, true) || sa.isDash())) {
             return true;
         }
         
-        if (card.hasKeyword("Exalted")) {
+        if (card.hasKeyword(Keyword.EXALTED)) {
         	return true;
         }
 
@@ -994,16 +992,16 @@ public class ComputerUtil {
                 return true;
             }
             if (card.isCreature()) {
-                if (buffedcard.hasKeyword("Soulbond") && !buffedcard.isPaired()) {
+                if (buffedcard.hasKeyword(Keyword.SOULBOND) && !buffedcard.isPaired()) {
                     return true;
                 }
-                if (buffedcard.hasKeyword("Evolve")) {
+                if (buffedcard.hasKeyword(Keyword.EVOLVE)) {
                     if (buffedcard.getNetPower() < card.getNetPower() || buffedcard.getNetToughness() < card.getNetToughness()) {
                         return true;
                     }
                 }
             }
-            if (card.hasKeyword("Soulbond") && buffedcard.isCreature() && !buffedcard.isPaired()) {
+            if (card.hasKeyword(Keyword.SOULBOND) && buffedcard.isCreature() && !buffedcard.isPaired()) {
                 return true;
             }
 
@@ -1189,16 +1187,14 @@ public class ComputerUtil {
         int activations = sa.getRestrictions().getNumberTurnActivations();
 
         if (sa.isTemporary()) {
-        	final Random r = MyRandom.getRandom();
-        	return r.nextFloat() >= .95; // Abilities created by static abilities have no memory
+        	return MyRandom.getRandom().nextFloat() >= .95; // Abilities created by static abilities have no memory
         }
 
         if (activations < 10) { //10 activations per turn should still be acceptable
             return false;
         }
 
-        final Random r = MyRandom.getRandom();
-        return r.nextFloat() >= Math.pow(.95, activations);
+        return MyRandom.getRandom().nextFloat() >= Math.pow(.95, activations);
     }
 
     public static boolean activateForCost(SpellAbility sa, final Player ai) {
@@ -1241,9 +1237,9 @@ public class ComputerUtil {
         return false;
     }
 
-    public static boolean hasACardGivingHaste(final Player ai) {
-        final CardCollection all = new CardCollection(ai.getCardsIn(ZoneType.Battlefield));
-        
+    public static boolean hasACardGivingHaste(final Player ai, final boolean checkOpponentCards) {
+        final CardCollection all = new CardCollection(ai.getCardsIn(Lists.newArrayList(ZoneType.Battlefield, ZoneType.Command)));
+
         // Special for Anger
         if (!ai.getGame().isCardInPlay("Yixlid Jailer")
                 && !ai.getCardsIn(ZoneType.Graveyard, "Anger").isEmpty()
@@ -1253,7 +1249,7 @@ public class ComputerUtil {
 
         // Special for Odric
         if (ai.isCardInPlay("Odric, Lunarch Marshal")
-                && !CardLists.getKeyword(all, "Haste").isEmpty()) {
+                && !CardLists.getKeyword(all, Keyword.HASTE).isEmpty()) {
             return true;
         }
 
@@ -1309,6 +1305,28 @@ public class ComputerUtil {
                 }
             }
         }
+
+        if (checkOpponentCards) {
+            // Check if the opponents have any cards giving Haste to all creatures on the battlefield
+            CardCollection opp = new CardCollection();
+            opp.addAll(ai.getOpponents().getCardsIn(ZoneType.Battlefield));
+            opp.addAll(ai.getOpponents().getCardsIn(ZoneType.Command));
+
+            for (final Card c : opp) {
+                for (StaticAbility stAb : c.getStaticAbilities()) {
+                    Map<String, String> params = stAb.getMapParams();
+                    if ("Continuous".equals(params.get("Mode")) && params.containsKey("AddKeyword")
+                            && params.get("AddKeyword").contains("Haste")) {
+
+                        final ArrayList<String> affected = Lists.newArrayList(params.get("Affected").split(","));
+                        if (affected.contains("Creature")) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
@@ -1336,7 +1354,7 @@ public class ComputerUtil {
         int damage = 0;
         final CardCollection all = new CardCollection(ai.getCardsIn(ZoneType.Battlefield));
         all.addAll(ai.getCardsActivableInExternalZones(true));
-        all.addAll(ai.getCardsIn(ZoneType.Hand));
+        all.addAll(CardLists.filter(ai.getCardsIn(ZoneType.Hand), Predicates.not(Presets.PERMANENTS)));
     
         for (final Card c : all) {
             for (final SpellAbility sa : c.getSpellAbilities()) {
@@ -1361,7 +1379,26 @@ public class ComputerUtil {
                 }
                 damage = dmg;
             }
+
+            // Triggered abilities
+            if (c.isCreature() && c.isInZone(ZoneType.Battlefield) && CombatUtil.canAttack(c)) {
+                for (final Trigger t : c.getTriggers()) {
+                    if ("Attacks".equals(t.getParam("Mode")) && t.hasParam("Execute")) {
+                        String exec = c.getSVar(t.getParam("Execute"));
+                        if (!exec.isEmpty()) {
+                            SpellAbility trigSa = AbilityFactory.getAbility(exec, c);
+                            if (trigSa != null && trigSa.getApi() == ApiType.LoseLife
+                                    && trigSa.getParamOrDefault("Defined", "").contains("Opponent")) {
+                                trigSa.setHostCard(c);
+                                damage += AbilityUtils.calculateAmount(trigSa.getHostCard(), trigSa.getParam("LifeAmount"), trigSa);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
+
         return damage;
     }
 
@@ -1511,7 +1548,7 @@ public class ComputerUtil {
                     final Card c = (Card) o;
 
                     // indestructible
-                    if (c.hasKeyword("Indestructible")) {
+                    if (c.hasKeyword(Keyword.INDESTRUCTIBLE)) {
                         continue;
                     }
 
@@ -1558,7 +1595,7 @@ public class ComputerUtil {
                 } else if (o instanceof Player) {
                     final Player p = (Player) o;
 
-                    if (source.hasKeyword("Infect")) {
+                    if (source.hasKeyword(Keyword.INFECT)) {
                         if (ComputerUtilCombat.predictDamageTo(p, dmg, source, false) >= p.getPoisonCounters()) {
                             threatened.add(p);
                         }
@@ -1579,14 +1616,14 @@ public class ComputerUtil {
                 if (o instanceof Card) {
                     final Card c = (Card) o;
                     final boolean canRemove = (c.getNetToughness() <= dmg)
-                            || (!c.hasKeyword("Indestructible") && c.getShieldCount() == 0 && (dmg >= ComputerUtilCombat.getDamageToKill(c)));
+                            || (!c.hasKeyword(Keyword.INDESTRUCTIBLE) && c.getShieldCount() == 0 && (dmg >= ComputerUtilCombat.getDamageToKill(c)));
                     if (!canRemove) {
                         continue;
                     }
                     
                     if (saviourApi == ApiType.Pump || saviourApi == ApiType.PumpAll) {
                         final boolean cantSave = c.getNetToughness() + toughness <= dmg
-                                || (!c.hasKeyword("Indestructible") && c.getShieldCount() == 0 && !grantIndestructible 
+                                || (!c.hasKeyword(Keyword.INDESTRUCTIBLE) && c.getShieldCount() == 0 && !grantIndestructible
                                         && (dmg >= toughness + ComputerUtilCombat.getDamageToKill(c)));
                         if (cantSave && (tgt == null || !grantShroud)) {
                             continue;
@@ -1626,7 +1663,7 @@ public class ComputerUtil {
                 if (o instanceof Card) {
                     final Card c = (Card) o;
                     // indestructible
-                    if (c.hasKeyword("Indestructible")) {
+                    if (c.hasKeyword(Keyword.INDESTRUCTIBLE)) {
                         continue;
                     }
 
@@ -2830,5 +2867,40 @@ public class ComputerUtil {
         }
 
         return srcList;
+    }
+
+    // Check if AI life is in danger/serious danger based on next expected combat
+    // assuming a loss of "payment" life
+    // call this to determine if it's safe to use a life payment spell
+    // or trigger "emergency" strategies such as holding mana for Spike Weaver of Counterspell.
+    public static boolean aiLifeInDanger(Player ai, boolean serious, int payment) {
+        Player opponent = ComputerUtil.getOpponentFor(ai);
+        // test whether the human can kill the ai next turn
+        Combat combat = new Combat(opponent);
+        boolean containsAttacker = false;
+        for (Card att : opponent.getCreaturesInPlay()) {
+            if (ComputerUtilCombat.canAttackNextTurn(att, ai)) {
+                combat.addAttacker(att, ai);
+                containsAttacker = true;
+            }
+        }
+        if (!containsAttacker) {
+            return false;
+        }
+        AiBlockController block = new AiBlockController(ai);
+        block.assignBlockersForCombat(combat);
+
+        // TODO predict other, noncombat sources of damage and add them to the "payment" variable.
+        // examples : Black Vise, The Rack, known direct damage spells in enemy hand, etc
+        // If added, might need a parameter to define whether we want to check all threats or combat threats.
+
+        if ((serious) && (ComputerUtilCombat.lifeInSeriousDanger(ai, combat, payment))) {
+            return true;
+        }
+        if ((!serious) && (ComputerUtilCombat.lifeInDanger(ai, combat, payment))) {
+            return true;
+        }
+        return false;
+
     }
 }

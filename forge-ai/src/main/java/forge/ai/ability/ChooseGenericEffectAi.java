@@ -1,6 +1,7 @@
 package forge.ai.ability;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -79,7 +80,8 @@ public class ChooseGenericEffectAi extends SpellAbilityAi {
     }
 
     @Override
-    public SpellAbility chooseSingleSpellAbility(Player player, SpellAbility sa, List<SpellAbility> spells) {
+    public SpellAbility chooseSingleSpellAbility(Player player, SpellAbility sa, List<SpellAbility> spells,
+            Map<String, Object> params) {
         Card host = sa.getHostCard();
         final String sourceName = ComputerUtilAbility.getAbilitySourceName(sa);
         final Game game = host.getGame();
@@ -236,6 +238,12 @@ public class ChooseGenericEffectAi extends SpellAbilityAi {
             return Aggregates.random(spells);
         } else if (logic.startsWith("Fabricate")) {
             final int n = Integer.valueOf(logic.substring("Fabricate".length()));
+            if(spells.size() < 2) {
+				// If the creature is no longer on the battlefield, the option
+				// to add counters is already removed at this point. Return the
+				// only available option: create servo tokens.
+            	return spells.get(0);
+            }
             SpellAbility counterSA = spells.get(0), tokenSA = spells.get(1);
 
             // check for something which might prevent the counters to be placed on host

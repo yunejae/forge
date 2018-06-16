@@ -1,9 +1,11 @@
 package forge.game.ability.effects;
 
+import forge.game.Game;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
 import forge.game.card.CounterType;
+import forge.game.player.Player;
 import forge.game.player.PlayerController;
 import forge.game.player.PlayerController.BinaryChoiceType;
 import forge.game.spellability.SpellAbility;
@@ -43,14 +45,26 @@ public class CountersPutOrRemoveEffect extends SpellAbilityEffect {
     @Override
     public void resolve(SpellAbility sa) {
         final Card source = sa.getHostCard();
+        final Game game = source.getGame();
         final int counterAmount = AbilityUtils.calculateAmount(source, sa.getParam("CounterNum"), sa);
-        
+
+        if (counterAmount <= 0) {
+            return;
+        }
+
         CounterType ctype = null;
         if (sa.hasParam("CounterType")) {
             ctype = CounterType.valueOf(sa.getParam("CounterType"));
         }
         
         for (final Card tgtCard : getDefinedCardsOrTargeted(sa)) {
+            Card gameCard = game.getCardState(tgtCard, null);
+            // gameCard is LKI in that case, the card is not in game anymore
+            // or the timestamp did change
+            // this should check Self too
+            if (gameCard == null || !tgtCard.equalsWithTimestamp(gameCard)) {
+                continue;
+            }
             if (!sa.usesTargeting() || tgtCard.canBeTargetedBy(sa)) {
                 if (tgtCard.hasCounters()) {
                     if (sa.hasParam("EachExistingCounter")) {
@@ -60,6 +74,7 @@ public class CountersPutOrRemoveEffect extends SpellAbilityEffect {
                     } else {
                         addOrRemoveCounter(sa, tgtCard, ctype, counterAmount);
                     }
+                    game.updateLastStateForCard(tgtCard);
                 }
             }
         }
@@ -67,8 +82,8 @@ public class CountersPutOrRemoveEffect extends SpellAbilityEffect {
 
     private void addOrRemoveCounter(final SpellAbility sa, final Card tgtCard, CounterType ctype,
             final int counterAmount) {
-        PlayerController pc = sa.getActivatingPlayer().getController();
-        final Card source = sa.getHostCard();
+        final Player pl = sa.getActivatingPlayer();
+        final PlayerController pc = pl.getController();
 
         Map<String, Object> params = Maps.newHashMap();
         params.put("Target", tgtCard);
@@ -91,7 +106,7 @@ public class CountersPutOrRemoveEffect extends SpellAbilityEffect {
             
             boolean apply = zone == null || zone.is(ZoneType.Battlefield) || zone.is(ZoneType.Stack);
 
-            tgtCard.addCounter(chosenType, counterAmount, source, apply);
+            tgtCard.addCounter(chosenType, counterAmount, pl, apply);
         } else {
             tgtCard.subtractCounter(chosenType, counterAmount);
         }

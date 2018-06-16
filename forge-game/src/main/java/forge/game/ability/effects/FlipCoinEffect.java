@@ -60,10 +60,12 @@ public class FlipCoinEffect extends SpellAbilityEffect {
         }
 
         final boolean noCall = sa.hasParam("NoCall");
+        String varName = sa.hasParam("SaveNumFlipsToSVar") ? sa.getParam("SaveNumFlipsToSVar") : "X";
         boolean victory = false;
+
         if (!noCall) {
             flipMultiplier = getFilpMultiplier(caller.get(0));
-            victory = flipCoinCall(caller.get(0), sa, flipMultiplier);
+            victory = flipCoinCall(caller.get(0), sa, flipMultiplier, varName);
         }
 
         final boolean rememberResult = sa.hasParam("RememberResult");
@@ -71,19 +73,43 @@ public class FlipCoinEffect extends SpellAbilityEffect {
         for (final Player flipper : playersToFlip) {
             if (noCall) {
                 flipMultiplier = getFilpMultiplier(flipper);
-                final boolean resultIsHeads = flipCoinNoCall(sa, flipper, flipMultiplier);
-                if (rememberResult) {
-                    host.addFlipResult(flipper, resultIsHeads ? "Heads" : "Tails");
+
+                int countHeads = 0;
+                int countTails = 0;
+
+                int amount = 1;
+                if (sa.hasParam("Amount")) {
+                    amount = AbilityUtils.calculateAmount(host, sa.getParam("Amount"), sa);
                 }
 
-                if (resultIsHeads) {
+                for(int i = 0; i < amount; ++i) {
+                    final boolean resultIsHeads = flipCoinNoCall(sa, flipper, flipMultiplier, varName);
+
+                    if (resultIsHeads) {
+                        countHeads++;
+                    } else {
+                        countTails++;
+                    }
+
+                    if (rememberResult) {
+                        host.addFlipResult(flipper, resultIsHeads ? "Heads" : "Tails");
+                    }
+                }
+                if (countHeads > 0) {
                     AbilitySub sub = sa.getAdditionalAbility("HeadsSubAbility");
                     if (sub != null) {
+                        if (sa.hasParam("Amount")) {
+                            sub.setSVar(varName, "Number$" + countHeads);
+                        }
                         AbilityUtils.resolve(sub);
                     }
-                } else {
+                }
+                if (countTails > 0) {
                     AbilitySub sub = sa.getAdditionalAbility("TailsSubAbility");
                     if (sub != null) {
+                        if (sa.hasParam("Amount")) {
+                            sub.setSVar(varName, "Number$" + countTails);
+                        }
                         AbilityUtils.resolve(sub);
                     }
                 }
@@ -92,9 +118,9 @@ public class FlipCoinEffect extends SpellAbilityEffect {
                     if (sa.getParam("RememberWinner") != null) {
                         host.addRemembered(host);
                     }
-                    AbilitySub sub = sa.getAdditionalAbility("WinSubAbility");
-                    if (sub != null) {
-                        AbilityUtils.resolve(sub);
+
+                    if (sa.hasAdditionalAbility("WinSubAbility")) {
+                        AbilityUtils.resolve(sa.getAdditionalAbility("WinSubAbility"));
                     }
                     // runParams.put("Won","True");
                 } else {
@@ -102,9 +128,8 @@ public class FlipCoinEffect extends SpellAbilityEffect {
                         host.addRemembered(host);
                     }
 
-                    AbilitySub sub = sa.getAdditionalAbility("LoseSubAbility");
-                    if (sub != null) {
-                        AbilityUtils.resolve(sub);
+                    if (sa.hasAdditionalAbility("LoseSubAbility")) {
+                        AbilityUtils.resolve(sa.getAdditionalAbility("LoseSubAbility"));
                     }
                     // runParams.put("Won","False");
                 }
@@ -124,7 +149,7 @@ public class FlipCoinEffect extends SpellAbilityEffect {
      * @param multiplier
      * @return a boolean.
      */
-    public boolean flipCoinNoCall(final SpellAbility sa, final Player flipper, final int multiplier) {
+    public boolean flipCoinNoCall(final SpellAbility sa, final Player flipper, final int multiplier, final String varName) {
         boolean result = false;
         int numSuccesses = 0;
 
@@ -141,8 +166,8 @@ public class FlipCoinEffect extends SpellAbilityEffect {
             flipper.getGame().getAction().nofityOfValue(sa, flipper, result ? "heads" : "tails", null);
         } while (sa.hasParam("FlipUntilYouLose") && result != false);
         
-        if (sa.hasParam("FlipUntilYouLose")) {
-            sa.getAdditionalAbility("LoseSubAbility").setSVar(sa.hasParam("SaveNumFlipsToSVar") ? sa.getParam("SaveNumFlipsToSVar") : "X", "Number$" + numSuccesses);
+        if (sa.hasParam("FlipUntilYouLose") && sa.hasAdditionalAbility("LoseSubAbility")) {
+            sa.getAdditionalAbility("LoseSubAbility").setSVar(varName, "Number$" + numSuccesses);
         }
 
         return result;
@@ -159,6 +184,10 @@ public class FlipCoinEffect extends SpellAbilityEffect {
      * @return a boolean.
      */
     public static boolean flipCoinCall(final Player caller, final SpellAbility sa, final int multiplier) {
+        String varName = sa.hasParam("SaveNumFlipsToSVar") ? sa.getParam("SaveNumFlipsToSVar") : "X";
+        return flipCoinCall(caller, sa, multiplier, varName);
+    }
+    public static boolean flipCoinCall(final Player caller, final SpellAbility sa, final int multiplier, final String varName) {
         boolean wonFlip = false;
         int numSuccesses = 0;
 
@@ -186,8 +215,8 @@ public class FlipCoinEffect extends SpellAbilityEffect {
             caller.getGame().getTriggerHandler().runTrigger(TriggerType.FlippedCoin, runParams, false);
         } while (sa.hasParam("FlipUntilYouLose") && wonFlip);
         
-        if (sa.hasParam("FlipUntilYouLose")) {
-            sa.getAdditionalAbility("LoseSubAbility").setSVar(sa.hasParam("SaveNumFlipsToSVar") ? sa.getParam("SaveNumFlipsToSVar") : "X", "Number$" + numSuccesses);
+        if (sa.hasParam("FlipUntilYouLose") && sa.hasAdditionalAbility("LoseSubAbility")) {
+            sa.getAdditionalAbility("LoseSubAbility").setSVar(varName, "Number$" + numSuccesses);
         }
 
         return wonFlip;

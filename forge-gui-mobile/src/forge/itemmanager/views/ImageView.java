@@ -11,7 +11,7 @@ import forge.assets.ImageCache;
 import forge.card.CardRenderer;
 import forge.card.CardRenderer.CardStackPosition;
 import forge.card.CardZoom;
-import forge.deck.DeckProxy;
+import forge.deck.*;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
 import forge.itemmanager.ColumnDef;
@@ -861,6 +861,11 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         public boolean longPress(float x, float y) {
             ItemInfo item = getItemAtPoint(x + getLeft(), y + getTop());
             if (item != null) {
+                if(item.getKey() instanceof CardThemedDeckGenerator || item.getKey() instanceof CommanderDeckGenerator
+                        || item.getKey() instanceof ArchetypeDeckGenerator){
+                    FDeckViewer.show(((DeckProxy)item.getKey()).getDeck());
+                    return true;
+                }
                 CardZoom.show(orderedItems, orderedItems.indexOf(item), itemManager);
                 return true;
             }

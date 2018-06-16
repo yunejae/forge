@@ -30,9 +30,13 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.net.InetAddress;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Map;
 
 import org.apache.log4j.PropertyConfigurator;
@@ -48,9 +52,10 @@ import com.google.common.collect.Maps;
 public final class FServerManager {
     private static FServerManager instance = null;
 
+    private byte[] externalAddress = new byte[]{8,8,8,8};
     private boolean isHosting = false;
-    private final EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-    private final EventLoopGroup workerGroup = new NioEventLoopGroup();
+    private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+    private EventLoopGroup workerGroup = new NioEventLoopGroup();
     private UpnpService upnpService = null;
     private final Map<Channel, RemoteClient> clients = Maps.newTreeMap();
     private ServerGameLobby localLobby;
@@ -89,22 +94,22 @@ public final class FServerManager {
     public void startServer(final int port) {
         try {
             final ServerBootstrap b = new ServerBootstrap()
-            .group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class)
-            .handler(new LoggingHandler(LogLevel.INFO))
-            .childHandler(new ChannelInitializer<SocketChannel>() {
-                @Override public final void initChannel(final SocketChannel ch) {
-                    final ChannelPipeline p = ch.pipeline();
-                    p.addLast(
-                            new ObjectEncoder(),
-                            new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                            new MessageHandler(),
-                            new RegisterClientHandler(),
-                            new LobbyInputHandler(),
-                            new DeregisterClientHandler(),
-                            new GameServerHandler());
-                }
-            });
+                    .group(bossGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override public final void initChannel(final SocketChannel ch) {
+                            final ChannelPipeline p = ch.pipeline();
+                            p.addLast(
+                                    new ObjectEncoder(),
+                                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                    new MessageHandler(),
+                                    new RegisterClientHandler(),
+                                    new LobbyInputHandler(),
+                                    new DeregisterClientHandler(),
+                                    new GameServerHandler());
+                        }
+                    });
 
             // Bind and start to accept incoming connections.
             final ChannelFuture ch = b.bind(port).sync().channel().closeFuture();
@@ -141,6 +146,9 @@ public final class FServerManager {
             Runtime.getRuntime().removeShutdownHook(shutdownHook);
         }
         isHosting = false;
+        // create new EventLoopGroups for potential restart
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
     }
 
     public boolean isHosting() {
@@ -148,6 +156,10 @@ public final class FServerManager {
     }
 
     public void broadcast(final NetEvent event) {
+        if (event instanceof MessageEvent) {
+            MessageEvent msgEvent = (MessageEvent) event;
+            lobbyListener.message(msgEvent.getSource(), msgEvent.getMessage());
+        }
         broadcastTo(event, clients.values());
     }
     public void broadcastExcept(final NetEvent event, final RemoteClient notTo) {
@@ -168,6 +180,10 @@ public final class FServerManager {
 
     public void setLobby(final ServerGameLobby lobby) {
         this.localLobby = lobby;
+    }
+
+    public boolean isMatchActive() {
+        return this.localLobby != null && this.localLobby.isMatchActive();
     }
 
     public void setLobbyListener(final ILobbyListener listener) {
@@ -198,14 +214,65 @@ public final class FServerManager {
         return null;
     }
 
+    // inspired by:
+    //  https://stackoverflow.com/a/34873630
+    //  https://stackoverflow.com/a/901943
+    private String getRoutableAddress(boolean preferIpv4, boolean preferIPv6) throws SocketException, UnknownHostException {
+        DatagramSocket s = new DatagramSocket();
+        s.connect(InetAddress.getByAddress(this.externalAddress), 0);
+        NetworkInterface n = NetworkInterface.getByInetAddress(s.getLocalAddress());
+        Enumeration<InetAddress> en = n.getInetAddresses();
+        while (en.hasMoreElements()) {
+            InetAddress addr = (InetAddress) en.nextElement();
+            if (addr instanceof Inet4Address) {
+                if (preferIPv6) {
+                    continue;
+                }
+                s.close();
+                return addr.getHostAddress();
+            }
+            if (addr instanceof Inet6Address) {
+                if (preferIpv4) {
+                    continue;
+                }
+                s.close();
+                return addr.getHostAddress();
+            }
+        }
+        s.close();
+        return null;
+    }
+
     public String getLocalAddress() {
         try {
-            return InetAddress.getLocalHost().getHostAddress();
+            return getRoutableAddress(true, false);
         }
         catch (final Exception e) {
             e.printStackTrace();
             return "localhost";
         }
+    }
+
+    public static String getExternalAddress() {
+        BufferedReader in = null;
+        try {
+            URL whatismyip = new URL("http://checkip.amazonaws.com");
+            in = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+            String ip = in.readLine();
+            return ip;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     private void mapNatPort(final int port) {
@@ -215,8 +282,12 @@ public final class FServerManager {
             // Safeguard shutdown call, to prevent lingering port mappings
             upnpService.shutdown();
         }
-        upnpService = new UpnpServiceImpl(new PortMappingListener(portMapping));
-        upnpService.getControlPoint().search();
+        try {
+            upnpService = new UpnpServiceImpl(new PortMappingListener(portMapping));
+            upnpService.getControlPoint().search();
+        }catch (Error e){
+            e.printStackTrace();
+        }
     }
 
     private class MessageHandler extends ChannelInboundHandlerAdapter {
@@ -282,8 +353,10 @@ public final class FServerManager {
         @Override
         public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
             final RemoteClient client = clients.remove(ctx.channel());
+            final String username = client.getUsername();
             localLobby.disconnectPlayer(client.getIndex());
-            broadcast(new LogoutEvent(client.getUsername()));
+            broadcast(new MessageEvent(String.format("%s left the room", username)));
+            broadcast(new LogoutEvent(username));
             super.channelInactive(ctx);
         }
     }

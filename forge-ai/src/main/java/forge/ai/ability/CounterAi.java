@@ -7,6 +7,9 @@ import forge.game.ability.ApiType;
 import forge.game.card.Card;
 import forge.game.card.CardFactoryUtil;
 import forge.game.cost.Cost;
+import forge.game.cost.CostDiscard;
+import forge.game.cost.CostExile;
+import forge.game.cost.CostSacrifice;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
@@ -198,6 +201,25 @@ public class CounterAi extends SpellAbilityAi {
                 if (tgtCMC == validTgtCMC) {
                     dontCounter = false;
                 }
+            }
+        }
+
+        // Should ALWAYS counter if it doesn't spend a card, otherwise it wastes an opportunity
+        // to gain card advantage
+        if (sa.isAbility()
+                && (!sa.getPayCosts().hasSpecificCostType(CostDiscard.class))
+                && (!sa.getPayCosts().hasSpecificCostType(CostSacrifice.class))
+                && (!sa.getPayCosts().hasSpecificCostType(CostExile.class))) {
+            // TODO: maybe also disallow CostPayLife?
+            dontCounter = false;
+        }
+
+        // Null Brooch is special - it has a discard cost, but the AI will be
+        // discarding no cards, or is playing a deck where discarding is a benefit
+        // as defined in SpecialCardAi.NullBrooch
+        if (sa.hasParam("AILogic")) {
+            if ("NullBrooch".equals(sa.getParam("AILogic"))) {
+                dontCounter = false;
             }
         }
 

@@ -43,7 +43,6 @@ import forge.quest.bazaar.QuestItemType;
 import forge.quest.bazaar.QuestPetController;
 import forge.quest.data.QuestAchievements;
 import forge.quest.data.QuestAssets;
-import forge.quest.data.QuestPreferences.QPref;
 import forge.util.gui.SGuiChoose;
 import forge.util.gui.SOptionPane;
 
@@ -443,7 +442,7 @@ public class QuestUtil {
 
         if (FModel.getQuest().getAssets() != null) {
             d = FModel.getQuest().getMyDecks().get(
-                FModel.getQuestPreferences().getPref(QPref.CURRENT_DECK));
+                    FModel.getQuest().getCurrentDeck());
         }
 
         return d;

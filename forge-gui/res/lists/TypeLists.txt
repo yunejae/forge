@@ -28,6 +28,7 @@ Assembly-Worker:Assembly-Workers
 Atog:Atogs
 Aurochs:Aurochs
 Avatar:Avatars
+Azra:Azra
 Badger:Badgers
 Barbarian:Barbarians
 Basilisk:Basilisks
@@ -298,6 +299,7 @@ Trap
 Aura:Auras
 Cartouche:Cartouches
 Curse:Curses
+Saga:Sagas
 Shrine:Shrines
 [ArtifactTypes]
 Clue:Clues
@@ -323,6 +325,7 @@ Garruk
 Gideon
 Huatli
 Jace
+Jaya
 Karn
 Kaya
 Kiora
@@ -333,6 +336,7 @@ Narset
 Nissa
 Nixilis
 Ral
+Rowan
 Saheeli
 Samut
 Sarkhan
@@ -344,4 +348,7 @@ Tibalt
 Ugin
 Venser
 Vraska
+Will
 Xenagos
+Yanggu
+Yanling

@@ -57,7 +57,7 @@ public class KeywordCollection implements Iterable<String>, Serializable {
     public boolean insert(KeywordInterface inst) {
         Keyword keyword = inst.getKeyword();
         Collection<KeywordInterface> list = map.get(keyword);
-        if (list.isEmpty() || !keyword.isMultipleRedundant) {
+        if (list.isEmpty() || !inst.redundant(list)) {
             list.add(inst);
             return true;
         }
@@ -87,7 +87,7 @@ public class KeywordCollection implements Iterable<String>, Serializable {
         boolean result = false;
         while (it.hasNext()) {
             KeywordInterface k = it.next();
-            if (keyword.equals(k.getOriginal())) {
+            if (k.getOriginal().startsWith(keyword)) {
                 it.remove();
                 result = true;
             }
@@ -143,6 +143,10 @@ public class KeywordCollection implements Iterable<String>, Serializable {
         return map.values();
     }
 
+    public Collection<KeywordInterface> getValues(final Keyword keyword) {
+        return map.get(keyword);
+    }
+
     @Override
     public Iterator<String> iterator() {
         return new Iterator<String>() {
@@ -165,6 +169,17 @@ public class KeywordCollection implements Iterable<String>, Serializable {
                 //Don't support this
             }
         };
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb  = new StringBuilder();
+
+        sb.append(map.values());
+        return sb.toString();
     }
 
     public KeywordCollectionView getView() {

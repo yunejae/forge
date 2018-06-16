@@ -2,6 +2,7 @@ package forge.game.ability.effects;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import forge.game.Game;
 import forge.game.GameEntity;
@@ -12,13 +13,13 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
+import forge.game.card.CardUtil;
 import forge.game.card.CounterType;
 import forge.game.card.CardPredicates.Presets;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.player.PlayerController;
 import forge.game.spellability.SpellAbility;
-import forge.game.staticability.StaticAbility;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
@@ -109,6 +110,12 @@ public class CountersPutEffect extends SpellAbilityEffect {
             }
         }
 
+        Player placer = activator;
+        if (sa.hasParam("Placer")) {
+            final String pstr = sa.getParam("Placer");
+            placer = AbilityUtils.getDefinedPlayers(sa.getHostCard(), pstr, sa).get(0);
+        }
+
         final boolean etbcounter = sa.hasParam("ETB");
         final boolean remember = sa.hasParam("RememberCounters");
         final boolean rememberCards = sa.hasParam("RememberCards");
@@ -127,6 +134,18 @@ public class CountersPutEffect extends SpellAbilityEffect {
         }
 
         for (final GameObject obj : tgtObjects) {
+            // check if the object is still in game or if it was moved
+            if (obj instanceof Card) {
+                Card tgtCard = (Card) obj;
+                Card gameCard = game.getCardState(tgtCard, null);
+                // gameCard is LKI in that case, the card is not in game anymore
+                // or the timestamp did change
+                // this should check Self too
+                if (gameCard == null || !tgtCard.equalsWithTimestamp(gameCard)) {
+                    continue;
+                }
+            }
+
             if (existingCounter) {
                 final List<CounterType> choices = Lists.newArrayList();
                 if (obj instanceof GameEntity) {
@@ -142,10 +161,10 @@ public class CountersPutEffect extends SpellAbilityEffect {
                 if (eachExistingCounter) {
                     for(CounterType ct : choices) {
                         if (obj instanceof Player) {
-                            ((Player) obj).addCounter(ct, counterAmount, card, true);
+                            ((Player) obj).addCounter(ct, counterAmount, placer, true);
                         }
                         if (obj instanceof Card) {
-                            ((Card) obj).addCounter(ct, counterAmount, card, true);
+                            ((Card) obj).addCounter(ct, counterAmount, placer, true);
                         }
                     }
                     continue;
@@ -180,22 +199,34 @@ public class CountersPutEffect extends SpellAbilityEffect {
                     }
 
                     if (sa.hasParam("Tribute")) {
+                        // make a copy to check if it would be on the battlefield 
+                        Card noTributeLKI = CardUtil.getLKICopy(tgtCard);
+                        // this check needs to check if this card would be on the battlefield
+                        noTributeLKI.setLastKnownZone(activator.getZone(ZoneType.Battlefield));
+
+                        // double freeze tracker, so it doesn't update view
+                        game.getTracker().freeze();
+
+                        CardCollection preList = new CardCollection(noTributeLKI);
+                        game.getAction().checkStaticAbilities(false, Sets.newHashSet(noTributeLKI), preList);
+
+                        boolean abort = !noTributeLKI.canReceiveCounters(counterType);
+
+                        game.getAction().checkStaticAbilities(false);
+                        // clear delayed changes, this check should not have updated the view
+                        game.getTracker().clearDelayed();
+                        // need to unfreeze tracker
+                        game.getTracker().unfreeze();
+
+                        // check if it can recive the Tribute
+                        if (abort) {
+                            continue;
+                        }
+
                         String message = "Do you want to put " + counterAmount + " +1/+1 counters on " + tgtCard + " ?";
                         Player chooser = pc.chooseSingleEntityForEffect(activator.getOpponents(), sa, "Choose an opponent");
 
-                        // Check for effects like Solemnity
-                        boolean cantPayTribute = false;
-                        for (Card c : game.getCardsIn(ZoneType.Battlefield)) {
-                            for (StaticAbility stAb : c.getStaticAbilities()) {
-                                if (stAb.getParam("AddKeyword") != null && stAb.getParam("Affected") != null
-                                        && stAb.getParam("AddKeyword").contains("CARDNAME can't have counters put on it.")
-                                        && card.isValid(stAb.getParam("Affected").split(","), activator, card, sa)) {
-                                    cantPayTribute = true;
-                                }
-                            }
-                        }
-
-                        if (!cantPayTribute && chooser.getController().confirmAction(sa, PlayerActionConfirmMode.Tribute, message)) {
+                        if (chooser.getController().confirmAction(sa, PlayerActionConfirmMode.Tribute, message)) {
                             tgtCard.setTributed(true);
                         } else {
                             continue;
@@ -207,9 +238,9 @@ public class CountersPutEffect extends SpellAbilityEffect {
                     final Zone zone = tgtCard.getGame().getZoneOf(tgtCard);
                     if (zone == null || zone.is(ZoneType.Battlefield) || zone.is(ZoneType.Stack)) {
                         if (etbcounter) {
-                            tgtCard.addEtbCounter(counterType, counterAmount, card);
+                            tgtCard.addEtbCounter(counterType, counterAmount, placer);
                         } else {
-                            tgtCard.addCounter(counterType, counterAmount, card, true);
+                            tgtCard.addCounter(counterType, counterAmount, placer, true);
                         }
                         if (remember) {
                             final int value = tgtCard.getTotalCountersToAdd();
@@ -223,9 +254,9 @@ public class CountersPutEffect extends SpellAbilityEffect {
                         }
                         if (sa.hasParam("Monstrosity")) {
                             tgtCard.setMonstrous(true);
-                            tgtCard.setMonstrosityNum(counterAmount);
                             final Map<String, Object> runParams = Maps.newHashMap();
                             runParams.put("Card", tgtCard);
+                            runParams.put("MonstrosityAmount", counterAmount);
                             game.getTriggerHandler().runTrigger(TriggerType.BecomeMonstrous, runParams, false);
                         }
                         if (sa.hasParam("Renown")) {
@@ -238,16 +269,17 @@ public class CountersPutEffect extends SpellAbilityEffect {
                         // adding counters to something like re-suspend cards
                         // etbcounter should apply multiplier
                         if (etbcounter) {
-                            tgtCard.addEtbCounter(counterType, counterAmount, card);
+                            tgtCard.addEtbCounter(counterType, counterAmount, placer);
                         } else {
-                            tgtCard.addCounter(counterType, counterAmount, card, false);
+                            tgtCard.addCounter(counterType, counterAmount, placer, false);
                         }
                     }
+                    game.updateLastStateForCard(tgtCard);
                 }
             } else if (obj instanceof Player) {
                 // Add Counters to players!
                 Player pl = (Player) obj;
-                pl.addCounter(counterType, counterAmount, card, true);
+                pl.addCounter(counterType, counterAmount, placer, true);
             }
         }
     }

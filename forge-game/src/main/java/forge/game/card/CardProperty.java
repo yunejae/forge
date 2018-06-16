@@ -74,6 +74,10 @@ public class CardProperty {
             if (card.isInstant() || card.isSorcery()) {
                 return false;
             }
+        } else if (property.equals("Historic")) {
+            if (!card.isHistoric()) {
+                return false;
+            }
         } else if (property.startsWith("CardUID_")) {// Protection with "doesn't remove effect"
             if (card.getId() != Integer.parseInt(property.split("CardUID_")[1])) {
                 return false;
@@ -126,6 +130,10 @@ public class CardProperty {
             }
         } else if (property.startsWith("YouCtrl")) {
             if (!controller.equals(sourceController)) {
+                return false;
+            }
+        } else if (property.startsWith("YourTeamCtrl")) {
+            if (controller.getTeam() != sourceController.getTeam()) {
                 return false;
             }
         } else if (property.startsWith("YouDontCtrl")) {
@@ -314,12 +322,18 @@ public class CardProperty {
         } else if (property.startsWith("OwnedBy")) {
             final String valid = property.substring(8);
             if (!card.getOwner().isValid(valid, sourceController, source, spellAbility)) {
-                return false;
+                final List<Player> lp = AbilityUtils.getDefinedPlayers(source, valid, spellAbility);
+                if (!lp.contains(card.getOwner())) {
+                    return false;
+                }
             }
         } else if (property.startsWith("ControlledBy")) {
             final String valid = property.substring(13);
             if (!controller.isValid(valid, sourceController, source, spellAbility)) {
-                return false;
+                final List<Player> lp = AbilityUtils.getDefinedPlayers(source, valid, spellAbility);
+                if (!lp.contains(controller)) {
+                    return false;
+                }
             }
         } else if (property.startsWith("OwnerDoesntControl")) {
             if (card.getOwner().equals(controller)) {
@@ -1353,8 +1367,7 @@ public class CardProperty {
                 return false;
             }
         } else if (property.startsWith("suspended")) {
-            if (!card.hasSuspend() || !game.isCardExiled(card)
-                    || !(card.getCounters(CounterType.TIME) >= 1)) {
+            if (!card.hasSuspend()) {
                 return false;
             }
         } else if (property.startsWith("delved")) {
@@ -1549,21 +1562,23 @@ public class CardProperty {
             for (final Object o : source.getRemembered()) {
                 if (o instanceof Card) {
                     rememberedcard = (Card) o;
-                    if (!card.getBlockedThisTurn().contains(rememberedcard)) {
-                        return false;
+                    if (card.getBlockedThisTurn().contains(rememberedcard)) {
+                        return true;
                     }
                 }
             }
+            return false;
         } else if (property.startsWith("blockedByRemembered")) {
             Card rememberedcard;
             for (final Object o : source.getRemembered()) {
                 if (o instanceof Card) {
                     rememberedcard = (Card) o;
-                    if (!card.getBlockedByThisTurn().contains(rememberedcard)) {
-                        return false;
+                    if (card.getBlockedByThisTurn().contains(rememberedcard)) {
+                        return true;
                     }
                 }
             }
+            return false;
         } else if (property.startsWith("unblocked")) {
             if (combat == null || !combat.isUnblocked(card)) {
                 return false;
@@ -1675,6 +1690,15 @@ public class CardProperty {
             }
         } else if (property.equals("NoCounters")) {
             if (card.hasCounters()) {
+                return false;
+            }
+        } else if (property.startsWith("CastSa"))  {
+            SpellAbility castSA = card.getCastSA();
+            if (castSA == null) {
+                return false;
+            }
+            String v = property.substring(7);
+            if (!castSA.isValid(v, sourceController, source, spellAbility)) {
                 return false;
             }
         } else if (property.equals("wasCast")) {

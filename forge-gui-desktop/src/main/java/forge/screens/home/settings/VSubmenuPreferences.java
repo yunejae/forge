@@ -55,6 +55,7 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     private final FLabel btnPlayerName = new FLabel.Builder().opaque(true).hoverable(true).text("").build();
 
     private final JCheckBox cbRemoveSmall = new OptionsCheckBox("Remove Small Creatures");
+    private final JCheckBox cbCardBased = new OptionsCheckBox("Include Card-based Deck Generation");
     private final JCheckBox cbSingletons = new OptionsCheckBox("Singleton Mode");
     private final JCheckBox cbRemoveArtifacts = new OptionsCheckBox("Remove Artifacts");
     private final JCheckBox cbAnte = new OptionsCheckBox("Play for Ante");
@@ -64,8 +65,11 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     private final JCheckBox cbManaLostPrompt = new OptionsCheckBox("Prompt Mana Pool Emptying");
     private final JCheckBox cbDevMode = new OptionsCheckBox("Developer Mode");
     private final JCheckBox cbLoadCardsLazily = new OptionsCheckBox("Load Card Scripts Lazily");
+    private final JCheckBox cbLoadHistoricFormats = new OptionsCheckBox("Load Historic Formats");
     private final JCheckBox cbWorkshopSyntax = new OptionsCheckBox("Workshop Syntax Checker");
     private final JCheckBox cbEnforceDeckLegality = new OptionsCheckBox("Deck Conformance");
+    private final JCheckBox cbPerformanceMode = new OptionsCheckBox("Performance Mode");
+    private final JCheckBox cbFilteredHands = new OptionsCheckBox("Filtered Hands");
     private final JCheckBox cbImageFetcher = new OptionsCheckBox("Automatically Download Missing Card Art");
     private final JCheckBox cbCloneImgSource = new OptionsCheckBox("Clones Use Original Card Art");
     private final JCheckBox cbScaleLarger = new OptionsCheckBox("Scale Image Larger");
@@ -93,6 +97,7 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     private final JCheckBox cbStackCreatures = new OptionsCheckBox("Stack Creatures");
     private final JCheckBox cbFilterLandsByColorId = new OptionsCheckBox("Filter Lands by Color in Activated Abilities");
     private final JCheckBox cbShowStormCount = new OptionsCheckBox("Show Storm Count in Prompt Pane");
+    private final JCheckBox cbRemindOnPriority = new OptionsCheckBox("Visually Alert on Receipt of Priority");
 
     private final Map<FPref, KeyboardShortcutField> shortcutFields = new HashMap<>();
 
@@ -168,6 +173,12 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         pnlPrefs.add(cbEnforceDeckLegality, titleConstraints);
         pnlPrefs.add(new NoteLabel("Enforces deck legality relevant to each environment (minimum deck sizes, max card count etc)."), descriptionConstraints);
 
+        pnlPrefs.add(cbPerformanceMode, titleConstraints);
+        pnlPrefs.add(new NoteLabel("Disables additional static abilities checks to speed up the game engine. (Warning: breaks some 'as if had flash' scenarios when casting cards owned by opponents)."), descriptionConstraints);
+
+        pnlPrefs.add(cbFilteredHands, titleConstraints);
+        pnlPrefs.add(new NoteLabel("Generates two starting hands and keeps the one with the closest to average land count for the deck. (Requires restart)"), descriptionConstraints);
+
         pnlPrefs.add(cbCloneImgSource, titleConstraints);
         pnlPrefs.add(new NoteLabel("When enabled clones will use their original art instead of the cloned card's art."), descriptionConstraints);
 
@@ -185,6 +196,9 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
 
         pnlPrefs.add(cbShowStormCount, titleConstraints);
         pnlPrefs.add(new NoteLabel("When enabled, displays the current storm count in the prompt pane."), descriptionConstraints);
+
+        pnlPrefs.add(cbRemindOnPriority, titleConstraints);
+        pnlPrefs.add(new NoteLabel("When enabled, flashes the player choice area upon receiving priority."), descriptionConstraints);
 
         pnlPrefs.add(cbPreselectPrevAbOrder, titleConstraints);
         pnlPrefs.add(new NoteLabel("When enabled, preselects the last defined simultaneous ability order in the ordering dialog."), descriptionConstraints);
@@ -206,6 +220,9 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
 
         pnlPrefs.add(cbRemoveArtifacts, titleConstraints);
         pnlPrefs.add(new NoteLabel("Disables artifact cards in generated decks."), descriptionConstraints);
+
+        pnlPrefs.add(cbCardBased, titleConstraints);
+        pnlPrefs.add(new NoteLabel("Builds more synergistic random decks (requires restart)."), descriptionConstraints);
 
         // Deck building options
         pnlPrefs.add(new SectionLabel("Deck Editor Options"), sectionConstraints);
@@ -230,6 +247,9 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
 
         pnlPrefs.add(cbLoadCardsLazily, titleConstraints);
         pnlPrefs.add(new NoteLabel("If turned on, Forge will load card scripts as they're needed instead of at start up. (Warning: Experimental)"), descriptionConstraints);
+
+        pnlPrefs.add(cbLoadHistoricFormats, titleConstraints);
+        pnlPrefs.add(new NoteLabel("If turned on, Forge will load all historic format definitions, this may take slightly longer to load at startup."), descriptionConstraints);
 
         // Graphic Options
         pnlPrefs.add(new SectionLabel("Graphic Options"), sectionConstraints + ", gaptop 2%");
@@ -489,6 +509,11 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     }
 
     /** @return {@link javax.swing.JCheckBox} */
+    public final JCheckBox getCbCardBased() {
+        return cbCardBased;
+    }
+
+    /** @return {@link javax.swing.JCheckBox} */
     public final JCheckBox getCbSingletons() {
         return cbSingletons;
     }
@@ -573,6 +598,11 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
         return cbLoadCardsLazily;
     }
 
+    /** @return {@link javax.swing.JCheckBox} */
+    public JCheckBox getCbLoadHistoricFormats() {
+        return cbLoadHistoricFormats;
+    }
+
     public JCheckBox getCbWorkshopSyntax() {
         return cbWorkshopSyntax;
     }
@@ -608,6 +638,16 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     /** @return {@link javax.swing.JCheckBox} */
     public JCheckBox getCbEnforceDeckLegality() {
         return cbEnforceDeckLegality;
+    }
+
+    /** @return {@link javax.swing.JCheckBox} */
+    public JCheckBox getCbPerformanceMode() {
+        return cbPerformanceMode;
+    }
+
+    /** @return {@link javax.swing.JCheckBox} */
+    public JCheckBox getCbFilteredHands() {
+        return cbFilteredHands;
     }
 
     /** @return {@link javax.swing.JCheckBox} */
@@ -683,6 +723,8 @@ public enum VSubmenuPreferences implements IVSubmenu<CSubmenuPreferences> {
     public final JCheckBox getCbShowStormCount() {
         return cbShowStormCount;
     }
+
+    public final JCheckBox getCbRemindOnPriority() { return cbRemindOnPriority; }
 
     public final JCheckBox getCbPreselectPrevAbOrder() {
         return cbPreselectPrevAbOrder;

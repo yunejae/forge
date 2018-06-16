@@ -59,10 +59,7 @@ import forge.game.player.IHasIcon;
 import forge.game.player.PlayerView;
 import forge.game.spellability.SpellAbilityView;
 import forge.game.zone.ZoneType;
-import forge.gui.GuiChoose;
-import forge.gui.GuiDialog;
-import forge.gui.GuiUtils;
-import forge.gui.SOverlayUtils;
+import forge.gui.*;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.EDocID;
 import forge.gui.framework.FScreen;
@@ -586,7 +583,7 @@ public final class CMatchUI
                 btn1.setFocusable(enable1 && focus1 );
                 btn2.setFocusable(enable2 && !focus1);
                 // ensure we don't steal focus from an overlay
-                if (toFocus != null) {
+                if (toFocus != null && !FNetOverlay.SINGLETON_INSTANCE.getTxtInput().hasFocus() ) {
                     toFocus.requestFocus();  // focus here even if another window has focus - shouldn't have to do it this way but some popups grab window focus
                 }
             }
@@ -605,10 +602,22 @@ public final class CMatchUI
     }
 
     @Override
+    public void alertUser() {
+        getCPrompt().alert();
+    }
+
+    @Override
     public void updatePhase() {
         final PlayerView p = getGameView().getPlayerTurn();
         final PhaseType ph = getGameView().getPhase();
-        final PhaseLabel lbl = p == null ? null : getFieldViewFor(p).getPhaseIndicator().getLabelFor(ph);
+        // this should never happen, but I've seen it periodically... so, need to get to the bottom of it
+        PhaseLabel lbl = null;
+        if (ph != null ) {
+            lbl = p == null ? null : getFieldViewFor(p).getPhaseIndicator().getLabelFor(ph);
+        } else {
+            // not sure what debugging information would help here, log for now
+            System.err.println("getGameView().getPhase() returned 'null'");
+        }
 
         resetAllPhaseButtons();
         if (lbl != null) {
@@ -916,6 +925,14 @@ public final class CMatchUI
             return oneOrNone(title, optionList);
         }
         return one(title, optionList);
+    }
+
+    @Override
+    public List<GameEntityView> chooseEntitiesForEffect(final String title, final List<? extends GameEntityView> optionList, final DelayedReveal delayedReveal) {
+        if (delayedReveal != null) {
+            reveal(delayedReveal.getMessagePrefix(), delayedReveal.getCards()); //TODO: Merge this into search dialog
+        }
+        return (List<GameEntityView>) order(title,"Selected", 0, optionList.size(), optionList, null, null, false);
     }
 
     @Override

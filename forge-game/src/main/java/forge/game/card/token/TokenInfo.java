@@ -6,14 +6,18 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import forge.ImageKeys;
 import forge.card.CardType;
+import forge.card.MagicColor;
 import forge.game.Game;
 import forge.game.card.Card;
+import forge.game.card.CardFactory;
 import forge.game.card.CardFactoryUtil;
 import forge.game.keyword.KeywordInterface;
 import forge.game.player.Player;
 
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 public class TokenInfo {
     final String name;
@@ -23,12 +27,14 @@ public class TokenInfo {
     final String[] intrinsicKeywords;
     final int basePower;
     final int baseToughness;
+    final String color;
 
     public TokenInfo(String name, String imageName, String manaCost, String[] types,
                      String[] intrinsicKeywords, int basePower, int baseToughness) {
         this.name = name;
         this.imageName = imageName;
         this.manaCost = manaCost;
+        this.color = manaCost; // FIXME: somehow ensure that color and mana cost are completely differentiated
         this.types = types;
         this.intrinsicKeywords = intrinsicKeywords;
         this.basePower = basePower;
@@ -39,6 +45,7 @@ public class TokenInfo {
         this.name = c.getName();
         this.imageName = ImageKeys.getTokenImageName(c.getImageKey());
         this.manaCost = c.getManaCost().toString();
+        this.color = MagicColor.toShortString(c.getCurrentState().getColor());
         this.types = getCardTypes(c);
         
         List<String> list = Lists.newArrayList();
@@ -59,6 +66,7 @@ public class TokenInfo {
         String[] types = null;
         String[] keywords = null;
         String imageName = null;
+        String color = "";
         for (String info : tokenInfo) {
             int index = info.indexOf(':');
             if (index == -1) {
@@ -77,6 +85,8 @@ public class TokenInfo {
                 keywords = remainder.split("-");
             } else if (info.startsWith("Image:")) {
                 imageName = remainder;
+            } else if (info.startsWith("Color:")) {
+                color = remainder;
             }
         }
 
@@ -87,6 +97,7 @@ public class TokenInfo {
         this.intrinsicKeywords = keywords;
         this.basePower = power;
         this.baseToughness = toughness;
+        this.color = color;
     }
 
     private static String[] getCardTypes(Card c) {
@@ -108,7 +119,7 @@ public class TokenInfo {
 
         // TODO - most tokens mana cost is 0, this needs to be fixed
         // c.setManaCost(manaCost);
-        c.setColor(manaCost);
+        c.setColor(color.isEmpty() ? manaCost : color);
         c.setToken(true);
 
         for (final String t : types) {
@@ -127,21 +138,21 @@ public class TokenInfo {
         sb.append("P:").append(basePower).append(',');
         sb.append("T:").append(baseToughness).append(',');
         sb.append("Cost:").append(manaCost).append(',');
+        sb.append("Color:").append(color).append(",");
         sb.append("Types:").append(Joiner.on('-').join(types)).append(',');
         sb.append("Keywords:").append(Joiner.on('-').join(intrinsicKeywords)).append(',');
         sb.append("Image:").append(imageName);
         return sb.toString();
     }
 
-    public List<Card> makeTokenWithMultiplier(final Player controller, final boolean applyMultiplier) {
-        final List<Card> list = Lists.newArrayList();
-        final Game game = controller.getGame();
-
-        int multiplier = 1;
+    public static Pair<Player, Integer> calculateMultiplier(final Game game, final Player controller,
+            final boolean applyMultiplier, final int num) {
+        int multiplier = num;
+        Player player = controller;
 
         final Map<String, Object> repParams = Maps.newHashMap();
         repParams.put("Event", "CreateToken");
-        repParams.put("Affected", controller);
+        repParams.put("Affected", player);
         repParams.put("TokenNum", multiplier);
         repParams.put("EffectOnly", applyMultiplier);
 
@@ -150,15 +161,43 @@ public class TokenInfo {
                 break;
             case Updated: {
                 multiplier = (int) repParams.get("TokenNum");
+                player = (Player) repParams.get("Affected");
                 break;
             }
             default:
-                return list;
+                multiplier = 0;
+                break;
+        }
+        return Pair.of(player, multiplier);
+    }
+
+    public List<Card> makeTokenWithMultiplier(final Player controller, int amount, final boolean applyMultiplier) {
+        final List<Card> list = Lists.newArrayList();
+        final Game game = controller.getGame();
+
+        Pair<Player, Integer> result = calculateMultiplier(game, controller, applyMultiplier, amount);
+
+        for (int i = 0; i < result.getRight(); i++) {
+            list.add(makeOneToken(result.getLeft()));
+        }
+        return list;
+    }
+
+    static public List<Card> makeTokensFromPrototype(Card prototype, final Player controller, int amount, final boolean applyMultiplier) {
+        final List<Card> list = Lists.newArrayList();
+        final Game game = controller.getGame();
+
+        Pair<Player, Integer> result = calculateMultiplier(game, controller, applyMultiplier, amount);
+        long timestamp = game.getNextTimestamp();
+        prototype.setController(result.getLeft(), timestamp);
+        for (int i = 0; i < result.getRight(); i++) {
+            Card copy = CardFactory.copyCard(prototype, true);
+            copy.setTimestamp(timestamp);
+            copy.setOwner(result.getLeft());
+            copy.setToken(true);
+            list.add(copy);
         }
 
-        for (int i = 0; i < multiplier; i++) {
-            list.add(makeOneToken(controller));
-        }
         return list;
     }
 

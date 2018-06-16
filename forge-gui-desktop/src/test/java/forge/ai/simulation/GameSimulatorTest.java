@@ -215,7 +215,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         Game game = initAndCreateGame();
         Player p = game.getPlayers().get(1);
         Card sorin = addCard("Sorin, Solemn Visitor", p);
-        sorin.addCounter(CounterType.LOYALTY, 5, sorin, false);
+        sorin.addCounter(CounterType.LOYALTY, 5, p, false);
 
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
@@ -259,7 +259,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         String bearCardName = "Runeclaw Bear";
         addCard(bearCardName, p);
         Card gideon = addCard("Gideon, Ally of Zendikar", p);
-        gideon.addCounter(CounterType.LOYALTY, 4, gideon, false);
+        gideon.addCounter(CounterType.LOYALTY, 4, p, false);
 
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
@@ -378,7 +378,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         Game game = initAndCreateGame();
         Player p = game.getPlayers().get(1);
         Card sarkhan = addCard(sarkhanCardName, p);
-        sarkhan.addCounter(CounterType.LOYALTY, 4, sarkhan, false);
+        sarkhan.addCounter(CounterType.LOYALTY, 4, p, false);
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
 
@@ -412,7 +412,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         addCard(ornithoperCardName, p);
         addCard(bearCardName, p);
         Card ajani = addCard(ajaniCardName, p);
-        ajani.addCounter(CounterType.LOYALTY, 4, ajani, false);
+        ajani.addCounter(CounterType.LOYALTY, 4, p, false);
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
 
@@ -443,7 +443,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         SpellAbility boltSA = boltCard.getFirstSpellAbility();
 
         Card ajani = addCard(ajaniCardName, p);
-        ajani.addCounter(CounterType.LOYALTY, 8, ajani, false);
+        ajani.addCounter(CounterType.LOYALTY, 8, p, false);
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
         
@@ -493,7 +493,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         addCard("Swamp", p);
         addCard("Swamp", p);
         Card depths = addCard("Dark Depths", p);
-        depths.addCounter(CounterType.ICE, 10, depths, false);
+        depths.addCounter(CounterType.ICE, 10, p, false);
         Card thespian = addCard("Thespian's Stage", p);
         game.getPhaseHandler().devModeSet(PhaseType.MAIN2, p);
         game.getAction().checkStateEffects(true);
@@ -596,7 +596,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         assertEquals(1, scion.getNetPower());
         assertEquals(1, scion.getNetToughness());
         assertTrue(scion.isSick());
-        assertNotNull(findSAWithPrefix(scion, "Sacrifice CARDNAME: Add {C} to your mana pool."));
+        assertNotNull(findSAWithPrefix(scion, "Sacrifice CARDNAME: Add {C}."));
 
         GameCopier copier = new GameCopier(simGame);
         Game copy = copier.makeCopy();
@@ -605,7 +605,7 @@ public class GameSimulatorTest extends SimulationTestCase {
         assertEquals(1, scionCopy.getNetPower());
         assertEquals(1, scionCopy.getNetToughness());
         assertTrue(scionCopy.isSick());
-        assertNotNull(findSAWithPrefix(scionCopy, "Sacrifice CARDNAME: Add {C} to your mana pool."));
+        assertNotNull(findSAWithPrefix(scionCopy, "Sacrifice CARDNAME: Add {C}."));
     }
 
     public void testMarkedDamage() {
@@ -859,12 +859,12 @@ public class GameSimulatorTest extends SimulationTestCase {
         Card simGiant = findCardWithName(simGame, giantCardName);
         Card simPridemate = findCardWithName(simGame, pridemateName);
 
-        // spell deals multiple damages to multiple targets, each of them causes lifegain
+        // spell deals multiple damages to multiple targets, only one cause of lifegain
         assertNotNull(simPridemate);
         assertTrue(simPridemate.hasCounters());
-        assertEquals(3, simPridemate.getCounters(CounterType.P1P1));
-        assertEquals(3, simPridemate.getToughnessBonusFromCounters());
-        assertEquals(3, simPridemate.getPowerBonusFromCounters());
+        assertEquals(1, simPridemate.getCounters(CounterType.P1P1));
+        assertEquals(1, simPridemate.getToughnessBonusFromCounters());
+        assertEquals(1, simPridemate.getPowerBonusFromCounters());
 
         assertNotNull(simBear);
         assertEquals(1, simBear.getDamage());

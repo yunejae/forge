@@ -10,6 +10,7 @@ import forge.game.Game;
 import forge.game.GameObject;
 import forge.game.ability.AbilityUtils;
 import forge.game.card.*;
+import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
@@ -45,6 +46,14 @@ public class CostAdjustment {
             host.setState(CardStateName.FaceDown, false);
             isStateChangeToFaceDown = true;
         } // isSpell
+
+        // Commander Tax there
+        if (sa.isSpell() && host.isCommander() && ZoneType.Command.equals(host.getCastFrom())) {
+            int n = player.getCommanderCast(host) * 2;
+            if (n > 0) {
+                result.add(new Cost(ManaCost.get(n), false));
+            }
+        }
     
         CardCollection cardsOnBattlefield = new CardCollection(game.getCardsIn(ZoneType.Battlefield));
         cardsOnBattlefield.addAll(game.getCardsIn(ZoneType.Stack));
@@ -202,7 +211,7 @@ public class CostAdjustment {
         }
 
         if (sa.isSpell()) {
-            if (sa.getHostCard().hasKeyword("Delve")) {
+            if (sa.getHostCard().hasKeyword(Keyword.DELVE)) {
                 sa.getHostCard().clearDelved();
 
                 final CardCollection delved = new CardCollection();
@@ -215,7 +224,7 @@ public class CostAdjustment {
                         cardsToDelveOut.add(c);
                     } else if (!test) {
                         sa.getHostCard().addDelved(c);
-                        delved.add(game.getAction().exile(c, null, Maps.newHashMap()));
+                        delved.add(game.getAction().exile(c, null, null));
                     }
                 }
                 if (!delved.isEmpty()) {
@@ -227,10 +236,10 @@ public class CostAdjustment {
                     game.getTriggerHandler().runTrigger(TriggerType.ChangesZoneAll, runParams, false);
                 }
             }
-            if (sa.getHostCard().hasKeyword("Convoke")) {
+            if (sa.getHostCard().hasKeyword(Keyword.CONVOKE)) {
                 adjustCostByConvokeOrImprovise(cost, sa, false, test);
             }
-            if (sa.getHostCard().hasKeyword("Improvise")) {
+            if (sa.getHostCard().hasKeyword(Keyword.IMPROVISE)) {
                 adjustCostByConvokeOrImprovise(cost, sa, true, test);
             }
         } // isSpell
@@ -429,6 +438,10 @@ public class CostAdjustment {
         }
         if (params.containsKey("Activator") && ((activator == null)
                 || !activator.isValid(params.get("Activator"), controller, hostCard, sa))) {
+            return false;
+        }
+        if (params.containsKey("NonActivatorTurn") && ((activator == null)
+                || hostCard.getGame().getPhaseHandler().isPlayerTurn(activator))) {
             return false;
         }
 

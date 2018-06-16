@@ -25,6 +25,7 @@ import forge.card.mana.ManaCost;
 import forge.game.card.Card;
 import forge.game.card.CardView;
 import forge.game.card.CardView.CardStateView;
+import forge.game.keyword.Keyword;
 import forge.game.card.CounterType;
 import forge.gui.CardContainer;
 import forge.item.PaperCard;
@@ -36,7 +37,6 @@ import forge.screens.match.CMatchUI;
 import forge.toolbox.CardFaceSymbols;
 import forge.toolbox.FSkin.SkinnedPanel;
 import forge.toolbox.IDisposable;
-import forge.util.TextUtil;
 import forge.view.arcane.util.OutlinedLabel;
 
 import javax.swing.*;
@@ -365,7 +365,11 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
         boolean noBorderPref = !isPreferenceEnabled(FPref.UI_RENDER_BLACK_BORDERS);
 
         // Borderless cards should be accounted for here
+        // Amonkhet Invocations
         boolean noBorderOnCard = getCard().getCurrentState().getSetCode().equalsIgnoreCase("MPS_AKH");
+        // Unstable basic lands
+        noBorderOnCard |= getCard().getCurrentState().isBasicLand() && getCard().getCurrentState().getSetCode().equalsIgnoreCase("UST");
+
         boolean cardImgHasAlpha = imagePanel != null && imagePanel.getSrcImage() != null && imagePanel.getSrcImage().getColorModel().hasAlpha();
 
         if (!noBorderPref && !(noBorderOnCard && cardImgHasAlpha)) {
@@ -431,7 +435,7 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
             } else {
                 if (!card.isFaceDown()) { // no need to draw mana symbols on face down split cards (e.g. manifested)
                     PaperCard pc = StaticData.instance().getCommonCards().getCard(card.getName());
-                    int ofs = pc != null && Card.getCardForUi(pc).hasKeyword("Aftermath") ? -12 : 12;
+                    int ofs = pc != null && Card.getCardForUi(pc).hasKeyword(Keyword.AFTERMATH) ? -12 : 12;
 
                     drawManaCost(g, card.getCurrentState().getManaCost(), ofs);
                     drawManaCost(g, card.getAlternateState().getManaCost(), -ofs);
@@ -683,14 +687,14 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
         final CardStateView state = card.getCurrentState();
         String sPt = "";
         if (state.isCreature() && state.isPlaneswalker()) {
-            sPt = TextUtil.concatWithSpace(TextUtil.transformPT(state.getPower(), state.getToughness()),
-                    TextUtil.enclosedParen( String.valueOf(state.getLoyalty())));
+            sPt = state.getPower() + "/" + state.getToughness() +
+                    " (" + String.valueOf(state.getLoyalty()) + ")";
         }
         else if (state.isCreature()) {
-            sPt = TextUtil.transformPT(state.getPower(), state.getToughness());
+            sPt = state.getPower() + "/" + state.getToughness();
         }
         else if (state.getType().hasSubtype("Vehicle")) {
-            sPt = TextUtil.enclosedBracket(TextUtil.transformPT(state.getPower(), state.getToughness()));
+            sPt = "[" + state.getPower() + "/" + state.getToughness() + "]";
         }
         else if (state.isPlaneswalker()) {
             sPt = String.valueOf(state.getLoyalty());

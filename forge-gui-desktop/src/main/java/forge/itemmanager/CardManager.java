@@ -6,10 +6,14 @@ import forge.item.PaperCard;
 import forge.itemmanager.filters.*;
 import forge.model.FModel;
 import forge.quest.QuestWorld;
+import forge.quest.data.QuestPreferences;
+import forge.screens.home.quest.DialogChooseFormats;
 import forge.screens.home.quest.DialogChooseSets;
 import forge.screens.match.controllers.CDetailPicture;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -63,6 +67,14 @@ public class CardManager extends ItemManager<PaperCard> {
         itemManager.addFilter(new CardColorFilter(itemManager));
         itemManager.addFilter(new CardTypeFilter(itemManager));
         itemManager.addFilter(new CardCMCFilter(itemManager));
+        if (FModel.getQuestPreferences()
+                .getPrefInt(QuestPreferences.QPref.FOIL_FILTER_DEFAULT) == 1) {
+            itemManager.addFilter(new CardFoilFilter(itemManager));
+        }
+        if (FModel.getQuestPreferences()
+                .getPrefInt(QuestPreferences.QPref.RATING_FILTER_DEFAULT) == 1) {
+            itemManager.addFilter(new CardRatingFilter(itemManager));
+        }
     }
 
     public static ItemFilter<PaperCard> createSearchFilter(final ItemManager<? super PaperCard> itemManager) {
@@ -73,7 +85,7 @@ public class CardManager extends ItemManager<PaperCard> {
         GuiUtils.addSeparator(menu); //separate from current search item
 
         JMenu fmt = GuiUtils.createMenu("Format");
-        for (final GameFormat f : FModel.getFormats().getOrderedList()) {
+        for (final GameFormat f : FModel.getFormats().getFilterList()) {
             GuiUtils.addMenuItem(fmt, f.getName(), null, new Runnable() {
                 @Override
                 public void run() {
@@ -82,6 +94,27 @@ public class CardManager extends ItemManager<PaperCard> {
             }, FormatFilter.canAddFormat(f, itemManager.getFilter(CardFormatFilter.class)));
         }
         menu.add(fmt);
+
+        GuiUtils.addMenuItem(menu, "Formats...", null, new Runnable() {
+            @Override public void run() {
+                final CardSetFilter existingFilter = itemManager.getFilter(CardSetFilter.class);
+                if (existingFilter != null) {
+                    existingFilter.edit();
+                } else {
+                    final DialogChooseFormats dialog = new DialogChooseFormats();
+                    dialog.setOkCallback(new Runnable() {
+                        @Override public void run() {
+                            final List<GameFormat> formats = dialog.getSelectedFormats();
+                            if (!formats.isEmpty()) {
+                                for(GameFormat format: formats) {
+                                    itemManager.addFilter(new CardFormatFilter(itemManager, format));
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         GuiUtils.addMenuItem(menu, "Sets...", null, new Runnable() {
             @Override

@@ -8,6 +8,7 @@ import forge.game.card.*;
 import forge.game.cost.Cost;
 import forge.game.cost.CostPart;
 import forge.game.cost.CostSacrifice;
+import forge.game.keyword.Keyword;
 import forge.game.phase.PhaseHandler;
 import forge.game.phase.PhaseType;
 import forge.game.player.Player;
@@ -71,6 +72,23 @@ public class DestroyAi extends SpellAbilityAi {
             return false;
         }
 
+        // Ability that's intended to destroy own useless token to trigger Grave Pacts
+        // should be fired at end of turn or when under attack after blocking to make opponent sac something
+        boolean havepact = false;
+
+        // TODO replace it with look for a dies -> sacrifice trigger check
+        havepact |= ai.isCardInPlay("Grave Pact");
+        havepact |= ai.isCardInPlay("Butcher of Malakir");
+        havepact |= ai.isCardInPlay("Dictate of Erebos");
+        if ("Pactivator".equals(logic) && havepact) {
+            if ((!ai.getGame().getPhaseHandler().isPlayerTurn(ai))
+                    && ((ai.getGame().getPhaseHandler().is(PhaseType.END_OF_TURN)) || (ai.getGame().getPhaseHandler().is(PhaseType.COMBAT_DECLARE_BLOCKERS)))
+                    && (ai.getOpponents().getCreaturesInPlay().size() > 0)) {
+                ai.getController().chooseTargetsFor(sa);
+                return true;
+            }
+        }
+
         // Targeting
         if (abTgt != null) {
             sa.resetTargets();
@@ -92,7 +110,7 @@ public class DestroyAi extends SpellAbilityAi {
                     return false;
                 }
                 for (Card c : list) {
-                    if (c.hasKeyword("Indestructible")) {
+                    if (c.hasKeyword(Keyword.INDESTRUCTIBLE)) {
                         sa.getTargets().add(c);
                         return true;
                     }
@@ -116,7 +134,7 @@ public class DestroyAi extends SpellAbilityAi {
             // Filter AI-specific targets if provided
             list = ComputerUtil.filterAITgts(sa, ai, (CardCollection)list, true);
 
-            list = CardLists.getNotKeyword(list, "Indestructible");
+            list = CardLists.getNotKeyword(list, Keyword.INDESTRUCTIBLE);
             if (CardLists.getNotType(list, "Creature").isEmpty()) {
                 list = ComputerUtilCard.prioritizeCreaturesWorthRemovingNow(ai, list, false);
             }
@@ -143,7 +161,7 @@ public class DestroyAi extends SpellAbilityAi {
                             return false;
                         }
                         //Check for undying
-                        return (!c.hasKeyword("Undying") || c.getCounters(CounterType.P1P1) > 0);
+                        return (!c.hasKeyword(Keyword.UNDYING) || c.getCounters(CounterType.P1P1) > 0);
                     }
                 });
             }
@@ -169,6 +187,11 @@ public class DestroyAi extends SpellAbilityAi {
             if (hasXCost) {
                 // TODO: currently the AI will maximize mana spent on X, trying to maximize damage. This may need improvement.
                 maxTargets = Math.min(ComputerUtilMana.determineMaxAffordableX(ai, sa), abTgt.getMaxTargets(sa.getHostCard(), sa));
+                // X can't be more than the lands we have in our hand for "discard X lands"!
+                if ("ScorchedEarth".equals(logic)) {
+                    int lands = CardLists.filter(ai.getCardsIn(ZoneType.Hand), CardPredicates.Presets.LANDS).size();
+                    maxTargets = Math.min(maxTargets, lands);
+                }
             }
             if (sa.hasParam("AIMaxTgtsCount")) {
                 // Cards that have confusing costs for the AI (e.g. Eliminate the Competition) can have forced max target constraints specified
@@ -272,7 +295,7 @@ public class DestroyAi extends SpellAbilityAi {
 
             if (list.isEmpty()
                 || !CardLists.filterControlledBy(list, ai).isEmpty()
-                || CardLists.getNotKeyword(list, "Indestructible").isEmpty()) {
+                || CardLists.getNotKeyword(list, Keyword.INDESTRUCTIBLE).isEmpty()) {
                 return false;
             }
         }
@@ -294,7 +317,7 @@ public class DestroyAi extends SpellAbilityAi {
                 return false;
             }
 
-            CardCollection preferred = CardLists.getNotKeyword(list, "Indestructible");
+            CardCollection preferred = CardLists.getNotKeyword(list, Keyword.INDESTRUCTIBLE);
             preferred = CardLists.filterControlledBy(preferred, ai.getOpponents());
             if (CardLists.getNotType(preferred, "Creature").isEmpty()) {
                 preferred = ComputerUtilCard.prioritizeCreaturesWorthRemovingNow(ai, preferred, false);

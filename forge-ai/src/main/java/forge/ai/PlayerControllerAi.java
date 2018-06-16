@@ -1,6 +1,5 @@
 package forge.ai;
 
-import com.esotericsoftware.minlog.Log;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
@@ -161,12 +160,21 @@ public class PlayerControllerAi extends PlayerController {
     }
 
     @Override
-    public SpellAbility chooseSingleSpellForEffect(java.util.List<SpellAbility> spells, SpellAbility sa, String title) {
+    public <T extends GameEntity> List<T> chooseEntitiesForEffect(
+            FCollectionView<T> optionList, DelayedReveal delayedReveal, SpellAbility sa, String title,
+            Player targetedPlayer) {
+        // this isn't used
+        return null;
+    }
+
+    @Override
+    public SpellAbility chooseSingleSpellForEffect(java.util.List<SpellAbility> spells, SpellAbility sa, String title,
+            Map<String, Object> params) {
         ApiType api = sa.getApi();
         if (null == api) {
             throw new InvalidParameterException("SA is not api-based, this is not supported yet");
         }
-        return SpellApiToAi.Converter.get(api).chooseSingleSpellAbility(player, sa, spells);
+        return SpellApiToAi.Converter.get(api).chooseSingleSpellAbility(player, sa, spells, params);
     }
 
     @Override
@@ -280,7 +288,7 @@ public class PlayerControllerAi extends PlayerController {
         }
 
         // put the rest on top in random order
-        Collections.shuffle(toTop);
+        Collections.shuffle(toTop, MyRandom.getRandom());
         return ImmutablePair.of(toTop, toBottom);
     }
 
@@ -398,7 +406,7 @@ public class PlayerControllerAi extends PlayerController {
         if (StringUtils.isBlank(chosen) && !validTypes.isEmpty())
         {
             chosen = validTypes.get(0);
-            Log.warn("AI has no idea how to choose " + kindOfType +", defaulting to 1st element: chosen");
+            System.err.println("AI has no idea how to choose " + kindOfType +", defaulting to 1st element: chosen");
         }
         game.getAction().nofityOfValue(sa, player, chosen, player);
         return chosen;
@@ -441,8 +449,10 @@ public class PlayerControllerAi extends PlayerController {
     @Override
     public void playChosenSpellAbility(SpellAbility sa) {
         // System.out.println("Playing sa: " + sa);
-        if (sa == sa.getHostCard().getGame().PLAY_LAND_SURROGATE) {
-            player.playLand(sa.getHostCard(), false);
+        if (sa instanceof LandAbility) {
+            if (sa.canPlay()) {
+                sa.resolve();
+            }
         } else {
             ComputerUtil.handlePlayingSpellAbility(player, sa, game);
         }
@@ -562,6 +572,15 @@ public class PlayerControllerAi extends PlayerController {
                             return true;
                         case "Never":
                             return false;
+                        case "NothingRemembered":
+                            if (source.getRememberedCount() == 0) {
+                                return true;
+                            } else {
+                                Card rem = (Card) source.getFirstRemembered();
+                                if (!rem.getZone().is(ZoneType.Battlefield)) {
+                                    return true;
+                                }
+                            }
                         case "BetterTgtThanRemembered":
                             if (source.getRememberedCount() > 0) {
                                 Card rem = (Card) source.getFirstRemembered();
@@ -866,11 +885,6 @@ public class PlayerControllerAi extends PlayerController {
         return brains.getBooleanProperty(AiProps.CHEAT_WITH_MANA_ON_SHUFFLE) ? brains.cheatShuffle(list) : list;
     }
 
-	@Override
-	public CardShields chooseRegenerationShield(Card c) {
-		return Iterables.getFirst(c.getShields(), null);
-	}
-
     @Override
     public List<PaperCard> chooseCardsYouWonToAddToDeck(List<PaperCard> losses) {
         // TODO AI takes all by default
@@ -983,6 +997,14 @@ public class PlayerControllerAi extends PlayerController {
             reveal(delayedReveal.getCards(), delayedReveal.getZone(), delayedReveal.getOwner(), delayedReveal.getMessagePrefix());
         }
         return brains.chooseCardToHiddenOriginChangeZone(destination, origin, sa, fetchList, player, decider);
+    }
+
+    @Override
+    public List<Card> chooseCardsForZoneChange(
+            ZoneType destination, List<ZoneType> origin, SpellAbility sa, CardCollection fetchList,
+            DelayedReveal delayedReveal, String selectPrompt, Player decider) {
+        // this isn't used
+        return null;
     }
 
     @Override

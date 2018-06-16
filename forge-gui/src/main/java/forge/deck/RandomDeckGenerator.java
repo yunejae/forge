@@ -80,6 +80,8 @@ public class RandomDeckGenerator extends DeckProxy implements Comparable<RandomD
             return DeckgenUtil.generateCommanderDeck(isAi, GameType.Commander);
         case TinyLeaders:
             return DeckgenUtil.generateCommanderDeck(isAi, GameType.TinyLeaders);
+        case Brawl:
+            return DeckgenUtil.generateCommanderDeck(isAi, GameType.Brawl);
         case Archenemy:
             return DeckgenUtil.generateSchemeDeck();
         case Planechase:
@@ -99,9 +101,13 @@ public class RandomDeckGenerator extends DeckProxy implements Comparable<RandomD
                     }
                     return DeckgenUtil.buildColorDeck(colors, null, isAi);
                 case STANDARD_CARDGEN_DECK:
-                    return DeckgenUtil.buildCardGenDeck(FModel.getFormats().getStandard(),isAi);
+                        return DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().getStandard(),isAi);
                 case MODERN_CARDGEN_DECK:
-                    return DeckgenUtil.buildCardGenDeck(FModel.getFormats().getModern(),isAi);
+                        return DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().getModern(),isAi);
+                case LEGACY_CARDGEN_DECK:
+                        return DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().get("Legacy"),isAi);
+                case VINTAGE_CARDGEN_DECK:
+                        return DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().get("Vintage"),isAi);
                 case STANDARD_COLOR_DECK:
                     colors = new ArrayList<String>();
                     count = Aggregates.randomInt(1, 3);
@@ -134,6 +140,9 @@ public class RandomDeckGenerator extends DeckProxy implements Comparable<RandomD
             break;
         case TinyLeaders:
             decks = DeckProxy.getAllTinyLeadersDecks(DeckFormat.TinyLeaders.isLegalDeckPredicate());
+            break;
+        case Brawl:
+            decks = DeckProxy.getAllBrawlDecks(DeckFormat.Brawl.isLegalDeckPredicate());
             break;
         case Archenemy:
             decks = DeckProxy.getAllSchemeDecks(DeckFormat.Archenemy.isLegalDeckPredicate());

@@ -59,7 +59,7 @@ public class GuiDesktop implements IGuiBase {
 
     @Override
     public String getAssetsDir() {
-        return StringUtils.containsIgnoreCase(BuildInfo.getVersionString(), "svn") ?
+        return StringUtils.containsIgnoreCase(BuildInfo.getVersionString(), "git") ?
                 "../forge-gui/" : "";
     }
 
@@ -110,6 +110,11 @@ public class GuiDesktop implements IGuiBase {
 
     @Override
     public ISkinImage getCardArt(final PaperCard card) {
+        return null; //TODO
+    }
+
+    @Override
+    public ISkinImage getCardArt(final PaperCard card, final boolean backFace) {
         return null; //TODO
     }
 

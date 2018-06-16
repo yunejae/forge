@@ -17,15 +17,17 @@
  */
 package forge.game.card;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import forge.card.*;
 import forge.card.mana.ManaCost;
 import forge.card.mana.ManaCostParser;
+import forge.game.CardTraitBase;
 import forge.game.ForgeScript;
 import forge.game.GameObject;
 import forge.game.card.CardView.CardStateView;
+import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordCollection;
 import forge.game.keyword.KeywordInterface;
 import forge.game.player.Player;
@@ -58,7 +60,7 @@ public class CardState extends GameObject {
     private String imageKey = "";
     private Map<String, String> sVars = Maps.newTreeMap();
 
-    private List<KeywordInterface> cachedKeywords = Lists.newArrayList();
+    private KeywordCollection cachedKeywords = new KeywordCollection();
     
     private CardRarity rarity = CardRarity.Unknown;
     private String setCode = CardEdition.UNKNOWN.getCode();
@@ -113,6 +115,18 @@ public class CardState extends GameObject {
         view.updateType(this);
     }
 
+    public final void removeType(final CardType.Supertype st) {
+        if (type.remove(st)) {
+            view.updateType(this);
+        }
+    }
+    
+    public final void setCreatureTypes(Collection<String> ctypes) {
+        if (type.setCreatureTypes(ctypes)) {
+            view.updateType(this);
+        }
+    }
+
     public final ManaCost getManaCost() {
         return manaCost;
     }
@@ -153,12 +167,19 @@ public class CardState extends GameObject {
     }
 
     public final Collection<KeywordInterface> getCachedKeywords() {
-        return cachedKeywords;
+        return cachedKeywords.getValues();
     }
 
-    public final void setCachedKeywords(final Collection<KeywordInterface> col) {
-        cachedKeywords.clear();
-        cachedKeywords.addAll(col);
+    public final Collection<KeywordInterface> getCachedKeyword(final Keyword keyword) {
+        return cachedKeywords.getValues(keyword);
+    }
+
+    public final void setCachedKeywords(final KeywordCollection col) {
+        cachedKeywords = col;
+    }
+
+    public final boolean hasKeyword(Keyword key) {
+        return cachedKeywords.contains(key);
     }
 
     public final Collection<KeywordInterface> getIntrinsicKeywords() {
@@ -167,11 +188,12 @@ public class CardState extends GameObject {
     public final boolean hasIntrinsicKeyword(String k) {
         return intrinsicKeywords.contains(k);
     }
-    public final void setIntrinsicKeywords(final Iterable<KeywordInterface> intrinsicKeyword0) {
+    public final void setIntrinsicKeywords(final Iterable<KeywordInterface> intrinsicKeyword0, final boolean lki) {
         intrinsicKeywords.clear();
         for (KeywordInterface k : intrinsicKeyword0) {
-            intrinsicKeywords.insert(k.copy(card));
+            intrinsicKeywords.insert(k.copy(card, lki));
         }
+        card.updateKeywordsCache(this);
     }
 
     public final KeywordInterface addIntrinsicKeyword(final String s, boolean initTraits) {
@@ -220,6 +242,19 @@ public class CardState extends GameObject {
 
     public final FCollectionView<SpellAbility> getIntrinsicSpellAbilities() {
         return new FCollection<SpellAbility>(Iterables.filter(getSpellAbilities(), SpellAbilityPredicates.isIntrinsic()));
+    }
+
+    public final boolean hasSpellAbility(final SpellAbility sa) {
+        return getSpellAbilities().contains(sa);
+    }
+
+    public final boolean hasSpellAbility(final int id) {
+        for (SpellAbility sa : getSpellAbilities()) {
+            if (id == sa.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public final void setNonManaAbilities(SpellAbility sa) {
@@ -279,6 +314,20 @@ public class CardState extends GameObject {
         card.updateTriggers(result, this);
         return result;
     }
+
+    public final boolean hasTrigger(final Trigger t) {
+        return getTriggers().contains(t);
+    }
+
+    public final boolean hasTrigger(final int id) {
+        for (final Trigger t : getTriggers()) {
+            if (id == t.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public final void setTriggers(final FCollection<Trigger> triggers0) {
         triggers = triggers0;
     }
@@ -333,6 +382,28 @@ public class CardState extends GameObject {
         replacementEffects.clear();
     }
 
+    public final boolean hasReplacementEffect(final ReplacementEffect re) {
+        return getReplacementEffects().contains(re);
+    }
+
+    public final boolean hasReplacementEffect(final int id) {
+        for (final ReplacementEffect r : getReplacementEffects()) {
+            if (id == r.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public final ReplacementEffect getReplacementEffect(final int id) {
+        for (final ReplacementEffect r : getReplacementEffects()) {
+            if (id == r.getId()) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public final Map<String, String> getSVars() {
         return sVars;
     }
@@ -372,7 +443,7 @@ public class CardState extends GameObject {
         return 0;
     }
 
-    public final void copyFrom(final Card c, final CardState source) {
+    public final void copyFrom(final CardState source, final boolean lki) {
         // Makes a "deeper" copy of a CardState object
         setName(source.getName());
         setType(source.type);
@@ -384,41 +455,43 @@ public class CardState extends GameObject {
 
         manaAbilities.clear();
         for (SpellAbility sa : source.manaAbilities) {
-            SpellAbility saCopy = sa.copy();
-            saCopy.setHostCard(card); // update HostCard
-            manaAbilities.add(saCopy);
+            if (sa.isIntrinsic()) {
+                manaAbilities.add(sa.copy(card, lki));
+            }
         }
 
         nonManaAbilities.clear();
         for (SpellAbility sa : source.nonManaAbilities) {
-            SpellAbility saCopy = sa.copy();
-            saCopy.setHostCard(card); // update HostCard
-            nonManaAbilities.add(saCopy);
+            if (sa.isIntrinsic()) {
+                nonManaAbilities.add(sa.copy(card, lki));
+            }
         }
 
-        setIntrinsicKeywords(source.intrinsicKeywords.getValues());
+        setIntrinsicKeywords(source.intrinsicKeywords.getValues(), lki);
         setImageKey(source.getImageKey());
         setRarity(source.rarity);
         setSetCode(source.setCode);
 
         triggers.clear();
         for (Trigger tr : source.triggers) {
-            triggers.add(tr.getCopyForHostCard(card));
+            if (tr.isIntrinsic()) {
+                triggers.add(tr.copy(card, lki));
+            }
         }
 
         replacementEffects.clear();
         for (ReplacementEffect re : source.replacementEffects) {
-            ReplacementEffect reCopy = re.getCopy();
-            reCopy.setHostCard(card);
-            replacementEffects.add(reCopy);
+            if (re.isIntrinsic()) {
+                replacementEffects.add(re.copy(card, lki));
+            }
         }
 
         staticAbilities.clear();
         for (StaticAbility sa : source.staticAbilities) {
-            StaticAbility saCopy = new StaticAbility(sa, this.card);
-            staticAbilities.add(saCopy);
+            if (sa.isIntrinsic()) {
+                staticAbilities.add(new StaticAbility(sa, this.card));
+            }
         }
-        view.updateKeywords(c, this);
     }
 
     
@@ -451,16 +524,24 @@ public class CardState extends GameObject {
         return ForgeScript.cardStateHasProperty(this, property, sourceController, source, spellAbility);
     }
 
-    public List<String> addIntrinsicKeywords(Collection<KeywordInterface> intrinsicKeywords2) {
-        List<String> names = Lists.newArrayList();
+    public void addIntrinsicKeywords(Collection<KeywordInterface> intrinsicKeywords2) {
         for (KeywordInterface inst : intrinsicKeywords2) {
-            String o = inst.getOriginal();
-            if (addIntrinsicKeyword(o, false) != null) {
-                names.add(o);
-            }
+            intrinsicKeywords.insert(inst);
         }
-        return names;
     }
     
-    
+    public void updateChangedText() {
+        final List<CardTraitBase> allAbs = ImmutableList.<CardTraitBase>builder()
+            .addAll(manaAbilities)
+            .addAll(nonManaAbilities)
+            .addAll(triggers)
+            .addAll(replacementEffects)
+            .addAll(staticAbilities)
+            .build();
+        for (final CardTraitBase ctb : allAbs) {
+            if (ctb.isIntrinsic()) {
+                ctb.changeText();
+            }
+        }
+    }
 }

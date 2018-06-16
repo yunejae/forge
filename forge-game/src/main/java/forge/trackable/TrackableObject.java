@@ -14,7 +14,7 @@ public abstract class TrackableObject implements IIdentifiable, Serializable {
     private static final long serialVersionUID = 7386836745378571056L;
 
     private final int id;
-    protected final transient Tracker tracker;
+    protected transient Tracker tracker;
     private final Map<TrackableProperty, Object> props;
     private final Set<TrackableProperty> changedProps;
     private boolean copyingProps;
@@ -28,6 +28,11 @@ public abstract class TrackableObject implements IIdentifiable, Serializable {
 
     public final int getId() {
         return id;
+    }
+
+    // needed for multiplayer support
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
     }
 
     public final Tracker getTracker() {
@@ -45,6 +50,11 @@ public abstract class TrackableObject implements IIdentifiable, Serializable {
         return o.hashCode() == id && o.getClass().equals(getClass());
     }
 
+    // don't know if this is really needed, but don't know a better way
+    public <T> T getProps() {
+        return (T)props;
+    }
+
     @SuppressWarnings("unchecked")
     protected final <T> T get(final TrackableProperty key) {
         T value = (T)props.get(key);
@@ -55,9 +65,17 @@ public abstract class TrackableObject implements IIdentifiable, Serializable {
     }
 
     protected final <T> void set(final TrackableProperty key, final T value) {
-        if (tracker != null && tracker.isFrozen() && key.respectFreeze()) { //if trackable objects currently frozen, queue up delayed prop change
-            tracker.addDelayedPropChange(this, key, value);
-            return;
+        if (tracker != null && tracker.isFrozen()) { //if trackable objects currently frozen, queue up delayed prop change
+            boolean respectsFreeze = false;
+            if (key.getFreezeMode() == TrackableProperty.FreezeMode.RespectsFreeze) {
+                respectsFreeze = true;
+            } else if (key.getFreezeMode() == TrackableProperty.FreezeMode.IgnoresFreezeIfUnset) {
+                respectsFreeze = (props.get(key) != null);
+            }
+            if (respectsFreeze) {
+                tracker.addDelayedPropChange(this, key, value);
+                return;
+            }
         }
         if (value == null || value.equals(key.getDefaultValue())) {
             if (props.remove(key) != null) {

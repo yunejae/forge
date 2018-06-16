@@ -10,6 +10,7 @@ import forge.game.card.CounterType;
 import forge.util.TextUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.Iterables;
@@ -91,7 +92,7 @@ public class PlayerView extends GameEntityView {
     }
 
     public FCollectionView<PlayerView> getOpponents() {
-        return Objects.firstNonNull(this.<FCollectionView<PlayerView>>get(TrackableProperty.Opponents), new FCollection<PlayerView>());
+        return MoreObjects.firstNonNull(this.<FCollectionView<PlayerView>>get(TrackableProperty.Opponents), new FCollection<PlayerView>());
     }
     void updateOpponents(Player p) {
         set(TrackableProperty.Opponents, PlayerView.getCollection(p.getOpponents()));
@@ -129,6 +130,12 @@ public class PlayerView extends GameEntityView {
         }
 
         final FCollectionView<PlayerView> opponents = getOpponents();
+        for (PlayerView opponent: opponents) {
+            if (opponent.getCommanders() == null) {
+                return Collections.emptyList();
+            }
+        }
+
         final List<String> info = Lists.newArrayListWithExpectedSize(opponents.size());
         info.add(TextUtil.concatWithSpace("Commanders:", Lang.joinHomogenous(commanders)));
         for (final PlayerView p : Iterables.concat(Collections.singleton(this), opponents)) {
@@ -373,7 +380,14 @@ public class PlayerView extends GameEntityView {
     }
 
     public int getMana(final byte color) {
-        Integer count = getMana().get(color);
+        Integer count = null;
+        try {
+            count = getMana().get(color);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            count = null;
+        }
         return count != null ? count.intValue() : 0;
     }
     private Map<Byte, Integer> getMana() {

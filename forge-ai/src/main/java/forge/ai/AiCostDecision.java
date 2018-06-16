@@ -63,8 +63,8 @@ public class AiCostDecision extends CostDecisionMakerBase {
     @Override
     public PaymentDecision visit(CostDiscard cost) {
         final String type = cost.getType();
+        CardCollectionView hand = player.getCardsIn(ZoneType.Hand);
 
-        final CardCollectionView hand = player.getCardsIn(ZoneType.Hand);
         if (type.equals("LastDrawn")) {
             if (!hand.contains(player.getLastDrawnCard())) {
                 return null;
@@ -79,6 +79,9 @@ public class AiCostDecision extends CostDecisionMakerBase {
             return PaymentDecision.card(source);
         }
         else if (type.equals("Hand")) {
+            if (hand.size() > 1 && ability.getActivatingPlayer() != null) {
+                hand = ability.getActivatingPlayer().getController().orderMoveToZoneList(hand, ZoneType.Graveyard);
+            }
             return PaymentDecision.card(hand);
         }
 
@@ -95,7 +98,11 @@ public class AiCostDecision extends CostDecisionMakerBase {
         }
 
         if (type.equals("Random")) {
-            return PaymentDecision.card(CardLists.getRandomSubList(new CardCollection(hand), c));
+            CardCollectionView randomSubset = CardLists.getRandomSubList(new CardCollection(hand), c);
+            if (randomSubset.size() > 1 && ability.getActivatingPlayer() != null) {
+                randomSubset = ability.getActivatingPlayer().getController().orderMoveToZoneList(randomSubset, ZoneType.Graveyard);
+            }
+            return PaymentDecision.card(randomSubset);
         }
         else {
             final AiController aic = ((PlayerControllerAi)player.getController()).getAi();
@@ -340,6 +347,9 @@ public class AiCostDecision extends CostDecisionMakerBase {
                 if (source.getName().equals("Maralen of the Mornsong Avatar")) {
                     return PaymentDecision.number(2);
                 }
+                if (source.getName().equals("Necrologia")) {
+                    return PaymentDecision.number(Integer.parseInt(ability.getSVar("ChosenX")));
+                }
                 return null;
             } else {
                 c = AbilityUtils.calculateAmount(source, cost.getAmount(), ability);
@@ -457,6 +467,10 @@ public class AiCostDecision extends CostDecisionMakerBase {
                                 ability.getActivatingPlayer(), ability.getHostCard(), ability);
                 typeList = CardLists.filter(typeList, Presets.UNTAPPED);
                 c = typeList.size();
+                // account for the fact that the activated card may be tapped in the process
+                if (ability.getPayCosts().hasTapCost() && typeList.contains(ability.getHostCard())) {
+                    c--;
+                }
                 source.setSVar("ChosenX", "Number$" + Integer.toString(c));
             } else {
                 if (!isVehicle) {
@@ -500,10 +514,26 @@ public class AiCostDecision extends CostDecisionMakerBase {
         Integer c = cost.convertAmount();
         if (c == null) {
             if (ability.getSVar(cost.getAmount()).equals("XChoice")) {
-                return null;
+                String logic = ability.getParamOrDefault("AILogic", "");
+                if ("SacToReduceCost".equals(logic)) {
+                    // e.g. Torgaar, Famine Incarnate
+                    // TODO: currently returns an empty list, so the AI doesn't sacrifice anything. Trying to make
+                    // the AI decide on creatures to sac makes the AI sacrifice them, but the cost is not reduced and the
+                    // AI pays the full mana cost anyway (despite sacrificing creatures).
+                    return PaymentDecision.card(new CardCollection());
+                } else if (!logic.isEmpty() && !logic.equals("Never")) {
+                    // If at least some other AI logic is specified, assume that the AI for that API knows how
+                    // to define ChosenX and thus honor that value.
+                    // Cards which have no special logic for this yet but which do work in a simple/suboptimal way
+                    // are currently conventionally flagged with AILogic$ DoSacrifice.
+                    c = AbilityUtils.calculateAmount(source, source.getSVar("ChosenX"), null);
+                } else {
+                    // Other cards are assumed to be flagged RemAIDeck for now
+                    return null;
+                }
+            } else {
+                c = AbilityUtils.calculateAmount(source, cost.getAmount(), ability);
             }
-
-            c = AbilityUtils.calculateAmount(source, cost.getAmount(), ability);
         }
         final AiController aic = ((PlayerControllerAi)player.getController()).getAi();
         CardCollectionView list = aic.chooseSacrificeType(cost.getType(), ability, c);

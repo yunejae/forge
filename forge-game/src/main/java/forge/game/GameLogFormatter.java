@@ -1,6 +1,7 @@
 package forge.game;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -27,10 +28,10 @@ import forge.game.event.GameEventTurnBegan;
 import forge.game.event.GameEventTurnPhase;
 import forge.game.event.IGameEventVisitor;
 import forge.game.player.Player;
+import forge.game.player.RegisteredPlayer;
 import forge.game.spellability.TargetChoices;
 import forge.game.zone.ZoneType;
 import forge.util.Lang;
-import forge.util.TextUtil;
 import forge.util.maps.MapOfLists;
 
 public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
@@ -42,8 +43,7 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
 
     @Override
     public GameLogEntry visit(GameEventGameOutcome ev) {
-        for (Player p : ev.result.getPlayers()) {
-            String outcome = TextUtil.concatWithSpace(p.getName(),"has", p.getOutcome().toString());
+        for(String outcome : ev.result.getOutcomeStrings()) {
             log.add(GameLogEntryType.GAME_OUTCOME, outcome);
         }
         return generateSummary(ev.history);
@@ -52,15 +52,15 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
     @Override
     public GameLogEntry visit(GameEventScry ev) {
         String scryOutcome = "";
-        String toTop = TextUtil.concatWithSpace(Lang.nounWithAmount(ev.toTop, "card"),"to the top of the library");
-        String toBottom = TextUtil.concatWithSpace(Lang.nounWithAmount(ev.toBottom, "card"),"to the bottom of the library");
+        String toTop = Lang.nounWithAmount(ev.toTop, "card") + " to the top of the library";
+        String toBottom = Lang.nounWithAmount(ev.toBottom, "card") + " to the bottom of the library";
 
         if (ev.toTop > 0 && ev.toBottom > 0) {
-            scryOutcome = TextUtil.concatWithSpace(ev.player.toString(),"scried", toTop, "and", toBottom);
+            scryOutcome = ev.player.toString() + " scried " + toTop + " and " + toBottom;
         } else if (ev.toBottom == 0) {
-            scryOutcome = TextUtil.concatWithSpace(ev.player.toString(),"scried", toTop);
+            scryOutcome = ev.player.toString() + " scried " + toTop;
         } else {
-            scryOutcome = TextUtil.concatWithSpace(ev.player.toString(),"scried", toBottom);
+            scryOutcome = ev.player.toString() + " scried " + toBottom;
         }
 
         return new GameLogEntry(GameLogEntryType.STACK_RESOLVE, scryOutcome);
@@ -105,33 +105,30 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
             return null;
         }
 
-        String modeChoiceOutcome = TextUtil.concatWithSpace(ev.player.toString(), "has chosen", ev.mode, "for", TextUtil.addSuffix(ev.cardName,"."));
+        String modeChoiceOutcome = ev.player.toString() + " has chosen " + ev.mode + " for " + ev.cardName + ".";
         return new GameLogEntry(GameLogEntryType.STACK_RESOLVE, modeChoiceOutcome);
     }
 
     private static GameLogEntry generateSummary(final List<GameOutcome> gamesPlayed) {
         final GameOutcome outcome1 = gamesPlayed.get(0);
-        final List<Player> players = outcome1.getPlayers();
-
-        final int[] wins = new int[players.size()];
+        final HashMap<RegisteredPlayer, String> players = outcome1.getPlayerNames();
+        final HashMap<RegisteredPlayer, Integer> winCount = new HashMap<RegisteredPlayer, Integer>();
 
         // Calculate total games each player has won.
         for (final GameOutcome game : gamesPlayed) {
-            int i = 0;
-            for (Player p : game.getPlayers()) {
-                if (p.getOutcome().hasWon()) {
-                    wins[i]++;
-                }
-                i++;
-            }
+            RegisteredPlayer player = game.getWinningPlayer();
+
+            int amount = winCount.containsKey(player) ? winCount.get(player) : 0;
+            winCount.put(player, amount + 1);
         }
 
         final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < wins.length; i++) {
-            final Player player = players.get(i);
-            final String playerName = player.getName();
-            sb.append(playerName).append(": ").append(wins[i]).append(" ");
+        for (Entry<RegisteredPlayer, String> entry : players.entrySet()) {
+            int amount = winCount.containsKey(entry.getKey()) ? winCount.get(entry.getKey()) : 0;
+
+            sb.append(entry.getValue()).append(": ").append(amount).append(" ");
         }
+
         return new GameLogEntry(GameLogEntryType.MATCH_RESULTS, sb.toString());
     }
 
@@ -144,7 +141,7 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
         if (newLobbyPlayer == null) {
             message = p.getName() + " has restored control over themself";
         } else {
-            message = TextUtil.concatWithSpace(p.getName(), "is controlled by", newLobbyPlayer.getName());
+            message = p.getName() + "is controlled by" + newLobbyPlayer.getName();
         }
         return new GameLogEntry(GameLogEntryType.PLAYER_CONROL, message);
     }
@@ -159,15 +156,15 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
     public GameLogEntry visit(GameEventCardDamaged event) {
         String additionalLog = "";
         if (event.type == DamageType.Deathtouch) {
-            additionalLog = "(Deathtouch)";
+            additionalLog = " (Deathtouch)";
         }
         if (event.type == DamageType.M1M1Counters) {
-            additionalLog = "(As -1/-1 Counters)";
+            additionalLog = " (As -1/-1 Counters)";
         }
         if (event.type == DamageType.LoyaltyLoss) {
-            additionalLog = "(Removing " + Lang.nounWithAmount(event.amount, "loyalty counter") + ")";
+            additionalLog = " (Removing " + Lang.nounWithAmount(event.amount, "loyalty counter") + ")";
         }
-        String message = TextUtil.concatWithSpace(event.source.toString(),"deals", String.valueOf(event.amount),"damage", additionalLog,"to", TextUtil.addSuffix(event.card.toString(),"."));
+        String message = event.source.toString() + " deals " + String.valueOf(event.amount) + " damage" + additionalLog + " to " + event.card.toString() + ".";
         return new GameLogEntry(GameLogEntryType.DAMAGE, message);
     }
 
@@ -176,13 +173,13 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
      */
     @Override
     public GameLogEntry visit(GameEventLandPlayed ev) {
-        String message = TextUtil.concatWithSpace(ev.player.toString(),"played", ev.land.toString());
+        String message = ev.player.toString() + " played " + ev.land.toString();
         return new GameLogEntry(GameLogEntryType.LAND, message);
     }
 
     @Override
     public GameLogEntry visit(GameEventTurnBegan event) {
-        String message = TextUtil.concatWithSpace("Turn", String.valueOf(event.turnNumber), TextUtil.enclosedParen(event.turnOwner.toString()));
+        String message = "Turn " + String.valueOf(event.turnNumber) + " (" + event.turnOwner.toString() + ")";
         return new GameLogEntry(GameLogEntryType.TURN, message);
     }
 
@@ -190,13 +187,13 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
     public GameLogEntry visit(GameEventPlayerDamaged ev) {
         String extra = ev.infect ? " (as poison counters)" : "";
         String damageType = ev.combat ? "combat" : "non-combat";
-        String message = TextUtil.concatWithSpace(ev.source.toString(),"deals", String.valueOf(ev.amount), damageType, "damage to", TextUtil.addSuffix(ev.target.toString(), TextUtil.addSuffix(extra,".")));
+        String message = ev.source.toString() + " deals " + String.valueOf(ev.amount) + " " + damageType + " damage to " + ev.target.toString() + extra + ".";
         return new GameLogEntry(GameLogEntryType.DAMAGE, message);
     }
 
     @Override
     public GameLogEntry visit(GameEventPlayerPoisoned ev) {
-        String message = TextUtil.concatWithSpace(ev.receiver.toString(),"receives", Lang.nounWithAmount(ev.amount, "posion counter"),"from", ev.source.toString());
+        String message = ev.receiver.toString() + " receives " + Lang.nounWithAmount(ev.amount, "posion counter") + " from " + ev.source.toString();
         return new GameLogEntry(GameLogEntryType.DAMAGE, message);
     }
 
@@ -266,7 +263,7 @@ public class GameLogFormatter extends IGameEventVisitor.Base<GameLogEntry> {
 
     @Override
     public GameLogEntry visit(GameEventMulligan ev) {
-        String message = TextUtil.concatWithSpace(ev.player.toString(),"has mulliganed down to", String.valueOf(ev.player.getZone(ZoneType.Hand).size()),"cards.");
+        String message = ev.player.toString() + " has mulliganed down to " + String.valueOf(ev.player.getZone(ZoneType.Hand).size()) + " cards.";
         return new GameLogEntry(GameLogEntryType.MULLIGAN, message);
     }
 

@@ -113,6 +113,14 @@ public class SettingsPage extends TabPage<SettingsScreen> {
                 "Deck Conformance",
                 "Enforces deck legality relevant to each environment (minimum deck sizes, max card count etc)."),
                 1);
+        lstSettings.addItem(new BooleanSetting(FPref.PERFORMANCE_MODE,
+                        "Performance Mode",
+                        "Disables additional static abilities checks to speed up the game engine. (Warning: breaks some 'as if had flash' scenarios when casting cards owned by opponents)."),
+                1);
+        lstSettings.addItem(new BooleanSetting(FPref.FILTERED_HANDS,
+                        "Filtered Hands",
+                        "Generates two starting hands and keeps the one with the closest to average land count for the deck. (Requires restart)"),
+                1);
         lstSettings.addItem(new BooleanSetting(FPref.UI_CLONE_MODE_SOURCE,
                 "Clones Use Original Card Art",
                 "When enabled clones will use their original art instead of the cloned card's art."),
@@ -155,6 +163,10 @@ public class SettingsPage extends TabPage<SettingsScreen> {
                 "Remove Small Creatures",
                 "Disables 1/1 and 0/X creatures in generated decks."),
                 2);
+        lstSettings.addItem(new BooleanSetting(FPref.DECKGEN_CARDBASED,
+                        "Include Card-based Deck Generation",
+                        "Builds more synergistic random decks"),
+                2);
         lstSettings.addItem(new BooleanSetting(FPref.DECKGEN_SINGLETONS,
                 "Singleton Mode",
                 "Disables non-land duplicates in generated decks."),
@@ -183,6 +195,9 @@ public class SettingsPage extends TabPage<SettingsScreen> {
         lstSettings.addItem(new BooleanSetting(FPref.LOAD_CARD_SCRIPTS_LAZILY,
                 "Load Card Scripts Lazily",
                 "If turned on, Forge will load card scripts as they're needed instead of at start up. (Warning: Experimental)"), 3);
+        lstSettings.addItem(new BooleanSetting(FPref.LOAD_HISTORIC_FORMATS,
+                "Load Historic Formats",
+                "If turned on, Forge will load all historic format definitions, this may take slightly longer to load at startup."), 3);
 
         //Graphic Options
         lstSettings.addItem(new BooleanSetting(FPref.UI_OVERLAY_FOIL_EFFECT,

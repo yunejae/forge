@@ -167,8 +167,15 @@ public class PlayerControllerForTests extends PlayerController {
     }
 
     @Override
-    public SpellAbility chooseSingleSpellForEffect(List<SpellAbility> spells, SpellAbility sa, String title) {
+    public SpellAbility chooseSingleSpellForEffect(List<SpellAbility> spells, SpellAbility sa, String title,
+            Map<String, Object> params) {
         return chooseItem(spells);
+    }
+
+    @Override
+    public <T extends GameEntity> List<T> chooseEntitiesForEffect(FCollectionView<T> optionList, DelayedReveal delayedReveal, SpellAbility sa, String title, Player relatedPlayer) {
+        // this isn't used
+        return null;
     }
 
     @Override
@@ -567,11 +574,6 @@ public class PlayerControllerForTests extends PlayerController {
     }
 
     @Override
-    public CardShields chooseRegenerationShield(Card c) {
-        return Iterables.getFirst(c.getShields(), null);
-    }
-
-    @Override
     public List<PaperCard> chooseCardsYouWonToAddToDeck(List<PaperCard> losses) {
         // TODO Auto-generated method stub
         return losses;
@@ -613,6 +615,12 @@ public class PlayerControllerForTests extends PlayerController {
             reveal(delayedReveal.getCards(), delayedReveal.getZone(), delayedReveal.getOwner(), delayedReveal.getMessagePrefix());
         }
         return ChangeZoneAi.chooseCardToHiddenOriginChangeZone(destination, origin, sa, fetchList, player, decider);
+    }
+
+    @Override
+    public List<Card> chooseCardsForZoneChange(ZoneType destination, List<ZoneType> origin, SpellAbility sa, CardCollection fetchList, DelayedReveal delayedReveal, String selectPrompt, Player decider) {
+        // this isn't used
+        return null;
     }
 
     @Override

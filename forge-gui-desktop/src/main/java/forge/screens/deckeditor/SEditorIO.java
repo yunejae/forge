@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableList;
 import forge.model.FModel;
-import forge.quest.data.QuestPreferences.QPref;
 
 /** 
  * Handles editor preferences saving and loading.
@@ -62,7 +61,7 @@ public class SEditorIO {
             VAllDecks.SINGLETON_INSTANCE.getLstDecks().setSelectedString(deckStr);
             // Set current quest deck to selected
             if (Singletons.getControl().getCurrentScreen() == FScreen.DECK_EDITOR_QUEST) {
-                FModel.getQuestPreferences().setPref(QPref.CURRENT_DECK, name);
+                FModel.getQuest().setCurrentDeck(name);
             }
         }
 

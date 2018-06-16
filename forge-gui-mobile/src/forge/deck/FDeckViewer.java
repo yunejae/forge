@@ -5,9 +5,6 @@ import forge.assets.FImage;
 import forge.assets.FSkin;
 import forge.assets.FSkinImage;
 import forge.assets.FTextureRegionImage;
-import forge.deck.CardPool;
-import forge.deck.Deck;
-import forge.deck.DeckSection;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
 import forge.itemmanager.ItemManagerConfig;
@@ -96,14 +93,9 @@ public class FDeckViewer extends FScreen {
                 continue;
             }
             deckList.append(s.toString()).append(": ");
-            if (s.isSingleCard()) {
-                deckList.append(cp.get(0).getName()).append(nl);
-            }
-            else {
-                deckList.append(nl);
-                for (final Entry<PaperCard, Integer> ev : cp) {
-                    deckList.append(ev.getValue()).append(" ").append(ev.getKey()).append(nl);
-                }
+            deckList.append(nl);
+            for (final Entry<PaperCard, Integer> ev : cp) {
+                deckList.append(ev.getValue()).append(" ").append(ev.getKey()).append(nl);
             }
             deckList.append(nl);
         }

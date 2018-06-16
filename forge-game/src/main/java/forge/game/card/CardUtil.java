@@ -35,10 +35,12 @@ import forge.game.GameObject;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
 import forge.game.player.Player;
+import forge.game.replacement.ReplacementEffect;
 import forge.game.spellability.AbilityManaPart;
 import forge.game.spellability.AbilitySub;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.TargetRestrictions;
+import forge.game.trigger.Trigger;
 import forge.game.zone.ZoneType;
 import forge.util.TextUtil;
 import forge.util.collect.FCollection;
@@ -59,7 +61,7 @@ public final class CardUtil {
             "Transmute", "Replicate", "Recover", "Suspend", "Aura swap",
             "Fortify", "Transfigure", "Champion", "Evoke", "Prowl", "IfReach",
             "Reinforce", "Unearth", "Level up", "Miracle", "Overload",
-            "Scavenge", "Bestow", "Outlast", "Dash", "Renown", "Surge", "Emerge").build();
+            "Scavenge", "Bestow", "Outlast", "Dash", "Renown", "Surge", "Emerge", "Hexproof:").build();
     /** List of keyword endings of keywords that could be modified by text changes. */
     public static final ImmutableList<String> modifiableKeywordEndings = ImmutableList.<String>builder().add(
             "walk", "cycling", "offering").build();
@@ -204,7 +206,6 @@ public final class CardUtil {
         newCopy.setSetCode(in.getSetCode());
         newCopy.setOwner(in.getOwner());
         newCopy.setController(in.getController(), 0);
-        newCopy.getCurrentState().copyFrom(in, in.getState(in.getCurrentStateName()));
 
         // needed to ensure that the LKI object has correct CMC info no matter what state the original card was in
         // (e.g. Scrap Trawler + transformed Harvest Hand)
@@ -212,17 +213,31 @@ public final class CardUtil {
         // used for the purpose of cards that care about the zone the card was known to be in last
         newCopy.setLastKnownZone(in.getLastKnownZone());
 
+        newCopy.getCurrentState().copyFrom(in.getState(in.getCurrentStateName()), true);
+
         if (in.isCloned()) {
             newCopy.addAlternateState(CardStateName.Cloner, false);
-            newCopy.getState(CardStateName.Cloner).copyFrom(in, in.getState(CardStateName.Cloner));
+            newCopy.getState(CardStateName.Cloner).copyFrom(in.getState(CardStateName.Cloner), true);
         }
 
         newCopy.setType(new CardType(in.getType()));
         newCopy.setToken(in.isToken());
-        newCopy.setTriggers(in.getTriggers(), false);
+
+        // extra copy non Intrinsic traits
         for (SpellAbility sa : in.getSpellAbilities()) {
-            newCopy.addSpellAbility(sa);
-            sa.setHostCard(in);
+            if (!sa.isIntrinsic()) {
+                newCopy.addSpellAbility(sa.copy(newCopy, true));
+            }
+        }
+        for (Trigger tr : in.getTriggers()) {
+            if (!tr.isIntrinsic()) {
+                newCopy.addTrigger(tr.copy(newCopy, true));
+            }
+        }
+        for (ReplacementEffect re : in.getReplacementEffects()) {
+            if (!re.isIntrinsic()) {
+                newCopy.addReplacementEffect(re.copy(newCopy, true));
+            }
         }
 
         // lock in the current P/T without bonus from counters
@@ -234,6 +249,7 @@ public final class CardUtil {
 
         newCopy.setColor(in.determineColor().getColor());
         newCopy.setReceivedDamageFromThisTurn(in.getReceivedDamageFromThisTurn());
+        newCopy.setReceivedDamageFromPlayerThisTurn(in.getReceivedDamageFromPlayerThisTurn());
         newCopy.getDamageHistory().setCreatureGotBlockedThisTurn(in.getDamageHistory().getCreatureGotBlockedThisTurn());
         newCopy.setEnchanting(in.getEnchanting());
         newCopy.setEnchantedBy(in.getEnchantedBy(false));
@@ -261,6 +277,11 @@ public final class CardUtil {
         newCopy.setChangedCardTypes(in.getChangedCardTypesMap());
 
         newCopy.setMeldedWith(in.getMeldedWith());
+
+        // update keyword cache on all states
+        for (CardStateName s : newCopy.getStates()) {
+            newCopy.updateKeywordsCache(newCopy.getState(s));
+        }
 
         return newCopy;
     }

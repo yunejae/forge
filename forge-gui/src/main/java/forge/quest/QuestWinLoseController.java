@@ -8,10 +8,7 @@ import forge.game.GameEndReason;
 import forge.game.GameFormat;
 import forge.game.GameOutcome;
 import forge.game.GameView;
-import forge.game.player.GameLossReason;
-import forge.game.player.PlayerOutcome;
-import forge.game.player.PlayerStatistics;
-import forge.game.player.PlayerView;
+import forge.game.player.*;
 import forge.interfaces.IButton;
 import forge.interfaces.IWinLoseView;
 import forge.item.*;
@@ -229,8 +226,10 @@ public class QuestWinLoseController {
         sb.append(StringUtils.capitalize(qEvent.getDifficulty().getTitle()));
         sb.append(" opponent: ").append(credBase).append(" credits.\n");
 
+        int multiplayer = Math.min(qData.getAchievements().getWin(), FModel.getQuestPreferences().getPrefInt(QPref.REWARDS_WINS_MULTIPLIER_MAX));
         final int creditsForPreviousWins = (int) ((Double.parseDouble(FModel.getQuestPreferences()
-                .getPref(QPref.REWARDS_WINS_MULTIPLIER)) * qData.getAchievements().getWin()));
+                .getPref(QPref.REWARDS_WINS_MULTIPLIER)) * multiplier));
+
         credBase += creditsForPreviousWins;
 
         sb.append("Bonus for previous wins: ").append(creditsForPreviousWins).append(
@@ -250,8 +249,8 @@ public class QuestWinLoseController {
 
             // final PlayerStatistics aiRating = game.getStatistics(computer.getName());
             PlayerStatistics humanRating = null;
-            for (final Entry<LobbyPlayer, PlayerStatistics> kvRating : game) {
-                if (kvRating.getKey().equals(localHuman)) {
+            for (final Entry<RegisteredPlayer, PlayerStatistics> kvRating : game) {
+                if (kvRating.getKey().getPlayer().equals(localHuman)) {
                     humanRating = kvRating.getValue();
                     continue;
                 }
@@ -322,7 +321,7 @@ public class QuestWinLoseController {
             }
 
             if (game.getLifeDelta() >= 50) {
-                lifeDifferenceCredits += Math.max(Math.min((game.getLifeDelta() - 46) / 4, 750), 0);
+                lifeDifferenceCredits += Math.max(Math.min((game.getLifeDelta() - 46) / 4, FModel.getQuestPreferences().getPrefInt(QPref.REWARDS_HEALTH_DIFF_MAX)), 0);
             }
 
         } // End for(game)
@@ -502,7 +501,7 @@ public class QuestWinLoseController {
             final String preferredFormat = FModel.getQuestPreferences().getPref(QPref.BOOSTER_FORMAT);
 
             GameFormat pref = null;
-            for (final GameFormat f : FModel.getFormats().getOrderedList()) {
+            for (final GameFormat f : FModel.getFormats().getSanctionedList()) {
                 formats.add(f);
                 if (f.toString().equals(preferredFormat)) {
                     pref = f;

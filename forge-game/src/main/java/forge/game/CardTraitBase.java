@@ -44,7 +44,7 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView {
     /** The temporarily suppressed. */
     protected boolean temporarilySuppressed = false;
 
-    private Map<String, String> sVars = Maps.newHashMap();
+    protected Map<String, String> sVars = Maps.newHashMap();
 
     /** Keys of descriptive (text) parameters. */
     private static final ImmutableList<String> descriptiveKeys = ImmutableList.<String>builder()
@@ -170,8 +170,8 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView {
      * @return a boolean.
      */
     public static boolean matchesValid(final Object o, final String[] valids, final Card srcCard) {
-        if (o instanceof GameEntity) {
-            final GameEntity c = (GameEntity) o;
+        if (o instanceof GameObject) {
+            final GameObject c = (GameObject) o;
             return c.isValid(valids, srcCard.getController(), srcCard, null);
         }
 
@@ -314,7 +314,11 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView {
                     list.addAll(p.getCardsIn(presentZone));
                 }
             }
-    
+            if (presentPlayer.equals("Any")) {
+                for (final Player p : this.getHostCard().getController().getAllies()) {
+                    list.addAll(p.getCardsIn(presentZone));
+                }
+            }
             list = CardLists.getValidCards(list, sIsPresent.split(","), this.getHostCard().getController(), this.getHostCard(), null);
     
             int right = 1;

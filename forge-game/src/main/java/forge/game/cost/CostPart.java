@@ -25,10 +25,16 @@ import forge.game.spellability.SpellAbility;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
+
 /**
  * The Class CostPart.
  */
-public abstract class CostPart implements Comparable<CostPart>, Cloneable {
+public abstract class CostPart implements Comparable<CostPart>, Cloneable, Serializable {
+    /**
+     * Serializables need a version ID.
+     */
+    private static final long serialVersionUID = 1L;
     private String originalAmount;
     private String amount;
     private final String originalType, originalTypeDescription;

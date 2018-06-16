@@ -1,5 +1,6 @@
 package forge.net;
 
+import forge.match.LobbySlotType;
 import org.apache.commons.lang3.StringUtils;
 
 import forge.GuiBase;
@@ -28,7 +29,7 @@ public class NetConnectUtil {
     private NetConnectUtil() { }
 
     public static String getServerUrl() {
-        final String url = SOptionPane.showInputDialog("Enter URL of server to join. Leave blank to host your own server.", "Connect to Server");
+        final String url = SOptionPane.showInputDialog("This feature is under active development.\nYou are likely to find bugs.\n\n - = * H E R E   B E   E L D R A Z I * = -\n\nEnter the URL of the server to join.\nLeave blank to host your own server.", "Connect to Server");
         if (url == null) { return null; }
 
         //prompt user for player one name if needed
@@ -53,6 +54,8 @@ public class NetConnectUtil {
                 view.update(fullUpdate);
                 server.updateLobbyState();
             }
+            @Override
+            public final void update(final int slot, final LobbySlotType type) {return;}
         });
         view.setPlayerChangeListener(new IPlayerChangeListener() {
             @Override
@@ -74,6 +77,10 @@ public class NetConnectUtil {
             @Override
             public final void close() {
                 // NO-OP, server can't receive close message
+            }
+            @Override
+            public ClientGameLobby getLobby() {
+                return null;
             }
         });
         chatInterface.setGameClient(new IRemote() {
@@ -98,10 +105,24 @@ public class NetConnectUtil {
     }
 
     public static void copyHostedServerUrl() {
-        String hostname = FServerManager.getInstance().getLocalAddress();
-        String url = hostname + ":" + ForgeProfileProperties.getServerPort();
-        GuiBase.getInterface().copyToClipboard(url);
-        SOptionPane.showMessageDialog("Share the following URL with anyone who wishes to join your server. It has been copied to your clipboard for convenience.\n\n" + url, "Server URL", SOptionPane.INFORMATION_ICON);
+        String internalAddress = FServerManager.getInstance().getLocalAddress();
+        String externalAddress = FServerManager.getInstance().getExternalAddress();
+        String internalUrl = internalAddress + ":" + ForgeProfileProperties.getServerPort();
+        String externalUrl = null;
+        if (externalAddress != null) {
+            externalUrl = externalAddress + ":" + ForgeProfileProperties.getServerPort();
+            GuiBase.getInterface().copyToClipboard(externalUrl);
+        } else {
+            GuiBase.getInterface().copyToClipboard(internalAddress);
+        }
+
+        String message = "Share the following URL with anyone who wishes to join your server. It has been copied to your clipboard for convenience.\n\n";
+        if (externalUrl != null) {
+            message += externalUrl + "\n\nFor internal games, use the following URL: " + internalUrl;
+        } else {
+            message = "Forge was unable to determine your external IP!\n\n" + message + internalUrl;
+        }
+        SOptionPane.showMessageDialog(message, "Server URL", SOptionPane.INFORMATION_ICON);
     }
 
     public static ChatMessage join(final String url, final IOnlineLobby onlineLobby, final IOnlineChatInterface chatInterface) {
@@ -124,8 +145,12 @@ public class NetConnectUtil {
             }
             @Override
             public final void close() {
-                SOptionPane.showMessageDialog("Connection to the host was interrupted.", "Error", FSkinProp.ICO_WARNING);
+                SOptionPane.showMessageDialog("Your connection to the host (" + url + ") was interrupted.", "Error", FSkinProp.ICO_WARNING);
                 onlineLobby.setClient(null);
+            }
+            @Override
+            public ClientGameLobby getLobby() {
+                return lobby;
             }
         });
         view.setPlayerChangeListener(new IPlayerChangeListener() {
@@ -149,7 +174,12 @@ public class NetConnectUtil {
             catch (Exception ex) {}
         }
 
-        client.connect(hostname, port);
+        try {
+            client.connect(hostname, port);
+        }
+        catch (Exception ex) {
+            return null;
+        }
 
         return new ChatMessage(null, String.format("Connected to %s:%d", hostname, port));
     }

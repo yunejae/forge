@@ -34,12 +34,14 @@ import java.util.StringTokenizer;
  * @version $Id: CardRules.java 9708 2011-08-09 19:34:12Z jendave $
  */
 public final class CardRules implements ICardCharacteristics {
+    private String normalizedName;
     private CardSplitType splitType;
     private ICardFace mainPart;
     private ICardFace otherPart;
     private CardAiHints aiHints;
     private ColorSet colorIdentity;
     private String meldWith;
+    private String partnerWith;
 
     private CardRules(ICardFace[] faces, CardSplitType altMode, CardAiHints cah) {
         splitType = altMode;
@@ -47,6 +49,7 @@ public final class CardRules implements ICardCharacteristics {
         otherPart = faces[1];
         aiHints = cah;
         meldWith = "";
+        partnerWith = "";
 
         //calculate color identity
         byte colMask = calculateColorIdentity(mainPart);
@@ -67,6 +70,7 @@ public final class CardRules implements ICardCharacteristics {
         aiHints = newRules.aiHints;
         colorIdentity = newRules.colorIdentity;
         meldWith = newRules.meldWith;
+        partnerWith = newRules.partnerWith;
     }
 
     private static byte calculateColorIdentity(final ICardFace face) {
@@ -123,6 +127,9 @@ public final class CardRules implements ICardCharacteristics {
                 return mainPart.getName();
         }
     }
+
+    public String getNormalizedName() { return normalizedName; }
+    public void setNormalizedName(String filename) { normalizedName = filename; }
 
     public CardAiHints getAiHints() {
         return aiHints;
@@ -200,18 +207,21 @@ public final class CardRules implements ICardCharacteristics {
     }
 
     public boolean canBePartnerCommander() {
-        return canBeCommander() && Iterables.contains(mainPart.getKeywords(), "Partner");
+        return canBeCommander() && (hasKeyword("Partner") || !this.partnerWith.isEmpty());
+    }
+
+    public boolean canBeBrawlCommander() {
+        CardType type = mainPart.getType();
+        return (type.isLegendary() && type.isCreature()) || type.isPlaneswalker();
     }
 
     public String getMeldWith() {
         return meldWith;
     }
 
-//    public Set<String> getSets() { return this.setsPrinted.keySet(); }
-//    public CardInSet getEditionInfo(final String setCode) {
-//        final CardInSet result = this.setsPrinted.get(setCode);
-//        return result; // if returns null, String.format("Card '%s' was never printed in set '%s'", this.getName(), setCode);
-//    }
+    public String getParterWith() {
+        return partnerWith;
+    }
 
     // vanguard card fields, they don't use sides.
     private int deltaHand;
@@ -222,7 +232,7 @@ public final class CardRules implements ICardCharacteristics {
     public void setVanguardProperties(String pt) {
         final int slashPos = pt == null ? -1 : pt.indexOf('/');
         if (slashPos == -1) {
-            throw new RuntimeException(TextUtil.concatWithSpace("Vanguard", TextUtil.enclosedSingleQuote(this.getName()), "has bad hand/life stats"));
+            throw new RuntimeException("Vanguard '" + this.getName() + "' has bad hand/life stats");
         }
         this.deltaHand = Integer.parseInt(TextUtil.fastReplace(pt.substring(0, slashPos), "+", ""));
         this.deltaLife = Integer.parseInt(TextUtil.fastReplace(pt.substring(slashPos+1), "+", ""));
@@ -259,7 +269,9 @@ public final class CardRules implements ICardCharacteristics {
         private int curFace = 0;
         private CardSplitType altMode = CardSplitType.None;
         private String meldWith = "";
+        private String partnerWith = "";
         private String handLife = null;
+        private String normalizedName = "";
 
         // fields to build CardAiHints
         private boolean removedFromAIDecks = false;
@@ -287,6 +299,8 @@ public final class CardRules implements ICardCharacteristics {
             this.hints = null;
             this.has = null;
             this.meldWith = "";
+            this.partnerWith = "";
+            this.normalizedName = "";
         }
 
         /**
@@ -299,14 +313,17 @@ public final class CardRules implements ICardCharacteristics {
             faces[0].assignMissingFields();
             if (null != faces[1]) faces[1].assignMissingFields();
             final CardRules result = new CardRules(faces, altMode, cah);
+
+            result.setNormalizedName(this.normalizedName);
             result.meldWith = this.meldWith;
+            result.partnerWith = this.partnerWith;
             result.setDlUrls(pictureUrl);
             if (StringUtils.isNotBlank(handLife))
                 result.setVanguardProperties(handLife);
             return result;
         }
 
-        public final CardRules readCard(final Iterable<String> script) {
+        public final CardRules readCard(final Iterable<String> script, String filename) {
             this.reset();
             for (String line : script) {
                 if (line.isEmpty() || line.charAt(0) == '#') {
@@ -314,7 +331,12 @@ public final class CardRules implements ICardCharacteristics {
                 }
                 this.parseLine(line);
             }
+            this.normalizedName = filename;
             return this.getCard();
+        }
+
+        public final CardRules readCard(final Iterable<String> script) {
+            return readCard(script, null);
         }
 
         /**
@@ -370,6 +392,9 @@ public final class CardRules implements ICardCharacteristics {
                 case 'K':
                     if ("K".equals(key)) {
                         this.faces[this.curFace].addKeyword(value);
+                        if (value.startsWith("Partner:")) {
+                            this.partnerWith = value.split(":")[1];
+                        }
                     }
                     break;
 
@@ -520,5 +545,9 @@ public final class CardRules implements ICardCharacteristics {
         final CardRules result = new CardRules(faces, CardSplitType.None, cah);
 
         return result;
+    }
+
+    public boolean hasKeyword(final String k) {
+        return Iterables.contains(mainPart.getKeywords(), k);
     }
 }

@@ -4,6 +4,7 @@ import forge.deck.Deck;
 import forge.deck.DeckType;
 import forge.deck.DeckgenUtil;
 import forge.model.FModel;
+import forge.util.MyRandom;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class TournamentUtil {
         final List<Deck> decks = new ArrayList<Deck>();
 
         for (int i = 0; i < numOpponents; i++) {
-            int randType = (int)Math.floor(Math.random() * allowedDeckTypes.size());
+            int randType = (int)Math.floor(MyRandom.getRandom().nextDouble() * allowedDeckTypes.size());
             switch (allowedDeckTypes.get(randType)) {
                 case COLOR_DECK:
                     deck = DeckgenUtil.getRandomColorDeck(true);
@@ -37,6 +38,12 @@ public class TournamentUtil {
                     break;
                 case MODERN_CARDGEN_DECK:
                     deck = DeckgenUtil.buildCardGenDeck(FModel.getFormats().getModern(),true);
+                    break;
+                case LEGACY_CARDGEN_DECK:
+                    deck = DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().get("Legacy"),true);
+                    break;
+                case VINTAGE_CARDGEN_DECK:
+                    deck = DeckgenUtil.buildLDACArchetypeDeck(FModel.getFormats().get("Vintage"),true);
                     break;
                 case MODERN_COLOR_DECK:
                     deck = DeckgenUtil.getRandomColorDeck(FModel.getFormats().getModern().getFilterPrinted(),true);

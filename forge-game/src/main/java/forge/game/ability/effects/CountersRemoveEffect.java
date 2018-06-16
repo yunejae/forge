@@ -108,12 +108,20 @@ public class CountersRemoveEffect extends SpellAbilityEffect {
         }
 
         for (final Card tgtCard : getTargetCards(sa)) {
+            Card gameCard = game.getCardState(tgtCard, null);
+            // gameCard is LKI in that case, the card is not in game anymore
+            // or the timestamp did change
+            // this should check Self too
+            if (gameCard == null || !tgtCard.equalsWithTimestamp(gameCard)) {
+                continue;
+            }
             if (!sa.usesTargeting() || tgtCard.canBeTargetedBy(sa)) {
-                final Zone zone = game.getZoneOf(tgtCard);
+                final Zone zone = game.getZoneOf(gameCard);
                 if (type.equals("All")) {
                     for (Map.Entry<CounterType, Integer> e : tgtCard.getCounters().entrySet()) {
                         tgtCard.subtractCounter(e.getKey(), e.getValue());
                     }
+                    game.updateLastStateForCard(tgtCard);
                     continue;
                 } else if (num.equals("All")) {
                     cntToRemove = tgtCard.getCounters(counterType);
@@ -139,13 +147,16 @@ public class CountersRemoveEffect extends SpellAbilityEffect {
                         params.put("CounterType", chosenType);
                         int chosenAmount = pc.chooseNumber(sa, prompt, 1, max, params);
 
-                        tgtCard.subtractCounter(chosenType, chosenAmount);
-                        if (rememberRemoved) {
-                            for (int i = 0; i < chosenAmount; i++) {
-                                card.addRemembered(Pair.of(chosenType, i));
+                        if (chosenAmount > 0) {
+                            tgtCard.subtractCounter(chosenType, chosenAmount);
+                            game.updateLastStateForCard(tgtCard);
+                            if (rememberRemoved) {
+                                for (int i = 0; i < chosenAmount; i++) {
+                                    card.addRemembered(Pair.of(chosenType, i));
+                                }
                             }
+                            cntToRemove -= chosenAmount;
                         }
-                        cntToRemove -= chosenAmount;
                     }
                 } else {
                     cntToRemove = Math.min(cntToRemove, tgtCard.getCounters(counterType));
@@ -160,12 +171,15 @@ public class CountersRemoveEffect extends SpellAbilityEffect {
                         }
                             
                     }
-                    if (rememberRemoved) {
-                        for (int i = 0; i < cntToRemove; i++) {
-                            card.addRemembered(Pair.of(counterType, i));
+                    if (cntToRemove > 0) {
+                        tgtCard.subtractCounter(counterType, cntToRemove);
+                        if (rememberRemoved) {
+                            for (int i = 0; i < cntToRemove; i++) {
+                                card.addRemembered(Pair.of(counterType, i));
+                            }
                         }
+                        game.updateLastStateForCard(tgtCard);
                     }
-                    tgtCard.subtractCounter(counterType, cntToRemove);
                 }
             }
         }
