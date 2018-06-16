@@ -52,7 +52,8 @@ import java.util.Map.Entry;
 public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
     private final DeckController<Deck> controller;
     private final List<DeckSection> allSections = new ArrayList<DeckSection>();
-    private final ItemPool<PaperCard> normalPool, avatarPool, planePool, schemePool, conspiracyPool;
+    private final ItemPool<PaperCard> normalPool, avatarPool, planePool, schemePool, conspiracyPool,
+         contraptionPool;
 
     //=========== Constructor
     /**
@@ -70,13 +71,15 @@ public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
         allSections.add(DeckSection.Schemes);
         allSections.add(DeckSection.Planes);
         allSections.add(DeckSection.Conspiracy);
+        allSections.add(DeckSection.Contraptions);
 
         normalPool = ItemPool.createFrom(FModel.getMagicDb().getCommonCards().getAllCards(), PaperCard.class);
         avatarPool = ItemPool.createFrom(FModel.getMagicDb().getVariantCards().getAllCards(Predicates.compose(CardRulesPredicates.Presets.IS_VANGUARD, PaperCard.FN_GET_RULES)), PaperCard.class);
         planePool = ItemPool.createFrom(FModel.getMagicDb().getVariantCards().getAllCards(Predicates.compose(CardRulesPredicates.Presets.IS_PLANE_OR_PHENOMENON, PaperCard.FN_GET_RULES)), PaperCard.class);
         schemePool = ItemPool.createFrom(FModel.getMagicDb().getVariantCards().getAllCards(Predicates.compose(CardRulesPredicates.Presets.IS_SCHEME, PaperCard.FN_GET_RULES)), PaperCard.class);
         conspiracyPool = ItemPool.createFrom(FModel.getMagicDb().getVariantCards().getAllCards(Predicates.compose(CardRulesPredicates.Presets.IS_CONSPIRACY, PaperCard.FN_GET_RULES)), PaperCard.class);
-
+        contraptionPool = ItemPool.createFrom(FModel.getMagicDb().getVariantCards().getAllCards(Predicates.compose(CardRulesPredicates.Presets.IS_CONTRAPTION, PaperCard.FN_GET_RULES)), PaperCard.class);
+        
         CardManager catalogManager = new CardManager(getCDetailPicture(), false, false); // TODO: restore the functionality of the "want uniques only" toggle
         CardManager deckManager = new CardManager(getCDetailPicture(), false, false); // IMPORTANT: must *always* show all cards in the deck, otherwise cards with different art get ignored!
 
@@ -215,6 +218,9 @@ public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
         case Conspiracy:
             cmb.addMoveItems("Add", "to conspiracy deck");
             break;
+        case Contraptions:
+            cmb.addMoveItems("Add", "to contraption deck");
+            break;
         }
     }
 
@@ -242,6 +248,9 @@ public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
             break;
         case Conspiracy:
             cmb.addMoveItems("Remove", "from conspiracy deck");
+            break;
+        case Contraptions:
+            cmb.addMoveItems("Remove", "from contraption deck");
             break;
         }
         if (foilAvailable) {
@@ -328,6 +337,11 @@ public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
             this.getCatalogManager().setup(ItemManagerConfig.CONSPIRACY_DECKS);
             this.getCatalogManager().setPool(conspiracyPool,true);
             this.getDeckManager().setPool(this.controller.getModel().getOrCreate(DeckSection.Conspiracy));
+        case Contraptions:
+            this.getCatalogManager().setup(ItemManagerConfig.CONTRAPTION_POOL);
+            this.getCatalogManager().setPool(contraptionPool,true);
+            this.getDeckManager().setPool(this.controller.getModel().getOrCreate(DeckSection.Contraptions));
+            break;
         }
 
         this.controller.updateCaptions();
