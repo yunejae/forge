@@ -246,6 +246,10 @@ public class PhaseHandler implements java.io.Serializable {
                 case UPKEEP:
                     nUpkeepsThisTurn++;
                     nUpkeepsThisGame++;
+                    if (game.getRules().hasAppliedVariant(GameType.Unstable) &&
+                             playerTurn.controlsContraption()) {
+                        playerTurn.crank();
+                    }
                     game.getUpkeep().executeUntil(playerTurn);
                     game.getUpkeep().executeAt();
                     break;

@@ -407,6 +407,11 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
     public boolean isTribal() {
         return coreTypes.contains(CoreType.Tribal);
     }
+    
+    @Override
+    public boolean isContraption() {
+        return hasSubtype("Contraption");
+    }
 
     @Override
     public String toString() {

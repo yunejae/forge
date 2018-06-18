@@ -537,6 +537,33 @@ public class DeckgenUtil {
         return schemes;
     }
 
+    public static CardPool generateContraptionPool() {
+        System.out.println("generating contraption pool");
+        CardPool contraptions = new CardPool();
+        List<PaperCard> allContraptions = new ArrayList<PaperCard>();
+        for (PaperCard c : FModel.getMagicDb().getVariantCards().getAllCards()) {
+            if (c.getRules().getType().isContraption()) {
+                allContraptions.add(c);
+            }
+        }
+
+        int contraptionsToAdd = 15;
+        int attemptsLeft = 100; // to avoid endless loop
+        while (contraptionsToAdd > 0 && attemptsLeft > 0) {
+            PaperCard cp = Aggregates.random(allContraptions);
+            int appearances = contraptions.count(cp) + 1;
+            if (appearances < 2) {
+                contraptions.add(cp);
+                contraptionsToAdd--;
+            }
+            else {
+                attemptsLeft--;
+            }
+        }
+
+        return contraptions;
+    }
+
     public static Deck generatePlanarDeck() {
         Deck deck = new Deck("");
         deck.putSection(DeckSection.Planes, generatePlanarPool());

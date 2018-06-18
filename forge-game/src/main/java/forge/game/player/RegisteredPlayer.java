@@ -28,6 +28,7 @@ public class RegisteredPlayer {
     private Iterable<IPaperCard> cardsOnBattlefield = null;
     private Iterable<? extends IPaperCard> schemes = null;
     private Iterable<PaperCard> planes = null;
+    private Iterable<PaperCard> contraptions = null;
     private Iterable<PaperCard> conspiracies = null;
     private List<PaperCard> commanders = Lists.newArrayList();
     private List<PaperCard> vanguardAvatars = null;
@@ -69,6 +70,10 @@ public class RegisteredPlayer {
     public Iterable<? extends IPaperCard> getSchemes() {
         return schemes == null ? EmptyList : schemes;
     }
+    
+    public Iterable<PaperCard> getContraptions() {
+        return contraptions == null ? EmptyList : contraptions;
+    }
 
     public Iterable<PaperCard> getPlanes() {
         return planes == null ? EmptyList : planes;
@@ -104,13 +109,17 @@ public class RegisteredPlayer {
     public static RegisteredPlayer forVariants(final int playerCount,
     		final Set<GameType> appliedVariants, final Deck deck,	              //General vars
     		final Iterable<PaperCard> schemes, final boolean playerIsArchenemy,   //Archenemy specific vars
-    		final Iterable<PaperCard> planes, final CardPool vanguardAvatar) {   //Planechase and Vanguard
+    		final Iterable<PaperCard> planes, final CardPool vanguardAvatar,   //Planechase and Vanguard
+         final Iterable<PaperCard> contraptions) { //Unstable
         
     	RegisteredPlayer start = new RegisteredPlayer(deck);
     	if (appliedVariants.contains(GameType.Archenemy) && playerIsArchenemy) {
     		start.setStartingLife(40); // 904.5: The Archenemy has 40 life.
     		start.schemes = schemes;
     	}
+      if (appliedVariants.contains(GameType.Unstable)) {
+         start.contraptions = contraptions;
+      }
     	if (appliedVariants.contains(GameType.ArchenemyRumble)) {
     		start.setStartingLife(40);
     		start.schemes = schemes;

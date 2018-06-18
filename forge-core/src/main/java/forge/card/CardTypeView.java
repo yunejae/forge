@@ -38,5 +38,6 @@ public interface CardTypeView extends Iterable<String>, Serializable {
     boolean isPhenomenon();
     boolean isEmblem();
     boolean isTribal();
+    boolean isContraption();
     CardTypeView getTypeWithChanges(Iterable<CardChangedType> changedCardTypes);
 }

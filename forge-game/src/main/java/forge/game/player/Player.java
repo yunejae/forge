@@ -75,7 +75,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class Player extends GameEntity implements Comparable<Player> {
     public static final List<ZoneType> ALL_ZONES = Collections.unmodifiableList(Arrays.asList(ZoneType.Battlefield,
             ZoneType.Library, ZoneType.Graveyard, ZoneType.Hand, ZoneType.Exile, ZoneType.Command, ZoneType.Ante,
-            ZoneType.Sideboard, ZoneType.PlanarDeck, ZoneType.SchemeDeck));
+            ZoneType.Sideboard, ZoneType.PlanarDeck, ZoneType.SchemeDeck, ZoneType.ContraptionDeck));
 
     private final Map<Card, Integer> commanderDamage = Maps.newHashMap();
 
@@ -151,6 +151,8 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     private Card monarchEffect = null;
     private Card blessingEffect = null;
+    
+    private int sprocket = 3;
 
     private final AchievementTracker achievementTracker = new AchievementTracker();
     private final PlayerView view;
@@ -160,7 +162,8 @@ public class Player extends GameEntity implements Comparable<Player> {
 
         game = game0;
         for (final ZoneType z : Player.ALL_ZONES) {
-            final PlayerZone toPut = z == ZoneType.Battlefield ? new PlayerZoneBattlefield(z, this) : new PlayerZone(z, this);
+            final PlayerZone toPut = z == ZoneType.Battlefield ? new PlayerZoneBattlefield(z, this) : new PlayerZone(z, this)
+                ;
             zones.put(z, toPut);
         }
 
@@ -971,6 +974,15 @@ public class Player extends GameEntity implements Comparable<Player> {
         view.updateCounters(this);
         getGame().fireEvent(new GameEventPlayerCounters(this, null, 0, 0));
     }
+    
+    public final void crank(){
+        System.out.print(getName());
+        sprocket = sprocket % 3 + 1;
+                
+        final Map<String, Object> runParams = Maps.newHashMap();
+        runParams.put("Player", this);
+        game.getTriggerHandler().runTrigger(TriggerType.Cranked, runParams,false);
+    }
 
     // TODO Merge These calls into the primary counter calls
     public final int getPoisonCounters() {
@@ -1631,6 +1643,21 @@ public class Player extends GameEntity implements Comparable<Player> {
         return topCards;
     }
 
+    public final CardCollection getTopXCardsFromContraptionDeck(int amount) {
+        final CardCollection topCards = new CardCollection();
+        final PlayerZone deck = this.getZone(ZoneType.ContraptionDeck);
+        int maxCards = deck.size();
+        // If deck is smaller than N, only get that many cards
+        maxCards = Math.min(maxCards, amount);
+
+        // show top n cards:
+        for (int j = 0; j < maxCards; j++) {
+            topCards.add(deck.get(j));
+        }
+
+        return topCards;
+    }
+
     public final void shuffle(final SpellAbility sa) {
         final CardCollection list = new CardCollection(getCardsIn(ZoneType.Library));
 
@@ -1916,6 +1943,10 @@ public class Player extends GameEntity implements Comparable<Player> {
         return CardLists.count(
                 getCardsIn(Arrays.asList(ZoneType.Battlefield, ZoneType.Graveyard)),
                 CardPredicates.isType("Desert")) > 0;
+    }
+    
+    public final boolean controlsContraption() {
+        return CardLists.count(getCardsIn(ZoneType.Battlefield), CardPredicates.Presets.CONTRAPTIONS) >=1;
     }
 
     public final boolean hasThreshold() {
@@ -2630,6 +2661,18 @@ public class Player extends GameEntity implements Comparable<Player> {
                 getZone(ZoneType.SchemeDeck).add(c);
             }
             getZone(ZoneType.SchemeDeck).shuffle();
+        }
+
+        // Contraptions
+        CardCollection cd = new CardCollection();
+        for (IPaperCard cp : registeredPlayer.getContraptions()) {
+            cd.add(Card.fromPaperCard(cp, this));
+        }
+        if (!sd.isEmpty()) {
+            for (Card c : sd) {
+                getZone(ZoneType.ContraptionDeck).add(c);
+            }
+            getZone(ZoneType.ContraptionDeck).shuffle();
         }
 
         // Planes

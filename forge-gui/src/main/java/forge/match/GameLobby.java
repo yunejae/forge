@@ -226,31 +226,37 @@ public abstract class GameLobby implements IHasGameType {
         switch (variant) {
         case Archenemy:
             data.appliedVariants.remove(GameType.ArchenemyRumble);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case ArchenemyRumble:
             data.appliedVariants.remove(GameType.Archenemy);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case Commander:
             data.appliedVariants.remove(GameType.TinyLeaders);
             data.appliedVariants.remove(GameType.Brawl);
             data.appliedVariants.remove(GameType.MomirBasic);
             data.appliedVariants.remove(GameType.MoJhoSto);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case TinyLeaders:
             data.appliedVariants.remove(GameType.Commander);
             data.appliedVariants.remove(GameType.Brawl);
             data.appliedVariants.remove(GameType.MomirBasic);
             data.appliedVariants.remove(GameType.MoJhoSto);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case Brawl:
             data.appliedVariants.remove(GameType.Commander);
             data.appliedVariants.remove(GameType.TinyLeaders);
             data.appliedVariants.remove(GameType.MomirBasic);
             data.appliedVariants.remove(GameType.MoJhoSto);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case Vanguard:
             data.appliedVariants.remove(GameType.MomirBasic);
             data.appliedVariants.remove(GameType.MoJhoSto);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case MomirBasic:
             data.appliedVariants.remove(GameType.Commander);
@@ -258,14 +264,25 @@ public abstract class GameLobby implements IHasGameType {
             data.appliedVariants.remove(GameType.Brawl);
             data.appliedVariants.remove(GameType.Vanguard);
             data.appliedVariants.remove(GameType.MoJhoSto);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
         case MoJhoSto:
+            data.appliedVariants.remove(GameType.Archenemy);
+            data.appliedVariants.remove(GameType.ArchenemyRumble);
             data.appliedVariants.remove(GameType.Commander);
             data.appliedVariants.remove(GameType.TinyLeaders);
             data.appliedVariants.remove(GameType.Brawl);
             data.appliedVariants.remove(GameType.Vanguard);
             data.appliedVariants.remove(GameType.MomirBasic);
+            data.appliedVariants.remove(GameType.Unstable);
             break;
+        case Unstable:
+            data.appliedVariants.remove(GameType.Commander);
+            data.appliedVariants.remove(GameType.TinyLeaders);
+            data.appliedVariants.remove(GameType.Brawl);
+            data.appliedVariants.remove(GameType.Vanguard);
+            data.appliedVariants.remove(GameType.MomirBasic);
+            data.appliedVariants.remove(GameType.MoJhoSto);
         default:
             break;
         }
@@ -285,6 +302,8 @@ public abstract class GameLobby implements IHasGameType {
                 currentGameType = GameType.TinyLeaders;
             } else if (hasVariant(GameType.Brawl)) {
                 currentGameType = GameType.Brawl;
+            } else if (hasVariant(GameType.Unstable)) {
+                currentGameType = GameType.Unstable;
             } else {
                 currentGameType = GameType.Constructed;
             }
@@ -453,6 +472,7 @@ public abstract class GameLobby implements IHasGameType {
 
                 Iterable<PaperCard> schemes = null;
                 Iterable<PaperCard> planes = null;
+                Iterable<PaperCard> contraptions = null;
 
                 //Archenemy
                 if (variantTypes.contains(GameType.ArchenemyRumble)
@@ -489,8 +509,21 @@ public abstract class GameLobby implements IHasGameType {
                         return null;
                     }
                 }
+                
+                //Unstable
+                if (variantTypes.contains(GameType.Unstable)) {
+                  final CardPool contraptionPool = deck.get(DeckSection.Contraptions);
+                  if (checkLegality) {
+                     final String errMsg = DeckFormat.getContraptionSectionConformanceProblem(contraptionPool);
+                     if (null != errMsg) {
+                        SOptionPane.showErrorDialog(name + "'s deck " + errMsg, "Invalid Contraption Deck");
+                        return null;
+                     }
+                  }
+                  contraptions = contraptionPool == null ? Collections.<PaperCard>emptyList() : contraptionPool.toFlatList();
+                }
 
-                rp = RegisteredPlayer.forVariants(activeSlots.size(), variantTypes, deck, schemes, isArchenemy, planes, avatarPool);
+                rp = RegisteredPlayer.forVariants(activeSlots.size(), variantTypes, deck, schemes, isArchenemy, planes, avatarPool, contraptions);
                 rp.setTeamNumber(team);
                 players.add(rp.setPlayer(lobbyPlayer));
             }

@@ -557,6 +557,17 @@ public class Card extends GameEntity implements Comparable<Card> {
 
         return c;
     }
+    
+    public Card assemble(Player p, SpellAbility sa){
+        // Move to p's battlefield
+        Game game = p.getGame();
+		  // Just in case you aren't the controller, now you are!
+        this.setController(p, game.getNextTimestamp());
+
+        Card c = game.getAction().moveToPlay(this, p, sa);
+
+        return c;
+    }
 
     public boolean turnFaceDown() {
         return turnFaceDown(false);
@@ -3761,6 +3772,7 @@ public class Card extends GameEntity implements Comparable<Card> {
     public final boolean isEnchantment()    { return getType().isEnchantment(); }
     public final boolean isAura()           { return getType().hasSubtype("Aura"); }
     public final boolean isHistoric()   {return getType().isLegendary() || getType().isArtifact() || getType().hasSubtype("Saga");}
+    public final boolean isContraption() { return getType().hasSubtype("Contraption"); }
 
     public final boolean isScheme()     { return getType().isScheme(); }
     public final boolean isPhenomenon() { return getType().isPhenomenon(); }

@@ -95,8 +95,9 @@ public class VLobby implements ILobbyView {
     private final VariantCheckBox vntPlanechase = new VariantCheckBox(GameType.Planechase);
     private final VariantCheckBox vntArchenemy = new VariantCheckBox(GameType.Archenemy);
     private final VariantCheckBox vntArchenemyRumble = new VariantCheckBox(GameType.ArchenemyRumble);
+    private final VariantCheckBox vntUnstable = new VariantCheckBox(GameType.Unstable);
     private final ImmutableList<VariantCheckBox> vntBoxesLocal  =
-            ImmutableList.of(vntVanguard, vntMomirBasic, vntMoJhoSto, vntCommander, vntTinyLeaders, vntBrawl, vntPlanechase, vntArchenemy, vntArchenemyRumble);
+            ImmutableList.of(vntVanguard, vntMomirBasic, vntMoJhoSto, vntCommander, vntTinyLeaders, vntBrawl, vntPlanechase, vntArchenemy, vntArchenemyRumble, vntUnstable);
     private final ImmutableList<VariantCheckBox> vntBoxesNetwork =
             ImmutableList.of(vntVanguard, vntMomirBasic, vntMoJhoSto, vntCommander, vntTinyLeaders, vntBrawl /*, vntPlanechase, vntArchenemy, vntArchenemyRumble */);
 
@@ -133,6 +134,9 @@ public class VLobby implements ILobbyView {
 
     private final List<FList<Object>> planarDeckLists = new ArrayList<FList<Object>>();
     private final List<FPanel> planarDeckPanels = new ArrayList<FPanel>(MAX_PLAYERS);
+    
+    private final List<FList<Object>> contraptionDeckLists = new ArrayList<FList<Object>>();
+    private final List<FPanel> contraptionDeckPanels = new ArrayList<FPanel>(MAX_PLAYERS);
 
     private final List<FList<Object>> vgdAvatarLists = new ArrayList<FList<Object>>();
     private final List<FPanel> vgdPanels = new ArrayList<FPanel>(MAX_PLAYERS);
@@ -509,6 +513,13 @@ public class VLobby implements ILobbyView {
             }
         });
         
+        // Contraption deck list
+        buildDeckPanel("Contraption Deck", playerIndex, contraptionDeckLists, contraptionDeckPanels, new ListSelectionListener() {
+            @Override public final void valueChanged(final ListSelectionEvent e) {
+               selectContraptionDeck(playerIndex);
+            }
+        });
+        
         // Vanguard avatar list
         buildDeckPanel("Vanguard Avatar", playerIndex, vgdAvatarLists, vgdPanels, new ListSelectionListener() {
             @Override public final void valueChanged(final ListSelectionEvent e) {
@@ -553,6 +564,7 @@ public class VLobby implements ILobbyView {
         selectSchemeDeck(playerIndex);
         selectPlanarDeck(playerIndex);
         selectVanguardAvatar(playerIndex);
+        selectContraptionDeck(playerIndex);
     }
 
     private void selectMainDeck(final int playerIndex) {
@@ -653,6 +665,37 @@ public class VLobby implements ILobbyView {
             schemePool = DeckgenUtil.generateSchemePool();
         }
         fireDeckSectionChangeListener(playerIndex, DeckSection.Schemes, schemePool);
+        getDeckChooser(playerIndex).saveState();
+    }
+
+    private void selectContraptionDeck(final int playerIndex) {
+        if (playerIndex >= activePlayersNum || !(hasVariant(GameType.Unstable))) {
+            return;
+        }
+
+        final Object selected = getContraptionDeckLists().get(playerIndex).getSelectedValue();
+        final Deck deck = decks[playerIndex];
+        CardPool contraptionPool = null;
+        if (selected instanceof String) {
+            String sel = (String) selected;
+            if (sel.contains("Use deck's contraption section")) {
+                if (deck.has(DeckSection.Contraptions)) {
+                    contraptionPool = deck.get(DeckSection.Contraptions);
+                } else {
+                    sel = "Random";
+                }
+            }
+            if (sel.equals("Random")) {
+                final Deck randomDeck = RandomDeckGenerator.getRandomUserDeck(lobby, playerPanels.get(playerIndex).isAi());
+                contraptionPool = randomDeck.get(DeckSection.Contraptions);
+            }
+        } else if (selected instanceof Deck) {
+            contraptionPool = ((Deck) selected).get(DeckSection.Contraptions);
+        }
+        if (contraptionPool == null) { //Can be null if player deselects the list selection or chose Generate
+            contraptionPool = DeckgenUtil.generateContraptionPool();
+        }
+        fireDeckSectionChangeListener(playerIndex, DeckSection.Contraptions, contraptionPool);
         getDeckChooser(playerIndex).saveState();
     }
 
@@ -771,6 +814,9 @@ public class VLobby implements ILobbyView {
         case Vanguard:
             updateVanguardList(playerWithFocus);
             decksFrame.add(vgdPanels.get(playerWithFocus), "grow, push");
+            break;
+        case Unstable:
+            decksFrame.add(contraptionDeckPanels.get(playerWithFocus), "grow, push");
             break;
         default:
             break;
@@ -986,6 +1032,11 @@ public class VLobby implements ILobbyView {
     /** Gets the list of scheme deck lists. */
     public List<FList<Object>> getSchemeDeckLists() {
         return schemeDeckLists;
+    }
+    
+    /** Gets the list of contraption deck lists. */
+    public List<FList<Object>> getContraptionDeckLists() {
+      return contraptionDeckLists;
     }
 
     public boolean isPlayerArchenemy(final int playernum) {

@@ -27,6 +27,7 @@ public enum GameType {
     Planeswalker    (DeckFormat.PlanarConquest, false, false, true, "Planeswalker", "Each player has a Planeswalker card which can be cast at any time."),
     Planechase      (DeckFormat.Planechase, false, false, true, "Planechase", "Plane cards apply global effects. The Plane card changes when a player rolls \"Planeswalk\" on the planar die."),
     Archenemy       (DeckFormat.Archenemy, false, false, true, "Archenemy", "One player is the Archenemy and fights the other players by playing Scheme cards."),
+    Unstable        (DeckFormat.Unstable, false, false, true, "Unstable", "Each player has a Contraption deck."),
     ArchenemyRumble (DeckFormat.Archenemy, false, false, true, "Archenemy Rumble", "All players are Archenemies and can play Scheme cards."),
     MomirBasic      (DeckFormat.Constructed, false, false, false, "Momir Basic", "Each player has a deck containing 60 basic lands and the Momir Vig avatar.", new Function<RegisteredPlayer, Deck>() {
         @Override
@@ -61,7 +62,8 @@ public enum GameType {
                     .getCard("Stonehewer Giant Avatar"), 1);
             return deck;
         }
-    });
+    })
+    ;
 
     private final DeckFormat deckFormat;
     private final boolean isCardPoolLimited, canSideboard, addWonCardsMidGame;

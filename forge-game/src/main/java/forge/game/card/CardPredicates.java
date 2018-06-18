@@ -470,6 +470,15 @@ public final class CardPredicates {
             }
         };
         /**
+         * a Predicate<Card> to get all contraptions.
+         */
+        public static final Predicate<Card> CONTRAPTIONS = new Predicate<Card>() {
+            @Override
+            public boolean apply(Card c) {
+                return c.isContraption();
+            }
+        };
+        /**
          * a Predicate<Card> to get all fortification.
          */
         public static final Predicate<Card> Fortification = new Predicate<Card>() {

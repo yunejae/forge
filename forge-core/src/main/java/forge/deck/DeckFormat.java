@@ -131,6 +131,7 @@ public enum DeckFormat {
     Vanguard       ( Range.between(60, Integer.MAX_VALUE), Range.is(0), 4),
     Planechase     ( Range.between(60, Integer.MAX_VALUE), Range.is(0), 4),
     Archenemy      ( Range.between(60, Integer.MAX_VALUE), Range.is(0), 4),
+    Unstable       ( Range.between(60, Integer.MAX_VALUE), Range.is(0), 4),
     Puzzle         ( Range.between(0, Integer.MAX_VALUE), Range.is(0), 4);
 
     private final Range<Integer> mainRange;
@@ -400,6 +401,14 @@ public enum DeckFormat {
             if (cp.getValue() > 2) {
                 return TextUtil.concatWithSpace("must not contain more than 2 copies of any Scheme, but has", String.valueOf(cp.getValue()), "of", TextUtil.enclosedSingleQuote(cp.getKey().getName()));
             }
+        }
+        return null;
+    }
+    
+    public static String getContraptionSectionConformanceProblem(final CardPool contraptions) {
+        //Must contain at least 15 contraptions.
+        if (contraptions == null || contraptions.countAll() < 15) {
+            return "must contain at least 15 contraptions";
         }
         return null;
     }

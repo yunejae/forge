@@ -337,6 +337,7 @@ public final class CEditorConstructed extends ACEditorBase<PaperCard, Deck> {
             this.getCatalogManager().setup(ItemManagerConfig.CONSPIRACY_DECKS);
             this.getCatalogManager().setPool(conspiracyPool,true);
             this.getDeckManager().setPool(this.controller.getModel().getOrCreate(DeckSection.Conspiracy));
+            break;
         case Contraptions:
             this.getCatalogManager().setup(ItemManagerConfig.CONTRAPTION_POOL);
             this.getCatalogManager().setPool(contraptionPool,true);
