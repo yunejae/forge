@@ -1,4 +1,7 @@
 Name:Bee-Bee Gun
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigAnimateDB | TriggerDescription$ Whenever you crank CARDNAME, until end of turn, target creature gains "{2}: This creature fights another target creature."
+SVar:TrigAnimateDB:DB$ Animate | ValidTgts$ Creature | Choose target creature | Abilities$ GunFightAB | TgtPrompt$ Choose target creature
+SVar:GunFightAB:AB$ Fight | Cost$ 2 | Defined$ Creature.Self | ValidTgts$ Creature.Other | TgtPrompt$ Choose another target creature
 Oracle:Whenever you crank Bee-Bee Gun, until end of turn, target creature gains "{2}: This creature fights another target creature."

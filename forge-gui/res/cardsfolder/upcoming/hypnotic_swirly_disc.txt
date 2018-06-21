@@ -1,4 +1,7 @@
 Name:Hypnotic Swirly Disc
 ManaCost:no cost
 Types:Artifact Contraption
-Oracle:Whenever you crank Hypnotic Swirly Disc, target player puts the top X cards of their library into their graveyard, where X is the number of creatures you control.
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigMill | TriggerDescription$ Whenever you crank CARDNAME, target player puts the top X cards of their library into their graveyard, where X is the number of creatures you control.
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player | TgtPrompt$ Choose target player | References$ X
+SVar:X:Count$Creatures.YouCtrl
+Oracle:Whenever you crank Hypnotic Swirly Disc, target player puts the top X cards of his or her library into his or her graveyard, where X is the number of creatures you control.

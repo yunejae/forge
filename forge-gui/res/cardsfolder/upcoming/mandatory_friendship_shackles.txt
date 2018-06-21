@@ -1,4 +1,6 @@
 Name:Mandatory Friendship Shackles
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever you crank CARDNAME, target creature gets -1/-1 until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Choose target creature | NumAtt$ -1 | NumDef$ -1
 Oracle:Whenever you crank Mandatory Friendship Shackles, target creature gets -1/-1 until end of turn.

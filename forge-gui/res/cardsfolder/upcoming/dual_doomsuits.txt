@@ -1,4 +1,9 @@
 Name:Dual Doomsuits
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigEffect | TriggerDescription$ Whenever you crank CARDNAME, each time a source you control would deal damage this turn, it deals double that damage instead.
+SVar:TrigEffect:DB$ Effect | Name$ Dual Doomsuits Effect | ReplacementEffects$ DamageEvent | SVars$ DmgTwice,X | References$ DamageEvent,DmgTwice,X | SpellDescription$ If any source you control would deal damage this turn, it deals double that damage instead.
+SVar:DamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice | Description$ If any source you control would deal damage this turn, it deals double that damage instead.
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X | References$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
 Oracle:Whenever you crank Dual Doomsuits, each time a source you control would deal damage this turn, it deals double that damage instead.

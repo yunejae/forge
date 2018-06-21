@@ -1,4 +1,7 @@
 Name:Record Store
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigDig | TriggerDescription$ Whenever you crank CARDNAME, look at the top X cards of your library, where X is the number of artifacts you control. Put one of those cards into your hand and the rest on the bottom of your library in a random order.
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True
+SVar:X:Count$Valid Artifact.YouCtrl
 Oracle:Whenever you crank Record Store, look at the top X cards of your library, where X is the number of artifacts you control. Put one of those cards into your hand and the rest on the bottom of your library in a random order.

@@ -1,5 +1,7 @@
 Name:Wrench-Rigger
 ManaCost:R
 Types:Creature Goblin Rigger
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigAssemble | TriggerDescription$ When CARDNAME enters the battlefield, it assembles a Contraption.
+SVar:TrigAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
 Oracle:When Wrench-Rigger enters the battlefield, it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:1/1

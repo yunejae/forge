@@ -1,0 +1,6 @@
+Name:Spell Suck
+ManaCost:2 U U
+Types:Instant
+A:SP$ Counter | Cost$ 2 U U | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBAssemble | SpellDescription$ Counter target spell, then assemble a Contraption.
+SVar:DBAssemble:DB$ Assemble | ValidRigger$ You | Amount$ 1
+Oracle:Counter target spell, then assemble a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)

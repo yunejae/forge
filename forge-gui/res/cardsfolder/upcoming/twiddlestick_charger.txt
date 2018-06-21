@@ -1,4 +1,6 @@
 Name:Twiddlestick Charger
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigTapOrUntap | TriggerDescription$ Whenever you crank CARDNAME, tap or untap target creature.
+SVar:TrigTapOrUntap:DB$ TapOrUntap | ValidTgts$ Creature | TgtPrompt$ Select target creature
 Oracle:Whenever you crank Twiddlestick Charger, tap or untap target creature.

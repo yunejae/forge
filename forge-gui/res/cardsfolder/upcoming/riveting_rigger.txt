@@ -1,5 +1,9 @@
 Name:Riveting Rigger
 ManaCost:2 W
 Types:Artifact Creature Cyborg Rigger
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME enters the battlefield, you may sacrifice another artifact. If you do, put two +1/+1 counters on CARDNAME and it assembles a Contraption.
+SVar:TrigSac:DB$ Sacrifice | ValidTgts$ Artifact.YouCtrl | Optional$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Card.Self | Amount$ 2 | CounterType$ P1P1 | SubAbility$ DBAssemble | SpellDescription$ Put two +1/+1 counters on CARDNAME and it assembles a Contraption.
+SVar:DBAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
 Oracle:When Riveting Rigger enters the battlefield, you may sacrifice another artifact. If you do, put two +1/+1 counters on Riveting Rigger and it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:2/2

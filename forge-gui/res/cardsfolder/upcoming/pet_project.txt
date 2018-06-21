@@ -1,4 +1,6 @@
 Name:Pet Project
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ Whenever you crank CARDNAME, put target creature card from an opponent's graveyard onto the battlefield under your control.
+SVar:TrigAnimate:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Choose target creature card from an opponent's graveyard
 Oracle:Whenever you crank Pet Project, put target creature card from an opponent's graveyard onto the battlefield under your control.

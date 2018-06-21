@@ -2,5 +2,9 @@ Name:Chipper Chopper
 ManaCost:3 U
 Types:Artifact Creature Cyborg Rigger
 K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME enters the battlefield, you may sacrifice another artifact. If you do, put two +1/+1 counters on CARDNAME and it assembles a Contraption.
+SVar:TrigSac:DB$ Sacrifice | Optional$ True | SacValid$ Artifact.Other | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Card.Self | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBAssemble
+SVar:DBAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
 Oracle:Flying\nWhen Chipper Chopper enters the battlefield, you may sacrifice another artifact. If you do, put two +1/+1 counters on Chipper Chopper and it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:1/1

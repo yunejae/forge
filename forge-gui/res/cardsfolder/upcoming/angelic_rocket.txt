@@ -1,15 +1,17 @@
-Name:Angelic Rocket
+Name:Angelic // Rocket
 ManaCost:8
 Types:Artifact Host Creature Angel
 K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ DBDestroy | TriggerDescription$ When this creature enters the battlefield, you may destroy target nonland permanent.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent. | SpellDescription$ you may destroy target nonland permanent.
 Oracle:Flying\nWhen this creature enters the battlefield, you may destroy target nonland permanent.
 PT:4/4
-
 ALTERNATE
-
 Name:Rocket
 ManaCost:8
 Types:Artifact Angel
 K:Flying
-Oracle:Flying\nyou may destroy target nonland permanent.
+T:Mode$ AugmentTriggerActivated | OptionalDecider$ You | Execute$ DBDestroy | TriggerDescription$ you may destroy target nonland permanent.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent. | SpellDescription$ you may destroy target nonland permanent.
 PT:4/4
+Oracle:you may destroy target nonland permanent.

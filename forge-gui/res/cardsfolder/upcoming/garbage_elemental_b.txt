@@ -2,7 +2,7 @@ Name:Garbage Elemental B
 ManaCost:4 R
 Types:Creature Elemental Rigger
 K:Undying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAssemble | TriggerDescription$ When CARDNAME enters the battlefield, scry 1.
-SVar:TrigAssemble:DB$ Assemble | Amount$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAssemble | TriggerDescription$ When CARDNAME enters the battlefield, it assembles a Contraption.
+SVar:TrigAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
 Oracle:When Garbage Elemental enters the battlefield, it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)\nUndying (When this creature dies, if it had no +1/+1 counters on it, return it to the battlefield under its owner's control with a +1/+1 counter on it.)
 PT:3/1

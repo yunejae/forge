@@ -1,4 +1,6 @@
 Name:Refibrillator
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ Whenever you crank CARDNAME, return target creature card from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target creature card from your graveyard
 Oracle:Whenever you crank Refibrillator, return target creature card from your graveyard to your hand.

@@ -1,4 +1,6 @@
 Name:Turbo-Thwacking Auto-Hammer
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever you crank CARDNAME, target creature gains double strike until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | KW$ Double Strike
 Oracle:Whenever you crank Turbo-Thwacking Auto-Hammer, target creature gains double strike until end of turn.

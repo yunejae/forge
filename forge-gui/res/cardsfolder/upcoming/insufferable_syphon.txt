@@ -1,4 +1,6 @@
 Name:Insufferable Syphon
 ManaCost:no cost
 Types:Artifact Contraption
+T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ Whenever you crank CARDNAME, target player discards a card.
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | TgtPrompt$ Select target player | NumCards$ 1 | Mode$ TgtChoose
 Oracle:Whenever you crank Insufferable Syphon, target player discards a card.

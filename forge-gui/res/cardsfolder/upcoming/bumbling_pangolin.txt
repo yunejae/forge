@@ -12,3 +12,4 @@ Types:Pangolin Beast
 T:Mode$ AugmentTriggerActivated | OptionalDecider$ You | Execute$ DBDestroy | TriggerDescription$ you may destroy target artifact.
 SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | TgtPrompt$ Select target artifact. | SpellDescription$ you may destroy target artifact.
 PT:2/2
+Oracle:you may destroy target artifact.
