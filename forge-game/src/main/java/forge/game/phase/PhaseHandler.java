@@ -42,6 +42,7 @@ import forge.game.staticability.StaticAbility;
 import forge.game.trigger.Trigger;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.ZoneType;
+import forge.game.zone.PlayerZoneContraptionDeck;
 import forge.util.CollectionSuppliers;
 import forge.util.TextUtil;
 import forge.util.collect.FCollectionView;
@@ -248,7 +249,7 @@ public class PhaseHandler implements java.io.Serializable {
                     nUpkeepsThisGame++;
                     if (game.getRules().hasAppliedVariant(GameType.Unstable) &&
                              playerTurn.controlsContraption()) {
-                        playerTurn.crank();
+                        playerTurn.moveCrankCounter((PlayerZoneContraptionDeck)playerTurn.getZone(ZoneType.ContraptionDeck), null);
                     }
                     game.getUpkeep().executeUntil(playerTurn);
                     game.getUpkeep().executeAt();

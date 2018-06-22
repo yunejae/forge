@@ -165,6 +165,11 @@ public class CardView extends GameEntityView {
     public boolean isFirstTurnControlled() {
         return get(TrackableProperty.Sickness);
     }
+    
+    public boolean isAssembled() {
+        return getZone() == ZoneType.Battlefield && getCurrentState().isContraption() && getChosenSprocket() != -1;
+    }
+    
     public boolean hasSickness() {
         return isFirstTurnControlled() && !getCurrentState().hasHaste();
     }
@@ -230,6 +235,10 @@ public class CardView extends GameEntityView {
     void updateDamage(Card c) {
         set(TrackableProperty.Damage, c.getDamage());
     }
+    
+    public int getChosenSprocket(){
+        return get(TrackableProperty.ChosenSprocket);
+    }
 
     public int getAssignedDamage() {
         return get(TrackableProperty.AssignedDamage);
@@ -261,6 +270,10 @@ public class CardView extends GameEntityView {
     }
     void updateChosenColors(Card c) {
         set(TrackableProperty.ChosenColors, c.getChosenColors());
+    }
+
+    void updateChosenSprocket(Card c) {
+        set(TrackableProperty.ChosenSprocket, c.getChosenSprocket());
     }
 
     public FCollectionView<CardView> getChosenCards() {
@@ -1005,6 +1018,9 @@ public class CardView extends GameEntityView {
         }
         public boolean isPlaneswalker() {
             return getType().isPlaneswalker();
+        }
+        public boolean isContraption() {
+            return getType().isContraption();
         }
     }
 

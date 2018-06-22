@@ -54,15 +54,16 @@ public class AssembleEffect extends SpellAbilityEffect {
             for (int i = 0; i<amount; i++){
                if (!top.isEmpty()) {
                   game.getAction().reveal(top, pl, false, "Revealed for Assemble - ");
-                   //TO DO: then choose one of your sprockets
-                   final Card r = top.getFirst();
-                   game.getAction().moveTo(ZoneType.Battlefield, r, sa);
-                
-               }
+                  final Card r = top.getFirst();
+                  int chosen = pc.chooseSprocket(sa);
+                  r.setChosenSprocket(chosen);
+                  game.getAction().moveTo(ZoneType.Battlefield, r, sa);
+                   
+               }else{ System.out.println("Can't assemble. Contraption deck is empty."); break; }
             
                // a creature does assemble even if it isn't on the battlefield anymore
                final Map<String, Object> runParams = Maps.newHashMap();
-               runParams.put("Card", c);
+               runParams.put("Rigger", c);
                game.getTriggerHandler().runTrigger(TriggerType.Assembled, runParams, false);
             }
         }

@@ -54,12 +54,21 @@ public class TriggerCranked extends Trigger {
     /** {@inheritDoc} */
     public final boolean performTest(final java.util.Map<String, Object> runParams2) {
         if (this.mapParams.containsKey("ValidPlayer")) {
+            System.out.println("ValidPlayer = " + runParams2.get("Player"));
             if (!matchesValid(runParams2.get("Player"), this.mapParams.get("ValidPlayer").split(","),
                     this.getHostCard())) {
                 return false;
             }
         }
+        if (this.mapParams.containsKey("ValidCranked")) {
+            System.out.println("ValidCranked = " + runParams2.get("Cranked"));
+            if (!matchesValid(runParams2.get("Cranked"), this.mapParams.get("ValidCranked").split(","),
+                     this.getHostCard())) {
+                return false;
+            }
+        }
         if (this.mapParams.containsKey("ValidSprocket")) {
+            System.out.println("ValidSprocket = " + runParams2.get("Sprocket"));
             if (!matchesValid(runParams2.get("Sprocket"), this.mapParams.get("ValidSprocket").split(","),
                     this.getHostCard())) {
                 return false;

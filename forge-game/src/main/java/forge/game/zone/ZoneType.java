@@ -20,7 +20,8 @@ public enum ZoneType {
     Ante(false),
     SchemeDeck(true),
     PlanarDeck(true),
-    ContraptionDeck(true);
+    ContraptionDeck(true),
+    Scrapyard(false);
 
     public static final List<ZoneType> STATIC_ABILITIES_SOURCE_ZONES = Arrays.asList(new ZoneType[]{Battlefield, Graveyard, Exile, Command/*, Hand*/});
 

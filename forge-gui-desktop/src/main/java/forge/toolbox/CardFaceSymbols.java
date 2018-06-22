@@ -96,6 +96,9 @@ public class CardFaceSymbols {
         MANA_IMAGES.put("counters2", FSkin.getImage(FSkinProp.IMG_COUNTERS2));
         MANA_IMAGES.put("counters3", FSkin.getImage(FSkinProp.IMG_COUNTERS3));
         MANA_IMAGES.put("countersMulti", FSkin.getImage(FSkinProp.IMG_COUNTERS_MULTI));
+        MANA_IMAGES.put("sprocket1", FSkin.getImage(FSkinProp.IMG_SPROCKET_1,67,25));
+        MANA_IMAGES.put("sprocket2", FSkin.getImage(FSkinProp.IMG_SPROCKET_2,67,25));
+        MANA_IMAGES.put("sprocket3", FSkin.getImage(FSkinProp.IMG_SPROCKET_3,67,25));
 
         MANA_IMAGES.put("foil01", FSkin.getImage(FSkinProp.FOIL_01));
         MANA_IMAGES.put("foil02", FSkin.getImage(FSkinProp.FOIL_02));

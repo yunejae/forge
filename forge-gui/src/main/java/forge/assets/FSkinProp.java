@@ -251,6 +251,11 @@ public enum FSkinProp {
     IMG_TROPHY_PLATE      (new int[] {675, 0, 170, 40}, PropType.TROPHY),
     IMG_TROPHY_CASE_TOP   (new int[] {0, 185, 798, 38}, PropType.TROPHY),
     IMG_TROPHY_SHELF      (new int[] {0, 223, 798, 257}, PropType.TROPHY),
+    
+    //sprocket sprites
+    IMG_SPROCKET_1        (new int[] {0, 0, 67, 25}, PropType.SPROCKET),
+    IMG_SPROCKET_2        (new int[] {67, 0, 67, 25}, PropType.SPROCKET),
+    IMG_SPROCKET_3        (new int[] {134, 0, 67, 25}, PropType.SPROCKET),
 
     //planar conquest images
     IMG_PLANE_MONITOR     (new int[] {0, 0, 443, 315}, PropType.PLANAR_CONQUEST),
@@ -326,6 +331,7 @@ public enum FSkinProp {
         OLD_FOIL,
         TROPHY,
         PLANAR_CONQUEST,
-        FAVICON
+        FAVICON,
+        SPROCKET
     }
 }

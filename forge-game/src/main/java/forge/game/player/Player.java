@@ -48,6 +48,7 @@ import forge.game.trigger.TriggerHandler;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.PlayerZone;
 import forge.game.zone.PlayerZoneBattlefield;
+import forge.game.zone.PlayerZoneContraptionDeck;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import forge.item.IPaperCard;
@@ -75,7 +76,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class Player extends GameEntity implements Comparable<Player> {
     public static final List<ZoneType> ALL_ZONES = Collections.unmodifiableList(Arrays.asList(ZoneType.Battlefield,
             ZoneType.Library, ZoneType.Graveyard, ZoneType.Hand, ZoneType.Exile, ZoneType.Command, ZoneType.Ante,
-            ZoneType.Sideboard, ZoneType.PlanarDeck, ZoneType.SchemeDeck, ZoneType.ContraptionDeck));
+            ZoneType.Sideboard, ZoneType.PlanarDeck, ZoneType.SchemeDeck, ZoneType.ContraptionDeck, ZoneType.Scrapyard));
 
     private final Map<Card, Integer> commanderDamage = Maps.newHashMap();
 
@@ -152,8 +153,6 @@ public class Player extends GameEntity implements Comparable<Player> {
     private Card monarchEffect = null;
     private Card blessingEffect = null;
     
-    private int sprocket = 3;
-
     private final AchievementTracker achievementTracker = new AchievementTracker();
     private final PlayerView view;
 
@@ -162,8 +161,12 @@ public class Player extends GameEntity implements Comparable<Player> {
 
         game = game0;
         for (final ZoneType z : Player.ALL_ZONES) {
-            final PlayerZone toPut = z == ZoneType.Battlefield ? new PlayerZoneBattlefield(z, this) : new PlayerZone(z, this)
-                ;
+            final PlayerZone toPut = z == ZoneType.Battlefield ? new PlayerZoneBattlefield(z, this) : new PlayerZone(z, this);
+            zones.put(z, toPut);
+        }
+
+        for (final ZoneType z : Player.ALL_ZONES) {
+            final PlayerZone toPut = z == ZoneType.ContraptionDeck ? new PlayerZoneContraptionDeck(z, this) : new PlayerZone(z, this);
             zones.put(z, toPut);
         }
 
@@ -975,13 +978,22 @@ public class Player extends GameEntity implements Comparable<Player> {
         getGame().fireEvent(new GameEventPlayerCounters(this, null, 0, 0));
     }
     
-    public final void crank(){
+    public final void moveCrankCounter(){
+        moveCrankCounter((PlayerZoneContraptionDeck)getZone(ZoneType.ContraptionDeck));
+    }
+    
+    public final void moveCrankCounter(PlayerZoneContraptionDeck cd){
+        moveCrankCounter((PlayerZoneContraptionDeck)getZone(ZoneType.ContraptionDeck));
+    }
+    
+    public final void moveCrankCounter(PlayerZoneContraptionDeck cd, final Player source){
         System.out.print(getName());
-        sprocket = sprocket % 3 + 1;
+        cd.moveCrankCounter();
                 
         final Map<String, Object> runParams = Maps.newHashMap();
-        runParams.put("Player", this);
-        game.getTriggerHandler().runTrigger(TriggerType.Cranked, runParams,false);
+        if (source == null) runParams.put("Source", "Rules");
+        else runParams.put("Source", source);
+        game.getTriggerHandler().runTrigger(TriggerType.CrankCounterMoved, runParams,false);
     }
 
     // TODO Merge These calls into the primary counter calls
@@ -2668,8 +2680,8 @@ public class Player extends GameEntity implements Comparable<Player> {
         for (IPaperCard cp : registeredPlayer.getContraptions()) {
             cd.add(Card.fromPaperCard(cp, this));
         }
-        if (!sd.isEmpty()) {
-            for (Card c : sd) {
+        if (!cd.isEmpty()) {
+            for (Card c : cd) {
                 getZone(ZoneType.ContraptionDeck).add(c);
             }
             getZone(ZoneType.ContraptionDeck).shuffle();

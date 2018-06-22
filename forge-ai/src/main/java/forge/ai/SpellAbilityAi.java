@@ -330,7 +330,11 @@ public abstract class SpellAbilityAi {
     }
 
     protected Card chooseSingleCard(Player ai, SpellAbility sa, Iterable<Card> options, boolean isOptional, Player targetedPlayer) {
-        System.err.println("Warning: default (ie. inherited from base class) implementation of chooseSingleCard is used by " + sa.getHostCard().getName() + " for " + this.getClass().getName() + ". Consider declaring an overloaded method");
+        String name = "";
+        if (sa.getHostCard() == null){ name = ""; }
+        else { name = sa.getHostCard().getName(); }
+        
+        System.err.println("Warning: default (ie. inherited from base class) implementation of chooseSingleCard is used" + (name != "" ? " by " + name : "") + " for " + this.getClass().getName() + ". Consider declaring an overloaded method");
         return Iterables.getFirst(options, null);
     }
     

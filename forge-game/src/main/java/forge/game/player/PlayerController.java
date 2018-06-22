@@ -177,7 +177,10 @@ public abstract class PlayerController {
     public int chooseNumber(SpellAbility sa, String string, int min, int max, Map<String, Object> params) {
         return chooseNumber(sa, string, min, max);
     }
-
+    public int chooseSprocket(SpellAbility sa){
+        return chooseNumber(sa, "Choose a Sprocket:", 1, 3);
+    }
+    
     public final boolean chooseBinary(SpellAbility sa, String question, BinaryChoiceType kindOfChoice) { return chooseBinary(sa, question, kindOfChoice, (Boolean) null); }
     public abstract boolean chooseBinary(SpellAbility sa, String question, BinaryChoiceType kindOfChoice, Boolean defaultChioce);
     public boolean chooseBinary(SpellAbility sa, String question, BinaryChoiceType kindOfChoice, Map<String, Object> params)  { return chooseBinary(sa, question, kindOfChoice); }

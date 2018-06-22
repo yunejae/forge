@@ -37,6 +37,7 @@ public enum TriggerType {
     CounterAddedOnce(TriggerCounterAddedOnce.class),
     Countered(TriggerCountered.class),
     CounterRemoved(TriggerCounterRemoved.class),
+    CrankCounterMoved(TriggerCrankCounterMoved.class),
     Cranked(TriggerCranked.class),
     Crewed(TriggerCrewed.class),
     Cycled(TriggerCycled.class),

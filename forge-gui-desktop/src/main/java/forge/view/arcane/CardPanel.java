@@ -367,8 +367,8 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
         // Borderless cards should be accounted for here
         // Amonkhet Invocations
         boolean noBorderOnCard = getCard().getCurrentState().getSetCode().equalsIgnoreCase("MPS_AKH");
-        // Unstable basic lands
-        noBorderOnCard |= getCard().getCurrentState().isBasicLand() && getCard().getCurrentState().getSetCode().equalsIgnoreCase("UST");
+        // Unstable basic lands and Contraptions
+        noBorderOnCard |= (getCard().getCurrentState().isBasicLand() || getCard().getCurrentState().isContraption()) && getCard().getCurrentState().getSetCode().equalsIgnoreCase("UST");
 
         boolean cardImgHasAlpha = imagePanel != null && imagePanel.getSrcImage() != null && imagePanel.getSrcImage().getColorModel().hasAlpha();
 
@@ -471,6 +471,11 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
         }
         else if (card.isBlocking()) {
             CardFaceSymbols.drawSymbol("defend", g, combatXSymbols, ySymbols);
+        }
+        
+        if (card.isAssembled()) {
+            CardFaceSymbols.drawSymbol("sprocket" + card.getChosenSprocket(), g, 
+                  (cardXOffset + (cardWidth / 2)) - 35, cardHeight / 2);
         }
 
         if (card.isSick()) {

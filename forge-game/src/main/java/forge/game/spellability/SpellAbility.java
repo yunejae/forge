@@ -38,6 +38,7 @@ import forge.game.cost.CostRemoveCounter;
 import forge.game.keyword.Keyword;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
+import forge.game.player.PlayerController;
 import forge.game.staticability.StaticAbility;
 import forge.game.trigger.TriggerType;
 import forge.game.trigger.WrappedAbility;
@@ -62,6 +63,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private static int nextId() { return ++maxId; }
 
     public static class EmptySa extends SpellAbility {
+        public EmptySa(ApiType api0) { super(null, Cost.Zero); api = api0;}
         public EmptySa(Card sourceCard) { super(sourceCard, Cost.Zero); setActivatingPlayer(sourceCard.getController());}
         public EmptySa(ApiType api0, Card sourceCard) { super(sourceCard, Cost.Zero); setActivatingPlayer(sourceCard.getController()); api = api0;}
         public EmptySa(Card sourceCard, Player activator) { super(sourceCard, Cost.Zero); setActivatingPlayer(activator);}

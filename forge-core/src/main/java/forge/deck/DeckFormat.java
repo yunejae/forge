@@ -410,7 +410,14 @@ public enum DeckFormat {
         if (contraptions == null || contraptions.countAll() < 15) {
             return "must contain at least 15 contraptions";
         }
+
+        for (Entry<PaperCard, Integer> cp : contraptions) {
+            if (cp.getValue() > 1) {
+                return TextUtil.concatWithSpace("must not contain more than 1 copy of any Contraption, but has", String.valueOf(cp.getValue()), "of", TextUtil.enclosedSingleQuote(cp.getKey().getName()));
+            }
+        }
         return null;
+
     }
 
     public IDeckGenPool getCardPool(IDeckGenPool basePool) {

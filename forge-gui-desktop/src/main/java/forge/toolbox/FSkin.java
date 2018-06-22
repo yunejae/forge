@@ -1007,7 +1007,7 @@ public class FSkin {
     private static String preferredDir;
     private static String preferredName;
     private static BufferedImage bimDefaultSprite, bimFavIcon, bimPreferredSprite, bimFoils, bimQuestDraftDeck,
-    bimOldFoils, bimDefaultAvatars, bimPreferredAvatars, bimTrophies;
+    bimOldFoils, bimDefaultAvatars, bimPreferredAvatars, bimTrophies, bimSprocketSprite;
     private static int x0, y0, w0, h0, newW, newH, preferredW, preferredH;
     private static int[] tempCoords;
     private static int defaultFontSize = 12;
@@ -1125,7 +1125,7 @@ public class FSkin {
             if (preferredName.isEmpty()) { loadLight("default", true); }
         }
 
-        FView.SINGLETON_INSTANCE.setSplashProgessBarMessage("Processing image sprites: ", 8);
+        FView.SINGLETON_INSTANCE.setSplashProgessBarMessage("Processing image sprites: ", 9);
 
         // Grab and test various sprite files.
         final String defaultDir = ForgeConstants.DEFAULT_SKINS_DIR;
@@ -1138,6 +1138,7 @@ public class FSkin {
         final File f7 = new File(defaultDir + ForgeConstants.SPRITE_TROPHIES_FILE);
         final File f8 = new File(defaultDir + ForgeConstants.DRAFT_DECK_IMG_FILE);
         final File f9 = new File(defaultDir + ForgeConstants.SPRITE_FAVICONS_FILE);
+        final File f10 = new File(defaultDir + ForgeConstants.SPRITE_SPROCKETS_FILE);
 
         try {
             int p = 0;
@@ -1156,6 +1157,8 @@ public class FSkin {
             bimQuestDraftDeck = ImageIO.read(f8);
             FView.SINGLETON_INSTANCE.incrementSplashProgessBar(++p);
             bimFavIcon = ImageIO.read(f9);
+            FView.SINGLETON_INSTANCE.incrementSplashProgessBar(++p);
+            bimSprocketSprite = ImageIO.read(f10);
 
             if (f5.exists()) { bimPreferredAvatars = ImageIO.read(f5); }
 
@@ -1206,6 +1209,8 @@ public class FSkin {
                 case FAVICON:
                     setImage(prop, bimFavIcon);
                     break;
+                case SPROCKET:
+                    setImage(prop, bimSprocketSprite);
                 default:
                     break;
             }
@@ -1226,6 +1231,7 @@ public class FSkin {
         bimDefaultAvatars.flush();
         bimQuestDraftDeck.flush();
         bimTrophies.flush();
+        bimSprocketSprite.flush();
 
         if (bimPreferredAvatars != null) { bimPreferredAvatars.flush(); }
 
@@ -1237,6 +1243,7 @@ public class FSkin {
         bimPreferredAvatars = null;
         bimQuestDraftDeck = null;
         bimTrophies = null;
+        bimSprocketSprite = null;
 
         //establish encoding symbols
         final File dir = new File(ForgeConstants.CACHE_SYMBOLS_DIR);

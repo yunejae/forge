@@ -68,6 +68,15 @@ public class CardLists {
         });
     }
 
+    public static CardCollection filterSprocket(final Iterable<Card> in, final int sprocket) {
+        return CardLists.filter(in, new Predicate<Card>() {
+            @Override
+            public boolean apply(Card c) {
+                return c.getChosenSprocket() == sprocket;
+            }
+        });
+    }
+
     public static CardCollection filterLEPower(final Iterable<Card> in, final int lessthanPower) {
         return CardLists.filter(in, new Predicate<Card>() {
             @Override

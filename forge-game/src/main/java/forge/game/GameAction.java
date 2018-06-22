@@ -695,6 +695,29 @@ public class GameAction {
         return changeZone(game.getZoneOf(c), deck, c, deckPosition, cause, params);
     }
 
+    /** Moves card to a variant yard, such as a scrapyard in Unstable format.
+    @param c Card
+    @param zone Variant yard
+    @param cause SpellAbility causing the move
+    @return The moved card
+    */
+    public final Card moveToVariantYard(final Card c, ZoneType zone, SpellAbility cause) {
+        return moveToVariantYard(c, zone, cause, null);
+    }
+    
+    /** Moves card to a variant yard, such as a scrapyard in Unstable format.
+    @param c Card
+    @param zone Variant yard
+    @param cause SpellAbility causing the move
+    @param params Parameters to be handled by replacement handler
+    @return The moved card
+    */
+    public final Card moveToVariantYard(final Card c, ZoneType zone, SpellAbility cause, Map<String, Object> params) {
+        final PlayerZone yard = c.getOwner().getZone(zone);
+        // must put card in OWNER's yard not controller's
+        return moveTo(yard, c, cause, params);
+    }
+
     public final Card exile(final Card c, SpellAbility cause) {
         return exile(c, cause, null);
     }
@@ -729,6 +752,7 @@ public class GameAction {
             case Stack:         return moveToStack(c, cause, params);
             case PlanarDeck:    return moveToVariantDeck(c, ZoneType.PlanarDeck, libPosition, cause, params);
             case SchemeDeck:    return moveToVariantDeck(c, ZoneType.SchemeDeck, libPosition, cause, params);
+            case Scrapyard:     return moveToVariantYard(c, ZoneType.Scrapyard, cause, params);
             default: // sideboard will also get there
                 return moveTo(c.getOwner().getZone(name), c, cause, params);
         }
@@ -1453,6 +1477,12 @@ public class GameAction {
         return destroy(c, sa, false);
     }
 
+    /**Destroys a permanent.
+    @param c Card
+    @param sa SpellAbility destroying the card
+    @param regenerate Whether to regenerate
+    @return The destroyed card
+    */
     public final boolean destroy(final Card c, final SpellAbility sa, final boolean regenerate) {
         Player activator = null;
         if (!c.canBeDestroyed()) {
@@ -1490,16 +1520,25 @@ public class GameAction {
     }
 
     /**
-     * @return the sacrificed Card in its new location, or {@code null} if the
-     * sacrifice wasn't successful.
-     */
+    Checks to see whether a card is in play, then moves it to the graveyard or variant yard.
+         * @return the sacrificed or destroyed Card in its new location, or {@code null} if the
+     * sacrifice fizzled.
+     @param c Card to destroy or sacrifice
+     @param cause SpellAbility causing the destruction or sacrifice
+          */
     public final Card sacrificeDestroy(final Card c, SpellAbility cause) {
         if (!c.isInPlay()) {
             return null;
         }
-
-        final Card newCard = moveToGraveyard(c, cause, null);
-
+        
+        final Card newCard;
+        
+        //Contraptions go to scrapyard.
+        if (!c.isContraption())
+            newCard = moveToGraveyard(c, cause, null);
+        else
+            newCard = moveToVariantYard(c, ZoneType.Scrapyard, cause, null);
+            
         return newCard;
     }
 
@@ -1555,7 +1594,12 @@ public class GameAction {
         }
     }
 
-    /** Delivers a message to all players. (use reveal to show Cards) */
+    /** Delivers a message to all players. (use reveal to show Cards) 
+    @param saSource The SpellAbility
+    @param relatedTarget The ability's target
+    @param value The value
+    @param playerExcept The player not needing the notification
+    */
     public void nofityOfValue(SpellAbility saSource, GameObject relatedTarget, String value, Player playerExcept) {
         for (Player p : game.getPlayers()) {
             if (playerExcept == p) continue;

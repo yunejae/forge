@@ -223,6 +223,7 @@ public class Card extends GameEntity implements Comparable<Card> {
     private Player chosenPlayer;
     private Direction chosenDirection = null;
     private String chosenMode = "";
+    private int chosenSprocket;
 
     private Card exiledWith = null;
 
@@ -1376,6 +1377,16 @@ public class Card extends GameEntity implements Comparable<Card> {
     public void setChosenMode(String mode) {
         chosenMode = mode;
         view.updateChosenMode(this);
+    }
+
+    //For Unstable format
+    public int getChosenSprocket() {
+        return chosenSprocket > 0 ? chosenSprocket < 4 ? chosenSprocket : -1 : -1;
+    }
+
+    public final void setChosenSprocket(final int i) {
+        chosenSprocket = i;
+        view.updateChosenSprocket(this);
     }
 
     // used for cards like Meddling Mage...
