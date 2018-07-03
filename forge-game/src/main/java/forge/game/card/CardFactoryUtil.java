@@ -300,10 +300,15 @@ public class CardFactoryUtil {
         if (!isCounterable(c)) {
             return false;
         }
-        // Autumn's Veil
-        if (c.hasKeyword("CARDNAME can't be countered by blue or black spells.") && sa.isSpell() 
-                && (sa.getHostCard().isBlack() || sa.getHostCard().isBlue())) {
-            return false;
+
+        for (KeywordInterface k : c.getKeywords()) {
+            final String o = k.getOriginal();
+            if (o.startsWith("CantBeCounteredBy")) {
+                final String m[] = o.split(":");
+                if (sa.isValid(m[1].split(","), c.getController(), c, null)) {
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -1494,6 +1499,18 @@ public class CardFactoryUtil {
                 if (saTargeting != null) {
                     for (final Player tgtP : saTargeting.getTargets().getTargetPlayers()) {
                         someCards.addAll(tgtP.getCardsIn(ZoneType.Hand));
+                    }
+                }
+            }
+        }
+
+        //  Count$InTargetedHand (targeted player's cards in hand)
+        if (sq[0].contains("InTargetedLibrary")) {
+            for (final SpellAbility sa : c.getCurrentState().getNonManaAbilities()) {
+                final SpellAbility saTargeting = sa.getSATargetingPlayer();
+                if (saTargeting != null) {
+                    for (final Player tgtP : saTargeting.getTargets().getTargetPlayers()) {
+                        someCards.addAll(tgtP.getCardsIn(ZoneType.Library));
                     }
                 }
             }

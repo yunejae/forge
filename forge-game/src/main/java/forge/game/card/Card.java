@@ -183,7 +183,8 @@ public class Card extends GameEntity implements Comparable<Card> {
     private long timestamp = -1; // permanents on the battlefield
 
     // stack of set power/toughness
-    private List<CardPowerToughness> newPT = Lists.newArrayList();
+    private Map<Long, Pair<Integer,Integer>> newPT = Maps.newTreeMap();
+    private Map<Long, Pair<Integer,Integer>> newPTCharacterDefining = Maps.newTreeMap();
     private int baseLoyalty = 0;
     private String basePowerString = null;
     private String baseToughnessString = null;
@@ -233,6 +234,7 @@ public class Card extends GameEntity implements Comparable<Card> {
     private final List<GameCommand> etbCommandList = Lists.newArrayList();
     private final List<GameCommand> untapCommandList = Lists.newArrayList();
     private final List<GameCommand> changeControllerCommandList = Lists.newArrayList();
+    private final List<GameCommand> unattachCommandList = Lists.newArrayList();
     private final List<Object[]> staticCommandList = Lists.newArrayList();
 
     private final static ImmutableList<String> storableSVars = ImmutableList.of("ChosenX");
@@ -1465,7 +1467,10 @@ public class Card extends GameEntity implements Comparable<Card> {
                     }
                 }
             }
-            if (keyword.startsWith("etbCounter")) {
+            if (keyword.startsWith("CantBeCounteredBy")) {
+                final String[] p = keyword.split(":");
+                sbLong.append(p[2]).append("\r\n");
+            } else if (keyword.startsWith("etbCounter")) {
                 final String[] p = keyword.split(":");
                 final StringBuilder s = new StringBuilder();
                 if (p.length > 4) {
@@ -2390,6 +2395,16 @@ public class Card extends GameEntity implements Comparable<Card> {
     public final void addUntapCommand(final GameCommand c) {
         untapCommandList.add(c);
     }
+    
+    public final void addUnattachCommand(final GameCommand c) {
+        unattachCommandList.add(c);
+    }
+    
+    public final void runUnattachCommands() {
+        for (final GameCommand c : unattachCommandList) {
+            c.run();
+        }
+    }
 
     public final void addChangeControllerCommand(final GameCommand c) {
         changeControllerCommandList.add(c);
@@ -2682,6 +2697,7 @@ public class Card extends GameEntity implements Comparable<Card> {
         runParams.put("Equipment", this);
         runParams.put("Card", c);
         getGame().getTriggerHandler().runTrigger(TriggerType.Unequip, runParams, false);
+        runUnattachCommands();
     }
 
     public final void unFortifyCard(final Card c) { // fortification.unEquipCard(fortifiedCard);
@@ -2691,6 +2707,7 @@ public class Card extends GameEntity implements Comparable<Card> {
         c.fortifiedBy = c.view.removeCard(c.fortifiedBy, this, TrackableProperty.FortifiedBy);
 
         getGame().fireEvent(new GameEventCardAttachment(this, c, null, AttachMethod.Fortify));
+        runUnattachCommands();
     }
 
     public final void unEquipAllCards() {
@@ -2768,6 +2785,7 @@ public class Card extends GameEntity implements Comparable<Card> {
             unanimateBestow();
         }
         getGame().fireEvent(new GameEventCardAttachment(this, entity, null, AttachMethod.Enchant));
+        runUnattachCommands();
     }
 
     public final void setType(final CardType type0) {
@@ -2971,14 +2989,14 @@ public class Card extends GameEntity implements Comparable<Card> {
     }
 
     public final int getSetPower() {
-        if (newPT.isEmpty()) {
+        if (newPTCharacterDefining.isEmpty() && newPT.isEmpty()) {
             return Integer.MAX_VALUE;
         }
         return getLatestPT().getLeft();
     }
 
     public final int getSetToughness() {
-        if (newPT.isEmpty()) {
+        if (newPTCharacterDefining.isEmpty() && newPT.isEmpty()) {
             return Integer.MAX_VALUE;
         }
         return getLatestPT().getRight();
@@ -2994,24 +3012,21 @@ public class Card extends GameEntity implements Comparable<Card> {
      */
     private synchronized Pair<Integer, Integer> getLatestPT() {
         // Find latest set power
-        // TODO Java 1.8 use comparingLong
-        Collections.sort(newPT, new Comparator<CardPowerToughness>() {
-            @Override
-            public int compare(CardPowerToughness o1, CardPowerToughness o2) {
-                return Long.compare(o1.getTimestamp(),o2.getTimestamp());
-            }
-        });
+        Integer power = null, toughness = null;
 
-        Integer power = null,
-                toughness = null;
-
-        int size = newPT.size();
-        for(int i = size - 1; i >= 0; i--) {
-            CardPowerToughness pt = newPT.get(i);
-            if (power == null && pt.getPower() != null)
-                power = pt.getPower();
-            if (toughness == null && pt.getToughness() != null)
-                toughness = pt.getToughness();
+        // apply CDA first
+        for (Pair<Integer,Integer> pt : newPTCharacterDefining.values()) {
+            if (pt.getLeft() != null)
+                power = pt.getLeft();
+            if (pt.getRight() != null)
+                toughness = pt.getRight();
+        }
+        // now real PT
+        for (Pair<Integer,Integer> pt : newPT.values()) {
+            if (pt.getLeft() != null)
+                power = pt.getLeft();
+            if (pt.getRight() != null)
+                toughness = pt.getRight();
         }
 
         if (power == null)
@@ -3024,20 +3039,28 @@ public class Card extends GameEntity implements Comparable<Card> {
     }
 
     public final void addNewPT(final Integer power, final Integer toughness, final long timestamp) {
-        newPT.add(new CardPowerToughness(power, toughness, timestamp));
+        addNewPT(power, toughness, timestamp, false);
+    }
+    
+    public final void addNewPT(final Integer power, final Integer toughness, final long timestamp, final boolean cda) {
+        if (cda) {
+            newPTCharacterDefining.put(timestamp, Pair.of(power, toughness));
+        } else {
+            newPT.put(timestamp, Pair.of(power, toughness));
+        }
         currentState.getView().updatePower(this);
         currentState.getView().updateToughness(this);
     }
 
     public final void removeNewPT(final long timestamp) {
-        for (int i = 0; i < newPT.size(); i++) {
-            final CardPowerToughness cardPT = newPT.get(i);
-            if (cardPT.getTimestamp() == timestamp) {
-                if (newPT.remove(cardPT)) {
-                    currentState.getView().updatePower(this);
-                    currentState.getView().updateToughness(this);
-                }
-            }
+        boolean removed = false;
+        
+        removed |= newPT.remove(timestamp) != null;
+        removed |= newPTCharacterDefining.remove(timestamp) != null;
+        
+        if (removed) {
+            currentState.getView().updatePower(this);
+            currentState.getView().updateToughness(this);
         }
     }
 
@@ -4004,7 +4027,7 @@ public class Card extends GameEntity implements Comparable<Card> {
     // Takes one argument like Permanent.Blue+withFlying
     @Override
     public final boolean isValid(final String restriction, final Player sourceController, final Card source, SpellAbility spellAbility) {
-        if (isImmutable() && !source.isRemembered(this) &&
+        if (isImmutable() && source != null && !source.isRemembered(this) &&
                 !(restriction.startsWith("Emblem") || restriction.startsWith("Effect"))) { // special case exclusion
             return false;
         }
