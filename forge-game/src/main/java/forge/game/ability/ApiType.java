@@ -134,7 +134,6 @@ public enum ApiType {
     RevealHand (RevealHandEffect.class),
     ReverseTurnOrder (ReverseTurnOrderEffect.class),
     RollPlanarDice (RollPlanarDiceEffect.class),
-    RollSixSidedDice (RollSixSidedDiceEffect.class),
     RunSVarAbility (RunSVarAbilityEffect.class),
     Sacrifice (SacrificeEffect.class),
     SacrificeAll (SacrificeAllEffect.class),

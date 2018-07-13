@@ -39,6 +39,7 @@ public enum TrackableProperty {
     ChosenPlayer(TrackableTypes.PlayerViewType),
     ChosenDirection(TrackableTypes.EnumType(Direction.class)),
     ChosenMode(TrackableTypes.StringType),
+    ChosenSprocket(TrackableTypes.IntegerType),
     Remembered(TrackableTypes.StringType),
     NamedCard(TrackableTypes.StringType),
     PlayerMayLook(TrackableTypes.PlayerViewCollectionType, FreezeMode.IgnoresFreeze),

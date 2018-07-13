@@ -267,8 +267,6 @@ public abstract class GameLobby implements IHasGameType {
             data.appliedVariants.remove(GameType.Unstable);
             break;
         case MoJhoSto:
-            data.appliedVariants.remove(GameType.Archenemy);
-            data.appliedVariants.remove(GameType.ArchenemyRumble);
             data.appliedVariants.remove(GameType.Commander);
             data.appliedVariants.remove(GameType.TinyLeaders);
             data.appliedVariants.remove(GameType.Brawl);
@@ -277,6 +275,8 @@ public abstract class GameLobby implements IHasGameType {
             data.appliedVariants.remove(GameType.Unstable);
             break;
         case Unstable:
+            data.appliedVariants.remove(GameType.Archenemy);
+            data.appliedVariants.remove(GameType.ArchenemyRumble);
             data.appliedVariants.remove(GameType.Commander);
             data.appliedVariants.remove(GameType.TinyLeaders);
             data.appliedVariants.remove(GameType.Brawl);

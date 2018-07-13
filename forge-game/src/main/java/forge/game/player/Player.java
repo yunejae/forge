@@ -1204,11 +1204,11 @@ public class Player extends GameEntity implements Comparable<Player> {
                 }
             }
         }
-
+        
         if (hasProtectionFrom(sa.getHostCard())) {
             return false;
         }
-
+        
         if ((hasKeyword("You can't be the targets of spells or activated abilities") && (sa.isSpell() || (sa instanceof AbilityActivated)))) {
             return false;
         }

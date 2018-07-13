@@ -62,8 +62,7 @@ public enum GameType {
                     .getCard("Stonehewer Giant Avatar"), 1);
             return deck;
         }
-    })
-    ;
+    });
 
     private final DeckFormat deckFormat;
     private final boolean isCardPoolLimited, canSideboard, addWonCardsMidGame;

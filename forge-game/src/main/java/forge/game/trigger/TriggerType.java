@@ -77,7 +77,6 @@ public enum TriggerType {
     SearchedLibrary(TriggerSearchedLibrary.class),
     SetInMotion(TriggerSetInMotion.class),
     Shuffled(TriggerShuffled.class),
-    SixSidedDice(TriggerSixSidedDice.class),
     SpellAbilityCast(TriggerSpellAbilityCast.class),
     SpellCast(TriggerSpellAbilityCast.class),
     Tapped(TriggerTaps.class),

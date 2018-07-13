@@ -530,7 +530,7 @@ public final class CardRulesPredicates {
         public static final Predicate<CardRules> IS_EQUIPMENT = CardRulesPredicates
                 .subType("Equipment");
 
-        /** The Constant isEquipment. */
+        /** The Constant isContraption. */
         public static final Predicate<CardRules> IS_CONTRAPTION = CardRulesPredicates
                 .subType("Contraption");
 

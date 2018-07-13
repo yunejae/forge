@@ -525,6 +525,45 @@ public class Card extends GameEntity implements Comparable<Card> {
         }
         return false;
     }
+    
+    public Card enterFaceDownAs(Player p, SpellAbility sa) {
+        // Turn Face Down (even if it's DFC).
+        CardState originalCard = this.getState(CardStateName.Original);
+        ManaCost cost = originalCard.getManaCost();
+
+        boolean isCreature = this.isCreature();
+
+         // If somehow the card is already face-down
+         if (!turnFaceDown(true) && currentStateName != CardStateName.FaceDown) {
+             return null;
+         }
+        // Move to p's battlefield
+        Game game = p.getGame();
+		// Just in case you aren't the controller, now you are!
+        this.setController(p, game.getNextTimestamp());
+
+        this.setPreFaceDownState(CardStateName.Original);
+        
+        Card host = sa.getHostCard();
+        
+        if (sa.hasParam("Power")){
+            this.setBasePower(AbilityUtils.calculateAmount(host, sa.getParam("Power"), sa));
+        }
+        if (sa.hasParam("Toughness")){
+            this.setBaseToughness(AbilityUtils.calculateAmount(host, sa.getParam("Toughness"), sa));
+        }
+        if (sa.hasParam("Types")) {
+            CardType types = new CardType();
+            types.addAll(Arrays.asList(sa.getParam("Types").split(",")));
+            for (String type : types) {
+               addType(type);
+            }
+        }
+        
+        Card c = game.getAction().moveToPlay(this, p, sa);
+
+        return c;
+    }
 
     public Card manifest(Player p, SpellAbility sa) {
         // Turn Face Down (even if it's DFC).
@@ -561,11 +600,11 @@ public class Card extends GameEntity implements Comparable<Card> {
     public Card assemble(Player p, SpellAbility sa){
         // Move to p's battlefield
         Game game = p.getGame();
-		  // Just in case you aren't the controller, now you are!
+                //Just in case you aren't the controller, now you are!
         this.setController(p, game.getNextTimestamp());
-
+        
         Card c = game.getAction().moveToPlay(this, p, sa);
-
+        
         return c;
     }
 
@@ -1392,12 +1431,12 @@ public class Card extends GameEntity implements Comparable<Card> {
         chosenMode = mode;
         view.updateChosenMode(this);
     }
-
+    
     //For Unstable format
     public int getChosenSprocket() {
         return chosenSprocket > 0 ? chosenSprocket < 4 ? chosenSprocket : -1 : -1;
     }
-
+    
     public final void setChosenSprocket(final int i) {
         chosenSprocket = i;
         view.updateChosenSprocket(this);

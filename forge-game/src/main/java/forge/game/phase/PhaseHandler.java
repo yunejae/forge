@@ -75,9 +75,7 @@ public class PhaseHandler implements java.io.Serializable {
     private int nUpkeepsThisGame = 0;
     private int nCombatsThisTurn = 0;
     private boolean bPreventCombatDamageThisTurn  = false;
-    private int planarDiceRolledThisTurn = 0;
-    private int sixSidedDiceRolledThisTurn = 0;
-
+    private int planarDiceRolledthisTurn = 0;
     private transient Player playerTurn = null;
 
     // priority player
@@ -484,8 +482,7 @@ public class PhaseHandler implements java.io.Serializable {
                     runParams.put("Player", playerTurn);
                     game.getTriggerHandler().runTrigger(TriggerType.TurnBegin, runParams, false);
                 }
-                planarDiceRolledThisTurn = 0;
-                sixSidedDiceRolledThisTurn = 0;
+                planarDiceRolledthisTurn = 0;
                 // Play the End Turn sound
                 game.fireEvent(new GameEventTurnEnded());
                 break;
@@ -1099,19 +1096,11 @@ public class PhaseHandler implements java.io.Serializable {
     }
 
     public int getPlanarDiceRolledthisTurn() {
-        return planarDiceRolledThisTurn;
+        return planarDiceRolledthisTurn;
     }
     
     public void incPlanarDiceRolledthisTurn() {
-        planarDiceRolledThisTurn++;
-    }
-
-    public int getSixSidedDiceRolledthisTurn() {
-        return sixSidedDiceRolledThisTurn;
-    }
-    
-    public void incSixSidedDiceRolledthisTurn() {
-        sixSidedDiceRolledThisTurn++;
+        planarDiceRolledthisTurn++;
     }
 
     public String debugPrintState(boolean hasPriority) {
