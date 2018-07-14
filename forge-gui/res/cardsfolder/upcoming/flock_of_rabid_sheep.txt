@@ -1,4 +1,0 @@
-Name:Flock of Rabid Sheep
-ManaCost:X G G
-Types:Sorcery
-Oracle:Flip X coins. For each flip you win, create a 2/2 green Sheep creature token named Rabid Sheep.

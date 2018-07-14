@@ -1,5 +1,0 @@
-Name:Loose Lips
-ManaCost:U
-Types:Enchantment Aura
-K:Enchant creature
-Oracle:Enchant creature\nAs Loose Lips enters the battlefield, choose a sentence with eight or fewer words.\nEnchanted creature has flying.\nWhenever enchanted creature deals damage to an opponent, that player may say the chosen sentence. If they don't, you draw two cards.

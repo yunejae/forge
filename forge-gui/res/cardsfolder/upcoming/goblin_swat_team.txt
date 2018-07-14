@@ -1,5 +1,0 @@
-Name:Goblin S.W.A.T. Team
-ManaCost:3 R
-Types:Creature Goblin Warrior
-Oracle:Say "Goblin S.W.A.T. Team": Put a +1/+1 counter on Goblin S.W.A.T. Team unless an opponent swats the table within five seconds. Activate this ability only once each turn.
-PT:2/2

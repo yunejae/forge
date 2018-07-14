@@ -1,5 +1,0 @@
-Name:Standing Army
-ManaCost:2 W W
-Types:Creature Human Soldier
-Oracle:As long as you're standing, Standing Army has vigilance.
-PT:2/4

@@ -1,4 +1,0 @@
-Name:Mox Lotus
-ManaCost:15
-Types:Artifact
-Oracle:{T}: Add {Infinity}.\n{100}: Add one mana of any color.

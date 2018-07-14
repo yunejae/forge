@@ -1,5 +1,0 @@
-Name:Mons's Goblin Waiters
-ManaCost:R
-Types:Creature Goblin Waiter
-Oracle:Sacrifice a creature or land: Add {HalfR}.
-PT:1/1

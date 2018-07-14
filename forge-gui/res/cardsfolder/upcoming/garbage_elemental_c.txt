@@ -1,5 +1,0 @@
-Name:Garbage Elemental C
-ManaCost:4 R
-Types:Creature Elemental
-Oracle:Battle cry (Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.)\nWhen Garbage Elemental enters the battlefield, roll two six-sided dice. Create a number of 1/1 red Goblin creature tokens equal to the difference between those results.
-PT:3/2

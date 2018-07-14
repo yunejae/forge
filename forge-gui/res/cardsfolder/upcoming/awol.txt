@@ -1,4 +1,0 @@
-Name:AWOL
-ManaCost:2 W
-Types:Instant
-Oracle:Exile target attacking creature. Then remove it from the game. Then put it into the absolutely-removed-from-the-freaking-game-forever zone.

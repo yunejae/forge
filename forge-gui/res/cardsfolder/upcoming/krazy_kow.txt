@@ -1,5 +1,0 @@
-Name:Krazy Kow
-ManaCost:3 R
-Types:Creature Cow
-PT:3/3
-Oracle:At the beginning of your upkeep, roll a six-sided die. If you roll a 1, sacrifice Krazy Kow and it deals 3 damage to each creature and each player.

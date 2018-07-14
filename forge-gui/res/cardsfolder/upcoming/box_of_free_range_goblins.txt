@@ -1,4 +1,0 @@
-Name:Box of Free-Range Goblins
-ManaCost:4 R R
-Types:Sorcery
-Oracle:Roll a six-sided die. Create a number of 1/1 red Goblin creature tokens equal to the result.

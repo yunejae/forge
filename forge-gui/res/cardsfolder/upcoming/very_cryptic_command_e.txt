@@ -1,4 +1,0 @@
-Name:Very Cryptic Command E
-ManaCost:1 U U U
-Types:Instant
-Oracle:Choose two --\n*Counter target black-bordered spell.\n*Return target creature to its owner's hand.\n*Untap each permanent you control with a watermark.\n*Roll two six-sided dice. Target player puts the top X cards of their library into their graveyard, where X is the total of those results.

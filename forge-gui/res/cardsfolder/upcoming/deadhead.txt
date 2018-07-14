@@ -1,5 +1,0 @@
-Name:Deadhead
-ManaCost:3 B
-Types:Creature Zombie
-PT:3/3
-Oracle:{0}: Return Deadhead from your graveyard to the battlefield. Activate this ability only if an opponent isn't touching their hand (of cards).

@@ -1,4 +1,0 @@
-Name:Landfill
-ManaCost:4 R
-Types:Sorcery
-Oracle:Choose a land type. Exile all lands you control of that type. Drop those cards, one at a time, onto the playing area from a height of at least one foot. Destroy each permanent completely covered by those cards. Then return the cards you dropped to the battlefield tapped.

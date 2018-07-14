@@ -1,4 +1,0 @@
-Name:Mana Flair
-ManaCost:1 R
-Types:Instant
-Oracle:Add {R} for each nonland permanent with art by the artist of your choice.

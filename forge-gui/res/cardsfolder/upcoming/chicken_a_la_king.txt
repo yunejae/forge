@@ -1,9 +1,0 @@
-Name:Chicken a la King
-ManaCost:1 U U
-Types:Creature Chicken
-PT:2/2
-A:AB$ RollSixSidedDice | Cost$ tapXType<1/Chicken.YouCtrl> | CostDesc$ Tap an untapped Chicken you control: | SpellDescription$ Roll a six-sided die.
-T:Mode$ SixSidedDice | TriggerZones$ Battlefield | ValidPlayer$ Player | ValidResult$ 6 | Execute$ TrigPutCounter | TriggerDescription$ Whenever any player rolls a 6 on a six-sided die, put a +1/+1 counter on each Chicken in play.
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Chicken | CounterType$ P1P1 | CounterNum$ 1
-SVar:RemRandomDeck:True
-Oracle:Whenever any player rolls 6 on a six-sided die, put a +1/+1 counter on each Chicken in play. (You may roll dice only when a card instructs you to.)\nTap an untapped Chicken you control: Roll a six-sided die.

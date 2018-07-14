@@ -1,4 +1,0 @@
-Name:Squirrel-Powered Scheme
-ManaCost:2 B
-Types:Enchantment
-Oracle:Increase the result of each die you roll by 2.

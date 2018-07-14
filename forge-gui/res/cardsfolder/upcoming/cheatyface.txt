@@ -1,6 +1,0 @@
-Name:Cheatyface
-ManaCost:U U U
-Types:Creature Efreet
-PT:2/2
-K:Flying
-Oracle:If Cheatyface is in your hand, you may sneak Cheatyface onto the battlefield. If an opponent catches you right away, that player may exile Cheatyface.\nFlying

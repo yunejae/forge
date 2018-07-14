@@ -1,4 +1,0 @@
-Name:Ineffable Blessing A
-ManaCost:1 G
-Types:Enchantment
-Oracle:As Ineffable Blessing enters the battlefield, choose Flavorful or Bland.\n*Flavorful - Whenever a creature with flavor text enters the battlefield under your control, draw a card.\n*Bland - Whenever a creature without flavor text enters the battlefield under your control, draw a card.

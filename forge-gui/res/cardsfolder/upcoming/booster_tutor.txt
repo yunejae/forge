@@ -1,4 +1,0 @@
-Name:Booster Tutor
-ManaCost:B
-Types:Instant
-Oracle:Open a sealed Magic booster pack, reveal the cards, and put one of those cards into your hand. (Remove that card from your deck before beginning a new game.)

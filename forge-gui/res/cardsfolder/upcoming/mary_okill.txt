@@ -1,5 +1,0 @@
-Name:Mary O'Kill
-ManaCost:5 BR
-Types:Legendary Creature Human Villain
-Oracle:{1}{BR}: Switch a Killbot or Mary O'Kill in your hand with one on the battlefield. (If a creature is tapped, the switched creature is tapped. The same is true for untapped, attacking, blocking, enchanted, equipped, and targeted. Any counters on a creature are on the switched creature instead.)
-PT:5/5

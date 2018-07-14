@@ -1,5 +1,0 @@
-Name:Laughing Hyena
-ManaCost:1 G
-Types:Creature Hyena
-Oracle:Gotcha - If an opponent laughs, you may say "Gotcha!" When you do, return Laughing Hyena from your graveyard to your hand.
-PT:2/2

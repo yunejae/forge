@@ -1,4 +1,0 @@
-Name:Bronze Calendar
-ManaCost: 4
-Types:Artifact
-Oracle:Spells you cast cost {1} less to cast.\nYou must speak in a voice other than your normal voice.\nWhen you speak in your normal voice, sacrifice Bronze Calendar.

@@ -1,4 +1,0 @@
-Name:Animate Library
-ManaCost:4 U U
-Types:Enchantment Aura
-Oracle:Enchant your library\nEnchanted library is an artifact creature on the battlefield with power and toughness each equal to the number of cards in it. It's still a library.\nIf enchanted library would leave the battlefield, exile Animate Library instead.

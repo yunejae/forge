@@ -1,5 +1,0 @@
-Name:Goblin Bookie
-ManaCost:R
-Types:Creature Goblin
-PT:1/1
-Oracle:{R}, {T}: Reflip any coin or reroll any die. (Activate this ability only any time it makes sense.)

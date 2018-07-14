@@ -1,7 +1,0 @@
-Name:Hydradoodle
-ManaCost:X X G G
-Types:Creature Hydra Hound
-Oracle:As Hydradoodle enters the battlefield, roll X six-sided dice. Hydradoodle enters the battlefield with a number of +1/+1 counters on it equal to the total of those results.\nReach, trample
-K:Reach
-K:Trample
-PT:0/0

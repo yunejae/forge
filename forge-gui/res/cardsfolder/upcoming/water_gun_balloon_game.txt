@@ -1,4 +1,0 @@
-Name:Water Gun Balloon Game
-ManaCost:2
-Types:Artifact
-Oracle:As Water Gun Balloon Game enters the battlefield, each player puts a pop! counter on a 0.\nWhenever a player casts a spell, move that player's pop! counter up 1.\nWhenever a player's pop! counter hits 5, that player creates a 5/5 pink Giant Teddy Bear creature token and resets all pop! counters to 0.

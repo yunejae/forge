@@ -1,4 +1,0 @@
-Name:Name Dropping
-ManaCost:1 G
-Types:Enchantment
-Oracle:Gotcha - If an opponent says a word that's in the name of a card in your graveyard, you may say "Gotcha!" When you do, return that card to your hand.

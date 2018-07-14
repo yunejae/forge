@@ -1,4 +1,0 @@
-Name:Mouth to Mouth
-ManaCost:3 U
-Types:Sorcery
-Oracle:Choose target opponent and target creature that player controls. You and that player have a breath-holding contest. If you win, you gain control of that creature.

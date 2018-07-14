@@ -1,4 +1,0 @@
-Name:I'm Rubber, You're Glue
-ManaCost:W W
-Types:Enchantment
-Oracle:When you speak in non-rhyming sentences, sacrifice I'm Rubber, You're Glue.\nSay "I'm rubber, you're glue. Everything bounces off me and sticks to you": Change the target of target spell or ability that targets only you.

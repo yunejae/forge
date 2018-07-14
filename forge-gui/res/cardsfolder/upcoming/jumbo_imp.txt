@@ -1,6 +1,0 @@
-Name:Jumbo Imp
-ManaCost:2 B
-Types:Creature Imp
-PT:0/0
-K:Flying
-Oracle:Flying\nAs Jumbo Imp enters the battlefield, roll a six-sided die. Jumbo Imp enters the battlefield with a number of +1/+1 counters on it equal to the result.\nAt the beginning of your upkeep, roll a six-sided die and put a number of +1/+1 counters on Jumbo Imp equal to the result.\nAt the beginning of your end step, roll a six-sided die and remove a number of +1/+1 counters from Jumbo Imp equal to the result.

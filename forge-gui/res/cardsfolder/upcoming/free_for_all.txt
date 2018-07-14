@@ -1,4 +1,0 @@
-Name:Free-for-All
-ManaCost:3 U
-Types:Enchantment
-Oracle:When Free-for-All enters the battlefield, exile all creatures face down.\nAt the beginning of each player's upkeep, that player chooses a card with Free-for-All at random and puts it onto the battlefield.\nWhen Free-for-All leaves the battlefield, put all cards exiled with it into their owners' graveyards.

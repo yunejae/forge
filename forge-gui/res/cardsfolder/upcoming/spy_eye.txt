@@ -1,6 +1,0 @@
-Name:Spy Eye
-ManaCost:2 U U
-Types:Creature Eye Spy
-K:Flying
-Oracle:Flying\nWhenever Spy Eye deals combat damage to a player, you may draw a card from that player's library.
-PT:1/3

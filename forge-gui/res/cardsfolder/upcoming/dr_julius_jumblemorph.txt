@@ -1,5 +1,0 @@
-Name:Dr. Julius Jumblemorph
-ManaCost:2 G W
-Types:Legendary Creature
-Oracle:Dr. Julius Jumblemorph is every creature type (even if this card isn't on the battlefield).\nWhenever a host enters the battlefield under your control, you may search your library and/or graveyard for a card with augment and combine it with that host. If you search your library this way, shuffle it.
-PT:4/4

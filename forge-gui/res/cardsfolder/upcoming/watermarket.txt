@@ -1,4 +1,0 @@
-Name:Watermarket
-ManaCost:no cost
-Types:Land
-Oracle:{T}: Add {C}{C}. Spend this mana only to cast spells with watermarks.

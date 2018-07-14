@@ -1,4 +1,0 @@
-Name:Saute
-ManaCost:1 R R
-Types:Instant
-Oracle:Saute deals 3½ damage to any target.

@@ -1,4 +1,0 @@
-Name:Gimme Five
-ManaCost:W
-Types:Instant
-Oracle:You gain 1 life for each person who high-fives you in the next thirty seconds. Each player in a silver-bordered game who high-fives you gains 1 life. (Offer high fives. Don't hit people.)

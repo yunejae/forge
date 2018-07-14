@@ -1,5 +1,0 @@
-Name:Hangman
-ManaCost:B
-Types:Creature Human Villain
-Oracle:As Hangman enters the battlefield, secretly note a word with six to eight letters.\n{1}: Target player who doesn't control Hangman guesses the noted word or an unguessed letter in that word. If they guess wrong, put a +1/+1 counter on Hangman. Any player may activate this ability.\nWhen a player guesses the noted word or all of its letters, sacrifice Hangman.
-PT:1/1

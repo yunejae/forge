@@ -1,6 +1,0 @@
-Name:Clay Pigeon
-ManaCost:3
-Types:Artifact Creature Bird
-PT:1/1
-K:Flying
-Oracle:Flying\n{1}, Throw Clay Pigeon into the air at least two feet above your head while seated: If you catch Clay Pigeon with one hand, prevent all damage a source of your choice would deal to you this turn and tap Clay Pigeon. Otherwise, sacrifice it.

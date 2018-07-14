@@ -1,6 +1,0 @@
-Name:Do-It-Yourself Seraph
-ManaCost:4 W W
-Types:Artifact Creature Cyborg Angel
-PT:4/4
-K:Flying
-Oracle:Flying\nWhenever Do-It-Yourself Seraph attacks, you may search your library for an artifact card, exile it, then shuffle your library.\nDo-It-Yourself Seraph has the text box of each card exiled with Do-It-Yourself Seraph in addition to its own.

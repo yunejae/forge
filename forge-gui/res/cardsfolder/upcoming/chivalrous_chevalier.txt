@@ -1,6 +1,0 @@
-Name:Chivalrous Chevalier
-ManaCost:4 W
-Types:Artifact Creature Cyborg Knight
-K:Flying
-PT:3/3
-Oracle:Flying\nWhen Chivalrous Chevalier enters the battlefield, return a creature you control to its owner's hand unless you compliment an opponent.

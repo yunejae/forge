@@ -1,4 +1,0 @@
-Name:Ineffable Blessing C
-ManaCost:1 G
-Types:Enchantment
-Oracle:As Ineffable Blessing enters the battlefield, choose white-bordered or silver-bordered.\nWhenever a creature with the chosen border enters the battlefield under your control, draw a card.

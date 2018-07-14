@@ -1,5 +1,0 @@
-Name:Artful Looter
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:1/2
-Oracle:{T}: Draw a card, then discard a card.\nWhenever a permanent that shares an artist with another permanent you control enters the battlefield, untap Artful Looter.

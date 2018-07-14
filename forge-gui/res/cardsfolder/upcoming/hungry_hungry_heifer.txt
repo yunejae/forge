@@ -1,5 +1,0 @@
-Name:Hungry Hungry Heifer
-ManaCost:2 G
-Types:Creature Cow
-PT:3/3
-Oracle:At the beginning of your upkeep, you may remove a counter from a permanent you control. If you don't, sacrifice Hungry Hungry Heifer.

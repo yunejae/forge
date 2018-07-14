@@ -1,4 +1,0 @@
-Name:Sacrifice Play
-ManaCost:2 W
-Types:Instant
-Oracle:A person outside the game chooses an attacking or blocking creature target opponent controls. That player sacrifices that creature.

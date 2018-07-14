@@ -1,5 +1,0 @@
-Name:Elvish House Party
-ManaCost:4 G G
-Types:Creature Elf Rogue
-PT:*/*
-Oracle:Elvish House Party's power and toughness are each equal to the current hour, using the twelve-hour system.

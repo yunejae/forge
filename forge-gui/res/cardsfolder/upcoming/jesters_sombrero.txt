@@ -1,4 +1,0 @@
-Name:Jester's Sombrero
-ManaCost:2
-Types:Artifact
-Oracle:{2}, {T}, Sacrifice Jester's Sombrero: Look at target player's sideboard, choose three cards from it, and remove those cards from the match.

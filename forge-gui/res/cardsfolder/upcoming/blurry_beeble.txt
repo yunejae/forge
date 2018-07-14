@@ -1,5 +1,0 @@
-Name:Blurry Beeble
-ManaCost:U
-Types:Artifact Creature Cyborg Beeble
-Oracle:Blurry (This creature can be blocked only if defending player was wearing glasses as it was cast.)\nWhenever Blurry Beeble deals combat damage to a player, you may draw a card. If you do, discard a card.
-PT:1/1

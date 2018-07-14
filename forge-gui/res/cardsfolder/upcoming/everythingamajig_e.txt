@@ -1,4 +1,0 @@
-Name:Everythingamajig E
-ManaCost:5
-Types:Artifact
-Oracle:Sacrifice a land: You gain 2 life.\nSacrifice a creature: Add {C}{C}.\n{2}, Discard a card: Search your library for a card that shares a complete word in its name with the name of the discarded card, reveal it, put it into your hand, then shuffle your library.

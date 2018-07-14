@@ -1,5 +1,0 @@
-Name:Shoe Tree
-ManaCost:4 G
-Types:Creature Treefolk
-Oracle:Shoe Tree comes into play with up to two shoe counters on it. Use your shoes as counters.\nShoe Tree gets +1/+1 for each shoe counter on it.
-PT:3/3

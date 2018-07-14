@@ -1,4 +1,0 @@
-Name:Team Spirit
-ManaCost:2 G
-Types:Instant
-Oracle:Creatures target player's team controls get +1/+1 until end of turn.

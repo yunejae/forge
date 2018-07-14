@@ -1,5 +1,0 @@
-Name:Fraction Jackson
-ManaCost:2 G
-Types:Creature Human Hero
-PT:1/1½
-Oracle:{G}, {T}: Return target card with a ½ on it from your graveyard to your hand.

@@ -1,4 +1,0 @@
-Name:Gerrymandering
-ManaCost:2 G
-Types:Sorcery
-Oracle:Exile all lands. Give each player a number of those cards chosen at random equal to the number of those cards the player controlled. Each player returns those cards to the battlefield under that player's control.

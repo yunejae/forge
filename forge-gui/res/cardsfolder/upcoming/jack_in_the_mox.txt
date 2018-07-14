@@ -1,4 +1,0 @@
-Name:Jack-in-the-Mox
-ManaCost:0
-Types:Artifact
-Oracle:{T}: Roll a six-sided die. This ability has the indicated effect.\n1 — Sacrifice Jack-in-the-Mox and you lose 5 life.\n2 — Add {W}.\n3 — Add {U}.\n4 — Add {B}.\n5 — Add {R}.\n6 — Add {G}.

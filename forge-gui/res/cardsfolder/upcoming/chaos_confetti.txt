@@ -1,4 +1,0 @@
-Name:Chaos Confetti
-ManaCost:4
-Types:Artifact
-Oracle:{4}, {T}: Tear Chaos Confetti into pieces. Throw the pieces onto the battlefield from a distance of at least five feet. Destroy each permanent that a piece touches. Remove the pieces from the game.

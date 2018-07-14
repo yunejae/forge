@@ -1,5 +1,0 @@
-Name:Fascist Art Director
-ManaCost:1 W W
-Types:Creature Human Horror
-PT:2/2
-Oracle:{W}{W}: Fascist Art Director gains protection from the artist of your choice until end of turn.

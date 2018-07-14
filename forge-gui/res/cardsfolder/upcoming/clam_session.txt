@@ -1,5 +1,0 @@
-Name:Clam Session
-ManaCost:1 U U
-Types:Creature Clamfolk
-PT:2/5
-Oracle:As Clam Session enters the battlefield, choose a word.\nAt the beginning of your upkeep, you may sing at leaast six words of a song, at least one of which is the chosen word. If you don't, sacrifice Clam Session. You can't repeat a song.

@@ -1,4 +1,0 @@
-Name:"Rumors of My Death..."
-ManaCost:2 B
-Types:Enchantment
-Oracle:{3}{B}, Exile a permanent you control with a League of Dastardly Doom watermark: Return a permanent card with a League of Dastardly Doom watermark from your graveyard to the battlefield.

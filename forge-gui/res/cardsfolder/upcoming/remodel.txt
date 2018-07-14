@@ -1,4 +1,0 @@
-Name:Remodel
-ManaCost:2 G
-Types:Instant
-Oracle:If you control two or more green permanents that share an artist, you may cast this spell without paying its mana cost.\nExile target artifact.

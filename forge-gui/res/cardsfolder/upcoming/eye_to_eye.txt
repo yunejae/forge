@@ -1,4 +1,0 @@
-Name:Eye to Eye
-ManaCost:2 B
-Types:Instant
-Oracle:You and target creature's controller have a staring contest. If you win, destroy that creature.

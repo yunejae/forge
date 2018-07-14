@@ -1,4 +1,0 @@
-Name:Charm School
-ManaCost:2 W
-Types:Enchantment
-Oracle:As Charm School enters the battlefield, choose a color and balance Charm School on your head.\nPrevent all damage that would be dealt to you by sources of the chosen color.\nWhen Charm School falls off your head, sacrifice Charm School.

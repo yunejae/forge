@@ -1,5 +1,0 @@
-Name:Tainted Monkey
-ManaCost:1 B
-Types:Creature Monkey
-Oracle:{T}: Choose a word. Target player puts the top card of their library into their graveyard. If that card has the chosen word in its text box, that player loses 3 life.
-PT:1/1

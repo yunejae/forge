@@ -1,4 +1,0 @@
-Name:Volrath's Motion Sensor
-ManaCost:B
-Types:Enchantment Aura
-Oracle:Enchant player\nAs Volrath's Motion Sensor enters the battlefield, choose one of enchanted player's hands. That player balances Volrath's Motion Sensor on the back of that hand.\nWhen Volrath's Motion Sensor falls off the chosen hand, sacrifice Volrath's Motion Sensor and enchanted player loses 3 life.

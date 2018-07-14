@@ -1,4 +1,0 @@
-Name:Letter Bomb
-ManaCost:6
-Types:Artifact
-Oracle:When Letter Bomb enters the battlefield, sign it and shuffle it into target player's library. That player reveals each card they draw until they draw Letter Bomb. When that player draws Letter Bomb, it deals 19½ damage to them.

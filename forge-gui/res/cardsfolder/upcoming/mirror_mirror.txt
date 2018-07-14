@@ -1,4 +1,0 @@
-Name:Mirror Mirror
-ManaCost:7
-Types:Artifact
-Oracle:Mirror Mirror enters the battlefield tapped.\n{7}, {T}, Sacrifice Mirror Mirror: Choose target player. At the beginning of the next end step, exchange life totals with that player, exchange all control of all permanents you and that player control, and exchange cards in your hands, cards in your libraries, and cards in your graveyards.

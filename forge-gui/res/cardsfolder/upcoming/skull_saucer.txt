@@ -1,6 +1,0 @@
-Name:Skull Saucer
-ManaCost:4 B B
-Types:Creature Zombie Head
-K:Flying
-Oracle:Flying\nWhen Skull Saucer enters the battlefield, destroy target creature and put your head on the table. Sacrifice Skull Saucer when your head stops touching the table.
-PT:4/1

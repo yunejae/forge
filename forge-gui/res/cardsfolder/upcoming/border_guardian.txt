@@ -1,5 +1,0 @@
-Name:Border Guardian
-ManaCost:4
-Types:Artifact Creature Knight
-Oracle:Whenever you cast a silver-bordered spell, put a +1/+1 counter on Border Guardian.\nWhenever you cast a black-bordered spell, Border Guardian can't be blocked this turn.\nWhenever you cast a white-bordered spell, Border Guardian gains double strike until end of turn.
-PT:1/1

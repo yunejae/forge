@@ -1,4 +1,0 @@
-Name:The Grand Calcutron
-ManaCost:W U
-Types:Legendary Artifact
-Oracle:When The Grand Calcutron enters the battlefield, each player's hand becomes a program (an ordered row of revealed cards).\nPlayers can only play the first card of their program.\nIf a card would be put into a player's hand from anywhere, that player reveals it and places it anywhere within their program instead.\nAt the beginning of each player's end step, if that player's program has fewer than five cards, they draw cards equal to the difference.

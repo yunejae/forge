@@ -1,4 +1,0 @@
-Name:Side to Side
-ManaCost:2 G
-Types:Instant
-Oracle:You and target opponent arm-wrestle. If you win, create a 3/3 green Ape creature token.

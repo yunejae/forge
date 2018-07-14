@@ -1,4 +1,0 @@
-Name:Everythingamajig D
-ManaCost:6
-Types:Artifact
-Oracle:{T}: Add one mana of any color.\n{1}, {T}: Say the flavor text on a card in your hand. Target opponent guesses that card's name. You may reveal that card. If you do and your opponent guessed wrong, draw a card.\n{8}, {T}: Everythingamajig deals 12 damage to target creature.

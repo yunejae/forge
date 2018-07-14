@@ -1,4 +1,0 @@
-Name:Granny's Payback
-ManaCost:7 G
-Types:Sorcery
-Oracle:You gain life equal to your age.

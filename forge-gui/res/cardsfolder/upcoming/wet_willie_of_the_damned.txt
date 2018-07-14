@@ -1,4 +1,0 @@
-Name:Wet Willie of the Damned
-ManaCost:2 B B
-Types:Sorcery
-Oracle:Wet Willie of the Damned deals 2½ damage to any target and you gain 2½ life.

@@ -1,5 +1,0 @@
-Name:Working Stiff
-ManaCost:1 B
-Types:Creature Mummy
-Oracle:As Working Stiff enters the battlefield, straighten your arms.\nWhen you bend an elbow, sacrifice Working Stiff.
-PT:2/2

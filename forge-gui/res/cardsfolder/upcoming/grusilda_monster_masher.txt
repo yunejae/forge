@@ -1,5 +1,0 @@
-Name:Grusilda, Monster Masher
-ManaCost:3 B R
-Types:Legendary Creature Zombie Villain
-Oracle:Combined, enchanted, and equipped creatures you control have menace.\n{3}{B}{R}, {T}: Put two target creature cards from graveyards onto the battlefield combined into one creature under your control. (Its power is equal to their total power, its toughness is equal to their total toughness, and it has their names, mana costs, types, text boxes, etc.)
-PT:4/4

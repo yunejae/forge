@@ -1,4 +1,0 @@
-Name:Very Cryptic Command C
-ManaCost:1 U U U
-Types:Instant
-Oracle:Choose two --\n*Draw a card from an opponent's library.\n*Copy target instant or sorcery spell. You may choose new targets for the copy.\n*Until end of turn, target creature loses all abilities and becomes a blue Frog with base power and toughness 1/1.\n*Create a 1/1 colorless Gnome artifact creature token.

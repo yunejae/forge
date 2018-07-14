@@ -1,5 +1,0 @@
-Name:Orcish Paratroopers
-ManaCost:2 R
-Types:Creature Orc Paratrooper
-Oracle:When Orcish Paratroopers enters the battlefield, flip it from a height of at least one foot. Sacrifice Orcish Paratroopers unless it turns over completely at least once during the flip and lands face up.
-PT:4/4

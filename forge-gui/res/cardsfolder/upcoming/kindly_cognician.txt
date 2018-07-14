@@ -1,5 +1,0 @@
-Name:Kindly Cognician
-ManaCost:1 U
-Types:Artifact Creature Cyborg Artificer
-Oracle:Spells you cast that refer to artifacts or Contraptions in their rules text cost {1} less to cast.
-PT:1/3

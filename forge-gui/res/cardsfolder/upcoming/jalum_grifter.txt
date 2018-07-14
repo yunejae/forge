@@ -1,5 +1,0 @@
-Name:Jalum Grifter
-ManaCost:3 R R
-Types:Legendary Creature Devil
-PT:3/5
-Oracle:{T}: {1}{R}, {T}: Shuffle Jalum Grifter and two lands you control face down. Target opponent chooses one of those cards. Turn the cards face up. If the opponent chose Jalum Grifter, sacrifice it. Otherwise, destroy target permanent.

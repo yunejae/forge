@@ -1,4 +1,0 @@
-Name:Elvish Impersonators
-ManaCost:3 G
-Types:Creature Elves
-Oracle:As Elvish Impersonators enters the battlefield, roll a six-sided die twice. Its base power becomes the first result and its base toughness becomes the second result.

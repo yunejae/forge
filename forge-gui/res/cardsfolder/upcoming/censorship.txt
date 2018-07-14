@@ -1,4 +1,0 @@
-Name:Censorship
-ManaCost:U
-Types:Enchantment
-Oracle:As Censorship enters the battlefield, choose a word.\nWhenever a player says the chosen word, Censorship deals 2 damage to that player.

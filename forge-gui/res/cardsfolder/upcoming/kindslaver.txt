@@ -1,4 +1,0 @@
-Name:Kindslaver
-ManaCost:5
-Types:Legendary Artifact
-Oracle:{5}, {T}, Sacrifice Kindslaver: A person outside the game controls target player during that player's next turn. Neither player may advise that person until the end of that turn.

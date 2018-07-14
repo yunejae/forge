@@ -1,6 +1,0 @@
-Name:Beast in Show
-ManaCost:4 G G
-Types:Creature Beast
-K:Trample
-Oracle:Trample
-PT:6/4

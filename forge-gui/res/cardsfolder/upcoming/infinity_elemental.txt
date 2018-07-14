@@ -1,5 +1,0 @@
-Name:Infinity Elemental
-ManaCost:4 R R R
-Types:Creature Elemental
-Oracle:(This creature has INFINITE POWER.)
-PT:99/5

@@ -1,4 +1,0 @@
-Name:Mana Screw
-ManaCost:1
-Types:Artifact
-Oracle:{1}: Flip a coin. If you win the flip, add {C}{C}. Activate this ability only any time you could cast an instant.

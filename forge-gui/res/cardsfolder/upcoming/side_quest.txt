@@ -1,4 +1,0 @@
-Name:Side Quest
-ManaCost:W
-Types:Sorcery
-Oracle:Target player in a silver-bordered game you can see from your seat gains control of target creature you control until your next turn. At the beginning of your next upkeep, put two +1/+1 counters on that creature. (A creature is on the battlefield of only the game its controller is playing.)

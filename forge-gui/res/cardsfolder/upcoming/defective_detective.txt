@@ -1,5 +1,0 @@
-Name:Defective Detective
-ManaCost:2 U
-Types:Creature Human Spy
-Oracle:Defective Detective can't be blocked.\nWhen Defective Detective enters the battlefield, a person outside the game looks at target opponent's hand and chooses a card from it. That player reveals that card.
-PT:2/1

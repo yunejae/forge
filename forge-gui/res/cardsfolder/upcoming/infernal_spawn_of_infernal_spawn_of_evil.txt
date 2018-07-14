@@ -1,8 +1,0 @@
-Name:Infernal Spawn of Infernal Spawn of Evil
-ManaCost:8 B B
-Types:Creature Demon Child
-K:Flying
-K:First Strike
-K:Trample
-Oracle:Flying, first strike, trample\nOnce each turn, while you're searching your library, you may pay {1}{B}, reveal Infernal Spawn of Infernal Spawn of Evil from your library and say "I'm coming, too." If you do, Infernal Spawn of Infernal Spawn of Evil deals 2 damage to a player of your choice.
-PT:8/8

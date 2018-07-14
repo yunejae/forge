@@ -1,6 +1,0 @@
-Name:Little Girl
-ManaCost:W
-#To Do: HalfW mana cost.
-Types:Creature Human Child
-PT:½/½
-Oracle:

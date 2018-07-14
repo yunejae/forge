@@ -1,5 +1,0 @@
-Name:Vile Bile
-ManaCost:1 B
-Types:Creature Ooze
-Oracle:Whenever a player's skin or fingernail touches Vile Bile, that player loses 2 life.
-PT:2½/2½

@@ -1,4 +1,0 @@
-Name:Urza's Hot Tub
-ManaCost:2
-Types:Artifact
-Oracle:{2}, Discard a card: Search your library for a card that shares a complete word in its name with the discarded card, reveal it, put it into your hand, then shuffle your library.

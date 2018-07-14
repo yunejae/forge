@@ -1,5 +1,0 @@
-Name:Hoisted Hireling
-ManaCost:2 B
-Types:Creature Zombie
-Oracle:Hoisted Hireling has flying as long as it's being held above the battlefield.
-PT:2/1

@@ -1,5 +1,0 @@
-Name:Timmy, Power Gamer
-ManaCost:2 G G
-Types:Legendary Creature Human Gamer
-PT:1/1
-Oracle:{4}: You may put a creature from your hand onto the battlefield.

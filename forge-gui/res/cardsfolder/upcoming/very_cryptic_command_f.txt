@@ -1,4 +1,0 @@
-Name:Very Cryptic Command F
-ManaCost:1 U U U
-Types:Instant
-Oracle:Choose two --\n*Scry 3.\n*Create a 2/2 black Rogue creature token with menace.\n*Add or subtract 1 or one from a number or number word on target spell or permanent until end of turn.\n*Return all artifacts target player controls to their owner's hand.

@@ -1,4 +1,0 @@
-Name:Mine, Mine, Mine!
-ManaCost:4 G G
-Types:Enchantment
-Oracle:When Mine, Mine, Mine! enters the battlefield, each player puts their library into their hand.\nPlayers have no maximum hand size and don't lose the game for drawing from an empty library.\nEach player can't cast more than one spell each turn.\nWhen Mine, Mine, Mine! leaves the battlefield, each player shuffles their hand and graveyard into their library.

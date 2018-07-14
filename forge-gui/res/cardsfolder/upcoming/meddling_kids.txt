@@ -1,5 +1,0 @@
-Name:Meddling Kids
-ManaCost:2 W U
-Types:Creature Human Child
-Oracle:As Meddling Kids enters the battlefield, choose a word with four or more letters.\nSpells with the chosen word in their text box can't be cast.
-PT:2/3

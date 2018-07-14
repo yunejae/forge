@@ -1,5 +1,0 @@
-Name:Moniker Mage
-ManaCost:2 U
-Types:Creature Human Wizard
-Oracle:{U}, Say your middle name: Moniker Mage gains shroud until end of turn.\n{U}, Say an opponent's middle name: Moniker Mage gains flying until end of turn.
-PT:2/2

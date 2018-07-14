@@ -1,4 +1,0 @@
-Name:Face to Face
-ManaCost:1 R
-Types:Sorcery
-Oracle:You and target opponent play a best two-out-of-three Rock, Paper, Scissors match. If you win, Face to Face deals 5 damage to that player.

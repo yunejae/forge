@@ -1,4 +1,0 @@
-Name:Stamp of Approval
-ManaCost:3
-Types:Artifact
-Oracle:As Stamp of Approval enters the battlefield, choose a watermark.\nCreatures you control with the chosen watermark get +1/+1.

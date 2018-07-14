@@ -1,4 +1,0 @@
-Name:Entirely Normal Armchair
-ManaCost:no cost
-Types:Artifact
-Oracle:During your turn, if Entirely Normal Armchair is in your hand, you may hide it on the battlefield.\n{0}: Return Entirely Normal Armchair to its owner's hand. Only an opponent may activate this ability and only if they see Entirely Normal Armchair.\n{2}, Sacrifice Entirely Normal Armchair: Destroy target attacking creature.

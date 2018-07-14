@@ -1,4 +1,0 @@
-Name:Squirrel Farm
-ManaCost:2 G
-Types:Enchantment
-Oracle:{1}{G}: Reveal a card in your hand, covering the artist credit. Target opponent guesses the artist. If that player guesses wrong, create a 1/1 green Squirrel creature token.

@@ -1,5 +1,0 @@
-Name:Dumb Ass
-ManaCost:2 R
-Types:Creature Donkey Barbarian
-PT:3½/2
-Oracle:At the beginning of your upkeep, flip a coin. If you lose the flip, target opponent chooses whether Dumb Ass attacks this turn.

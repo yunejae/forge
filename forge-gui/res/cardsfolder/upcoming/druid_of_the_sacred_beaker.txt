@@ -1,5 +1,0 @@
-Name:Druid of the Sacred Beaker
-ManaCost:2 G
-Types:Creature Deer Bird Ape Druid
-Oracle:{T}: Add {G} for each Crossbreed Labs watermark among permanents you control.
-PT:2/2

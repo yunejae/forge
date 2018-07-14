@@ -1,4 +1,0 @@
-Name:Over My Dead Bodies
-ManaCost:4 B B
-Types:Enchantment
-Oracle:Creature cards in graveyards can attack and block as though they were on the battlefield, can block or be blocked only by creature cards in graveyards, are Zombies in addition to their other types, and have undeathtouch. (If they would deal damage to a creature card, exile that creature card instead.)\nCreature cards in your graveyard have haste.

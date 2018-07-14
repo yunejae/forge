@@ -1,4 +1,0 @@
-Name:Ricochet
-ManaCost:R
-Types:Enchantment
-Oracle:Whenever a player casts a spell that targets a single player, each player rolls a six-sided die. Change the target of that spell to the player with the lowest result. Reroll to break ties, if necessary.

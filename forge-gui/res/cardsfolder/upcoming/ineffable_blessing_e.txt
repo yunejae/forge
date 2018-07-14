@@ -1,4 +1,0 @@
-Name:Ineffable Blessing E
-ManaCost:1 G
-Types:Enchantment
-Oracle:As Ineffable Blessing enters the battlefield, choose odd or even.\nWhenever a creature with a collector number of the chosen value enters the battlefield under your control, draw a card.

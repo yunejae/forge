@@ -1,5 +1,0 @@
-Name:Sly Spy C
-ManaCost:2 B
-Types:Creature Human Spy
-Oracle:Whenever Sly Spy deals combat damage to a player, that player loses a finger until Sly Spy leaves the battlefield. (The finger is chosen by its owner and can't roll dice or touch cards.)
-PT:2/2

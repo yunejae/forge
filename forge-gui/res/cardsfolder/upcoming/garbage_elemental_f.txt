@@ -1,5 +1,0 @@
-Name:Garbage Elemental F
-ManaCost:4 R
-Types:Creature Elemental
-Oracle:Last strike (This creature deals combat damage after creatures without last strike.)\nBattalion -- Whenever Garbage Elemental and at least two other creatures attack, target creature can't block this turn.
-PT:6/5

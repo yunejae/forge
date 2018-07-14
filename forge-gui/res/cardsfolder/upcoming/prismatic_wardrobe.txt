@@ -1,4 +1,0 @@
-Name:Prismatic Wardrobe
-ManaCost:W
-Types:Sorcery
-Oracle:Destroy target nonartifact, nonland permanent that doesn't share a color with clothing worn by its controller.

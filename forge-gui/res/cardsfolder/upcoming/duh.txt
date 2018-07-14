@@ -1,4 +1,0 @@
-Name:Duh
-ManaCost:B
-Types:Instant
-Oracle:Destroy target creature with reminder text. (Reminder text is any italicized text in parentheses that explains rules you already know.)

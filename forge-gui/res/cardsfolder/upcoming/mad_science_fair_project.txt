@@ -1,4 +1,0 @@
-Name:Mad Science Fair Project
-ManaCost:3
-Types:Artifact
-Oracle:{T}: Roll a six-sided die. On a 3 or lower, target player adds {C}. Otherwise, that player adds one mana of any color they choose.

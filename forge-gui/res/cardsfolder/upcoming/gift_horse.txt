@@ -1,4 +1,0 @@
-Name:Gift Horse
-ManaCost:no cost
-Types:Artifact Contraption
-Oracle:Whenever you crank Gift Horse, roll two six-sided dice. Create a number of 1/1 red Goblin creature tokens equal to the difference between those results.

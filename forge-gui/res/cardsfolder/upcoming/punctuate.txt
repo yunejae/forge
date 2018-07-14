@@ -1,4 +1,0 @@
-Name:Punctuate
-ManaCost:3 R
-Types:Instant
-Oracle:Punctuate deals damage to target creature equal to half the number of punctuation marks in that creature's text box. (The punctuation marks are ? , ; : - — ( ) / " " ‘ ' & .)

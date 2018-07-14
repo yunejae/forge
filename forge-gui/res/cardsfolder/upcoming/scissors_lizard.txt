@@ -1,5 +1,0 @@
-Name:Scissors Lizard
-ManaCost:4
-Types:Artifact Creature Lizard
-PT:4/3
-Oracle:Creatures named Paper Tiger can't attack or block.

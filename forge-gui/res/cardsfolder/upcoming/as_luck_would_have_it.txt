@@ -1,6 +1,0 @@
-Name:As Luck Would Have It
-ManaCost:G
-Types:Enchantment
-K:Hexproof
-SVar:RefersToCounterTypes:LUCK
-Oracle:Hexproof\nWhenever you roll a die, put a number of luck counters on As Luck Would Have It equal to the result. Then if there are 100 or more luck counters on As Luck Would Have It, you win the game. (Count both rolls if you reroll a die.)

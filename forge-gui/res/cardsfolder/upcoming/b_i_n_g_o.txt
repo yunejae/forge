@@ -1,6 +1,0 @@
-Name:B-I-N-G-O
-ManaCost:1 G
-Types:Creature Hound
-PT:1/1
-K:Trample
-Oracle:Trample\nWhenever a player casts a spell, put a chip counter on its converted mana cost.\nB-I-N-G-O gets +9/+9 for each set of three numbers in a row with chip counters on them.

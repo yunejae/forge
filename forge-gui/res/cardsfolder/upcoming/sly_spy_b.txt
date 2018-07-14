@@ -1,5 +1,0 @@
-Name:Sly Spy B
-ManaCost:2 B
-Types:Creature Human Spy
-Oracle:Whenever Sly Spy deals combat damage to a player, you may destroy target creature facing left in its art. (Creatures without faces don't face anywhere.)
-PT:2/2

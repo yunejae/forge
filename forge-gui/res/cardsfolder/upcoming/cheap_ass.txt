@@ -1,5 +1,0 @@
-Name:Cheap Ass
-ManaCost:1 W
-Types:Creature Donkey Townsfolk
-PT:1/3½
-Oracle:Spells you cast cost {½} less to cast.

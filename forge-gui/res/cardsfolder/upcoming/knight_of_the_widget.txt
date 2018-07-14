@@ -1,6 +1,0 @@
-Name:Knight of the Widget
-ManaCost:2 W
-Types:Artifact Creature Cyborg Knight
-K:Vigilance
-Oracle:Vigilance\nKnight of the Widget's power and toughness are each equal to the number of Order of the Widget watermarks among permanents you control.
-PT:*/*

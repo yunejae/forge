@@ -1,4 +1,0 @@
-Name:Time Machine
-ManaCost:5
-Types:Artifact
-Oracle:{T}: Exile Time Machine and target nontoken creature you own. Return them to the battlefield at the beginning of your upkeep on your turn X in the next game you play with one of your opponents in this game, where X is the converted mana cost of the exiled creature.

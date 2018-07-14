@@ -1,5 +1,0 @@
-Name:Rock Lobster
-ManaCost:4
-Types:Artifact Creature Lobster
-PT:4/3
-Oracle:Creatures named Scissors Lizard can't attack or block.

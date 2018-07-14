@@ -1,6 +1,0 @@
-Name:Knight of the Hokey Pokey
-ManaCost:W W
-Types:Creature Knight
-PT:2/2
-K:First Strike
-Oracle:First strike\n{1}{W}, Do the Hokey Pokey: Prevent all damage a source of your choice would deal to Knight of the Hokey Pokey this turn. (To do the Hokey Pokey, put your right foot in. Put your right foot out. Put your right foot in. Shake it al about Repeat this process for your left foot, right arm, left arm, and whole self.)

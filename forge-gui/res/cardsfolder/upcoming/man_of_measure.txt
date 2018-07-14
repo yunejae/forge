@@ -1,5 +1,0 @@
-Name:Man of Measure
-ManaCost:1 W W
-Types:Creature Human Knight
-Oracle:As long as you're shorter than an opponent, Man of Measure gets +0/+1 and has first strike.\nAs long as you're taller than an opponent, Man of Measure gets +1/+0.
-PT:2/2

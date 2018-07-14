@@ -1,4 +1,0 @@
-Name:Just Desserts
-ManaCost:1 R
-Types:Instant
-Oracle:Just Desserts deals π damage to target creature. (π is the ratio of a circle's circumference to its diameter. (It's a smidgen more than 3.))

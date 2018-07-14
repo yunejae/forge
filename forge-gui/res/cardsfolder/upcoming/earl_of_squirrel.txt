@@ -1,5 +1,0 @@
-Name:Earl of Squirrel
-ManaCost:4 G G
-Types:Creature Squirrel Advisor
-Oracle:Squirrellink (Damage dealt by this creature also causes you to create that many 1/1 green Squirrel creature tokens.)\nCreature tokens you control are Squirrels in addition to their other creature types.\nOther Squirrels you control get +1/+1.
-PT:4/4

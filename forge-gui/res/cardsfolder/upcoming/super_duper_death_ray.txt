@@ -1,5 +1,0 @@
-Name:Super-Duper Death Ray
-ManaCost:2 R
-Types:Instant
-K:Trample
-Oracle:Trample (This spell can deal excess damage to its target's controller.)\nSuper-Duper Death Ray deals 4 damage to target creature.

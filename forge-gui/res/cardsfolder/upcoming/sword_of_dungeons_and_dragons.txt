@@ -1,4 +1,0 @@
-Name:Sword of Dungeons & Dragons
-ManaCost:3
-Types:Artifact Equipment
-Oracle:Equipped creature gets +2/+2 and has protection from Rogues and from Clerics.\nWhenever equipped creature deals combat damage to a player, create a 4/4 gold Dragon creature token with flying and roll a d20. If you roll a 20, repeat this process.\nEquip {2}

@@ -1,5 +1,0 @@
-Name:Socketed Sprocketer
-ManaCost:U
-Types:Artifact Creature Cyborg Knight
-Oracle:{T}: Uninstall all results from Socketed Sprocketer, then roll a six-sided die. Install the result on Socketed Sprocketer. (Put the die on this card.)\nYou may uninstall a result from Socketed Sprocketer to use it for a die you rolled.\nUninstall a 6 from Socketed Sprocketer: Draw a card.
-PT:1/1
