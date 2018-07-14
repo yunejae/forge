@@ -113,6 +113,7 @@ public final class CardEdition implements Comparable<CardEdition> { // immutable
     private String name;
     private String alias = null;
     private boolean whiteBorder = false;
+    private boolean silverBorder = false;
     private FoilType foilType = FoilType.NOT_SUPPORTED;
     private double foilChanceInBooster = 0;
     private boolean foilAlwaysInCommonSlot = false;
@@ -228,6 +229,10 @@ public final class CardEdition implements Comparable<CardEdition> { // immutable
     public boolean isWhiteBorder() {
         return whiteBorder;
     }
+    
+    public boolean isSilverBorder() {
+        return silverBorder;
+    }
 
     public boolean isLargeSet() {
         return cards.length > 200 && !smallSetOverride;
@@ -298,6 +303,7 @@ public final class CardEdition implements Comparable<CardEdition> { // immutable
 
             res.alias = section.get("alias");
             res.whiteBorder = "white".equalsIgnoreCase(section.get("border"));
+            res.silverBorder = "silver".equalsIgnoreCase(section.get("border"));
             String type  = section.get("type");
             Type enumType = Type.UNKNOWN;
             if (null != type && !type.isEmpty()) {

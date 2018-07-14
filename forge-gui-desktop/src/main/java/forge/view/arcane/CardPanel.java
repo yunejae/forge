@@ -299,6 +299,9 @@ public class CardPanel extends SkinnedPanel implements CardContainer, IDisposabl
                 // Non-foil cards from white-bordered sets are drawn with white border
                 g2d.setColor(Color.WHITE);
                 colorIsSet = true;
+            } else if (ed != null && ed.isSilverBorder() && state.getFoilIndex() == 0) {
+                g2d.setColor(new Color(163,163,163));
+                colorIsSet = true;
             }
             if (colorIsSet) {
                 final int ins = 1;
