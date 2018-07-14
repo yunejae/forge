@@ -5,4 +5,5 @@ T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigAnimate | TriggerDescri
 SVar:TrigAnimate:DB$ Animate | TgtPrompt$ Select target creature | ValidTgts$ Creature | Defined$ Targeted | Triggers$ TrigDamage | sVars$ DBDestroy
 SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ DBDestroy | ValidTarget$ Player | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player, destroy target creature that player controls.
 SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.DefenderCtrl
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Deadly Poison Sampler, until end of turn, target creature gains "Whenever this creature deals combat damage to a player, destroy target creature that player controls."

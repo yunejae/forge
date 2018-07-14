@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever you crank CARDNAME, target creature blocks this turn if able.
 SVar:TrigPump:DB$ Pump | KW$:HIDDEN CARDNAME blocks each combat if able. | ValidTgts$ Creature | TgtPrompt$ Select target creature
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Targeting Rocket, target creature blocks this turn if able.

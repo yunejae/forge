@@ -4,5 +4,6 @@ Types:Creature Human Ninja Rigger
 K:Menace
 T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigAssemble | ValidTarget$ Player | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, it assembles a Contraption.
 SVar:TrigAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
+SVar:RemRandomDeck:True
 Oracle:Menace\nWhenever Overt Operative deals combat damage to a player, it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:2/3

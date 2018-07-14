@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigAnimate | TriggerDescription$ Whenever you crank CARDNAME, until end of turn, until end of turn, target creature gets +1/+2, gains vigilance, and becomes an artifact in addition to its other types.
 SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | Types$ Artifact | NumAtt$ +1 | NumDef$ +2 | KW$ Vigilance
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Tread Mill, until end of turn, target creature gets +1/+2, gains vigilance, and becomes an artifact in addition to its other types.

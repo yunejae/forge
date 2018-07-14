@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigLoseLife | TriggerDescription$ Whenever you crank CARDNAME, target player loses 2 life.
 SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | TgtPrompt$ Select target player | LifeAmount$ 2
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Division Table, target player loses 2 life.

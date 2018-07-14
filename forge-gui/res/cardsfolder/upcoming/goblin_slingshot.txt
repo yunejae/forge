@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPumpAll | TriggerDescription$ Whenever you crank CARDNAME, creatures you control get +2/+0 and gain trample until end of turn.
 SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Trample | NumAtt$ 2 | NumDef$ 0
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Goblin Slingshot, creatures you control get +2/+0 and gain trample until end of turn.

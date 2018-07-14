@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever you crank CARDNAME, create a 2/2 black Rogue creature token with menace.
 SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenName$ Rogue | TokenTypes$ Creature,Rogue | TokenOwner$ You | TokenColors$ Black | TokenPower$ 2 | TokenToughness$ 2 | TokenKeywords$ Menace
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Dispatch Dispensary, create a 2/2 black Rogue creature token with menace.

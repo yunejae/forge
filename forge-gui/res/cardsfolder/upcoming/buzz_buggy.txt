@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever you crank CARDNAME, target creature gets +2/+0 and gains trample until end of turn.
 SVar:TrigPump:DB$ Pump | TgtPrompt$ Select target creature | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +0 | KW$ Trample
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Buzz Buggy, target creature gets +2/+0 and gains trample until end of turn.

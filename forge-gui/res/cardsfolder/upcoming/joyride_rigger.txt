@@ -3,5 +3,6 @@ ManaCost:3 G
 Types:Creature Goblin Rigger
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAssemble | TriggerDescription$ When CARDNAME enters the battlefield, it assembles a Contraption.
 SVar:TrigAssemble:DB$ Assemble | ValidRigger$ Card.Self | Amount$ 1
+SVar:RemRandomDeck:True
 Oracle:When Joyride Rigger enters the battlefield, it assembles a Contraption. (Put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:3/3

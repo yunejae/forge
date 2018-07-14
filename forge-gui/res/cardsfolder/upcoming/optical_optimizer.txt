@@ -4,4 +4,5 @@ Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigAnimate | TriggerDescription$ Whenever you crank CARDNAME, until end of turn, target creature becomes an artifact in addition to its other types and gains "{T}: Draw a card."
 SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | Types$ Artifact | Abilities$ ABDraw
 SVar:ABDraw:AB$ Draw | Cost$ T | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Optical Optimizer, until end of turn, target creature becomes an artifact in addition to its other types and gains "{T}: Draw a card."

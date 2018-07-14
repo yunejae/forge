@@ -2,8 +2,9 @@ Name:Dictation Quillograph
 ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigAnimate | TriggerDescription$ Whenever you crank CARDNAME, until end of turn, target creature gains "Whenever this creature deals combat damage to a player, you may draw a card. If you do, discard a card."
-SVar:TrigAnimate:DB$ Animate | TgtPrompt$ Select target creature | ValidTgts$ Creature | Defined$ Targeted | Triggers$ TrigDamage | sVars$ DBDraw,DBDiscard
-SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ DBDraw | ValidTarget$ Player | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player, you may draw a card. If you do, discard a card.
+SVar:TrigAnimate:DB$ Animate | TgtPrompt$ Select target creature | ValidTgts$ Creature | Defined$ Targeted | Triggers$ TrigDamage | sVars$ DBDraw,DBDiscard,TrigDamage
+SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ DBDraw | ValidTarget$ Player | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player, you may draw a card. If you do, discard a card. | OptionalDecider$ You
 SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
 SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Dictation Quillograph, until end of turn, target creature gains "Whenever this creature deals combat damage to a player, you may draw a card. If you do, discard a card."

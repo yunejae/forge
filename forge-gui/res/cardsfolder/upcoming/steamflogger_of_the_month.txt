@@ -4,5 +4,6 @@ Types:Creature Goblin Rigger
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigAssemble | TriggerDescription$ When CARDNAME enters the battlefield, it assembles a Contraption for each Contraption you control.
 SVar:TrigAssemble:DB$ Assemble | References$ X | ValidRigger$ Card.Self | Amount$ X
 SVar:X:Count$Valid Contraption.YouCtrl
+SVar:RemRandomDeck:True
 Oracle:When Steamflogger of the Month enters the battlefield, it assembles a Contraption for each Contraption you control. (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)
 PT:3/3

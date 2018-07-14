@@ -6,4 +6,5 @@ SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenName$ Faerie Spy | TokenTypes$ 
 SVar:FaerieTrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ FaerieDBDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card.
 SVar:FaerieDBDraw:DB$ Draw | Defined$ You | NumCards$ 1
 SVar:FaerieEOT:SVar:EndOfTurnLeavePlay:True
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Faerie Aerie, create two 1/1 blue Faerie Spy creature tokens with flying, haste, and "Whenever this creature deals combat damage to a player, draw a card." Exile them at the beginning of the next end step.

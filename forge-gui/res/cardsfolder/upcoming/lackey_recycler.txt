@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigRecycle | TriggerDescription$ Whenever you crank CARDNAME, put target creature card from your graveyard on top of your library.
 SVar:TrigRecycle:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 0
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Lackey Recycler, put target creature card from your graveyard on top of your library.

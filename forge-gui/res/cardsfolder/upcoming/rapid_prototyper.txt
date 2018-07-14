@@ -4,4 +4,5 @@ Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever you crank CARDNAME, create an X/X colorless Construct artifact creature token, where X is the number of artifacts you control.
 SVar:TrigToken:DB$ Token | References$ X | TokenOwner$ You | TokenAmount$ 1 | TokenPower$ X | TokenToughness$ X | TokenColors$ Colorless | TokenTypes$ Construct,Artifact,Creature | TokenName$ Construct | TokenImage$ c x x construct ust
 SVar:X:Count$Valid Artifact.YouCtrl
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Rapid Prototyper, create an X/X colorless Construct artifact creature token, where X is the number of artifacts you control.

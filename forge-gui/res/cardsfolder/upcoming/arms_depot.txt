@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ Whenever you crank CARDNAME, put two +1/+1 counters on target creature.
 SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 2 | CounterType$ P1P1 | TgtPrompt$ Select target creature | ValidTgts$ Creature
+SVar:RemRandomDeck:True
 Oracle:Whenever you crank Arms Depot, put two +1/+1 counters on target creature.
