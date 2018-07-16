@@ -194,6 +194,7 @@ final class GameClientHandler extends GameProtocolHandler<IGuiGame> {
                     null,
                     false,
                     null,
+                    null,
                     null
             );
             LobbyPlayer lobbyPlayer = new LobbyPlayerHuman(
