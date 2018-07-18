@@ -3,7 +3,7 @@ ManaCost:no cost
 Types:Artifact Contraption
 T:Mode$ Cranked | ValidCranked$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever you crank CARDNAME, create two 1/1 blue Faerie Spy creature tokens with flying, haste, and "Whenever this creature deals combat damage to a player, draw a card." Exile them at the beginning of the next end step.
 SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenName$ Faerie Spy | TokenTypes$ Creature,Faerie,Spy | TokenOwner$ You | TokenColors$ Blue | TokenPower$ 1 | TokenToughness$ 1 | TokenImage$ u 1 1 faerie spy ust | TokenKeywords$ Flying<>Haste | TokenTriggers$ FaerieTrigDamage | AtEOT$ Exile | TokenSVars$ FaerieEOT,FaerieDBDraw
-SVar:FaerieTrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ FaerieDBDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card.
+SVar:FaerieTrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidTarget$ Player | ValidSource$ Card.Self | Execute$ FaerieDBDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card.
 SVar:FaerieDBDraw:DB$ Draw | Defined$ You | NumCards$ 1
 SVar:FaerieEOT:SVar:EndOfTurnLeavePlay:True
 SVar:RemRandomDeck:True

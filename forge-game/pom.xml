@@ -30,5 +30,15 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>forge</groupId>
+            <artifactId>forge-gui</artifactId>
+            <version>1.6.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>forge</groupId>
+            <artifactId>forge-gui</artifactId>
+            <version>1.6.8-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
