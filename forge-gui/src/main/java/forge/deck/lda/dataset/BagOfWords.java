@@ -16,10 +16,6 @@
 
 package forge.deck.lda.dataset;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import forge.card.CardRulesPredicates;
 import forge.deck.Deck;
 import forge.deck.io.DeckStorage;
 import forge.game.GameFormat;
@@ -30,7 +26,6 @@ import forge.util.storage.StorageImmediatelySerialized;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class is immutable.
@@ -71,11 +66,15 @@ public final class BagOfWords {
         Set<PaperCard> cardSet = new HashSet<>();
         legalDecks = new ArrayList<>();
         for(Deck deck:decks){
-            if(format.isDeckLegal(deck) && deck.getMain().toFlatList().size()==60){
-                legalDecks.add(deck);
-                for(PaperCard card : deck.getMain().toFlatList()){
-                    cardSet.add(card);
+            try {
+                if (format.isDeckLegal(deck) && deck.getMain().toFlatList().size() == 60) {
+                    legalDecks.add(deck);
+                    for (PaperCard card : deck.getMain().toFlatList()) {
+                        cardSet.add(card);
+                    }
                 }
+            }catch(Exception e){
+                System.out.println("Skipping deck "+deck.getName());
             }
         }
         List<PaperCard> cardList = new ArrayList<>(cardSet);
@@ -160,6 +159,11 @@ public final class BagOfWords {
         this.numVocabs = numVocabs;
         this.numNNZ    = numNNZ;
         this.numWords  = numWords;
+
+        System.out.println("Num Decks" + this.numDocs);
+        System.out.println("Num Vocabs" + this.numVocabs);
+        System.out.println("Num NNZ" + this.numNNZ);
+        System.out.println("Num Cards" + this.numWords);
     }
 
     public int getNumDocs() {

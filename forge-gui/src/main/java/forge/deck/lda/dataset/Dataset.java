@@ -17,7 +17,6 @@
 package forge.deck.lda.dataset;
 
 import forge.game.GameFormat;
-import forge.model.FModel;
 
 import java.util.List;
 

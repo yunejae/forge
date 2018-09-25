@@ -16,7 +16,6 @@
 
 package forge.deck.lda.lda;
 
-import java.io.IOException;
 import java.util.List;
 
 import forge.deck.lda.lda.inference.Inference;
