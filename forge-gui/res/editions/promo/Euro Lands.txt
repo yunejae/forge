@@ -1,0 +1,24 @@
+[metadata]
+Name=Euro Lands
+Code=PELP
+Foil=NotSupported
+Border=Black
+
+[2000-02-05]
+4 L Plains
+2 L Island
+5 L Swamp
+3 L Mountain
+1 L Forest
+[2000-06-15]
+9 L Plains
+7 L Island
+10 L Swamp
+8 L Mountain
+6 L Forest
+[2000-09-25]
+14 L Plains
+12 L Island
+15 L Swamp
+13 L Mountain
+11 L Forest

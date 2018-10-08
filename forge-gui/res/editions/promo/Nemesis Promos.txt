@@ -1,0 +1,10 @@
+[metadata]
+Name=Nemesis Promos
+Code=PNMS
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+Code=PPRE
+[2000-01-29]
+10 R Rathi Assassin

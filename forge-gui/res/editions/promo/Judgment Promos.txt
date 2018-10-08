@@ -1,0 +1,10 @@
+[metadata]
+Name=Judgment Promos
+Code=PJUD
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2002-05-18]
+17 R Glory

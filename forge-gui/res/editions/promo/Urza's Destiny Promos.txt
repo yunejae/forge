@@ -1,0 +1,16 @@
+[metadata]
+Name=Urza's Destiny Promos
+Code=PUDS
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+Code=PPRE
+[1999-05-29]
+7 C False Prophet
+
+[alt]
+Name=The Duelist Inserts
+MciCode=PMEI
+[1999-08-01]
+9 C Scent of Cinder

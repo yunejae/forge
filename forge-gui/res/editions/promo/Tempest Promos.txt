@@ -1,0 +1,10 @@
+[metadata]
+Name=Tempest
+Code=PTMP
+Foil=NotSupported
+
+[metadata]
+Name=Prerelease
+MciCode=PPRE
+[1997-10-01]
+1 C Dirtcowl Wurm

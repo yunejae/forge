@@ -1,0 +1,10 @@
+[metadata]
+Name=Exodus Promos
+Code=PEXO
+Foil=NotSupported
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[1998-06-01]
+3 R Monstrous Hound

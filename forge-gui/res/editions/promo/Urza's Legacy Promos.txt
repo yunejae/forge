@@ -1,0 +1,10 @@
+[metadata]
+Name=Urza's Legacy Promos
+Code=PULG
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[1999-02-06]
+5 R Beast of Burden

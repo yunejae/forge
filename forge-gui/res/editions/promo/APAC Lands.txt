@@ -1,0 +1,24 @@
+[metadata]
+Name=APAC Lands
+Code=PALP
+Foil=NotSupported
+Border=Black
+
+[1998-09-01]
+4 L Plains
+2 L Island
+5 L Swamp
+3 L Mountain
+1 L Forest
+[1998-10-01]
+9 L Plains
+7 L Island
+10 L Swamp
+8 L Mountain
+6 L Forest
+[1998-11-01]
+14 L Plains
+12 L Island
+15 L Swamp
+13 L Mountain
+11 L Forest

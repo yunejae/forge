@@ -1,0 +1,10 @@
+[metadata]
+Name=Odyssey Promos
+Code=PODY
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+Code=PPRE
+[2001-09-22]
+15 R Stone-Tongue Basilisk

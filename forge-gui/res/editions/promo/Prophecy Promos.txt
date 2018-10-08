@@ -1,0 +1,10 @@
+[metadata]
+Name=Prophecy Promos
+Code=PPCY
+Foil=OldStyle
+
+[alt]
+MciCode=PPRE
+Name=Prerelease
+[2000-05-27]
+11 R Avatar of Hope

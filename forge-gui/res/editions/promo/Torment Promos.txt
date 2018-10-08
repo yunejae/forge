@@ -1,0 +1,10 @@
+[metadata]
+Name=Torment Promos
+Code=TOR
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2002-01-26]
+16 R Laquatus's Champion

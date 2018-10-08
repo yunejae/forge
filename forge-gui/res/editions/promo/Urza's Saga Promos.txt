@@ -1,0 +1,51 @@
+[metadata]
+Name=Urza's Saga
+Code=USG
+Foil=NotSupported
+
+[alt]
+Name=Arena League
+MciCode=PAL99
+Foil=Always
+[1999-06-03]
+1 L Forest
+6 C Pouncing Jaguar
+[1999-06-07]
+3 R Karn, Silver Golem
+7 C Rewind
+8 C Skittering Skirge
+[1999-07-23]
+2 L Island
+[1999-09-30]
+4 L Mountain
+[1999-11-19]
+5 L Plains
+[2000-02-12]
+9 L Swamp
+
+[alt]
+Name=Arena League
+MciCode=PAL00
+[1999-06-07]
+2 C Duress
+
+[alt]
+Name=Judge Gift Cards
+MciCode=JGP
+[1998-01-01]
+2 R Stroke of Genius
+3 R Gaea's Cradle
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[1998-09-26]
+4 Lightning Dragon
+
+[alt]
+Name=Junior Super Series
+MciCode=PSUS
+Foil=Always
+[1999-06-07]
+1 R Thran Quarry
+2 R Serra Avatar

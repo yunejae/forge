@@ -1,0 +1,49 @@
+[metadata]
+Name=Classic Sixth Edition Promos
+Code=P6ED
+Border=Black
+Foil=Always
+
+[alt]
+Name=Arena League
+MciCode=PAL00
+[2000-03-30]
+3 U Uktabi Orangutan
+[2000-06-01]
+4 U Chill
+[2000-08-03]
+5 U Pillage
+[2000-09-28]
+6 U Enlightened Tutor
+[2000-11-30]
+7 U Stupor
+
+[alt]
+Name=Friday Night Magic
+MciCode=FNM
+[2000-02-04]
+1 U River Boa
+[2000-03-03]
+2 C Terror
+[2000-04-07]
+3 U Longbow Archer
+[2000-05-05]
+4 U Volcanic Geyser
+[2000-06-02]
+5 U Mind Warp
+[2000-07-07]
+6 C Shock
+[2000-12-01]
+12 U Staunch Defenders
+
+[alt]
+Name=Judge Gift Cards
+MciCode=G99
+[2000-12-25]
+1 C Memory Lapse
+
+[alt]
+Name=Worlds Cards
+MciCode=PWOR
+[1999-08-04]
+1 R Balduvian Horde

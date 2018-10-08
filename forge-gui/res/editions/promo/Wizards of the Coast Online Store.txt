@@ -1,0 +1,8 @@
+[metadata]
+Name=Wizards of the Coast Online Store
+Code=PWOS
+Foil=OldStyle
+Border=Black
+
+[1999-09-04]
+1 U Serra Angel

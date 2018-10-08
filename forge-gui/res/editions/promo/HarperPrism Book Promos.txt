@@ -1,0 +1,24 @@
+[metadata]
+Name=HarperPrism Book Promos
+Code=PHPR
+
+[alt]
+Code2=ARENA
+[1994-09-26]
+1 C Arena
+2 C Sewers of Estark
+
+[alt]
+Code2=WW
+[1994-11-23]
+3 C Windseeker Centaur
+
+[alt]
+Code2=SHC
+[1995-01-27]
+4 C Giant Badger
+
+[alt]
+Code2=FS
+[1995-03-23]
+5 C Mana Crypt

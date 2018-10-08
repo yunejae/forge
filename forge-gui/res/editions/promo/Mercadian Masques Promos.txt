@@ -1,0 +1,38 @@
+[metadata]
+Name=Mercadian Masques Promos
+Code=PMMQ
+Foil=OldStyle
+
+[alt]
+Name=Arena League
+MciCode=PAL00
+[2000-01-01]
+8 L Plains
+9 L Island
+10 L Swamp
+11 L Mountain
+12 L Forest
+
+[alt]
+Name=The CardZ Magazine Inserts
+MciCode=PMEI
+[1999-10-04]
+14 C Phyrexian Rager
+
+[alt]
+Name=Player's Guide Inserts
+MciCode=PMEI
+[1999-10-04]
+12 U Warmonger
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[1999-09-25]
+9 R Overtaker
+
+[alt]
+Name=TopDeck Inserts
+MciCode=PMEI
+[2000-01-01]
+10 C Lightning Hounds

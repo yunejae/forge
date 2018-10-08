@@ -1,0 +1,31 @@
+[metadata]
+Name=Arena League
+Code=PAL
+Border=Black
+
+[alt]
+MciCode=A01
+[2001-02-05]
+1 U Forest
+2 U Creeping Mold
+[2001-04-02]
+3 U Island
+4 U Dismiss
+[2001-06-04]
+5 U Mountain
+6 U Fling
+[2001-07-30]
+7 U Plains
+8 U Empyrial Armor
+[2001-10-01]
+9 U Swamp
+10 U Diabolic Edict
+[2001-12-03]
+11 U Forest
+12 U Gaea's Blessing
+
+[alt]
+MciCode=PAL02
+[2002-02-04]
+1 U Island
+2 U Man-o'-War

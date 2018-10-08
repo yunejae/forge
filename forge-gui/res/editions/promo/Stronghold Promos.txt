@@ -1,0 +1,10 @@
+[metadata]
+Name=Stronghold Promos
+Code=PSTH
+Foil=NotSupported
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[1998-02-01]
+2 R Revenant

@@ -1,0 +1,20 @@
+[metadata]
+Name=Fourth Edition Promos
+Code=P4ED
+Border=White
+Foil=NotSupported
+
+[alt]
+Name=Armada Comic Book Inserts
+MciCode=PMEI
+[1995-07-01]
+4 C Fireball
+[1995-08-01]
+5 C Blue Elemental Blast
+
+[alt]
+Name=Judge Gift Cards
+MciCode=JGP
+Border=Black
+[1998-01-01]
+1 C Lightning Bolt

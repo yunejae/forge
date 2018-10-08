@@ -1,0 +1,16 @@
+[metadata]
+Name=Planeshift Promos
+Code=PPLS
+Foil=OldStyle
+
+[alt]
+Name=The CardZ Magazine Inserts
+MciCode=PMEI
+[2000-01-01]
+13 C Silver Drake
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2001-01-27]
+13 R Questing Phelddagrif

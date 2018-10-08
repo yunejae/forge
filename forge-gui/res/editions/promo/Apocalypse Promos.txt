@@ -1,0 +1,10 @@
+[metadata]
+Name=Apocalypse Promos
+Code=PAPC
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2001-05-26]
+14 R Fungal Shambler

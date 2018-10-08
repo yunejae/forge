@@ -1,0 +1,10 @@
+[metadata]
+Name=Invasion Promos
+Code=PINV
+Foil=OldStyle
+
+[alt]
+Name=Prerelease
+Code=PPRE
+[2000-09-23]
+12 R Raging Kavu

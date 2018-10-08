@@ -1,0 +1,11 @@
+[metadata]
+Name=Guru Lands
+Code=PGRU
+Foil=NotSupported
+Border=Black
+[1999-07-12]
+4 L Plains
+2 L Island
+5 L Swamp
+3 L Mountain
+1 L Forest

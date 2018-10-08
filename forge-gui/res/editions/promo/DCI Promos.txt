@@ -1,0 +1,164 @@
+[metadata]
+Name=DCI Promos
+Code=PDCI
+Border=Black
+
+[alt]
+Name=Arena League
+MciCode=PARL
+[1996-01-01]
+1 L Plains
+2 L Island
+3 L Swamp
+4 L Mountain
+5 L Forest
+6 C Disenchant
+7 C Fireball
+
+[alt]
+Name=Arena League
+MciCode=PAL02
+[2002-04-08]
+3 R Arc Lightning
+[2002-06-03]
+4 R Dauthi Slayer
+[2002-08-05]
+5 R Mana Leak
+
+[alt]
+Name=Friday Night Magic
+MciCode=FNM
+[2000-08-04]
+8 R Giant Growth
+[2000-09-01]
+9 R Prodigal Sorcerer
+[2000-10-06]
+10 R Stone Rain
+[2000-11-03]
+11 R Llanowar Elves
+
+[alt]
+Name=Friday Night Magic
+MciCode=F01
+[2001-06-01]
+1 R Swords to Plowshares
+[2001-07-06]
+7 R Ophidian
+[2001-08-03]
+8 R Jackal Pup
+[2001-09-07]
+9 R Quirion Ranger
+[2001-10-05]
+10 R Carnophage
+[2001-11-02]
+11 R Impulse
+[2001-12-02]
+12 R Fireblast
+
+[alt]
+Name=Friday Night Magic
+MciCode=F02
+[2002-01-04]
+1 R Soltari Priest
+[2002-02-01]
+2 R Albino Troll
+[2002-03-01]
+3 R Dissipate
+[2002-04-05]
+4 R Black Knight
+[2002-05-03]
+5 R Wall of Blossoms
+[2002-06-07]
+6 R Fireslinger
+[2002-07-05]
+7 R Drain Life
+[2002-08-02]
+8 R Aura of Silence
+[2002-09-06]
+9 R Forbid
+[2002-10-04]
+10 R Spike Feeder
+[2002-11-01]
+11 R Mogg Fanatic
+[2002-12-06]
+12 R White Knight
+
+[metadata]
+Name=Friday Night Magic
+Code=F03
+[2003-01-03]
+1 R Bottle Gnomes
+[2003-02-07]
+2 R Muscle Sliver
+[2003-03-07]
+4 R Capsize
+[2003-04-04]
+5 R Priests of Titania
+[2003-05-02]
+6 R Goblin Bombardment
+[2003-06-06]
+7 R Scragnoth
+[2003-07-04]
+13 R Disenchant
+[2003-08-01]
+8 R Smother
+[2003-09-05]
+9 R Whipcorder
+[2003-10-03]
+10 R Sparksmith
+[2003-11-07]
+11 R Krosan Tusker
+[2003-12-05]
+12 R Withered Wretch
+
+[alt]
+Name=Judge Gift Cards
+MciCode=G00
+[2000-08-02]
+1 R Counterspell
+2 R Vampiric Tutor
+
+[alt]
+Name=Judge Gift Cards
+MciCode=G01
+[2001-05-31]
+1 R Ball Lightning
+[2001-09-01]
+2 R Oath of Druids
+
+[alt]
+Name=Judge Gift Cards
+MciCode=G02
+[2002-03-15]
+1 R Hammer of Bogardan
+[2002-11-08]
+2 R Tradewind Rider
+
+[alt]
+Name=Legend Membership
+MciCode=PLGM
+[1995-01-01]
+1 C Counterspell
+2 C Incinerate
+
+[alt]
+Name=Magic Player Rewards
+MciCode=MPR
+[2001-05-01]
+1 R Wasteland
+
+[alt]
+Name=Summer Series Grand Prix
+Code=F03
+[2008-06-01]
+3 R Crystalline Sliver
+
+[alt]
+Name=Super Series
+MciCode=PSUS
+[2000-12-02]
+3 R Lord of Atlantis
+4 R Crusade
+[2001-12-01]
+5 R Elvish Lyrist
+6 R City of Brass

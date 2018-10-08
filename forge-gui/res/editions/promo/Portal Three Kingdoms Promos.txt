@@ -1,0 +1,13 @@
+[metadata]
+Code=PPTK
+Name=Portal: Three Kingdoms Promos
+Border=White
+Foil=NotSupported
+
+[alt]
+MciCode=PPRE
+Name=Prerelease
+[1999-04-29]
+6 R Lu Bu, Master-at-Arms
+[1999-07-04]
+8 R Lu Bu, Master-at-Arms

@@ -1,0 +1,6 @@
+[metadata]
+Name=Super Series
+Code=PSUS
+
+[2002-12-01]
+7 R Volcanic Hammer
