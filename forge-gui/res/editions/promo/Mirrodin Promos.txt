@@ -1,0 +1,15 @@
+[metadata]
+Name=Mirrodin Promos
+Code=PMRD
+
+[alt]
+Name=Magic Player Rewards
+MciCode=P03
+[tokens]
+6 b_x_x_demon
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2003-09-20]
+21 R Sword of Kaldra

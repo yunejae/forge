@@ -4,6 +4,20 @@ Code=PONS
 Foil=OldStyle
 
 [alt]
+Name=Magic Player Rewards
+MciCode=PR2
+[tokens]
+7 r_5_5_dragon
+8 w_1_1_soldier
+
+[alt]
+Name=Magic Player Rewards
+MciCode=P03
+[tokens]
+2 g_1_1_insect
+4 g_2_2_bear
+
+[alt]
 Name=Prerelease
 MciCode=PPRE
 [2002-09-28]

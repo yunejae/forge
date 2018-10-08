@@ -1,0 +1,10 @@
+[metadata]
+Name=Fifth Edition Promos
+Code=P5ED
+Foil=NotSupported
+
+[alt]
+Name=RPG Magazine Inserts
+MciCode=PMEI
+[1997-05-01]
+25/ja C Stream of Life

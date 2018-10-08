@@ -26,6 +26,22 @@ MciCode=PAL02
 5 R Mana Leak
 
 [alt]
+Name=Arena League
+Code=A03
+MciCode=PAL03
+[2003-02-02]
+1 R Plains
+2 R Island
+3 R Swamp
+4 R Mountain
+5 R Forest
+6 R Skirk Marauder
+[2003-05-26]
+7 R Elvish Aberration
+[2003-10-06]
+8 R Bonesplitter
+
+[alt]
 Name=Friday Night Magic
 MciCode=FNM
 [2000-08-04]
@@ -112,6 +128,40 @@ Code=F03
 12 R Withered Wretch
 
 [alt]
+Name=Friday Night Magic
+Code=F04
+[2004-01-02]
+1 R Willbender
+[2004-02-06]
+2 R Slice and Dice
+[2004-03-05]
+3 R Silver Knight
+[2004-04-02]
+4 R Krosan Warchief
+[2004-05-07]
+5 R Lightning Rift
+[2004-06-04]
+6 R Carrion Feeder
+[2004-07-02]
+7 R Treetop Village
+[2004-08-06]
+8 R Accumulated Knowledge
+[2004-09-03]
+9 R Avalanche Riders
+[2004-10-01]
+10 R Reanimate
+[2004-11-05]
+11 R Mother of Runes
+[2004-12-03]
+12 R Brainstorm
+
+[alt]
+Name=Japan Junior Tournament
+Code=N03
+MciCode=PJJT
+1NO3/ja R Volcanic Hammer
+
+[alt]
 Name=Judge Gift Cards
 MciCode=G00
 [2000-08-02]
@@ -135,6 +185,29 @@ MciCode=G02
 2 R Tradewind Rider
 
 [alt]
+Name=Judge Gift Cards
+Code=G03
+[2003-05-09]
+3 Living Death
+[2003-07-01]
+1 Intuition
+[2004-05-29]
+2 Argothian Enchantress
+
+[alt]
+Name=Judge Gift Cards
+Code=G04
+[2004-05-29]
+2 R Balance
+[2004-12-17]
+1 R Armageddon
+3 R Time Warp
+4 R Phyrexian Negator
+6 R Hermit Druids
+[2005-09-21]
+5 R Deranged Hermit
+
+[alt]
 Name=Legend Membership
 MciCode=PLGM
 [1995-01-01]
@@ -146,6 +219,18 @@ Name=Magic Player Rewards
 MciCode=MPR
 [2001-05-01]
 1 R Wasteland
+
+[alt]
+Name=Magic Player Rewards
+Code=P03
+[2003-01-01]
+1 R Voidmage Prodigy
+
+[alt]
+Name=Magic Player Rewards
+Code=P04
+[2003-09-01]
+1 R Powder Keg
 
 [alt]
 Name=Summer Series Grand Prix
@@ -162,3 +247,11 @@ MciCode=PSUS
 [2001-12-01]
 5 R Elvish Lyrist
 6 R City of Brass
+
+[alt]
+Name=Super Series
+MciCode=PSUS
+Code=J03
+[2003-12-01]
+8 R Giant Growth
+9 R Two-Headed Dragon

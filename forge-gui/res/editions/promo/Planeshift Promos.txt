@@ -10,6 +10,12 @@ MciCode=PMEI
 13 C Silver Drake
 
 [alt]
+Name=Magic Player Rewards
+MciCode=MPR
+[tokens]
+5 w_1_1_spirit
+
+[alt]
 Name=Prerelease
 MciCode=PPRE
 [2001-01-27]

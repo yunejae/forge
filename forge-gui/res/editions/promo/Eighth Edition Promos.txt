@@ -1,0 +1,15 @@
+[metadata]
+Name=Eighth Edition Promos
+Code=P8ED
+
+[alt]
+Name=Magic Player Rewards
+MciCode=P03
+[tokens]
+7 r_4_4_rukh
+
+[alt]
+Name=Release
+MciCode=PREL
+[2003-07-26]
+1 R Rukh Egg

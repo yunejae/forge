@@ -1,0 +1,9 @@
+[metadata]
+Name=Scourge Promos
+Code=PSCG
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2003-05-17]
+20 R Soul Collector

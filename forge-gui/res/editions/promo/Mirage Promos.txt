@@ -1,0 +1,11 @@
+[metadata]
+Name=Mirage Promos
+Code=PMIR
+Foil=NotSupported
+
+[alt]
+Name=RPG Magazine Inserts
+MciCode=PMEI
+[1996-11-01]
+22/ja C Sandbar Crocodile
+23/ja C Zhalfirin Knight

@@ -1,0 +1,16 @@
+[metadata]
+Name=Legions Promos
+Code=PLGN
+
+[alt]
+Name=Magic Player Rewards
+MciCode=P03
+[tokens]
+3 c_1_1_sliver
+5 r_1_1_goblin
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2003-01-25]
+19 R Feral Throwback

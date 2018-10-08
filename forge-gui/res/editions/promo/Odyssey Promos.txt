@@ -4,6 +4,22 @@ Code=PODY
 Foil=OldStyle
 
 [alt]
+Name=Magic Player Rewards
+MciCode=MPR
+[tokens]
+7 g_2_2_bear
+8 g_4_4_beast
+
+[alt]
+Name=Magic Player Rewards
+MciCode=PR2
+[tokens]
+3 g_1_1_squirrel
+4 b_2_2_zombie
+5 g_3_3_elephant
+6 g_6_6_wurm
+
+[alt]
 Name=Prerelease
 Code=PPRE
 [2001-09-22]

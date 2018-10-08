@@ -1,0 +1,11 @@
+[metadata]
+Name=Visions Promos
+Code=PVIS
+Foil=NotSupported
+
+[alt]
+Name=RPG Magazine Inserts
+MciCode=PMEI
+[1997-02-01]
+24/ja C Shrieking Drake
+C Talruum Champion

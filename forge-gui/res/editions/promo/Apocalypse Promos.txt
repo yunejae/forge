@@ -4,6 +4,12 @@ Code=PAPC
 Foil=OldStyle
 
 [alt]
+Name=Magic Player Rewards
+MciCode=MPR
+[tokens]
+6 rw_1_1_goblin_soldier
+
+[alt]
 Name=Prerelease
 MciCode=PPRE
 [2001-05-26]

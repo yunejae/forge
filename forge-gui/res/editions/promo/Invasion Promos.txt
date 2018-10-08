@@ -8,3 +8,11 @@ Name=Prerelease
 Code=PPRE
 [2000-09-23]
 12 R Raging Kavu
+
+[alt]
+Name=Magic Player Rewards
+MciCode=MPR
+[tokens]
+4 u_1_1_bird
+3 g_3_3_elephant
+2 g_1_1_saproling
