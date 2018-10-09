@@ -9,6 +9,13 @@ MciCode=P03
 6 b_x_x_demon
 
 [alt]
+Name=Magic Player Rewards
+Code=P04
+[tokens]
+3 c_1_1_pentavite
+4 c_1_1_myr
+
+[alt]
 Name=Prerelease
 MciCode=PPRE
 [2003-09-20]

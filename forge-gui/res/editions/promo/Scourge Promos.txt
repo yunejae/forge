@@ -3,6 +3,12 @@ Name=Scourge Promos
 Code=PSCG
 
 [alt]
+Name=Magic Player Rewards
+Code=P04
+[tokens]
+2 w_4_4_angel
+
+[alt]
 Name=Prerelease
 MciCode=PPRE
 [2003-05-17]
