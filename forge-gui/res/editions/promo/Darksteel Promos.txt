@@ -1,0 +1,9 @@
+[metadata]
+Name=Darksteel Promos
+Code=PDST
+
+[alt]
+Name=Magic Player Rewards
+Code=P04
+[tokens]
+5 g_3_3_beast
