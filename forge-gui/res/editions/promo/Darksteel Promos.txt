@@ -1,9 +1,16 @@
 [metadata]
 Name=Darksteel Promos
 Code=PDST
+Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
-Code=P04
-[tokens]
+MciCode=P04
+[2004-05-01]
 5 g_3_3_beast
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2004-01-24]
+22 R Shield of Kaldra

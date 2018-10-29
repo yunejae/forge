@@ -1,12 +1,13 @@
 [metadata]
 Name=Eighth Edition Promos
 Code=P8ED
+Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
 MciCode=P03
-[tokens]
-7 r_4_4_rukh
+[2003-09-01]
+7 r_4_4_bird_flying
 
 [alt]
 Name=Release

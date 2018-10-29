@@ -1,0 +1,12 @@
+[metadata]
+Name=Magic Premiere Shop
+Code=MPS
+
+[alt]
+MciCode=PMPS07
+[2007-11-01]
+1 L Plains
+2 L Island
+3 L Swamp
+4 L Mountain
+5 L Forest

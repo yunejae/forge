@@ -1,12 +1,13 @@
 [metadata]
 Name=Scourge Promos
 Code=PSCG
+Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
-Code=P04
-[tokens]
-2 w_4_4_angel
+MciCode=P04
+[2004-01-01]
+2 w_4_4_angel_flying
 
 [alt]
 Name=Prerelease

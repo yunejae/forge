@@ -1,0 +1,33 @@
+[metadata]
+Name=Magic: the Gathering Promos
+Code=PMTG
+Border=Black
+
+[alt]
+Name=Arena League
+MciCode=PARL
+[1996-01-01]
+1 L Plains
+2 L Island
+3 L Swamp
+4 L Mountain
+5 L Forest
+6 C Disenchant
+7 C Fireball
+
+[alt]
+Name=Legend Membership
+MciCode=PLGM
+[1995-01-01]
+1 C Counterspell
+2 C Incinerate
+
+[alt]
+Name=Magic Premiere Shop
+MciCode=PMPS06
+[2006-12-01]
+1/ja R Plains
+2/ja R Island
+3/ja R Swamp
+4/ja R Mountain
+5/ja R Forest

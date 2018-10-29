@@ -1,0 +1,9 @@
+[metadata]
+Name=Coldsnap Promos
+Code=PCSP
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2006-07-08]
+30 R Allosaurus Rider

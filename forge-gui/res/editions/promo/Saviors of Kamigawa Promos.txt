@@ -1,0 +1,15 @@
+[metadata]
+Name=Saviors of Kamigawa Promos
+Code=PSOK
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2005-05-21]
+26 R Kiyomaro, First to Stand
+
+[alt]
+Name=Release
+MciCode=PREL
+[2005-06-03]
+4 U Ghost-Lit Raider

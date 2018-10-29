@@ -1,0 +1,23 @@
+[metadata]
+Name=Guildpact Promos
+Code=PGPT
+
+[alt]
+Name=Champs
+Code=CHAMPS
+MciCode=PCMP
+[2006-03-18]
+1 U Electrolyze
+2 R Niv-Mizzet, the Firemind
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2006-01-21]
+28 R Djinn Illuminatus
+
+[alt]
+Name=Release
+MciCode=PREL
+[2006-02-03]
+8 U Gruul Guildmage

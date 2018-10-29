@@ -1,0 +1,15 @@
+[metadata]
+Name=Betrayers of Kamigawa Promos
+Code=PBOK
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2005-01-22]
+25 R Ink-Eyes, Servant of Oni
+
+[alt]
+Name=Release
+MciCode=PREL
+[2005-02-04]
+3a U Budoka Pupil

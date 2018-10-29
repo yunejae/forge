@@ -1,0 +1,40 @@
+[metadata]
+Name=Ravnica: City of Guilds Promos
+Code=PRAV
+
+[alt]
+Name=Magic Premiere Shop
+MciCode=PMPS
+[2006-01-01]
+287/ja L Plains
+288/ja L Plains
+289/ja L Plains
+290/ja L Plains
+291/ja L Island
+292/ja L Island
+293/ja L Island
+294/ja L Island
+295/ja L Swamp
+296/ja L Swamp
+297/ja L Swamp
+298/ja L Swamp
+299/ja L Mountain
+300/ja L Mountain
+301/ja L Mountain
+302/ja L Mountain
+303/ja L Forest
+304/ja L Forest
+305/ja L Forest
+306/ja L Forest
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2005-09-24]
+27 R Gleancrawler
+
+[alt]
+Name=Release
+MciCode=PREL
+[2005-10-07]
+7 U Dimir Guildmage

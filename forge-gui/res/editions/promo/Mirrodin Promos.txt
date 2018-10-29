@@ -1,19 +1,21 @@
 [metadata]
 Name=Mirrodin Promos
 Code=PMRD
+Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
 MciCode=P03
-[tokens]
-6 b_x_x_demon
+[2003-09-01]
+6 b_x_x_demon_flying
 
 [alt]
 Name=Magic Player Rewards
-Code=P04
-[tokens]
-3 c_1_1_pentavite
-4 c_1_1_myr
+MciCode=P04
+[2004-01-01]
+3 c_1_1_a_pentavite_flying
+[2004-05-01]
+4 c_1_1_a_myr
 
 [alt]
 Name=Prerelease

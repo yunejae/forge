@@ -1,0 +1,23 @@
+[metadata]
+Name=Dissension Promos
+Code=PDIS
+
+[alt]
+Name=Champs
+Code=CHAMPS
+MciCode=PCMP
+[2006-06-24]
+3 U Rakdos Guildmage
+4 R Voidslime
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2006-04-22]
+29 R Avatar of Discord
+
+[alt]
+Name=Release
+MciCode=PREL
+[2006-05-05]
+9 U Azorius Guildmage

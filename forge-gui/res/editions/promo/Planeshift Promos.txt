@@ -11,9 +11,9 @@ MciCode=PMEI
 
 [alt]
 Name=Magic Player Rewards
-MciCode=MPR
-[tokens]
-5 w_1_1_spirit
+MciCode=PMPR
+[2001-05-01]
+4 w_1_1_spirit
 
 [alt]
 Name=Prerelease

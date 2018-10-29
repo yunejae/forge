@@ -1,0 +1,9 @@
+[metadata]
+Name=Future Sight Promos
+Code=PFUT
+
+[alt]
+Name=Release
+MciCode=PREL
+[2007-05-04]
+12 U Storm Entity

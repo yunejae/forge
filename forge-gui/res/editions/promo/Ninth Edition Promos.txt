@@ -1,0 +1,10 @@
+[metadata]
+Name=Ninth Edition Promos
+Code=P9ED
+
+[alt]
+Name=Release
+MciCode=PREL
+[2005-07-29]
+5 R Force of Nature
+6/ru R Shivan Dragon

@@ -1,0 +1,16 @@
+[metadata]
+Name=Champions of Kamigawa Promos
+Code=PCHK
+Foil=OldStyle
+
+[alt]
+Name=Magic Player Rewards
+MciCode=P04
+[2004-09-01]
+6 c_1_1_spirit
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2004-09-18]
+24 R Ryusei, the Falling Star

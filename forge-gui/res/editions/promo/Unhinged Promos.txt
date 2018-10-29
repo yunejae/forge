@@ -1,0 +1,9 @@
+[metadata]
+Name=Unhinged Promos
+Code=PUNH
+
+[alt]
+Name=Release
+MciCode=PREL
+[2004-11-20]
+2 R Ass Whuppin'

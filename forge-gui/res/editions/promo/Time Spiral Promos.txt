@@ -1,0 +1,23 @@
+[metadata]
+Name=Time Spiral Promos
+Code=PTSP
+
+[alt]
+Name=Champs
+Code=CHAMPS
+MciCode=PCMP
+[2006-10-21]
+5 U Urza's Factory
+6 R Serra Avenger
+
+[alt]
+Name=Prerelease
+MciCode=PPRE
+[2006-09-23]
+31 R Lotus Bloom
+
+[alt]
+Name=Release
+MciCode=PREL
+[2006-10-06]
+10 U Sudden Shock

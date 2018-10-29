@@ -5,22 +5,23 @@ Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
-MciCode=MPR
-[tokens]
+MciCode=PMPR
+[2001-09-01]
 7 g_2_2_bear
 8 g_4_4_beast
 
 [alt]
 Name=Magic Player Rewards
 MciCode=PR2
-[tokens]
+[2002-01-01]
 3 g_1_1_squirrel
-4 b_2_2_zombie
 5 g_3_3_elephant
+[2002-05-01]
+4 b_2_2_zombie
 6 g_6_6_wurm
 
 [alt]
 Name=Prerelease
-Code=PPRE
+MciCode=PPRE
 [2001-09-22]
 15 R Stone-Tongue Basilisk

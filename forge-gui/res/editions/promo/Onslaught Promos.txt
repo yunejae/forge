@@ -6,15 +6,16 @@ Foil=OldStyle
 [alt]
 Name=Magic Player Rewards
 MciCode=PR2
-[tokens]
-7 r_5_5_dragon
+[2002-09-01]
+7 r_5_5_dragon_flying
 8 w_1_1_soldier
 
 [alt]
 Name=Magic Player Rewards
 MciCode=P03
-[tokens]
+[2003-01-01]
 2 g_1_1_insect
+[2003-05-01]
 4 g_2_2_bear
 
 [alt]

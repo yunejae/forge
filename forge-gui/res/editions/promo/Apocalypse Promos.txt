@@ -5,8 +5,8 @@ Foil=OldStyle
 
 [alt]
 Name=Magic Player Rewards
-MciCode=MPR
-[tokens]
+MciCode=PMPR
+[2001-05-01]
 6 rw_1_1_goblin_soldier
 
 [alt]

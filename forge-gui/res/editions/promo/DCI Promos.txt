@@ -1,19 +1,15 @@
 [metadata]
 Name=DCI Promos
-Code=PDCI
+Code=DCI
 Border=Black
 
 [alt]
-Name=Arena League
-MciCode=PARL
-[1996-01-01]
-1 L Plains
-2 L Island
-3 L Swamp
-4 L Mountain
-5 L Forest
-6 C Disenchant
-7 C Fireball
+Name=APAC Junior Series
+Code=U06
+MciCode=MJAS
+[2006-01-01]
+1U06 R Sakura-Tribe Elder
+2U06 R Shard Phoenix
 
 [alt]
 Name=Arena League
@@ -29,7 +25,7 @@ MciCode=PAL02
 Name=Arena League
 Code=A03
 MciCode=PAL03
-[2003-02-02]
+[2003-02-03]
 1 R Plains
 2 R Island
 3 R Swamp
@@ -40,6 +36,65 @@ MciCode=PAL03
 7 R Elvish Aberration
 [2003-10-06]
 8 R Bonesplitter
+
+[alt]
+Name=Arena League
+Code=A04
+MciCode=PAL04
+[2003-10-06]
+1 R Plains
+2 R Island
+3 R Swamp
+4 R Mountain
+5 R Forest
+[2004-02-06]
+6 R Darksteel Ingot
+[2004-06-04]
+7 R Serum Visions
+[2004-10-01]
+8 R Glacial Ray
+[2004-11-20]
+9 R Circle of Protection: Art
+10 R Mise
+11 R Booster Tutor
+12 R Goblin Mime
+13 R Granny's Payback
+14 R Ashnod's Coupon
+
+[alt]
+Name=Arena League
+Code=A05
+MciCode=PAL05
+[2004-11-20]
+1 R Plains
+2 R Island
+3 R Swamp
+4 R Mountain
+5 R Forest
+[2005-02-04]
+6 R Genju of the Spires
+[2005-06-03]
+7 R Okina Nightwatch
+[2005-10-07]
+8 R Skyknight Legionnaire
+
+[alt]
+Name=Arena League
+Code=A06
+MciCode=PAL06
+[2005-10-07]
+1 R Plains
+2 R Island
+3 R Swamp
+4 R Mountain
+5 R Forest
+[2006-02-03]
+6 R Castigate
+7 R Wee Dragonauts
+[2006-05-05]
+8 R Coiling Oracle
+[2006-07-01]
+9 R Surging Flame
 
 [alt]
 Name=Friday Night Magic
@@ -156,10 +211,151 @@ Code=F04
 12 R Brainstorm
 
 [alt]
+Name=Friday Night Magic
+Code=F05
+[2005-01-07]
+1 R Rancor
+[2005-02-04]
+2 R Seal of Cleansing
+[2005-03-04]
+3 R Flametongue Kavu
+[2005-04-01]
+4 R Blastoderm
+[2005-05-06]
+5 R Cabal Therapy
+[2005-06-03]
+6 R Fact or Fiction
+[2005-07-01]
+7 R Juggernaut
+[2005-08-05]
+8 R Circle of Protection: Red
+[2005-09-02]
+9 R Kird Ape
+[2005-10-07]
+10 R Duress
+[2005-11-04]
+11 R Counterspell
+[2005-12-02]
+12 R Icy Manipulator
+
+[alt]
+Name=Friday Night Magic
+Code=F06
+[2006-01-06]
+1 R Elves of Deep Shadow
+[2006-02-03]
+2 R Armadillo Cloak
+[2006-03-03]
+3 R Terminate
+[2006-04-07]
+4 R Lobotomy
+[2006-05-05]
+5 R Goblin Warchief
+[2006-06-02]
+6 R Wild Mongrel
+[2006-07-07]
+7 R Chainer's Edict
+[2006-08-04]
+8 R Circular Logic
+[2006-09-01]
+9 R Astral Slide
+[2006-10-06]
+10 R Arrogant Wurm
+[2006-11-03]
+11 R Life // Death
+[2006-12-01]
+12 R Fire // Ice
+
+[alt]
+Name=Friday Night Magic
+Code=F07
+[2007-01-05]
+1 R Firebolt
+[2007-02-02]
+2 R Deep Analysis
+[2007-03-02]
+3 R Gerrard's Verdict
+[2007-04-06]
+4 R Basking Rootwalla
+[2007-05-04]
+5 R Wonder
+[2007-06-01]
+6 R Goblin Legionnaire
+[2007-07-06]
+7 R Engineered Plague
+[2007-08-03]
+8 R Goblin Ringleader
+[2007-09-07]
+9 R Wing Shards
+[2007-10-05]
+10 R Cabal Coffers
+[2007-11-02]
+11 R Roar of the Wurm
+[2007-12-07]
+12 R Force Spike
+
+[alt]
+Name=Gateway
+MciCode=PGTW
+[2006-01-01]
+1 R Wood Elves
+2 R Icatian Javelineers
+3 R Fiery Temper
+
+[alt]
+Name=Gateway
+MciCode=PG07
+[2007-01-01]
+4 R Boomerang
+5 R Calciderm
+6 R Reckless Wurm
+7 R Yixlid Jailer
+8 R Zoetic Cavern
+[2007-10-01]
+9 R Llanowar Elves
+10 R Mogg Fanatic
+11 R Mind Stone
+[2007-11-01]
+12 R Dauntless Dourbark
+
+[alt]
 Name=Japan Junior Tournament
 Code=N03
 MciCode=PJJT
-1NO3/ja R Volcanic Hammer
+[2003-06-01]
+1N03/ja R Volcanic Hammer
+
+[alt]
+Name=Japan Junior Tournament
+Code=N04
+MciCode=PJJT
+[2004-01-01]
+1N04/ja R Giant Growth
+2N04/ja R Two-Headed Dragon
+
+[alt]
+Name=Japan Junior Tournament
+Code=N05
+MciCode=PJJT
+[2005-01-01]
+1N05/ja R Slith Firewalker
+2N05/ja R Royal Assassin
+
+[alt]
+Name=Japan Junior Tournament
+Code=N06
+MciCode=PJJT
+[2006-01-01]
+1N06/ja R Sakura-Tribe Elder
+2N06/ja R Shard Phoenix
+
+[alt]
+Name=Japan Junior Tournament
+Code=N07
+MciCode=PJJT
+[2007-01-01]
+1N07/ja R Soltari Priest
+2N07/ja R Whirling Dervish
 
 [alt]
 Name=Judge Gift Cards
@@ -188,11 +384,11 @@ MciCode=G02
 Name=Judge Gift Cards
 Code=G03
 [2003-05-09]
-3 Living Death
+3 R Living Death
 [2003-07-01]
-1 Intuition
+1 R Intuition
 [2004-05-29]
-2 Argothian Enchantress
+2 R Argothian Enchantress
 
 [alt]
 Name=Judge Gift Cards
@@ -203,16 +399,57 @@ Code=G04
 1 R Armageddon
 3 R Time Warp
 4 R Phyrexian Negator
-6 R Hermit Druids
+6 R Hermit Druid
 [2005-09-21]
 5 R Deranged Hermit
 
 [alt]
-Name=Legend Membership
-MciCode=PLGM
-[1995-01-01]
-1 C Counterspell
-2 C Incinerate
+Name=Judge Gift Cards
+Code=G05
+[2005-07-02]
+1 R Gemstone Mine
+[2005-07-10]
+3 R Sol Ring
+[2005-10-28]
+4 R Mishra's Factory
+[2006-03-03]
+2 R Regrowth
+
+[alt]
+Name=Judge Gift Cards
+Code=G06
+[2005-11-30]
+1 R Exalted Angel
+2 R Grim Lavamancer
+4 R Pernicious Deed
+[2006-06-16]
+3 R Meddling Mage
+
+[alt]
+Name=Judge Gift Cards
+Code=G07
+[2007-01-01]
+1 R Ravenous Baloth
+2 R Cunning Wish
+3 R Yawgmoth's Will
+4 R Vindicate
+5 R Decree of Justice
+
+[alt]
+Name=Junior Series
+Code=E05
+MciCode=PJSE
+[2005-01-01]
+1E05 R Slith Firewalker
+2E05 R Royal Assassin
+
+[alt]
+Name=Junior Series
+Code=E06
+MciCode=PJSE
+[2006-01-01]
+1E06 R Sakura-Tribe Elder
+2E06 R Shard Phoenix
 
 [alt]
 Name=Magic Player Rewards
@@ -229,8 +466,46 @@ Code=P03
 [alt]
 Name=Magic Player Rewards
 Code=P04
-[2003-09-01]
+[2003-09]
 1 R Powder Keg
+
+[alt]
+Name=Magic Player Rewards
+Code=P05
+[2004-09-01]
+1 R Psychatog
+2 R Terror
+[2005-01-01]
+3 R Fireball
+4 R Oxidize
+[2005-05-01]
+5 R Mana Leak
+6 R Reciprocate
+
+[alt]
+Name=Magic Player Rewards
+Code=P06
+[2005-09-01]
+1 R Hypnotic Specter
+2 R Hinder
+3 R Pyroclasm
+[2006-01-01]
+4 R Giant Growth
+5 R Putrefy
+[2006-05-01]
+6 R Zombify
+7 R Lightning Helix
+
+[alt]
+Name=Magic Player Rewards
+Code=P07
+1 R Wrath of God
+2 R Condemn
+3 R Mortify
+4 R Psionic Blast
+5 R Cruel Edict
+6 R Disenchant
+7 R Recollect
 
 [alt]
 Name=Summer Series Grand Prix
@@ -250,8 +525,31 @@ MciCode=PSUS
 
 [alt]
 Name=Super Series
-MciCode=PSUS
 Code=J03
+MciCode=PSUS
 [2003-12-01]
 8 R Giant Growth
 9 R Two-Headed Dragon
+
+[alt]
+Name=Super Series
+Code=J05
+MciCode=PSUS
+[2005-01-01]
+10 R Slith Firewalker
+11 R Royal Assassin
+
+[alt]
+Name=Super Series
+Code=J06
+MciCode=PSUS
+[2006-01-01]
+12 R Sakura-Tribe Elder
+13 R Shard Phoenix
+
+[alt]
+Name=Two-Headed Giant
+Code=M
+MciCode=P2HG
+[2005-12-09]
+1 R Underworld Dreams
