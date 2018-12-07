@@ -12,7 +12,6 @@ import forge.game.card.CardPredicates;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.keyword.Keyword;
-import forge.game.phase.PhaseHandler;
 import forge.game.phase.PhaseType;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
@@ -28,7 +27,6 @@ public class MustBlockAi extends SpellAbilityAi {
         final Card source = sa.getHostCard();
         final Game game = aiPlayer.getGame();
         final Combat combat = game.getCombat();
-        final PhaseHandler ph = game.getPhaseHandler();
         final boolean onlyLethal = !"AllowNonLethal".equals(sa.getParam("AILogic"));
 
         if (combat == null || !combat.isAttacking(source)) {
@@ -39,7 +37,6 @@ public class MustBlockAi extends SpellAbilityAi {
             return false;
         }
 
-        final TargetRestrictions abTgt = sa.getTargetRestrictions();
         final List<Card> list = determineGoodBlockers(source, aiPlayer, combat.getDefenderPlayerByAttacker(source), sa, onlyLethal,false);
 
         if (!list.isEmpty()) {
@@ -126,7 +123,7 @@ public class MustBlockAi extends SpellAbilityAi {
         return chance;
     }
 
-    private List<Card> determineGoodBlockers(Card attacker, Player ai, Player defender, SpellAbility sa, boolean onlyLethal, boolean testTapped) {
+    private List<Card> determineGoodBlockers(final Card attacker, final Player ai, Player defender, SpellAbility sa, final boolean onlyLethal, final boolean testTapped) {
         final Card source = sa.getHostCard();
         final TargetRestrictions abTgt = sa.getTargetRestrictions();
 

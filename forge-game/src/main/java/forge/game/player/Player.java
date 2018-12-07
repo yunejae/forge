@@ -620,10 +620,6 @@ public class Player extends GameEntity implements Comparable<Player> {
             return damage;
         }
 
-        if (isCombat && game.getPhaseHandler().isPreventCombatDamageThisTurn()) {
-            return 0;
-        }
-
         if (hasProtectionFromDamage(source)) {
             return 0;
         }

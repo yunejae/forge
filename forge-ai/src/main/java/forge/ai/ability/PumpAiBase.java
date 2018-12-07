@@ -520,7 +520,7 @@ public abstract class PumpAiBase extends SpellAbilityAi {
                 }
             }); // leaves all creatures that will be destroyed
         } // -X/-X end
-        else if (attack < 0 && !game.getPhaseHandler().isPreventCombatDamageThisTurn()) {
+        else if (attack < 0) {
             // spells that give -X/0
             boolean isMyTurn = game.getPhaseHandler().isPlayerTurn(ai);
             if (isMyTurn) {

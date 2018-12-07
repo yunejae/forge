@@ -268,6 +268,7 @@ public class AnimateAllEffect extends AnimateEffectBase {
                     for (final ReplacementEffect re : removedReplacements) {
                         re.setTemporarilySuppressed(false);
                     }
+                    c.updateStateForView();
                     game.fireEvent(new GameEventCardStatsChanged(c));
                 }
             };

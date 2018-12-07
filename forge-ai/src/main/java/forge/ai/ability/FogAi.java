@@ -25,9 +25,9 @@ public class FogAi extends SpellAbilityAi {
         final Card hostCard = sa.getHostCard();
 
         // Don't cast it, if the effect is already in place
-        if (game.getPhaseHandler().isPreventCombatDamageThisTurn()) {
-            return false;
-        }
+        //if (game.getPhaseHandler().isPreventCombatDamageThisTurn()) {
+        //    return false;
+        //}
 
         // if card would be destroyed, react and use immediately if it's not own turn
         if ((AiCardMemory.isRememberedCard(ai, hostCard, AiCardMemory.MemorySet.CHOSEN_FOG_EFFECT))

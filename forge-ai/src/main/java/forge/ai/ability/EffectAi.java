@@ -63,6 +63,7 @@ public class EffectAi extends SpellAbilityAi {
                     randomReturn = true;
                 }
             } else if (logic.equals("Fog")) {
+                // TODO move to Prevent Damage Effect
                 if (game.getPhaseHandler().isPlayerTurn(sa.getActivatingPlayer())) {
                     return false;
                 }
@@ -72,9 +73,11 @@ public class EffectAi extends SpellAbilityAi {
                 if (!game.getStack().isEmpty()) {
                     return false;
                 }
+                /*
                 if (game.getPhaseHandler().isPreventCombatDamageThisTurn()) {
                     return false;
                 }
+                //*/
                 if (!ComputerUtilCombat.lifeInDanger(ai, game.getCombat())) {
                     return false;
                 }

@@ -4442,10 +4442,6 @@ public class Card extends GameEntity implements Comparable<Card> {
             return damageIn;
         }
 
-        if (isCombat && getGame().getPhaseHandler().isPreventCombatDamageThisTurn()) {
-            return 0;
-        }
-
         int restDamage = damageIn;
 
         if (hasProtectionFromDamage(source)) {

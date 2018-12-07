@@ -109,6 +109,7 @@ public enum ApiType {
     Poison (PoisonEffect.class),
     PreventDamage (DamagePreventEffect.class),
     PreventDamageAll (DamagePreventAllEffect.class),
+    PreventDamageEffect (PreventDamageEffect.class),
     Proliferate (CountersProliferateEffect.class),
     Protection (ProtectEffect.class),
     ProtectionAll (ProtectAllEffect.class),
