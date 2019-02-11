@@ -238,6 +238,12 @@ r_1_1_survivor.jpg                     https://downloads.cardforge.org/images/to
 r_1_1_warrior.jpg                      https://downloads.cardforge.org/images/tokens/r_1_1_warrior.jpg
 r_2_1_goblin.jpg                       https://downloads.cardforge.org/images/tokens/r_2_1_goblin.jpg
 r_2_2_dragon_m14.jpg                   https://downloads.cardforge.org/images/tokens/r_2_2_dragon_m14.jpg
+r_2_2_dragon_flying_firebreathing.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing.jpg
+r_2_2_dragon_flying_firebreathing_ema.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing_ema.jpg
+r_2_2_dragon_flying_firebreathing_ima.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing_ima.jpg
+r_2_2_dragon_flying_firebreathing_m14.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing_m14.jpg
+r_2_2_dragon_flying_firebreathing_m15.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing_m15.jpg
+r_2_2_dragon_flying_firebreathing_m19.jpg https://downloads.cardforge.org/images/tokens/r_2_2_dragon_flying_firebreathing_m19.jpg
 r_3_1_carnivore.jpg                    https://downloads.cardforge.org/images/tokens/r_3_1_carnivore.jpg
 r_3_1_elemental.jpg                    https://downloads.cardforge.org/images/tokens/r_3_1_elemental.jpg
 r_3_1_elemental_bfz.jpg                https://downloads.cardforge.org/images/tokens/r_3_1_elemental_bfz.jpg
