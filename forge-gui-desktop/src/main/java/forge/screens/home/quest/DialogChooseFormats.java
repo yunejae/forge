@@ -1,12 +1,10 @@
 package forge.screens.home.quest;
 
 import forge.assets.FSkinProp;
-import forge.card.CardEdition;
 import forge.game.GameFormat;
 import forge.gui.SOverlayUtils;
 import forge.model.FModel;
 import forge.toolbox.*;
-import forge.util.TextUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -116,6 +114,10 @@ public class DialogChooseFormats {
 
 	public boolean getWantReprints() {
 		return wantReprints;
+	}
+
+	public void setWantReprintsCB(boolean isSet) {
+	    cbWantReprints.setSelected(isSet);
 	}
 
 	private JPanel makeCheckBoxList(List<FCheckBox> formats, String title, boolean focused) {

@@ -135,9 +135,10 @@ public class CountersPutEffect extends SpellAbilityEffect {
 
         for (final GameObject obj : tgtObjects) {
             // check if the object is still in game or if it was moved
+            Card gameCard = null;
             if (obj instanceof Card) {
                 Card tgtCard = (Card) obj;
-                Card gameCard = game.getCardState(tgtCard, null);
+                gameCard = game.getCardState(tgtCard, null);
                 // gameCard is LKI in that case, the card is not in game anymore
                 // or the timestamp did change
                 // this should check Self too
@@ -164,7 +165,7 @@ public class CountersPutEffect extends SpellAbilityEffect {
                             ((Player) obj).addCounter(ct, counterAmount, placer, true);
                         }
                         if (obj instanceof Card) {
-                            ((Card) obj).addCounter(ct, counterAmount, placer, true);
+                            gameCard.addCounter(ct, counterAmount, placer, true);
                         }
                     }
                     continue;
@@ -185,7 +186,7 @@ public class CountersPutEffect extends SpellAbilityEffect {
             }
 
             if (obj instanceof Card) {
-                Card tgtCard = (Card) obj;
+                Card tgtCard = gameCard;
                 counterAmount = sa.usesTargeting() && sa.hasParam("DividedAsYouChoose") ? sa.getTargetRestrictions().getDividedValue(tgtCard) : counterAmount;
                 if (!sa.usesTargeting() || tgtCard.canBeTargetedBy(sa)) {
                     if (max != -1) {
@@ -196,6 +197,14 @@ public class CountersPutEffect extends SpellAbilityEffect {
                         params.put("Target", obj);
                         params.put("CounterType", counterType);
                         counterAmount = pc.chooseNumber(sa, "How many counters?", 0, counterAmount, params);
+                    }
+
+                    // Adapt need extra logic
+                    if (sa.hasParam("Adapt")) {
+                        if (!(tgtCard.getCounters(CounterType.P1P1) == 0
+                                || tgtCard.hasKeyword("CARDNAME adapts as though it had no +1/+1 counters"))) {
+                            continue;
+                        }
                     }
 
                     if (sa.hasParam("Tribute")) {
@@ -264,6 +273,13 @@ public class CountersPutEffect extends SpellAbilityEffect {
                             final Map<String, Object> runParams = Maps.newHashMap();
                             runParams.put("Card", tgtCard);
                             game.getTriggerHandler().runTrigger(TriggerType.BecomeRenowned, runParams, false);
+                        }
+                        if (sa.hasParam("Adapt")) {
+                            // need to remove special keyword
+                            tgtCard.removeHiddenExtrinsicKeyword("CARDNAME adapts as though it had no +1/+1 counters");
+                            final Map<String, Object> runParams = Maps.newHashMap();
+                            runParams.put("Card", tgtCard);
+                            game.getTriggerHandler().runTrigger(TriggerType.Adapt, runParams, false);
                         }
                     } else {
                         // adding counters to something like re-suspend cards

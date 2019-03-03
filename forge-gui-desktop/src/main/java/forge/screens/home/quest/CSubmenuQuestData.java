@@ -10,6 +10,7 @@ import forge.model.FModel;
 import forge.properties.ForgeConstants;
 import forge.quest.*;
 import forge.quest.StartingPoolPreferences.PoolType;
+import forge.quest.data.DeckConstructionRules;
 import forge.quest.data.GameFormatQuest;
 import forge.quest.data.QuestData;
 import forge.quest.data.QuestPreferences.QPref;
@@ -20,6 +21,7 @@ import forge.toolbox.FOptionPane;
 import javax.swing.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -167,6 +169,7 @@ public enum CSubmenuQuestData implements ICDoc {
         final VSubmenuQuestData view = VSubmenuQuestData.SINGLETON_INSTANCE;
         final File dirQuests = new File(ForgeConstants.QUEST_SAVE_DIR);
         final QuestController qc = FModel.getQuest();
+        ArrayList<String> restorableQuests = new ArrayList<>();
 
         // Iterate over files and load quest data for each.
         final FilenameFilter takeDatFiles = new FilenameFilter() {
@@ -178,7 +181,14 @@ public enum CSubmenuQuestData implements ICDoc {
         final File[] arrFiles = dirQuests.listFiles(takeDatFiles);
         arrQuests.clear();
         for (final File f : arrFiles) {
-            arrQuests.put(f.getName(), QuestDataIO.loadData(f));
+            try {
+                System.out.println(String.format("About to load quest (%s)... ", f.getName()));
+                arrQuests.put(f.getName(), QuestDataIO.loadData(f));
+            } catch(IOException ex) {
+                ex.printStackTrace();
+                System.out.println(String.format("Error loading quest data (%s).. skipping for now..", f.getName()));
+                restorableQuests.add(f.getName());
+            }
         }
 
         // Populate list with available quest data.
@@ -331,9 +341,16 @@ public enum CSubmenuQuestData implements ICDoc {
             break;
         }
 
+        //Apply the appropriate deck construction rules for this quest
+        DeckConstructionRules dcr = DeckConstructionRules.Default;
+
+        if(VSubmenuQuestData.SINGLETON_INSTANCE.isCommander()){
+            dcr = DeckConstructionRules.Commander;
+        }
+
         final QuestController qc = FModel.getQuest();
 
-        qc.newGame(questName, difficulty, mode, fmtPrizes, view.isUnlockSetsAllowed(), dckStartPool, fmtStartPool, view.getStartingWorldName(), userPrefs);
+        qc.newGame(questName, difficulty, mode, fmtPrizes, view.isUnlockSetsAllowed(), dckStartPool, fmtStartPool, view.getStartingWorldName(), userPrefs, dcr);
         FModel.getQuest().save();
 
         // Save in preferences.

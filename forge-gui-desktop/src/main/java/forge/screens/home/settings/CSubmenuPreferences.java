@@ -18,6 +18,7 @@ import forge.toolbox.FComboBox;
 import forge.toolbox.FComboBoxPanel;
 import forge.toolbox.FLabel;
 import forge.toolbox.FOptionPane;
+import forge.util.Localizer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -38,6 +39,8 @@ import java.util.List;
 public enum CSubmenuPreferences implements ICDoc {
     /** */
     SINGLETON_INSTANCE;
+    final Localizer localizer = Localizer.getInstance();
+
 
     private VSubmenuPreferences view;
     private ForgePreferences prefs;
@@ -66,7 +69,7 @@ public enum CSubmenuPreferences implements ICDoc {
                 if (updating) { return; }
                 // prevent changing DEV_MODE while network game running
                 if (FServerManager.getInstance().isMatchActive()) {
-                    System.out.println("Can't change DEV_MODE while a network match is in progress!");
+                    System.out.println(localizer.getMessage("CantChangeDevModeWhileNetworkMath"));
                     return;
                 }
 
@@ -116,6 +119,7 @@ public enum CSubmenuPreferences implements ICDoc {
         lstControls.add(Pair.of(view.getCbUiForTouchScreen(), FPref.UI_FOR_TOUCHSCREN));
         lstControls.add(Pair.of(view.getCbTimedTargOverlay(), FPref.UI_TIMED_TARGETING_OVERLAY_UPDATES));
         lstControls.add(Pair.of(view.getCbCompactMainMenu(), FPref.UI_COMPACT_MAIN_MENU));
+        lstControls.add(Pair.of(view.getCbUseSentry(), FPref.USE_SENTRY));
         lstControls.add(Pair.of(view.getCbPromptFreeBlocks(), FPref.MATCHPREF_PROMPT_FREE_BLOCKS));
         lstControls.add(Pair.of(view.getCbPauseWhileMinimized(), FPref.UI_PAUSE_WHILE_MINIMIZED));
         lstControls.add(Pair.of(view.getCbWorkshopSyntax(), FPref.DEV_WORKSHOP_SYNTAX));
@@ -191,7 +195,7 @@ public enum CSubmenuPreferences implements ICDoc {
             public void run() {
                 prefs.setPref(FPref.DISABLE_DISPLAY_JAVA_8_UPDATE_WARNING, false);
                 prefs.save();
-                FOptionPane.showMessageDialog("Compatibility warnings re-enabled!");
+                FOptionPane.showMessageDialog(localizer.getMessage("CompatibilityWarningsReEnabled"));
             }
         });
 
@@ -204,6 +208,7 @@ public enum CSubmenuPreferences implements ICDoc {
 
         initializeGameLogVerbosityComboBox();
         initializeCloseActionComboBox();
+        initializeDefaultFontSizeComboBox();
         initializeAiProfilesComboBox();
         initializeColorIdentityCombobox();
         initializeAutoYieldModeComboBox();
@@ -240,10 +245,8 @@ public enum CSubmenuPreferences implements ICDoc {
     }
 
     private void resetForgeSettingsToDefault() {
-        final String userPrompt =
-                "This will reset all preferences to their defaults and restart Forge.\n\n" +
-                        "Reset and restart Forge?";
-        if (FOptionPane.showConfirmDialog(userPrompt, "Reset Settings")) {
+        final String userPrompt =localizer.getMessage("AresetForgeSettingsToDefault");
+        if (FOptionPane.showConfirmDialog(userPrompt, localizer.getMessage("TresetForgeSettingsToDefault"))) {
             final ForgePreferences prefs = FModel.getPreferences();
             prefs.reset();
             prefs.save();
@@ -253,38 +256,28 @@ public enum CSubmenuPreferences implements ICDoc {
     }
 
     private void resetDeckEditorLayout() {
-        final String userPrompt =
-                "This will reset the Deck Editor screen layout.\n" +
-                        "All tabbed views will be restored to their default positions.\n\n" +
-                        "Reset layout?";
-        if (FOptionPane.showConfirmDialog(userPrompt, "Reset Deck Editor Layout")) {
+        final String userPrompt =localizer.getMessage("AresetDeckEditorLayout");
+        if (FOptionPane.showConfirmDialog(userPrompt, localizer.getMessage("TresetDeckEditorLayout"))) {
             if (FScreen.DECK_EDITOR_CONSTRUCTED.deleteLayoutFile()) {
-                FOptionPane.showMessageDialog("Deck Editor layout has been reset.");
+                FOptionPane.showMessageDialog(localizer.getMessage("OKresetDeckEditorLayout"));
             }
         }
     }
 
     private void resetWorkshopLayout() {
-        final String userPrompt =
-                "This will reset the Workshop screen layout.\n" +
-                        "All tabbed views will be restored to their default positions.\n\n" +
-                        "Reset layout?";
-        if (FOptionPane.showConfirmDialog(userPrompt, "Reset Workshop Layout")) {
+        final String userPrompt =localizer.getMessage("AresetWorkshopLayout");
+        if (FOptionPane.showConfirmDialog(userPrompt, localizer.getMessage("TresetWorkshopLayout"))) {
             if (FScreen.WORKSHOP_SCREEN.deleteLayoutFile()) {
-                FOptionPane.showMessageDialog("Workshop layout has been reset.");
+                FOptionPane.showMessageDialog(localizer.getMessage("OKresetWorkshopLayout"));
             }
         }
     }
 
     private void resetMatchScreenLayout() {
-        final String userPrompt =
-                "This will reset the layout of the Match screen.\n" +
-                        "If you want to save the current layout first, please use " +
-                        "the Dock tab -> Save Layout option in the Match screen.\n\n" +
-                        "Reset layout?";
-        if (FOptionPane.showConfirmDialog(userPrompt, "Reset Match Screen Layout")) {
+        final String userPrompt =localizer.getMessage("AresetMatchScreenLayout");
+        if (FOptionPane.showConfirmDialog(userPrompt, localizer.getMessage("TresetMatchScreenLayout"))) {
             if (FScreen.deleteMatchLayoutFile()) {
-                FOptionPane.showMessageDialog("Match Screen layout has been reset.");
+                FOptionPane.showMessageDialog(localizer.getMessage("OKresetMatchScreenLayout"));
             }
         }
     }
@@ -326,6 +319,15 @@ public enum CSubmenuPreferences implements ICDoc {
             }
         });
         panel.setComboBox(comboBox, Singletons.getControl().getCloseAction());
+    }
+
+    private void initializeDefaultFontSizeComboBox() {
+        final String [] choices = {"10", "11", "12", "13", "14", "15", "16", "17", "18"};
+        final FPref userSetting = FPref.UI_DEFAULT_FONT_SIZE;
+        final FComboBoxPanel<String> panel = this.view.getCbpDefaultFontSizeComboBoxPanel();
+        final FComboBox<String> comboBox = createComboBox(choices, userSetting);
+        final String selectedItem = this.prefs.getPref(userSetting);
+        panel.setComboBox(comboBox, selectedItem);
     }
 
     private void initializeAiProfilesComboBox() {

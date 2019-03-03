@@ -975,12 +975,20 @@ public class ComputerUtilCombat {
             final Map<String, String> trigParams = trigger.getMapParams();
             final Card source = trigger.getHostCard();
 
-            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, null)
-                    || !trigParams.containsKey("Execute")) {
+            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, null)) {
                 continue;
             }
-            final String ability = source.getSVar(trigParams.get("Execute"));
-            final Map<String, String> abilityParams = AbilityFactory.getMapParams(ability);
+
+            Map<String, String> abilityParams = null;
+            if (trigger.getOverridingAbility() != null) {
+                abilityParams = trigger.getOverridingAbility().getMapParams();
+            } else if (trigParams.containsKey("Execute")) {
+                final String ability = source.getSVar(trigParams.get("Execute"));
+                abilityParams = AbilityFactory.getMapParams(ability);
+            } else {
+                continue;
+            }
+
             if (abilityParams.containsKey("AB") && !abilityParams.get("AB").equals("Pump")) {
                 continue;
             }
@@ -1044,11 +1052,15 @@ public class ComputerUtilCombat {
                 if (!ability.hasParam("CounterType") || !ability.getParam("CounterType").equals("P1P1")) {
                     continue;
                 }
-                
+
                 if (ability.hasParam("Monstrosity") && blocker.isMonstrous()) {
-                	continue;
+                    continue;
                 }
-                
+
+                if (ability.hasParam("Adapt") && blocker.getCounters(CounterType.P1P1) > 0) {
+                    continue;
+                }
+
                 if (ComputerUtilCost.canPayCost(ability, blocker.getController())) {
                     int pBonus = AbilityUtils.calculateAmount(ability.getHostCard(), ability.getParam("CounterNum"), ability);
                     if (pBonus > 0) {
@@ -1098,12 +1110,20 @@ public class ComputerUtilCombat {
             final Map<String, String> trigParams = trigger.getMapParams();
             final Card source = trigger.getHostCard();
 
-            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, null)
-                    || !trigParams.containsKey("Execute")) {
+            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, null)) {
                 continue;
             }
-            final String ability = source.getSVar(trigParams.get("Execute"));
-            final Map<String, String> abilityParams = AbilityFactory.getMapParams(ability);
+
+            Map<String, String> abilityParams = null;
+            if (trigger.getOverridingAbility() != null) {
+                abilityParams = trigger.getOverridingAbility().getMapParams();
+            } else if (trigParams.containsKey("Execute")) {
+                final String ability = source.getSVar(trigParams.get("Execute"));
+                abilityParams = AbilityFactory.getMapParams(ability);
+            } else {
+                continue;
+            }
+
             String abType = "";
             if (abilityParams.containsKey("AB")) {
             	abType = abilityParams.get("AB");
@@ -1208,11 +1228,15 @@ public class ComputerUtilCombat {
                 if (!ability.hasParam("CounterType") || !ability.getParam("CounterType").equals("P1P1")) {
                     continue;
                 }
-                
+
                 if (ability.hasParam("Monstrosity") && blocker.isMonstrous()) {
-                	continue;
+                    continue;
                 }
-                
+
+                if (ability.hasParam("Adapt") && blocker.getCounters(CounterType.P1P1) > 0) {
+                    continue;
+                }
+
                 if (ComputerUtilCost.canPayCost(ability, blocker.getController())) {
                     int tBonus = AbilityUtils.calculateAmount(ability.getHostCard(), ability.getParam("CounterNum"), ability);
                     if (tBonus > 0) {
@@ -1311,12 +1335,20 @@ public class ComputerUtilCombat {
             final Map<String, String> trigParams = trigger.getMapParams();
             final Card source = trigger.getHostCard();
 
-            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, combat)
-                    || !trigParams.containsKey("Execute")) {
+            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, combat)) {
                 continue;
             }
-            final String ability = source.getSVar(trigParams.get("Execute"));
-            final Map<String, String> abilityParams = AbilityFactory.getMapParams(ability);
+
+            Map<String, String> abilityParams = null;
+            if (trigger.getOverridingAbility() != null) {
+                abilityParams = trigger.getOverridingAbility().getMapParams();
+            } else if (trigParams.containsKey("Execute")) {
+                final String ability = source.getSVar(trigParams.get("Execute"));
+                abilityParams = AbilityFactory.getMapParams(ability);
+            } else {
+                continue;
+            }
+
             if (abilityParams.containsKey("ValidTgts") || abilityParams.containsKey("Tgt")) {
                 continue; // targeted pumping not supported
             }
@@ -1330,7 +1362,14 @@ public class ComputerUtilCombat {
             }
 
             if (abilityParams.containsKey("Cost")) {
-                final SpellAbility sa = AbilityFactory.getAbility(ability, source);
+                SpellAbility sa = null;
+                if (trigger.getOverridingAbility() != null) {
+                    sa = trigger.getOverridingAbility();
+                } else {
+                    final String ability = source.getSVar(trigParams.get("Execute"));
+                    sa = AbilityFactory.getAbility(ability, source);
+                }
+
                 sa.setActivatingPlayer(source.getController());
                 if (!CostPayment.canPayAdditionalCosts(sa.getPayCosts(), sa)) {
                     continue;
@@ -1411,11 +1450,15 @@ public class ComputerUtilCombat {
                 if (!ability.hasParam("CounterType") || !ability.getParam("CounterType").equals("P1P1")) {
                     continue;
                 }
-                
+
                 if (ability.hasParam("Monstrosity") && attacker.isMonstrous()) {
-                	continue;
+                    continue;
                 }
-                
+
+                if (ability.hasParam("Adapt") && blocker != null && blocker.getCounters(CounterType.P1P1) > 0) {
+                    continue;
+                }
+
                 if (!ability.getPayCosts().hasTapCost() && ComputerUtilCost.canPayCost(ability, attacker.getController())) {
                     int pBonus = AbilityUtils.calculateAmount(ability.getHostCard(), ability.getParam("CounterNum"), ability);
                     if (pBonus > 0) {
@@ -1514,12 +1557,20 @@ public class ComputerUtilCombat {
             final Map<String, String> trigParams = trigger.getMapParams();
             final Card source = trigger.getHostCard();
 
-            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, combat)
-                    || !trigParams.containsKey("Execute")) {
+            if (!ComputerUtilCombat.combatTriggerWillTrigger(attacker, blocker, trigger, combat)) {
                 continue;
             }
-            final String ability = source.getSVar(trigParams.get("Execute"));
-            final Map<String, String> abilityParams = AbilityFactory.getMapParams(ability);
+
+            Map<String, String> abilityParams = null;
+            if (trigger.getOverridingAbility() != null) {
+                abilityParams = trigger.getOverridingAbility().getMapParams();
+            } else if (trigParams.containsKey("Execute")) {
+                final String ability = source.getSVar(trigParams.get("Execute"));
+                abilityParams = AbilityFactory.getMapParams(ability);
+            } else {
+                continue;
+            }
+
             if (abilityParams.containsKey("ValidTgts") || abilityParams.containsKey("Tgt")) {
                 continue; // targeted pumping not supported
             }
@@ -1552,7 +1603,14 @@ public class ComputerUtilCombat {
             }
 
             if (abilityParams.containsKey("Cost")) {
-                final SpellAbility sa = AbilityFactory.getAbility(ability, source);
+                SpellAbility sa = null;
+                if (trigger.getOverridingAbility() != null) {
+                    sa = trigger.getOverridingAbility();
+                } else {
+                    final String ability = source.getSVar(trigParams.get("Execute"));
+                    sa = AbilityFactory.getAbility(ability, source);
+                }
+
                 sa.setActivatingPlayer(source.getController());
                 if (!CostPayment.canPayAdditionalCosts(sa.getPayCosts(), sa)) {
                     continue;
@@ -1629,11 +1687,15 @@ public class ComputerUtilCombat {
                 if (!ability.hasParam("CounterType") || !ability.getParam("CounterType").equals("P1P1")) {
                     continue;
                 }
-                
+
                 if (ability.hasParam("Monstrosity") && attacker.isMonstrous()) {
-                	continue;
+                    continue;
                 }
-                
+
+                if (ability.hasParam("Adapt") && blocker.getCounters(CounterType.P1P1) > 0) {
+                    continue;
+                }
+
                 if (!ability.getPayCosts().hasTapCost() && ComputerUtilCost.canPayCost(ability, attacker.getController())) {
                     int tBonus = AbilityUtils.calculateAmount(ability.getHostCard(), ability.getParam("CounterNum"), ability);
                     if (tBonus > 0) {
@@ -2057,6 +2119,16 @@ public class ComputerUtilCombat {
         // consider Damage Prevention/Replacement
         defenderDamage = predictDamageTo(attacker, defenderDamage, possibleAttackerPrevention, blocker, true);
         attackerDamage = predictDamageTo(blocker, attackerDamage, possibleDefenderPrevention, attacker, true);
+
+        // Damage prevention might come from a static effect
+        if (!ai.getGame().getStaticEffects().getGlobalRuleChange(GlobalRuleChange.noPrevention)) {
+            if (isCombatDamagePrevented(attacker, blocker, attackerDamage)) {
+                attackerDamage = 0;
+            }
+            if (isCombatDamagePrevented(blocker, attacker, defenderDamage)) {
+                defenderDamage = 0;
+            }
+        }
 
         if (combat != null) {
             for (Card atkr : combat.getAttackersBlockedBy(blocker)) {
@@ -2504,7 +2576,7 @@ public class ComputerUtilCombat {
         return original;
     }
 
-    private static boolean isCombatDamagePrevented(final Card attacker, final GameEntity target, final int damage) {
+    public static boolean isCombatDamagePrevented(final Card attacker, final GameEntity target, final int damage) {
         final Game game = attacker.getGame();
 
         // first try to replace the damage
@@ -2518,7 +2590,7 @@ public class ComputerUtilCombat {
         // repParams.put("PreventMap", preventMap);
 
         List<ReplacementEffect> list = game.getReplacementHandler().getReplacementList(repParams,
-                ReplacementLayer.None);
+                ReplacementLayer.Other);
         
         return !list.isEmpty();
     }
@@ -2608,6 +2680,30 @@ public class ComputerUtilCombat {
         }
 
         return attackerAfterTrigs;
+    }
+
+    public static boolean willKillAtLeastOne(final Player ai, final Card c, final Combat combat) {
+        // This method detects if the attacking or blocking group the card "c" belongs to will kill
+        // at least one creature it's in combat with (either profitably or as a trade),
+        if (combat == null) {
+            return false;
+        }
+
+        if (combat.isBlocked(c)) {
+            for (Card blk : combat.getBlockers(c)) {
+                if (ComputerUtilCombat.blockerWouldBeDestroyed(ai, blk, combat)) {
+                    return true;
+                }
+            }
+        } else if (combat.isBlocking(c)) {
+            for (Card atk : combat.getAttackersBlockedBy(c)) {
+                if (ComputerUtilCombat.attackerWouldBeDestroyed(ai, atk, combat)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
 

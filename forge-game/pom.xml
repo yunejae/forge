@@ -6,7 +6,7 @@
     <parent>
         <artifactId>forge</artifactId>
         <groupId>forge</groupId>
-        <version>1.6.12-SNAPSHOT</version>
+        <version>1.6.22-SNAPSHOT</version>
     </parent>
 
     <artifactId>forge-game</artifactId>
@@ -31,14 +31,10 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>forge</groupId>
-            <artifactId>forge-gui</artifactId>
-            <version>1.6.8-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>forge</groupId>
-            <artifactId>forge-gui</artifactId>
-            <version>1.6.8-SNAPSHOT</version>
+            <groupId>io.sentry</groupId>
+            <artifactId>sentry-log4j</artifactId>
+            <version>1.7.5</version>
         </dependency>
     </dependencies>
+
 </project>

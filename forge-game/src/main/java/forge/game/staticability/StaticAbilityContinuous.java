@@ -41,7 +41,6 @@ import forge.game.trigger.Trigger;
 import forge.game.trigger.TriggerHandler;
 import forge.game.zone.ZoneType;
 import forge.util.TextUtil;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -337,9 +336,10 @@ public final class StaticAbilityContinuous {
                 final String colors = params.get("AddColor");
                 if (colors.equals("ChosenColor")) {
                     addColors = CardUtil.getShortColorsString(hostCard.getChosenColors());
+                } else if (colors.equals("All")) {
+                    addColors = "W U B R G";
                 } else {
-                    addColors = CardUtil.getShortColorsString(new ArrayList<String>(Arrays.asList(colors.split(
-                            " & "))));
+                    addColors = CardUtil.getShortColorsString(Arrays.asList(colors.split(" & ")));
                 }
             }
 
@@ -347,9 +347,10 @@ public final class StaticAbilityContinuous {
                 final String colors = params.get("SetColor");
                 if (colors.equals("ChosenColor")) {
                     addColors = CardUtil.getShortColorsString(hostCard.getChosenColors());
+                } else if (colors.equals("All")) {
+                    addColors = "W U B R G";
                 } else {
-                    addColors = CardUtil.getShortColorsString(new ArrayList<String>(Arrays.asList(
-                            colors.split(" & "))));
+                    addColors = CardUtil.getShortColorsString(Arrays.asList(colors.split(" & ")));
                 }
                 se.setOverwriteColors(true);
             }
@@ -481,7 +482,7 @@ public final class StaticAbilityContinuous {
                 }
 
                 if (params.containsKey("ManaColorConversion")) {
-                    AbilityUtils.applyManaColorConversion(p, params);
+                    AbilityUtils.applyManaColorConversion(p.getManaPool(), params);
                 }
             }
         }

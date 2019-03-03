@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import forge.card.CardStateName;
+import forge.game.card.CardFaceView;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Function;
@@ -28,7 +29,7 @@ import forge.item.PaperCard;
 import forge.model.FModel;
 import forge.screens.match.CMatchUI;
 import forge.toolbox.FOptionPane;
-
+import forge.view.arcane.ListCardArea;
 
 public class GuiChoose {
 
@@ -160,18 +161,23 @@ public class GuiChoose {
                             if (sel instanceof InventoryItem) {
                                 matchUI.setCard((InventoryItem) list.getSelectedValue());
                                 return;
-                            } else if (sel instanceof ICardFace) {
-                                final ICardFace face = (ICardFace)sel;
-                                PaperCard paper = FModel.getMagicDb().getCommonCards().getUniqueByName(face.getName());
+                            } else if (sel instanceof ICardFace || sel instanceof CardFaceView) {
+                                String faceName;
+                                if (sel instanceof ICardFace) {
+                                    faceName = ((ICardFace) sel).getName();
+                                } else {
+                                    faceName = ((CardFaceView) sel).getName();
+                                }
+                                PaperCard paper = FModel.getMagicDb().getCommonCards().getUniqueByName(faceName);
                                 if (paper == null) {
-                                    paper = FModel.getMagicDb().getVariantCards().getUniqueByName(face.getName());
+                                    paper = FModel.getMagicDb().getVariantCards().getUniqueByName(faceName);
                                 }
 
-                                if (paper != null && !paper.getName().equals(face.getName())) {
+                                if (paper != null) {
                                     Card c = Card.getCardForUi(paper);
                                     boolean foundState = false;
                                     for (CardStateName cs : c.getStates()) {
-                                        if (c.getState(cs).getName().equals(face.getName())) {
+                                        if (c.getState(cs).getName().equals(faceName)) {
                                             foundState = true;
                                             c.setState(cs, true);
                                             matchUI.setCard(c.getView());
@@ -181,8 +187,6 @@ public class GuiChoose {
                                     if (!foundState) {
                                         matchUI.setCard(paper);
                                     }
-                                } else {
-                                    matchUI.setCard(paper);
                                 }
 
                                 return;
@@ -275,6 +279,31 @@ public class GuiChoose {
         FThreads.invokeInEdtAndWait(ft);
         try {
             return ft.get();
+        } catch (final Exception e) { // we have waited enough
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<CardView> manipulateCardList(final CMatchUI gui, final String title, final Iterable<CardView> cards, final Iterable<CardView> manipulable, 
+						    final boolean toTop, final boolean toBottom, final boolean toAnywhere) {
+	gui.setSelectables(manipulable);
+	final Callable<List<CardView>> callable = new Callable<List<CardView>>() {
+		@Override 
+		public List<CardView> call() throws Exception {
+		    ListCardArea tempArea = ListCardArea.show(gui,title,cards,manipulable,toTop,toBottom,toAnywhere);
+		    //		tempArea.pack();
+		    tempArea.show();
+		    final List<CardView> cardList = tempArea.getCards();
+		    return cardList;
+		}
+	    };
+	final FutureTask<List<CardView>> ft = new FutureTask<List<CardView>>(callable);
+        FThreads.invokeInEdtAndWait(ft);
+	gui.clearSelectables();
+        try {
+	    List<CardView> result = ft.get();
+	    return result;
         } catch (final Exception e) { // we have waited enough
             e.printStackTrace();
         }

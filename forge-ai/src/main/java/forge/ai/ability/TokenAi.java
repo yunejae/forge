@@ -8,7 +8,10 @@ import forge.game.GameEntity;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
-import forge.game.card.*;
+import forge.game.card.Card;
+import forge.game.card.CardCollection;
+import forge.game.card.CardLists;
+import forge.game.card.CardPredicates;
 import forge.game.card.token.TokenInfo;
 import forge.game.combat.Combat;
 import forge.game.cost.CostPart;
@@ -42,14 +45,11 @@ import java.util.List;
  * @version $Id: AbilityFactoryToken.java 17656 2012-10-22 19:32:56Z Max mtg $
  */
 public class TokenAi extends SpellAbilityAi {
-
-
     private String tokenAmount;
-    private String tokenName;
-    private String[] tokenTypes;
-    private String[] tokenKeywords;
     private String tokenPower;
     private String tokenToughness;
+
+    private Card actualToken;
     /**
      * <p>
      * Constructor for AbilityFactory_Token.
@@ -58,23 +58,17 @@ public class TokenAi extends SpellAbilityAi {
      *            a {@link forge.game.ability.AbilityFactory} object.
      */
     private void readParameters(final SpellAbility mapParams) {
-        String[] keywords;
-
-        if (mapParams.hasParam("TokenKeywords")) {
-            // TODO: Change this Split to a semicolon or something else
-            keywords = mapParams.getParam("TokenKeywords").split("<>");
-        } else {
-            keywords = new String[0];
-        }
-
-
         this.tokenAmount = mapParams.getParamOrDefault("TokenAmount", "1");
-        this.tokenPower = mapParams.getParam("TokenPower");
-        this.tokenToughness = mapParams.getParam("TokenToughness");
-        this.tokenName = mapParams.getParam("TokenName");
-        this.tokenTypes = mapParams.getParam("TokenTypes").split(",");
-        this.tokenKeywords = keywords;
 
+        this.actualToken = TokenInfo.getProtoType(mapParams.getParam("TokenScript"), mapParams);
+
+        if (actualToken == null) {
+            this.tokenPower = mapParams.getParam("TokenPower");
+            this.tokenToughness = mapParams.getParam("TokenToughness");
+        } else {
+            this.tokenPower = actualToken.getBasePowerString();
+            this.tokenToughness = actualToken.getBaseToughnessString();
+        }
     }
     
     @Override
@@ -103,8 +97,11 @@ public class TokenAi extends SpellAbilityAi {
             }
         }
 
-        final Card token = spawnToken(ai, sa);
-        if (token == null) {
+        if (actualToken == null) {
+            actualToken = spawnToken(ai, sa);
+        }
+
+        if (actualToken == null) {
             final AbilitySub sub = sa.getSubAbility();
             if (pwPlus || (sub != null && SpellApiToAi.Converter.get(sub.getApi()).chkAIDrawback(sub, ai))) {
                 return true; // planeswalker plus ability or sub-ability is
@@ -130,24 +127,21 @@ public class TokenAi extends SpellAbilityAi {
             }
         }
 
-        if (canInterruptSacrifice(ai, sa, token)) {
+        if (canInterruptSacrifice(ai, sa, actualToken)) {
             return true;
         }
         
-        boolean haste = false;
+        boolean haste = this.actualToken.hasKeyword(Keyword.HASTE);
         boolean oneShot = sa.getSubAbility() != null
                 && sa.getSubAbility().getApi() == ApiType.DelayedTrigger;
-        for (final String kw : this.tokenKeywords) {
-            if (kw.equals("Haste")) {
-                haste = true;
-            }
-        }
+        boolean isCreature = this.actualToken.getType().isCreature();
+
         // Don't generate tokens without haste before main 2 if possible
         if (ph.getPhase().isBefore(PhaseType.MAIN2) && ph.isPlayerTurn(ai) && !haste && !sa.hasParam("ActivationPhases")
                 && !ComputerUtil.castSpellInMain1(ai, sa)) {
             boolean buff = false;
             for (Card c : ai.getCardsIn(ZoneType.Battlefield)) {
-                if ("Creature".equals(c.getSVar("BuffedBy"))) {
+                if (isCreature && "Creature".equals(c.getSVar("BuffedBy"))) {
                     buff = true;
                 }
             }
@@ -180,12 +174,9 @@ public class TokenAi extends SpellAbilityAi {
         }
 
         // Don't kill AIs Legendary tokens
-        for (final String type : this.tokenTypes) {
-            if (type.equals("Legendary")) {
-                if (ai.isCardInPlay(this.tokenName)) {
-                    return false;
-                }
-            }
+        if (this.actualToken.getType().isLegendary() && ai.isCardInPlay(this.actualToken.getName())) {
+            // TODO Check if Token is useless due to an aura or counters?
+            return false;
         }
 
         final TargetRestrictions tgt = sa.getTargetRestrictions();
@@ -311,6 +302,18 @@ public class TokenAi extends SpellAbilityAi {
             }
         }
 
+        if (mandatory) {
+            // Necessary because the AI goes into this method twice, first to set up targets (with mandatory=true)
+            // and then the second time to confirm the trigger (where mandatory may be set to false).
+            return true;
+        }
+
+        if ("OnlyOnAlliedAttack".equals(sa.getParam("AILogic"))) {
+            Combat combat = ai.getGame().getCombat();
+            return combat != null && combat.getAttackingPlayer() != null
+                    && !combat.getAttackingPlayer().isOpponentOf(ai);
+        }
+
         return true;
     }
     /* (non-Javadoc)
@@ -328,6 +331,7 @@ public class TokenAi extends SpellAbilityAi {
     @Override
     protected Player chooseSinglePlayer(Player ai, SpellAbility sa, Iterable<Player> options) {
         // TODO: AILogic
+        readParameters(sa); // remember to call this somewhere!
         Combat combat = ai.getGame().getCombat();
         // TokenAttacking
         if (combat != null && sa.hasParam("TokenAttacking")) {
@@ -347,6 +351,7 @@ public class TokenAi extends SpellAbilityAi {
     @Override
     protected GameEntity chooseSinglePlayerOrPlaneswalker(Player ai, SpellAbility sa, Iterable<GameEntity> options) {
         // TODO: AILogic
+        readParameters(sa); // remember to call this somewhere!
         Combat combat = ai.getGame().getCombat();
         // TokenAttacking
         if (combat != null && sa.hasParam("TokenAttacking")) {
@@ -377,6 +382,7 @@ public class TokenAi extends SpellAbilityAi {
      * @param sa Token SpellAbility
      * @return token creature created by ability
      */
+    @Deprecated
     public static Card spawnToken(Player ai, SpellAbility sa) {
         return spawnToken(ai, sa, false);
     }
@@ -388,8 +394,17 @@ public class TokenAi extends SpellAbilityAi {
      * @param notNull if the token would not survive, still return it
      * @return token creature created by ability
      */
+    // TODO Is this just completely copied from TokenEffect? Let's just call that thing
+    @Deprecated
     public static Card spawnToken(Player ai, SpellAbility sa, boolean notNull) {
         final Card host = sa.getHostCard();
+
+        Card result = TokenInfo.getProtoType(sa.getParam("TokenScript"), sa);
+
+        if (result != null) {
+            result.setController(ai, 0);
+            return result;
+        }
 
         String[] tokenKeywords = sa.hasParam("TokenKeywords") ? sa.getParam("TokenKeywords").split("<>") : new String[0];
         String tokenPower = sa.getParam("TokenPower");
@@ -511,7 +526,7 @@ public class TokenAi extends SpellAbilityAi {
         // Apply static abilities and prune dead tokens
         final Game game = ai.getGame();
         ComputerUtilCard.applyStaticContPT(game, token, null);
-        if (!notNull && token.getNetToughness() < 1) {
+        if (!notNull && token.isCreature() && token.getNetToughness() < 1) {
             return null;
         } else {
             return token;

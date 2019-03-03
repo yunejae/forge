@@ -25,8 +25,6 @@ import forge.card.mana.ManaCost;
 import forge.game.Game;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityUtils;
-import forge.game.ability.ApiType;
-import forge.game.ability.effects.CharmEffect;
 import forge.game.cost.Cost;
 import forge.game.player.Player;
 import forge.game.replacement.ReplacementHandler;
@@ -92,14 +90,9 @@ public class CardFactory {
         out.setState(in.getCurrentStateName(), true);
 
         // this's necessary for forge.game.GameAction.unattachCardLeavingBattlefield(Card)
-        out.setEquipping(in.getEquipping());
-        out.setEquippedBy(in.getEquippedBy(false));
-        out.setFortifying(in.getFortifying());
-        out.setFortifiedBy(in.getFortifiedBy(false));
-        out.setEnchantedBy(in.getEnchantedBy(false));
-        out.setEnchanting(in.getEnchanting());
+        out.setAttachedCards(in.getAttachedCards());
+        out.setEntityAttachedTo(in.getEntityAttachedTo());
 
-        out.setClones(in.getClones());
         out.setCastSA(in.getCastSA());
         for (final Object o : in.getRemembered()) {
             out.addRemembered(o);
@@ -379,24 +372,13 @@ public class CardFactory {
     private static void buildPlaneswalkerAbilities(Card card) {
         CardState state = card.getCurrentState();
     	// etbCounter only for Original Card
-        if (card.getBaseLoyalty() > 0 && card.getCurrentStateName() == CardStateName.Original) {
-            final String loyalty = Integer.toString(card.getBaseLoyalty());
+        if (state.getBaseLoyalty() > 0) {
+            final String loyalty = Integer.toString(state.getBaseLoyalty());
             // keyword need to be added to state directly, so init can be disabled
             if (state.addIntrinsicKeyword("etbCounter:LOYALTY:" + loyalty + ":no Condition:no desc", false) != null) {
                 card.updateKeywords();
             }
         }
-
-        //Planeswalker damage redirection
-        String replacement = "Event$ DamageDone | ActiveZones$ Battlefield | IsCombat$ False | ValidSource$ Card.OppCtrl,Emblem.OppCtrl"
-                + " | ValidTarget$ You | Optional$ True | OptionalDecider$ Opponent | ReplaceWith$ ChooseDmgPW | Secondary$ True"
-                + " | AICheckSVar$ DamagePWAI | AISVarCompare$ GT4 | Description$ Redirect damage to " + card.toString();
-        state.addReplacementEffect(ReplacementHandler.parseReplacement(replacement, card, true));
-        state.setSVar("ChooseDmgPW", "AB$ ChooseCard | Cost$ 0 | Defined$ ReplacedSourceController | References$ DamagePWAI | Choices$ Planeswalker.YouCtrl" +
-        		" | ChoiceZone$ Battlefield | Mandatory$ True | SubAbility$ DamagePW | ChoiceTitle$ Choose a planeswalker to redirect damage");
-        state.setSVar("DamagePW", "DB$ ReplaceEffect | VarName$ Affected | VarValue$ ChosenCard | VarType$ Card");
-        state.setSVar("DamagePWAI", "ReplaceCount$DamageAmount/NMinus.DamagePWY");
-        state.setSVar("DamagePWY", "Count$YourLifeTotal");
     }
 
     private static Card readCard(final CardRules rules, final IPaperCard paperCard, int cardId, Game game) {
@@ -446,6 +428,9 @@ public class CardFactory {
 
     private static void readCardFace(Card c, ICardFace face) {
 
+        // Name first so Senty has the Card name
+        c.setName(face.getName());
+
         for (String r : face.getReplacements())              c.addReplacementEffect(ReplacementHandler.parseReplacement(r, c, true));
         for (String s : face.getStaticAbilities())           c.addStaticAbility(s);
         for (String t : face.getTriggers())                  c.addTrigger(TriggerHandler.parseTrigger(t, c, true));
@@ -455,10 +440,10 @@ public class CardFactory {
         // keywords not before variables
         c.addIntrinsicKeywords(face.getKeywords(), false);
 
-        c.setName(face.getName());
         c.setManaCost(face.getManaCost());
         c.setText(face.getNonAbilityText());
-        if (face.getInitialLoyalty() > 0) c.setBaseLoyalty(face.getInitialLoyalty());
+
+        c.getCurrentState().setBaseLoyalty(face.getInitialLoyalty());
 
         c.setOracleText(face.getOracleText());
 
@@ -596,7 +581,6 @@ public class CardFactory {
     public static void copyState(final Card from, final CardStateName fromState, final Card to,
             final CardStateName toState, boolean updateView) {
         // copy characteristics not associated with a state
-        to.setBaseLoyalty(from.getBaseLoyalty());
         to.setBasePowerString(from.getBasePowerString());
         to.setBaseToughnessString(from.getBaseToughnessString());
         to.setText(from.getSpellText());
@@ -633,6 +617,9 @@ public class CardFactory {
         }
         if (from.getRestrictions() != null) {
             to.setRestrictions((SpellAbilityRestriction) from.getRestrictions().copy());
+            if (!lki) {
+                to.getRestrictions().resetTurnActivations();
+            }
         }
         if (from.getConditions() != null) {
             to.setConditions((SpellAbilityCondition) from.getConditions().copy());
@@ -691,9 +678,6 @@ public class CardFactory {
         }
 
         trig.setStackDescription(trig.toString());
-        if (trig.getApi() == ApiType.Charm && !trig.isWrapper()) {
-            CharmEffect.makeChoices(trig);
-        }
 
         WrappedAbility wrapperAbility = new WrappedAbility(t, trig, ((WrappedAbility) sa).getDecider());
         wrapperAbility.setTrigger(true);
