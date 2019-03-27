@@ -1445,17 +1445,6 @@ public class GameAction {
         return sacrificeDestroy(c, source, table);
     }
 
-    public final boolean destroy(final Card c, final SpellAbility sa) {
-        if (!c.canBeDestroyed()) {
-            return false;
-        }
-
-        return destroy(c, sa, true);
-    }
-    public final boolean destroyNoRegeneration(final Card c, final SpellAbility sa) {
-        return destroy(c, sa, false);
-    }
-
     /**Destroys a permanent.
     @param c Card
     @param sa SpellAbility destroying the card
