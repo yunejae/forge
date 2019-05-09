@@ -160,7 +160,7 @@ public final class LDAModelGenetrator {
     public static List<Archetype> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
-        final int numTopics = dataset.getNumDocs()/30;
+        final int numTopics = dataset.getNumDocs()/25;
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
