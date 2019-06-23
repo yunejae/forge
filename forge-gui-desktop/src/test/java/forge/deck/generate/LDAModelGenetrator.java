@@ -160,7 +160,9 @@ public final class LDAModelGenetrator {
     public static List<Archetype> initializeFormat(GameFormat format) throws Exception{
         Dataset dataset = new Dataset(format);
 
-        final int numTopics = dataset.getNumDocs()/25;
+        //estimate number of topics to attempt to find using power law
+        final int numTopics = new Float(347f*dataset.getNumDocs()/(2892f + dataset.getNumDocs())).intValue();
+        System.out.println("Num Topics = " + numTopics);
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
         System.out.println(lda.computePerplexity(dataset));
