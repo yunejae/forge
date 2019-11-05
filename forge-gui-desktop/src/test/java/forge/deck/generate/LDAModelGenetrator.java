@@ -56,6 +56,7 @@ public final class LDAModelGenetrator {
     public static boolean initialize(){
         List<String> formatStrings = new ArrayList<>();
         formatStrings.add(FModel.getFormats().getStandard().getName());
+        formatStrings.add(FModel.getFormats().getPioneer().getName());
         formatStrings.add(FModel.getFormats().getModern().getName());
         formatStrings.add("Legacy");
         formatStrings.add("Vintage");
@@ -216,7 +217,7 @@ public final class LDAModelGenetrator {
             LinkedHashMap<String, Integer> wordCounts = new LinkedHashMap<>();
             int wordCount = 0;
             for( Deck deck: decks){
-                String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Standard|Legacy|Vintage), #[0-9]+\\)","");
+                String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Pioneer|Standard|Legacy|Vintage), #[0-9]+\\)","");
                 String[] tokens = name.split(" ");
                 for(String rawtoken: tokens){
                     String token = rawtoken.toLowerCase();
