@@ -1761,7 +1761,7 @@ public class AbilityUtils {
                 if (sq[0].contains("HasNumChosenColors")) {
                     int sum = 0;
                     for (Card card : AbilityUtils.getDefinedCards(sa.getHostCard(), sq[1], sa)) {
-                        sum += CardUtil.getColors(card).getSharedColors(ColorSet.fromNames(c.getChosenColors())).countColors();
+                        sum += CardUtil.getColors(card).getSharedColors(ColorSet.fromNames(sa.getChosenColors())).countColors();
                     }
                     return sum;
                 }
@@ -1886,6 +1886,29 @@ public class AbilityUtils {
 
                 CardCollection cards = CardLists.getValidCards(cardsInZones, rest, player, c, ctb);
                 return CardFactoryUtil.doXMath(cards.size(), expr, c);
+            }
+
+            // Count$DevotionDual.<color name>.<color name>
+            // Count$Devotion.<color name>
+            if (sq[0].contains("Devotion")) {
+                int colorOcurrencices = 0;
+                String colorName = sq[1];
+                if (colorName.contains("Chosen")) {
+                    colorName = MagicColor.toShortString(ctb.getChosenColor());
+                }
+                byte colorCode = ManaAtom.fromName(colorName);
+                if (sq[0].equals("DevotionDual")) {
+                    colorCode |= ManaAtom.fromName(sq[2]);
+                }
+                for (Card c0 : player.getCardsIn(ZoneType.Battlefield)) {
+                    for (ManaCostShard sh : c0.getManaCost()) {
+                        if ((sh.getColorMask() & colorCode) != 0) {
+                            colorOcurrencices++;
+                        }
+                    }
+                    colorOcurrencices += c0.getAmountOfKeyword("Your devotion to each color and each combination of colors is increased by one.");
+                }
+                return CardFactoryUtil.doXMath(colorOcurrencices, expr, c);
             }
         }
         return CardFactoryUtil.xCount(c, s2);

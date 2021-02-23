@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -22,6 +23,7 @@ import forge.game.card.CardView;
 import forge.game.card.IHasCardView;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
+import forge.game.staticability.StaticAbility;
 import forge.game.zone.ZoneType;
 import forge.util.Expressions;
 
@@ -34,6 +36,7 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
     /** The host card. */
     protected Card hostCard;
     protected CardState cardState = null;
+    private StaticAbility grantorStatic = null;
 
     /** The map params. */
     protected Map<String, String> originalMapParams = Maps.newHashMap(),
@@ -570,6 +573,18 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
         return null;
     }
 
+    public Card getOriginalOrHost() {
+        return ObjectUtils.defaultIfNull(getOriginalHost(), getHostCard());
+    }
+
+    public StaticAbility getGrantorStatic() {
+        return grantorStatic;
+    }
+
+    public void setGrantorStatic(final StaticAbility st) {
+        grantorStatic = st;
+    }
+
     public boolean isCopiedTrait() {
         if (this.getCardState() == null) {
             return false;
@@ -633,5 +648,21 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
         copy.setCardState(cardState);
         // dont use setHostCard to not trigger the not copied parts yet
         copy.hostCard = host;
+    }
+
+
+    public String getChosenColor() {
+        return getHostCard().getChosenColor(this);
+    }
+    public final Iterable<String> getChosenColors() {
+        return getHostCard().getChosenColors(this);
+    }
+
+    public final boolean hasChosenColor() {
+        return getHostCard().hasChosenColor(this);
+    }
+
+    public final boolean hasChosenColor(String s) {
+        return getHostCard().hasChosenColor(s, this);
     }
 }

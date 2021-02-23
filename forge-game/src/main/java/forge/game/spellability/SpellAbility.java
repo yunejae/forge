@@ -260,7 +260,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     public boolean canThisProduce(final String s) {
         AbilityManaPart mp = getManaPart();
-        if (mp != null && metConditions() && mp.canProduce(s, this)) {
+        if (mp != null && metConditions() && mp.canProduce(s)) {
             return true;
         }
         return false;
@@ -1037,7 +1037,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
             clone.setPayCosts(getPayCosts().copy());
             if (manaPart != null) {
-                clone.manaPart = new AbilityManaPart(host, mapParams);
+                clone.manaPart = new AbilityManaPart(host, clone, mapParams);
             }
 
             // need to copy the damage tables
