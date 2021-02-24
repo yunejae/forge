@@ -11,6 +11,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import forge.card.CardType;
@@ -30,6 +31,7 @@ import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.zone.ZoneType;
 import forge.util.Aggregates;
+import forge.util.Localizer;
 import forge.util.TextUtil;
 import forge.util.collect.FCollectionView;
 
@@ -63,9 +65,15 @@ public class AiCostDecision extends CostDecisionMakerBase {
 
     @Override
     public PaymentDecision visit(CostChooseCreatureType cost) {
-        String choice = player.getController().chooseSomeType("Creature", ability, CardType.getAllCreatureTypes(),
-                Lists.newArrayList());
-        return PaymentDecision.type(choice);
+        Integer amount = cost.convertAmount();
+        Iterable<String> choices = player.getController().chooseSomeType(
+                Localizer.getInstance().getMessage("lblCreature"), ability, amount, amount, Lists.newArrayList(CardType.getAllCreatureTypes()));
+
+        if (choices == null || Iterables.isEmpty(choices)) {
+            return null;
+        }
+
+        return PaymentDecision.types(choices);
     }
 
     @Override

@@ -15,7 +15,6 @@ import forge.ai.ComputerUtilCost;
 import forge.ai.SpecialCardAi;
 import forge.ai.SpellAbilityAi;
 import forge.ai.SpellApiToAi;
-import forge.card.MagicColor;
 import forge.game.Game;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;

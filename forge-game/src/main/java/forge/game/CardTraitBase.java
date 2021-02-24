@@ -26,7 +26,6 @@ import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbility;
 import forge.game.zone.ZoneType;
 import forge.util.Expressions;
-import forge.util.collect.FCollection;
 
 /**
  * Base class for Triggers,ReplacementEffects and StaticAbilities.
@@ -667,11 +666,19 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
         return getHostCard().hasChosenColor(s, this);
     }
 
-    public FCollection<Card> getExiledWith() {
-        return getHostCard().getExiledWith(this);
+    public final Iterable<String> getChosenType() {
+        return getHostCard().getChosenType(this);
     }
 
-    public boolean isExiledWith(Card object) {
-        return getHostCard().isExiledWith(object, this);
+    public final String getChosenType(int index) {
+        return getHostCard().getChosenType(this, index);
+    }
+
+    public final boolean hasChosenType() {
+        return getHostCard().hasChosenType(this);
+    }
+
+    public void setChosenType(final Iterable<String> types) {
+        getHostCard().setChosenType(types, this);
     }
 }

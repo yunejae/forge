@@ -75,8 +75,7 @@ public abstract class GameState {
     private final Map<Card, Integer> markedDamage = new HashMap<>();
     private final Map<Card, List<String>> cardToChosenClrs = new HashMap<>();
     private final Map<Card, CardCollection> cardToChosenCards = new HashMap<>();
-    private final Map<Card, String> cardToChosenType = new HashMap<>();
-    private final Map<Card, String> cardToChosenType2 = new HashMap<>();
+    private final Map<Card, List<String>> cardToChosenTypes = new HashMap<>();
     private final Map<Card, List<String>> cardToRememberedId = new HashMap<>();
     private final Map<Card, List<String>> cardToImprintedId = new HashMap<>();
     private final Map<Card, List<String>> cardToMergedCards = new HashMap<>();
@@ -329,14 +328,14 @@ public abstract class GameState {
 
             SpellAbility first = c.getFirstSpellAbility();
             if (first != null) {
-                newText.append("|ChosenColor:").append(TextUtil.join(first.getChosenColors(), ","));
+                if (first.hasChosenColor()) {
+                    newText.append("|ChosenColor:").append(TextUtil.join(first.getChosenColors(), ","));
+                }
+                if (first.hasChosenType()) {
+                    newText.append("|ChosenType:").append(TextUtil.join(first.getChosenType(), ","));
+                }
             }
-            if (!c.getChosenType().isEmpty()) {
-                newText.append("|ChosenType:").append(c.getChosenType());
-            }
-            if (!c.getChosenType2().isEmpty()) {
-                newText.append("|ChosenType2:").append(c.getChosenType2());
-            }
+
             if (!c.getNamedCard().isEmpty()) {
                 newText.append("|NamedCard:").append(c.getNamedCard());
             }
@@ -625,8 +624,7 @@ public abstract class GameState {
         markedDamage.clear();
         cardToChosenClrs.clear();
         cardToChosenCards.clear();
-        cardToChosenType.clear();
-        cardToChosenType2.clear();
+        cardToChosenTypes.clear();
         cardToMergedCards.clear();
         cardToScript.clear();
         cardAttackMap.clear();
@@ -1065,15 +1063,9 @@ public abstract class GameState {
         }
 
         // Chosen type
-        for (Entry<Card, String> entry : cardToChosenType.entrySet()) {
+        for (Entry<Card, List<String>> entry : cardToChosenTypes.entrySet()) {
             Card c = entry.getKey();
-            c.setChosenType(entry.getValue());
-        }
-
-        // Chosen type 2
-        for (Entry<Card, String> entry : cardToChosenType2.entrySet()) {
-            Card c = entry.getKey();
-            c.setChosenType2(entry.getValue());
+            c.setChosenType(entry.getValue(), c.getFirstSpellAbility());
         }
 
         // Named card
@@ -1359,9 +1351,7 @@ public abstract class GameState {
                 } else if (info.startsWith("ChosenColor:")) {
                     cardToChosenClrs.put(c, Arrays.asList(info.substring(info.indexOf(':') + 1).split(",")));
                 } else if (info.startsWith("ChosenType:")) {
-                    cardToChosenType.put(c, info.substring(info.indexOf(':') + 1));
-                } else if (info.startsWith("ChosenType2:")) {
-                    cardToChosenType2.put(c, info.substring(info.indexOf(':') + 1));
+                    cardToChosenTypes.put(c, Arrays.asList(info.substring(info.indexOf(':') + 1).split(",")));
                 } else if (info.startsWith("ChosenCards:")) {
                     CardCollection chosen = new CardCollection();
                     String[] idlist = info.substring(info.indexOf(':') + 1).split(",");
