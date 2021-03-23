@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import forge.GuiBase;
+
 import forge.GuiDesktop;
 import forge.StaticData;
 import forge.card.CardRules;
@@ -18,10 +18,11 @@ import forge.deck.io.DeckStorage;
 import forge.deck.lda.dataset.Dataset;
 import forge.deck.lda.lda.LDA;
 import forge.game.GameFormat;
+import forge.gui.GuiBase;
 import forge.item.PaperCard;
+import forge.localinstance.properties.ForgeConstants;
+import forge.localinstance.properties.ForgePreferences;
 import forge.model.FModel;
-import forge.properties.ForgeConstants;
-import forge.properties.ForgePreferences;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageImmediatelySerialized;
 import org.apache.commons.lang3.ArrayUtils;
@@ -37,7 +38,7 @@ import static forge.deck.lda.lda.inference.InferenceMethod.CGS;
  */
 public final class LDAModelGenetrator {
 
-    public static Map<String, Map<String,List<List<Pair<String, Double>>>>> ldaPools = new HashMap();
+    public static Map<String, Map<String,List<List<Pair<String, Double>>>>> ldaPools = new HashMap<>();
     public static Map<String, List<Archetype>> ldaArchetypes = new HashMap<>();
 
 
@@ -162,7 +163,7 @@ public final class LDAModelGenetrator {
         Dataset dataset = new Dataset(format);
 
         //estimate number of topics to attempt to find using power law
-        final int numTopics = new Float(347f*dataset.getNumDocs()/(2892f + dataset.getNumDocs())).intValue();
+        final int numTopics = Float.valueOf(347f*dataset.getNumDocs()/(2892f + dataset.getNumDocs())).intValue();
         System.out.println("Num Topics = " + numTopics);
         LDA lda = new LDA(0.1, 0.1, numTopics, dataset, CGS);
         lda.run();
@@ -215,7 +216,6 @@ public final class LDAModelGenetrator {
                 continue;
             }
             LinkedHashMap<String, Integer> wordCounts = new LinkedHashMap<>();
-            int wordCount = 0;
             for( Deck deck: decks){
                 String name = deck.getName().replaceAll(".* Version - ","").replaceAll(" \\((Modern|Pioneer|Standard|Legacy|Vintage), #[0-9]+\\)","");
                 name = name.replaceAll("\\(Modern|Pioneer|Standard|Legacy|Vintage|Fuck|Shit|Cunt\\)","");
@@ -231,7 +231,6 @@ public final class LDAModelGenetrator {
                     }else{
                         wordCounts.put(token, 1);
                     }
-                    wordCount++;
                 }
             }
             Map<String, Integer> sortedWordCounts = sortByValue(wordCounts);

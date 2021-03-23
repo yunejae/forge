@@ -20,7 +20,7 @@ import forge.deck.Deck;
 import forge.deck.io.DeckStorage;
 import forge.game.GameFormat;
 import forge.item.PaperCard;
-import forge.properties.ForgeConstants;
+import forge.localinstance.properties.ForgeConstants;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageImmediatelySerialized;
 
@@ -99,11 +99,7 @@ public final class BagOfWords {
         this.vocabs = new Vocabularies(vocabList);
         int deckID = 0;
         for (Deck deck:legalDecks){
-            Iterator<Map.Entry<PaperCard,Integer>> cardIterator = deck.getMain().iterator();
-            while (cardIterator.hasNext()){
-                Map.Entry<PaperCard,Integer> entry = cardIterator.next();
-                numNNZ++;
-            }
+            numNNZ += deck.getMain().countDistinct();
             List<Integer> cardNumbers = new ArrayList<>();
             for(PaperCard card:deck.getMain().toFlatList()){
                 if(cardIntegerMap.get(card.getName()) == null){
