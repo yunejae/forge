@@ -1,4 +1,4 @@
-package forge.deck.generate;
+package forge.lda;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -6,7 +6,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-import forge.GuiDesktop;
+//import forge.GuiDesktop;
 import forge.StaticData;
 import forge.card.CardRules;
 import forge.card.CardRulesPredicates;
@@ -15,10 +15,9 @@ import forge.deck.DeckFormat;
 import forge.deck.io.Archetype;
 import forge.deck.io.CardThemedLDAIO;
 import forge.deck.io.DeckStorage;
-import forge.deck.lda.dataset.Dataset;
-import forge.deck.lda.lda.LDA;
+import forge.lda.dataset.Dataset;
+import forge.lda.lda.LDA;
 import forge.game.GameFormat;
-import forge.gui.GuiBase;
 import forge.item.PaperCard;
 import forge.localinstance.properties.ForgeConstants;
 import forge.localinstance.properties.ForgePreferences;
@@ -31,7 +30,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.File;
 import java.util.*;
 
-import static forge.deck.lda.lda.inference.InferenceMethod.CGS;
+import static forge.lda.lda.inference.InferenceMethod.CGS;
 
 /**
  * Created by maustin on 09/05/2017.
@@ -43,7 +42,7 @@ public final class LDAModelGenetrator {
 
 
     public static final void main(String[] args){
-        GuiBase.setInterface(new GuiDesktop());
+        //GuiBase.setInterface(new GuiDesktop());
         FModel.initialize(null, new Function<ForgePreferences, Void>()  {
             @Override
             public Void apply(ForgePreferences preferences) {
