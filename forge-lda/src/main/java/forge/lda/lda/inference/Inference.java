@@ -14,11 +14,11 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference;
+package forge.lda.lda.inference;
 
 import java.util.List;
 
-import forge.deck.lda.lda.LDA;
+import forge.lda.lda.LDA;
 
 import org.apache.commons.lang3.tuple.Pair;
 

@@ -14,19 +14,18 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference.internal;
+package forge.lda.lda.inference.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import forge.deck.lda.lda.LDA;
+import forge.lda.lda.LDA;
+import forge.lda.dataset.Vocabularies;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-
-import forge.deck.lda.dataset.Vocabularies;
 
 class Topics {
     private List<Topic> topics;

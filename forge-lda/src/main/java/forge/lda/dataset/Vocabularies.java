@@ -14,32 +14,27 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference.internal;
+package forge.lda.dataset;
 
-class TopicCounter {
-    private AssignmentCounter topicCount;
+import java.util.Collections;
+import java.util.List;
 
-    TopicCounter(int numTopics) {
-        this.topicCount = new AssignmentCounter(numTopics);
-    }
-
-    int getTopicCount(int topicID) {
-        return topicCount.get(topicID);
+public class Vocabularies {
+    private List<Vocabulary> vocabs;
+    
+    public Vocabularies(List<Vocabulary> vocabs) {
+        this.vocabs = vocabs;
     }
     
-    int getDocLength() {
-        return topicCount.getSum();
+    public Vocabulary get(int id) {
+        return vocabs.get(id);
     }
     
-    void incrementTopicCount(int topicID) {
-        topicCount.increment(topicID);
+    public int size() {
+        return vocabs.size();
     }
     
-    void decrementTopicCount(int topicID) {
-        topicCount.decrement(topicID);
-    }
-
-    int size() {
-        return topicCount.size();
+    public List<Vocabulary> getVocabularyList() {
+        return Collections.unmodifiableList(vocabs);
     }
 }

@@ -14,20 +14,20 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda;
+package forge.lda.lda;
 
 import java.util.List;
 
-import forge.deck.lda.lda.inference.Inference;
-import forge.deck.lda.lda.inference.InferenceFactory;
-import forge.deck.lda.lda.inference.InferenceMethod;
-import forge.deck.lda.lda.inference.InferenceProperties;
+import forge.lda.dataset.BagOfWords;
+import forge.lda.dataset.Dataset;
+import forge.lda.dataset.Vocabularies;
+
+import forge.lda.lda.inference.Inference;
+import forge.lda.lda.inference.InferenceFactory;
+import forge.lda.lda.inference.InferenceMethod;
+import forge.lda.lda.inference.InferenceProperties;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import forge.deck.lda.dataset.BagOfWords;
-import forge.deck.lda.dataset.Dataset;
-import forge.deck.lda.dataset.Vocabularies;
 
 public class LDA {
     private Hyperparameters hyperparameters;

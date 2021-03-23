@@ -14,41 +14,33 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda;
+package forge.lda.lda;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class Beta {
-    private List<Double> betas;
+class Alpha {
+    private List<Double> alphas;
     
-    Beta(double beta, int numVocabs) {
-        if (beta <= 0.0 || numVocabs <= 0) {
+    Alpha(double alpha, int numTopics) {
+        if (alpha <= 0.0 || numTopics <= 0) {
             throw new IllegalArgumentException();
         }
-        this.betas = Stream.generate(() -> beta)
-                           .limit(numVocabs)
-                           .collect(Collectors.toList());
-    }
-    
-    Beta(double beta) {
-        if (beta <= 0.0) {
-            throw new IllegalArgumentException();
-        }
-        this.betas = Arrays.asList(beta);
+        this.alphas = Stream.generate(() -> alpha)
+                            .limit(numTopics)
+                            .collect(Collectors.toList());
     }
 
-    double get() {
-        return get(0);
-    }
-    
     double get(int i) {
-        return betas.get(i);
+        return alphas.get(i);
     }
     
     void set(int i, double value) {
-        betas.set(i, value);
+        alphas.set(i, value);
+    }
+
+    double sum() {
+        return alphas.stream().reduce(Double::sum).get();
     }
 }

@@ -14,11 +14,11 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference.internal;
+package forge.lda.lda.inference.internal;
 
 import java.util.List;
 
-import forge.deck.lda.dataset.Vocabulary;
+import forge.lda.dataset.Vocabulary;
 
 public class Document {
     private final int id;

@@ -14,24 +14,23 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference;
+package forge.lda.lda.inference;
 
+import forge.lda.lda.inference.internal.CollapsedGibbsSampler;
 
-public class InferenceFactory {
-    private InferenceFactory() {}
+public enum InferenceMethod {
+    CGS(CollapsedGibbsSampler.class.getName()),
+    // more
+    ;
 
-    /**
-     * Get the LDAInference instance specified by the argument
-     * @param method
-     * @return the instance which implements LDAInference
-     */
-    public static Inference getInstance(InferenceMethod method) {
-        Inference clazz = null;
-        try {
-            clazz = (Inference)Class.forName(method.toString()).newInstance();
-        } catch (ReflectiveOperationException roe) {
-            roe.printStackTrace();
-        }
-        return clazz;
+    private String className;
+    
+    private InferenceMethod(final String className) {
+        this.className = className;
+    }
+    
+    @Override
+    public String toString() {
+        return className;
     }
 }

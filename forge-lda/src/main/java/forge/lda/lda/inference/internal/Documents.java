@@ -14,17 +14,17 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.lda.inference.internal;
+package forge.lda.lda.inference.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import forge.deck.lda.lda.LDA;
-import forge.deck.lda.dataset.BagOfWords;
-import forge.deck.lda.dataset.Vocabularies;
-import forge.deck.lda.dataset.Vocabulary;
+import forge.lda.lda.LDA;
+import forge.lda.dataset.BagOfWords;
+import forge.lda.dataset.Vocabularies;
+import forge.lda.dataset.Vocabulary;
 
 class Documents {
     private List<Document> documents;

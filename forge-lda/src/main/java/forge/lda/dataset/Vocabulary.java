@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package forge.deck.lda.dataset;
+package forge.lda.dataset;
 
 public class Vocabulary {
     private final int id;
