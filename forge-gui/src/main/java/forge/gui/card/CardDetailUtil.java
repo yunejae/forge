@@ -401,33 +401,6 @@ public class CardDetailUtil {
             area.append(state.getName()).append(" this turn.");
         }
 
-        // chosen type
-        /*
-        if (!card.getChosenType().isEmpty()) {
-            if (area.length() != 0) {
-                area.append("\n");
-            }
-            area.append("(chosen type: ");
-            area.append(card.getChosenType());
-            if (!card.getChosenType2().isEmpty()) {
-                area.append(", ").append(card.getChosenType2());
-            }
-            area.append(")");
-        }
-        //*/
-
-        // chosen color
-        /*
-        if (card.getChosenColors() != null) {
-            if (area.length() != 0) {
-                area.append("\n");
-            }
-            area.append("(chosen colors: ");
-            area.append(Lang.joinHomogenous(card.getChosenColors()));
-            area.append(")");
-        }
-        //*/
-
         // chosen cards
         if (card.getChosenCards() != null) {
             if (area.length() != 0) {

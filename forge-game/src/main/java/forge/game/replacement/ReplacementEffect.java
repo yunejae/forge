@@ -229,6 +229,7 @@ public abstract class ReplacementEffect extends TriggerReplacementBase {
             if (desc.contains("EFFECTSOURCE")) {
                 desc = TextUtil.fastReplace(desc, "EFFECTSOURCE", getHostCard().getEffectSource().toString());
             }
+            desc += getChosenDescriptions();
             return desc;
         } else {
             return "";

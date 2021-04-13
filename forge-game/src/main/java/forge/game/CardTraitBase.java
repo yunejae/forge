@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import forge.card.CardStateName;
@@ -26,6 +27,7 @@ import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbility;
 import forge.game.zone.ZoneType;
 import forge.util.Expressions;
+import forge.util.Lang;
 
 /**
  * Base class for Triggers,ReplacementEffects and StaticAbilities.
@@ -648,6 +650,26 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
         copy.setCardState(cardState);
         // dont use setHostCard to not trigger the not copied parts yet
         copy.hostCard = host;
+    }
+
+    public String getChosenDescriptions() {
+        if (!isCopiedTrait()) {
+            return "";
+        }
+
+        List<String> result = Lists.newArrayList();
+
+        if (hasChosenColor()) {
+            result.add("chosen colors: " + Lang.joinHomogenous(getChosenColors()));
+        }
+        if (hasChosenType()) {
+            result.add("chosen types: " + Lang.joinHomogenous(getChosenType()));
+        }
+
+        if (result.isEmpty()) {
+            return "";
+        }
+        return " (" + StringUtils.join(result, "\r\n") + ")";
     }
 
 

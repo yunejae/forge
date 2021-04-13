@@ -2353,6 +2353,26 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
             sb.append("\r\n");
         }
 
+        // chosen description for non cloned effects
+        if (!chosenTypesTable.hasOtherLinkedValues(this)) {
+            List<String> chosenTypes = chosenTypesTable.get(this);
+            if (!chosenTypes.isEmpty()) {
+                sb.append("(chosen types: ");
+                sb.append(Lang.joinHomogenous(chosenTypes));
+                sb.append(")");
+                sb.append("\r\n");
+            }
+        }
+        if (!chosenColorsTable.hasOtherLinkedValues(this)) {
+            List<String> chosenColors = chosenColorsTable.get(this);
+            if (!chosenColors.isEmpty()) {
+                sb.append("(chosen colors: ");
+                sb.append(Lang.joinHomogenous(chosenColors));
+                sb.append(")");
+                sb.append("\r\n");
+            }
+        }
+
         // replace triple line feeds with double line feeds
         final String s = "\r\n\r\n\r\n";
         int start = sb.lastIndexOf(s);
