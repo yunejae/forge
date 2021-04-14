@@ -342,11 +342,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
     private final ActivationTable numberGameActivations = new ActivationTable();
     private final ActivationTable numberAbilityResolved = new ActivationTable();
 
-    private final Map<SpellAbility, List<String>> chosenModesTurn = Maps.newHashMap();
-    private final Map<SpellAbility, List<String>> chosenModesGame = Maps.newHashMap();
-
-    private final Table<SpellAbility, StaticAbility, List<String>> chosenModesTurnStatic = HashBasedTable.create();
-    private final Table<SpellAbility, StaticAbility, List<String>> chosenModesGameStatic = HashBasedTable.create();
+    private final ChosenModesTable chosenModesTurn = new ChosenModesTable();
+    private final ChosenModesTable chosenModesGame = new ChosenModesTable();
 
     // Enumeration for CMC request types
     public enum SplitCMCMode {
@@ -6920,91 +6917,19 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
     }
 
     public List<String> getChosenModesTurn(SpellAbility ability) {
-        SpellAbility original = null;
-        SpellAbility root = ability.getRootAbility();
-
-        // because trigger spell abilities are copied, try to get original one
-        if (root.isTrigger()) {
-            original = root.getTrigger().getOverridingAbility();
-        } else {
-            original = ability.getOriginalAbility();
-            if (original == null) {
-                original = ability;
-            }
-        }
-
-        if (ability.getGrantorStatic() != null) {
-            return chosenModesTurnStatic.get(original, ability.getGrantorStatic());
-        }
-        return chosenModesTurn.get(original);
+        return chosenModesTurn.get(ability);
     }
     public List<String> getChosenModesGame(SpellAbility ability) {
-        SpellAbility original = null;
-        SpellAbility root = ability.getRootAbility();
-
-        // because trigger spell abilities are copied, try to get original one
-        if (root.isTrigger()) {
-            original = root.getTrigger().getOverridingAbility();
-        } else {
-            original = ability.getOriginalAbility();
-            if (original == null) {
-                original = ability;
-            }
-        }
-
-        if (ability.getGrantorStatic() != null) {
-            return chosenModesGameStatic.get(original, ability.getGrantorStatic());
-        }
-        return chosenModesGame.get(original);
+        return chosenModesGame.get(ability);
     }
 
     public void addChosenModes(SpellAbility ability, String mode) {
-        SpellAbility original = null;
-        SpellAbility root = ability.getRootAbility();
-
-        // because trigger spell abilities are copied, try to get original one
-        if (root.isTrigger()) {
-            original = root.getTrigger().getOverridingAbility();
-        } else {
-            original = ability.getOriginalAbility();
-            if (original == null) {
-                original = ability;
-            }
-        }
-
-        if (ability.getGrantorStatic() != null) {
-            List<String> result = chosenModesTurnStatic.get(original, ability.getGrantorStatic());
-            if (result == null) {
-                result = Lists.newArrayList();
-                chosenModesTurnStatic.put(original, ability.getGrantorStatic(), result);
-            }
-            result.add(mode);
-            result = chosenModesGameStatic.get(original, ability.getGrantorStatic());
-            if (result == null) {
-                result = Lists.newArrayList();
-                chosenModesGameStatic.put(original, ability.getGrantorStatic(), result);
-            }
-            result.add(mode);
-        } else {
-            List<String> result = chosenModesTurn.get(original);
-            if (result == null) {
-                result = Lists.newArrayList();
-                chosenModesTurn.put(original, result);
-            }
-            result.add(mode);
-
-            result = chosenModesGame.get(original);
-            if (result == null) {
-                result = Lists.newArrayList();
-                chosenModesGame.put(original, result);
-            }
-            result.add(mode);
-        }
+        this.chosenModesTurn.put(ability, mode);
+        this.chosenModesGame.put(ability, mode);
     }
 
     public void resetChosenModeTurn() {
         chosenModesTurn.clear();
-        chosenModesTurnStatic.clear();
     }
 
     public int getPlaneswalkerAbilityActivated() {

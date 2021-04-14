@@ -1,20 +1,24 @@
 package forge.game.card;
 
+import java.util.List;
+
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ForwardingTable;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
 
 import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbility;
 
-public class ActivationTable extends ForwardingTable<SpellAbility, Optional<StaticAbility>, Integer> {
-    Table<SpellAbility, Optional<StaticAbility>, Integer> dataTable = HashBasedTable.create();
+public class ChosenModesTable extends ForwardingTable<SpellAbility, Optional<StaticAbility>, List<String>> {
+    Table<SpellAbility, Optional<StaticAbility>, List<String>> dataTable = HashBasedTable.create();
 
     @Override
-    protected Table<SpellAbility, Optional<StaticAbility>, Integer> delegate() {
+    protected Table<SpellAbility, Optional<StaticAbility>, List<String>> delegate() {
         return dataTable;
     }
 
@@ -26,27 +30,35 @@ public class ActivationTable extends ForwardingTable<SpellAbility, Optional<Stat
         if (root.isTrigger()) {
             original = root.getTrigger().getOverridingAbility();
         } else {
-            original = ObjectUtils.defaultIfNull(root.getOriginalAbility(), root);
+            original = ObjectUtils.defaultIfNull(root.getOriginalAbility(), sa);
         }
         return original;
     }
 
-    public void add(SpellAbility sa) {
+    public List<String> put(SpellAbility sa, String mode) {
         SpellAbility root = sa.getRootAbility();
         SpellAbility original = getOriginal(sa);
         Optional<StaticAbility> st = Optional.fromNullable(root.getGrantorStatic());
 
-        delegate().put(original, st, ObjectUtils.defaultIfNull(get(original, st), 0) + 1);
+        List<String> old;
+        if (contains(original, st)) {
+            old = get(original, st);
+            old.add(mode);
+        } else {
+            old = Lists.newArrayList(mode);
+            delegate().put(original, st, old);
+        }
+        return old;
     }
 
-    public Integer get(SpellAbility sa) {
+    public List<String> get(SpellAbility sa) {
         SpellAbility root = sa.getRootAbility();
         SpellAbility original = getOriginal(sa);
         Optional<StaticAbility> st = Optional.fromNullable(root.getGrantorStatic());
-
         if (contains(original, st)) {
             return get(original, st);
+        } else {
+            return ImmutableList.of();
         }
-        return 0;
     }
 }
