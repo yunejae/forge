@@ -797,6 +797,7 @@ public final class StaticAbilityContinuous {
                 if (addReplacements != null) {
                     for (String rep : addReplacements) {
                         final ReplacementEffect actualRep = ReplacementHandler.parseReplacement(rep, affectedCard, false, stAb);
+                        actualRep.setGrantorStatic(stAb);
                         addedReplacementEffects.add(actualRep);
                     }
                 }
@@ -809,6 +810,7 @@ public final class StaticAbilityContinuous {
                         // turn them into SpellAbility object before adding to card
                         // with that the TargetedCard does not need the Svars added to them anymore
                         // but only do it if the trigger doesn't already have a overriding ability
+                        actualTrigger.setGrantorStatic(stAb);
                         addedTrigger.add(actualTrigger);
                     }
                 }
@@ -823,6 +825,7 @@ public final class StaticAbilityContinuous {
 
                         StaticAbility stat = new StaticAbility(s, affectedCard, stAb.getCardState());
                         stat.setIntrinsic(false);
+                        stat.setGrantorStatic(stAb);
                         addedStaticAbility.add(stat);
                     }
                 }
