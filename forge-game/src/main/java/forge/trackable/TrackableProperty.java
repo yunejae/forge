@@ -54,7 +54,6 @@ public enum TrackableProperty {
     LethalDamage(TrackableTypes.IntegerType),
     ShieldCount(TrackableTypes.IntegerType),
     ChosenCards(TrackableTypes.CardViewCollectionType),
-    ChosenNumber(TrackableTypes.StringType),
     ChosenPlayer(TrackableTypes.PlayerViewType),
     ChosenDirection(TrackableTypes.EnumType(Direction.class)),
     ChosenEvenOdd(TrackableTypes.EnumType(EvenOdd.class)),

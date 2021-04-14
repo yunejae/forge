@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -297,7 +298,7 @@ public class HumanPlaySpellAbility {
                     final int max = Integer.parseInt(ability.getParam("Max"));
                     final int i = ability.getActivatingPlayer().getController().chooseNumber(ability,
                             "Choose a number", min, max);
-                    ability.getHostCard().setChosenNumber(i);
+                    ability.setChosenNumbers(ImmutableList.of(i));
                 }
             }
         }

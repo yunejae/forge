@@ -675,12 +675,7 @@ public class CardFactoryUtil {
 
         // accept straight numbers
         if (l[0].startsWith("Number$")) {
-            final String number = l[0].substring(7);
-            if (number.equals("ChosenNumber")) {
-                int x = c.getChosenNumber() == null ? 0 : c.getChosenNumber();
-                return doXMath(x, m, c);
-            }
-            return doXMath(Integer.parseInt(number), m, c);
+            return doXMath(Integer.parseInt(l[0].substring(7)), m, c);
         }
 
         if (l[0].startsWith("Count$")) {
@@ -1288,10 +1283,6 @@ public class CardFactoryUtil {
         }
         if (sq[0].contains("CardNumAttacksThisTurn")) {
             return doXMath(c.getDamageHistory().getCreatureAttacksThisTurn(), m, c);
-        }
-        if (sq[0].contains("ChosenNumber")) {
-            Integer i = c.getChosenNumber();
-            return doXMath(i == null ? 0 : i, m, c);
         }
         if (sq[0].contains("CardCounters")) {
             // CardCounters.ALL to be used for Kinsbaile Borderguard and anything that cares about all counters

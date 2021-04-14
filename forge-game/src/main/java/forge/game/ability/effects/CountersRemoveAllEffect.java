@@ -2,6 +2,7 @@ package forge.game.ability.effects;
 
 import java.util.Map;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import forge.game.Game;
@@ -79,7 +80,7 @@ public class CountersRemoveAllEffect extends SpellAbilityEffect {
             }
         }
         if (sa.hasParam("RememberAmount")) {
-            sa.getHostCard().setChosenNumber(numberRemoved);
+            sa.setChosenNumbers(ImmutableList.of(numberRemoved));
         }
     }
 }

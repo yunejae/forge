@@ -665,6 +665,9 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
         if (hasChosenType()) {
             result.add("chosen types: " + Lang.joinHomogenous(getChosenType()));
         }
+        if (hasChosenNumber()) {
+            result.add("chosen numbers: " + Lang.joinHomogenous(getChosenNumbers()));
+        }
 
         if (result.isEmpty()) {
             return "";
@@ -702,5 +705,20 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
 
     public void setChosenType(final Iterable<String> types) {
         getHostCard().setChosenType(types, this);
+    }
+
+    public final Integer getChosenNumber() {
+        return getHostCard().getChosenNumber(this);
+    }
+
+    public final Iterable<Integer> getChosenNumbers() {
+        return getHostCard().getChosenNumbers(this);
+    }
+
+    public final boolean hasChosenNumber() {
+        return getHostCard().hasChosenNumber(this);
+    }
+    public void setChosenNumbers(final Iterable<Integer> numbers) {
+        getHostCard().setChosenNumbers(numbers, this);
     }
 }

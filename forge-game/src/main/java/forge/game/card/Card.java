@@ -297,9 +297,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
     private String originalText = "", text = "";
     private LinkedAbilityTable<String> chosenTypesTable = new LinkedAbilityTable<String>();
     private LinkedAbilityTable<String> chosenColorsTable = new LinkedAbilityTable<String>();
+    private LinkedAbilityTable<Integer> chosenNumbersTable = new LinkedAbilityTable<Integer>();
     private String chosenName = "";
     private String chosenName2 = "";
-    private Integer chosenNumber;
     private Player chosenPlayer;
     private EvenOdd chosenEvenOdd = null;
     private Direction chosenDirection = null;
@@ -1656,18 +1656,6 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
         view.updateChosenPlayer(this);
     }
 
-    public final boolean hasChosenNumber() {
-        return chosenNumber != null;
-    }
-
-    public final Integer getChosenNumber() {
-        return chosenNumber;
-    }
-    public final void setChosenNumber(final int i) {
-        chosenNumber = i;
-        view.updateChosenNumber(this);
-    }
-
     public final Card getExiledWith() {
         return exiledWith;
     }
@@ -1724,6 +1712,21 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
 
     public void setChosenColors(final Iterable<String> colors, CardTraitBase ctb) {
         chosenColorsTable.set(colors, ctb);
+    }
+
+    public final boolean hasChosenNumber(CardTraitBase ctb) {
+        return !chosenNumbersTable.get(ctb).isEmpty();
+    }
+
+    public Integer getChosenNumber(CardTraitBase ctb) {
+        return Iterables.getFirst(chosenNumbersTable.get(ctb), null);
+    }
+    public final Iterable<Integer> getChosenNumbers(CardTraitBase ctb) {
+        return chosenNumbersTable.get(ctb);
+    }
+
+    public void setChosenNumbers(final Iterable<Integer> numbers, CardTraitBase ctb) {
+        chosenNumbersTable.set(numbers, ctb);
     }
 
     public final Card getChosenCard() {
@@ -2368,6 +2371,15 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
             if (!chosenColors.isEmpty()) {
                 sb.append("(chosen colors: ");
                 sb.append(Lang.joinHomogenous(chosenColors));
+                sb.append(")");
+                sb.append("\r\n");
+            }
+        }
+        if (!chosenNumbersTable.hasOtherLinkedValues(this)) {
+            List<Integer> chosenNumbers = this.chosenNumbersTable.get(this);
+            if (!chosenNumbers.isEmpty()) {
+                sb.append("(chosen numbers: ");
+                sb.append(Lang.joinHomogenous(chosenNumbers));
                 sb.append(")");
                 sb.append("\r\n");
             }

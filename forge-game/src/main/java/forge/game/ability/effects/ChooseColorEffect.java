@@ -9,7 +9,6 @@ import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
-import forge.game.spellability.TargetRestrictions;
 import forge.util.Lang;
 import forge.util.Localizer;
 
@@ -46,12 +45,8 @@ public class ChooseColorEffect extends SpellAbilityEffect {
             }
         }
 
-        final List<Player> tgtPlayers = getTargetPlayers(sa);
-
-        final TargetRestrictions tgt = sa.getTargetRestrictions();
-
-        for (final Player p : tgtPlayers) {
-            if ((tgt == null) || p.canBeTargetedBy(sa)) {
+        for (final Player p : getTargetPlayers(sa)) {
+            if (!sa.usesTargeting() || p.canBeTargetedBy(sa)) {
                 List<String> chosenColors;
                 int cntMin = sa.hasParam("TwoColors") ? 2 : 1;
                 int cntMax = sa.hasParam("TwoColors") ? 2 : sa.hasParam("OrColors") ? colorChoices.size() : 1;

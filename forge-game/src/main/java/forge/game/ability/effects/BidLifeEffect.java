@@ -1,5 +1,6 @@
 package forge.game.ability.effects;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 import forge.game.ability.AbilityUtils;
@@ -63,12 +64,13 @@ public class BidLifeEffect extends SpellAbilityEffect {
             }
         }
         
-        host.setChosenNumber(bid);
+        sa.setChosenNumbers(ImmutableList.of(bid));
         host.addRemembered(winner);
         final SpellAbility action = sa.getAdditionalAbility("BidSubAbility");
         if (action != null) {
             AbilityUtils.resolve(action);
         }
         host.clearRemembered();
+        sa.setChosenNumbers(null);
     }
 }

@@ -322,13 +322,6 @@ public class CardView extends GameEntityView {
         set(TrackableProperty.ShieldCount, c.getShieldCount());
     }
 
-    public String getChosenNumber() {
-        return get(TrackableProperty.ChosenNumber);
-    }
-    void updateChosenNumber(Card c) {
-        set(TrackableProperty.ChosenNumber, c.getChosenNumber().toString());
-    }
-
     public FCollectionView<CardView> getMergedCardsCollection() {
         return get(TrackableProperty.MergedCardsCollection);
     }

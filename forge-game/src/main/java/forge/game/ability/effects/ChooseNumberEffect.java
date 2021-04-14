@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -12,7 +13,6 @@ import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
-import forge.game.spellability.TargetRestrictions;
 import forge.util.Localizer;
 import forge.util.MyRandom;
 
@@ -47,12 +47,10 @@ public class ChooseNumberEffect extends SpellAbilityEffect {
         final String sMax = sa.getParamOrDefault("Max", "99");
         final int max = AbilityUtils.calculateAmount(card, sMax, sa); 
 
-        final List<Player> tgtPlayers = getTargetPlayers(sa);
-        final TargetRestrictions tgt = sa.getTargetRestrictions();
         final Map<Player, Integer> chooseMap = Maps.newHashMap(); 
 
-        for (final Player p : tgtPlayers) {
-            if ((tgt == null) || p.canBeTargetedBy(sa)) {
+        for (final Player p : getTargetPlayers(sa)) {
+            if (!sa.usesTargeting() || p.canBeTargetedBy(sa)) {
                 int chosen;
                 if (random) {
                     chosen = MyRandom.getRandom().nextInt(max - min) + min;
@@ -70,7 +68,7 @@ public class ChooseNumberEffect extends SpellAbilityEffect {
                 if (secretlyChoose) {
                     chooseMap.put(p, chosen);
                 } else {
-                    card.setChosenNumber(chosen);
+                    sa.setChosenNumbers(ImmutableList.of(chosen));
                 }
                 if (sa.hasParam("Notify")) {
                     p.getGame().getAction().notifyOfValue(sa, card, Localizer.getInstance().getMessage("lblPlayerPickedChosen", p.getName(), chosen), p);
@@ -109,9 +107,10 @@ public class ChooseNumberEffect extends SpellAbilityEffect {
                 
                 for (Player p : chooseMap.keySet()) {
                     card.addRemembered(p);
-                    card.setChosenNumber(chooseMap.get(p));
+                    sa.setChosenNumbers(ImmutableList.of(chooseMap.get(p)));
                     AbilityUtils.resolve(sub);
                     card.clearRemembered();
+                    sa.setChosenNumbers(null);
                 }
             }
             
@@ -120,9 +119,10 @@ public class ChooseNumberEffect extends SpellAbilityEffect {
 
                 for (Player p : lowestNum) {
                     card.addRemembered(p);
-                    card.setChosenNumber(lowest);
+                    sa.setChosenNumbers(ImmutableList.of(lowest));
                     AbilityUtils.resolve(sub);
                     card.clearRemembered();
+                    sa.setChosenNumbers(null);
                 }
             }
 
@@ -147,9 +147,10 @@ public class ChooseNumberEffect extends SpellAbilityEffect {
 
                 for (Player p : highestNum) {
                     card.addRemembered(p);
-                    card.setChosenNumber(highest);
+                    sa.setChosenNumbers(ImmutableList.of(highest));
                     AbilityUtils.resolve(sub);
                     card.clearRemembered();
+                    sa.setChosenNumbers(null);
                 }
                 if (sa.hasParam("RememberHighest")) {
                     card.addRemembered(highestNum);

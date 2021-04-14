@@ -22,7 +22,6 @@ import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.card.mana.ManaAtom;
 import forge.card.mana.ManaCost;
-import forge.card.mana.ManaCostParser;
 import forge.card.mana.ManaCostShard;
 import forge.game.CardTraitBase;
 import forge.game.Game;
@@ -1493,9 +1492,6 @@ public class AbilityUtils {
                 cost = new Cost(Iterables.getFirst(source.getChosenCards(), null).getManaCost(), true);
             }
         }
-        else if (unlessCost.equals("ChosenNumber")) {
-            cost = new Cost(new ManaCost(new ManaCostParser(String.valueOf(source.getChosenNumber()))), true);
-        }
         else if (unlessCost.startsWith("DefinedCost")) {
             CardCollection definedCards = AbilityUtils.getDefinedCards(sa.getHostCard(), unlessCost.split("_")[1], sa);
             if (definedCards.isEmpty()) {
@@ -1909,6 +1905,11 @@ public class AbilityUtils {
                     colorOcurrencices += c0.getAmountOfKeyword("Your devotion to each color and each combination of colors is increased by one.");
                 }
                 return CardFactoryUtil.doXMath(colorOcurrencices, expr, c);
+            }
+
+            if (sq[0].contains("ChosenNumber")) {
+                Integer i = ctb.getChosenNumber();
+                return CardFactoryUtil.doXMath(i == null ? 0 : i, expr, c);
             }
         }
         return CardFactoryUtil.xCount(c, s2);

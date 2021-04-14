@@ -27,9 +27,9 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -1909,24 +1909,14 @@ public class GameAction {
     private void runPreOpeningHandActions(final Player first) {
         Player takesAction = first;
         do {
-            //
-            List<Card> ploys = CardLists.filter(takesAction.getCardsIn(ZoneType.Command), new Predicate<Card>() {
-                @Override
-                public boolean apply(Card input) {
-                    return input.getName().equals("Emissary's Ploy");
-                }
-            });
+            List<Card> ploys = CardLists.filter(takesAction.getCardsIn(ZoneType.Command), CardPredicates.nameEquals("Emissary's Ploy"));
 
-            int chosen = 1;
             List<Integer> cmc = Lists.newArrayList(1, 2, 3);
 
             for (Card c : ploys) {
-                if (!cmc.isEmpty()) {
-                    chosen = takesAction.getController().chooseNumber(c.getSpellPermanent(), "Emissary's Ploy", cmc, c.getOwner());
-                    cmc.remove((Object)chosen);
-                }
-
-                c.setChosenNumber(chosen);
+                SpellAbility sa = c.getSpellPermanent();
+                int chosen = takesAction.getController().chooseNumber(sa, c.getName(), cmc, c.getOwner());
+                sa.setChosenNumbers(ImmutableList.of(chosen));
             }
             takesAction = game.getNextPlayerAfter(takesAction);
         } while (takesAction != first);

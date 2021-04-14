@@ -221,7 +221,7 @@ public final class StaticAbilityContinuous {
                     if (!stAb.hasChosenType() && input.contains("ChosenType")) {
                         return true;
                     }
-                    if (!hostCard.hasChosenNumber() && input.contains("ChosenNumber")) {
+                    if (!stAb.hasChosenNumber() && input.contains("ChosenNumber")) {
                         return true;
                     }
                     if (!hostCard.hasChosenPlayer() && input.contains("ChosenPlayer")) {
@@ -301,8 +301,8 @@ public final class StaticAbilityContinuous {
                     if (stAb.hasChosenType()) {
                         input = input.replaceAll("ChosenType", stAb.getChosenType(0));
                     }
-                    if (hostCard.hasChosenNumber()) {
-                        input = input.replaceAll("ChosenNumber", String.valueOf(hostCard.getChosenNumber()));
+                    if (stAb.hasChosenNumber()) {
+                        input = input.replaceAll("ChosenNumber", String.valueOf(stAb.getChosenNumber()));
                     }
                     if (hostCard.hasChosenPlayer()) {
                         Player cp = hostCard.getChosenPlayer();
