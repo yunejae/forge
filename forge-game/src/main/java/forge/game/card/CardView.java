@@ -663,6 +663,12 @@ public class CardView extends GameEntityView {
             sb.append(getRightSplitState().getAbilityText());
         } else {
             sb.append(state.getAbilityText());
+
+            if (isAdventureCard()) {
+                sb.append("\r\n\r\n").append(getAlternateState().getName()).append(" - ");
+                sb.append(getAlternateState().getType()).append(" - ");
+                sb.append(getAlternateState().getAbilityText());
+            }
         }
 
         String nonAbilityText = get(TrackableProperty.NonAbilityText);
