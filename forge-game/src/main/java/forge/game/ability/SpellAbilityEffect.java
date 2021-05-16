@@ -1,5 +1,6 @@
 package forge.game.ability;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +52,15 @@ import forge.util.collect.FCollection;
  */
 
 public abstract class SpellAbilityEffect {
+    static protected ArrayList<AbilityKey> REQUIRED_KEYS = null;
+    static protected ArrayList<AbilityKey> OPTIONAL_KEYS = null;
+
+    static protected ArrayList<AbilityKey> getRequiredKeys() {
+        return REQUIRED_KEYS;
+    }
+    static protected ArrayList<AbilityKey> getOptionalKeys() {
+        return OPTIONAL_KEYS;
+    }
 
     public abstract void resolve(SpellAbility sa);
 

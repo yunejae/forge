@@ -1,7 +1,9 @@
 package forge.game.ability.effects;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import forge.game.Game;
 import forge.game.ability.AbilityKey;
 import forge.game.ability.SpellAbilityEffect;
@@ -14,6 +16,8 @@ import forge.util.CardTranslation;
 import forge.util.Localizer;
 
 public class AbandonEffect extends SpellAbilityEffect {
+    static protected ArrayList<AbilityKey> REQUIRED_KEYS = Lists.newArrayList(AbilityKey.Optional, AbilityKey.Remember);
+    static protected ArrayList<AbilityKey> OPTIONAL_KEYS = null;
 
 
     /* (non-Javadoc)
@@ -31,7 +35,7 @@ public class AbandonEffect extends SpellAbilityEffect {
 
         final Game game = controller.getGame();
 
-        if (sa.hasParam("RememberAbandoned")) {
+        if (sa.hasParam("Remember") && "Abandoned".equals(sa.getParam("Remember"))) {
             source.addRemembered(source);
         }
         
