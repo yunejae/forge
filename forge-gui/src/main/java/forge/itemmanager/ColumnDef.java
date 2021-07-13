@@ -620,7 +620,12 @@ public enum ColumnDef {
     }
 
     private static Integer toCMC(final InventoryItem i) {
-        return i instanceof PaperCard ? ((IPaperCard) i).getRules().getManaCost().getCMC() : -1;
+        if (!(i instanceof PaperCard)) {
+            return -1;
+        }
+
+        PaperCard card = (PaperCard)i;
+        return card.getRules().getManaCost().getCMC() + (card.getRules().getManaCost().countX() * 3);
     }
 
     private static CardRarity toRarity(final InventoryItem i) {
