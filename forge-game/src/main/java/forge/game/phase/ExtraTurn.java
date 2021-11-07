@@ -97,6 +97,10 @@ public class ExtraTurn {
         this.skipUntapSA = skipUntapSA;
     }
 
+
+    /**
+     * @return true if Schemes can't be played during the extra turn
+     */
     public boolean isCantSetSchemesInMotion() {
         return cantSetSchemesInMotionSA != null;
     }
@@ -108,5 +112,4 @@ public class ExtraTurn {
     public void setCantSetSchemesInMotionSA(SpellAbility cantSetSchemesInMotionSA) {
         this.cantSetSchemesInMotionSA = cantSetSchemesInMotionSA;
     }
-
 }

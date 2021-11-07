@@ -83,6 +83,10 @@ public class PlayerProperty {
             if (!player.hasBlessing()) {
                 return false;
             }
+        } else if (property.equals("DrawnThisTurn")) {
+            if (player.getNumDrawnThisTurn() <= 0) {
+                return false;
+            }
         } else if (property.startsWith("wasDealtCombatDamageThisCombatBy ")) {
             String v = property.split(" ")[1];
 

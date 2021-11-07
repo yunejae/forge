@@ -1010,39 +1010,31 @@ public class Player extends GameEntity implements Comparable<Player> {
         return change;
     }
 
-    /**
-     * Append a keyword change which adds the specified keyword.
-     * @param keyword the keyword to add.
-     */
-    public final void addKeyword(final String keyword) {
-        addChangedKeywords(ImmutableList.of(keyword), ImmutableList.of(), getGame().getNextTimestamp(), 0);
-    }
-
     @Override
-    public final boolean hasKeyword(final String keyword) {
+    public final boolean hasKeyword(String keyword) {
+        if (keyword.startsWith("HIDDEN")) {
+            keyword = keyword.substring(7);
+        }
+
+        // shortcut for hidden keywords
+        if (hasHiddenExtrinsicKeyword(keyword)) {
+            return true;
+        }
         return keywords.contains(keyword);
     }
+
     @Override
     public final boolean hasKeyword(final Keyword keyword) {
         return keywords.contains(keyword);
     }
 
-    private void updateKeywords() {
+    @Override
+    public void updateKeywords() {
         keywords.clear();
 
         // see if keyword changes are in effect
-        for (final KeywordsChange ck : changedKeywords.values()) {
-            if (ck.isRemoveAllKeywords()) {
-                keywords.clear();
-            }
-            else if (ck.getRemoveKeywords() != null) {
-                keywords.removeAll(ck.getRemoveKeywords());
-            }
+        keywords.applyChanges(changedKeywords.values());
 
-            if (ck.getKeywords() != null) {
-                keywords.insertAll(ck.getKeywords());
-            }
-        }
         view.updateKeywords(this);
         updateKeywordCardAbilityText();
     }

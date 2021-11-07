@@ -17,11 +17,14 @@
  */
 package forge.game;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeBasedTable;
 
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
@@ -47,6 +50,10 @@ public abstract class GameEntity extends GameObject implements IIdentifiable {
     private String name = "";
     protected CardCollection attachedCards = new CardCollection();
     protected Map<CounterType, Integer> counters = Maps.newHashMap();
+
+    // Hidden keywords won't be displayed on the card
+    // x=timestamp y=StaticAbility id
+    protected final Table<Long, Long, List<String>> hiddenExtrinsicKeywords = TreeBasedTable.create();
 
     protected GameEntity(int id0) {
         id = id0;
@@ -354,4 +361,55 @@ public abstract class GameEntity extends GameObject implements IIdentifiable {
 
     public abstract Game getGame();
     public abstract GameEntityView getView();
+
+
+    // Hidden Keywords will be returned without the indicator HIDDEN
+    public final Iterable<String> getHiddenExtrinsicKeywords() {
+        return Iterables.concat(this.hiddenExtrinsicKeywords.values());
+    }
+
+    public final Table<Long, Long, List<String>> getHiddenExtrinsicKeywordsTable() {
+        return hiddenExtrinsicKeywords;
+    }
+
+    public final boolean hasHiddenExtrinsicKeyword(String keyword) {
+        // shortcut for hidden keywords
+        for (List<String> kw : this.hiddenExtrinsicKeywords.values()) {
+            if (kw.contains(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public final void addHiddenExtrinsicKeywords(long timestamp, long staticId, Iterable<String> keywords) {
+        // TODO if some keywords aren't removed anymore, then no need for extra Array List
+        hiddenExtrinsicKeywords.put(timestamp, staticId, Lists.newArrayList(keywords));
+
+        updateNonAbilityText();
+        updateKeywords();
+    }
+
+    public final void removeHiddenExtrinsicKeywords(long timestamp, long staticId) {
+        if (hiddenExtrinsicKeywords.remove(timestamp, staticId) != null) {
+            updateNonAbilityText();
+            updateKeywords();
+        }
+    }
+
+    public final void removeHiddenExtrinsicKeyword(String s) {
+        boolean updated = false;
+        for (List<String> list : hiddenExtrinsicKeywords.values()) {
+            if (list.remove(s)) {
+                updated = true;
+            }
+        }
+        if (updated) {
+            updateNonAbilityText();
+            updateKeywords();
+        }
+    }
+
+    public void updateNonAbilityText() {}
+    public void updateKeywords() {}
 }

@@ -576,6 +576,11 @@ public final class StaticAbilityContinuous {
                     AbilityUtils.applyManaColorConversion(p.getManaPool(), params);
                 }
             }
+
+            // add HIDDEN keywords
+            if (!addHiddenKeywords.isEmpty()) {
+                p.addHiddenExtrinsicKeywords(hostCard.getTimestamp(), stAb.getId(), addHiddenKeywords);
+            }
         }
 
         // start modifying the cards

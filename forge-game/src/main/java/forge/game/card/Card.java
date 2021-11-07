@@ -102,9 +102,6 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
     private SpellAbility castSA = null;
 
     private CardDamageHistory damageHistory = new CardDamageHistory();
-    // Hidden keywords won't be displayed on the card
-    // x=timestamp y=StaticAbility id
-    private final Table<Long, Long, List<String>> hiddenExtrinsicKeywords = TreeBasedTable.create();
 
     // cards attached or otherwise linked to this card
     private CardCollection hauntedBy, devouredCards, exploitedCards, delvedCards, convokedCards, imprintedCards, encodedCards;
@@ -4233,10 +4230,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
         }
 
         // shortcut for hidden keywords
-        for (List<String> kw : this.hiddenExtrinsicKeywords.values()) {
-            if (kw.contains(keyword)) {
-                return true;
-            }
+        if (hasHiddenExtrinsicKeyword(keyword)) {
+            return true;
         }
 
         HasKeywordVisitor visitor = new HasKeywordVisitor(keyword, false);
@@ -4244,6 +4239,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
         return visitor.getResult();
     }
 
+    @Override
     public final void updateKeywords() {
         getCurrentState().getView().updateKeywords(this, getCurrentState());
         getView().updateLethalDamage(this);
@@ -4454,6 +4450,11 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
         text = AbilityUtils.applyDescriptionTextChangeEffects(originalText, this);
 
         currentState.getView().updateAbilityText(this, currentState);
+        updateNonAbilityText();
+    }
+
+    @Override
+    public void updateNonAbilityText() {
         view.updateNonAbilityText(this);
     }
 
@@ -4519,42 +4520,6 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
 
     public final void removeIntrinsicKeyword(final KeywordInterface s) {
         if (currentState.removeIntrinsicKeyword(s)) {
-            updateKeywords();
-        }
-    }
-
-    // Hidden Keywords will be returned without the indicator HIDDEN
-    public final Iterable<String> getHiddenExtrinsicKeywords() {
-        return Iterables.concat(this.hiddenExtrinsicKeywords.values());
-    }
-    public final Table<Long, Long, List<String>> getHiddenExtrinsicKeywordsTable() {
-        return hiddenExtrinsicKeywords;
-    }
-
-    public final void addHiddenExtrinsicKeywords(long timestamp, long staticId, Iterable<String> keywords) {
-        // TODO if some keywords aren't removed anymore, then no need for extra Array List
-        hiddenExtrinsicKeywords.put(timestamp, staticId, Lists.newArrayList(keywords));
-
-        view.updateNonAbilityText(this);
-        updateKeywords();
-    }
-
-    public final void removeHiddenExtrinsicKeywords(long timestamp, long staticId) {
-        if (hiddenExtrinsicKeywords.remove(timestamp, staticId) != null) {
-            view.updateNonAbilityText(this);
-            updateKeywords();
-        }
-    }
-
-    public final void removeHiddenExtrinsicKeyword(String s) {
-        boolean updated = false;
-        for (List<String> list : hiddenExtrinsicKeywords.values()) {
-            if (list.remove(s)) {
-                updated = true;
-            }
-        }
-        if (updated) {
-            view.updateNonAbilityText(this);
             updateKeywords();
         }
     }
