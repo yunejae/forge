@@ -21,6 +21,7 @@ public abstract class AbstractTournament implements Serializable {
     protected int activeRound;
     protected int totalRounds;
     protected int playersInPairing = 2;
+    protected int lossesBeforeElimination = 0;
     protected boolean initialized = false;
     protected boolean continualPairing = true;
     protected final List<TournamentPlayer> allPlayers = new ArrayList<>();

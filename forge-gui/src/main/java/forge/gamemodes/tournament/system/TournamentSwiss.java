@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 public class TournamentSwiss extends AbstractTournament {
     // Basically allow each player to not repeat an opponent or have more than one bye
     // But have a limited number of rounds because RoundRobin isn't feasible
-    //http://www.wizards.com/DCI/downloads/Swiss_Pairings.pdf
+    //https://www.wizards.com/DCI/downloads/Swiss_Pairings.pdf
     public TournamentSwiss(int ttlRnds, int pairingAmount) {
         super(ttlRnds);
         this.playersInPairing = pairingAmount;

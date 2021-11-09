@@ -219,6 +219,7 @@ public class SimulateMatch {
         String tournament = params.get("t").get(0);
         AbstractTournament tourney = null;
         int matchPlayers = params.containsKey("p") ? Integer.parseInt(params.get("p").get(0)) : 2;
+        int eliminationLosses = 1;
 
         DeckGroup deckGroup = new DeckGroup("SimulatedTournament");
         List<TournamentPlayer> players = new ArrayList<>();
@@ -260,7 +261,11 @@ public class SimulateMatch {
                     numPlayers++;
                 }
             }
+        }
 
+        if (params.containsKey("L")) {
+            // Only relevant for brackets
+            eliminationLosses = Integer.parseInt(params.get("D").get(0));
         }
 
         if (numPlayers == 0) {
@@ -268,7 +273,7 @@ public class SimulateMatch {
         }
 
         if ("bracket".equalsIgnoreCase(tournament)) {
-            tourney = new TournamentBracket(players, matchPlayers);
+            tourney = new TournamentBracket(players, matchPlayers, eliminationLosses);
         } else if ("roundrobin".equalsIgnoreCase(tournament)) {
             tourney = new TournamentRoundRobin(players, matchPlayers);
         } else if ("swiss".equalsIgnoreCase(tournament)) {

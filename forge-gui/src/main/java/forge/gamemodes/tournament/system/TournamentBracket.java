@@ -1,10 +1,13 @@
 package forge.gamemodes.tournament.system;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings("serial")
 public class TournamentBracket extends AbstractTournament {
+    private int lossesBeforeElimination = 1;
+
     // Bracket implies single elimination. For non-single elimination, use Swiss or RoundRobin
     public TournamentBracket(int ttlRnds, int pairingAmount) {
         super(ttlRnds);
@@ -15,6 +18,12 @@ public class TournamentBracket extends AbstractTournament {
     public TournamentBracket(List<TournamentPlayer> allPlayers, int pairingAmount) {
         super((int)(Math.ceil(Math.log(allPlayers.size())/Math.log(2))), allPlayers);
         this.playersInPairing = pairingAmount;
+    }
+
+    public TournamentBracket(List<TournamentPlayer> allPlayers, int pairingAmount, int eliminationLosses) {
+        super((int)(Math.ceil(Math.log(allPlayers.size())/Math.log(2))), allPlayers);
+        this.playersInPairing = pairingAmount;
+        this.lossesBeforeElimination = eliminationLosses;
     }
 
     public TournamentBracket(int ttlRnds, List<TournamentPlayer> allPlayers) {
@@ -44,6 +53,12 @@ public class TournamentBracket extends AbstractTournament {
         // Preferably our brackets will always have 2^X amount of players
         List<TournamentPlayer> pair = new ArrayList<>();
         int count = 0;
+        this.remainingPlayers.sort(new Comparator<TournamentPlayer>() {
+            @Override
+            public int compare(TournamentPlayer o1, TournamentPlayer o2) {
+                return o2.getLosses() - o1.getLosses();
+            }
+        });
         for (TournamentPlayer tp : this.remainingPlayers) {
             pair.add(tp);
             count++;
@@ -70,8 +85,10 @@ public class TournamentBracket extends AbstractTournament {
             for (TournamentPlayer tp : pairing.getPairedPlayers()) {
                 if (!tp.equals(pairing.getWinner())) {
                     tp.addLoss();
-                    remainingPlayers.remove(tp);
-                    tp.setActive(false);
+                    if (tp.getLosses() >= lossesBeforeElimination) {
+                        remainingPlayers.remove(tp);
+                        tp.setActive(false);
+                    }
                 } else {
                     tp.addWin();
                 }
