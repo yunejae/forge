@@ -6011,7 +6011,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
 
     @Override
     public final boolean canBeTargetedBy(final SpellAbility sa) {
-        if (getOwner().hasLost()) {
+        if (!getOwner().isInGame()) {
             return false;
         }
 
@@ -6024,16 +6024,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
             return false;
         }
 
-        // keywords don't work outside battlefield
-        if (!isInPlay()) {
-            return true;
-        }
-
-        if (isPhasedOut()) {
-            return false;
-        }
-
-        return true;
+        return !isInPlay() || !isPhasedOut();
     }
 
     public final boolean canBeControlledBy(final Player newController) {
