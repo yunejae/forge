@@ -1372,6 +1372,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars {
 
     @Override
     public final boolean canReceiveCounters(final CounterType type) {
+        if (isPhasedOut()) {
+            return false;
+        }
         if (StaticAbilityCantPutCounter.anyCantPutCounter(this, type)) {
             return false;
         }
