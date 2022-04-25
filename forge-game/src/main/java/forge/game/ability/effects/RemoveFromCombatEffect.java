@@ -1,7 +1,5 @@
 package forge.game.ability.effects;
 
-import java.util.List;
-
 import forge.game.Game;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
@@ -18,10 +16,8 @@ public class RemoveFromCombatEffect extends SpellAbilityEffect {
     protected String getStackDescription(SpellAbility sa) {
         final StringBuilder sb = new StringBuilder();
 
-        final List<Card> tgtCards = getTargetCards(sa);
-
         sb.append("Remove ");
-        sb.append(Lang.joinHomogenous(tgtCards));
+        sb.append(Lang.joinHomogenous(getTargetCards(sa)));
         sb.append(" from combat.");
 
         return sb.toString();
@@ -38,6 +34,15 @@ public class RemoveFromCombatEffect extends SpellAbilityEffect {
             if (combat == null || !c.isInPlay()) {
                 continue;
             }
+            // check if the object is still in game or if it was moved
+            Card gameCard = game.getCardState(c, null);
+            // gameCard is LKI in that case, the card is not in game anymore
+            // or the timestamp did change
+            // this should check Self too
+            if (gameCard == null || !c.equalsWithGameTimestamp(gameCard)) {
+                continue;
+            }
+
             // Unblock creatures that were blocked only by this card (e.g. Ydwen Efreet)
             if (sa.hasParam("UnblockCreaturesBlockedOnlyBy")) {
                 CardCollection attackers = AbilityUtils.getDefinedCards(sa.getHostCard(), sa.getParam("UnblockCreaturesBlockedOnlyBy"), sa);
@@ -58,11 +63,11 @@ public class RemoveFromCombatEffect extends SpellAbilityEffect {
                 }
             }
 
-            game.getCombat().saveLKI(c);
-            combat.removeFromCombat(c);
+            game.getCombat().saveLKI(gameCard);
+            combat.removeFromCombat(gameCard);
 
             if (rem) {
-                sa.getHostCard().addRemembered(c);
+                sa.getHostCard().addRemembered(gameCard);
             }
         }
     }

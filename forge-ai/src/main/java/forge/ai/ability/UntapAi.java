@@ -311,7 +311,14 @@ public class UntapAi extends SpellAbilityAi {
         PlayerCollection pl = new PlayerCollection();
         pl.add(ai);
         pl.addAll(ai.getAllies());
-        return ComputerUtilCard.getBestAI(CardLists.filterControlledBy(list, pl));
+        CardCollection filteredList = CardLists.filterControlledBy(list, pl);
+        if (!filteredList.isEmpty()) {
+            return ComputerUtilCard.getBestAI(filteredList);
+        }
+        if (isOptional) {
+            return null;
+        }
+        return ComputerUtilCard.getWorstAI(list);
     }
 
     private static Card detectPriorityUntapTargets(final List<Card> untapList) {
